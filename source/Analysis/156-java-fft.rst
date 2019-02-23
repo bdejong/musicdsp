@@ -12,7 +12,7 @@ Java FFT
     May not work correctly ;-)
 
 
-.. code-block:: c++
+.. code-block:: java
     :linenos:
     :caption: code
 
@@ -159,20 +159,4 @@ Java FFT
     
     }
 
-Comments
---------
-
-- **Date**: 2004-03-16 14:00:45
-- **By**: ku.oc.oohay@2knomae
-
-.. code-block:: text
-
-    How does this work? Where can I enter an array of bytes/doubles and where does it return the fft of that array? Also if I have an array of bytes of sound data captured from the microphone(say plucking a guitar string), and perform fft on the array, is the average of that array the frequency of the note? Please reply as soon as you can. Thanks
-
-- **Date**: 2008-07-22 13:03:00
-- **By**: anon
-
-.. code-block:: text
-
-    For a comprehensive suite of Java transforms with FFTW-level performance see http://piotr.wendykier.googlepages.com/jtransforms
 

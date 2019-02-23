@@ -8,7 +8,6 @@ Analysis
    200-beat-detector-class
    20-coefficients-for-daubechies-wavelets-1-38
    21-dft
-   205-envelope-detector-class-c
    97-envelope-detector
    136-envelope-follower-with-different-attack-and-release
    79-fft

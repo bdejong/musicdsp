@@ -116,7 +116,7 @@ Comments
 - **Date**: 2005-05-18 22:59:08
 - **By**: moc.yddaht@yddaht
 
-.. code-block:: text
+.. code-block:: delphi
 
     // Nice work!
     //Here's a Delphi and freepascal version:             

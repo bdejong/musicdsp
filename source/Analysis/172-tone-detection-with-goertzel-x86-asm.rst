@@ -20,7 +20,7 @@ Tone detection with Goertzel (x86 ASM)
     Christian
 
 
-.. code-block:: c++
+.. code-block:: delphi
     :linenos:
     :caption: code
 
@@ -85,11 +85,10 @@ Comments
 - **Date**: 2005-08-17 17:20:02
 - **By**: moc.yddaht@yddaht
 
-.. code-block:: text
+.. code-block:: delphi
 
-      Here's a variant on the theme that compensates for harmonics:
+    // Here's a variant on the theme that compensates for harmonics:
     
-    [CODE]
     Function Goertzel(.Buffer: array of double; frequency, samplerate: double):.double;
     var
     Qkn, Qkn1, Qkn2, Wkn, Mk: double;
@@ -104,31 +103,5 @@ Comments
     end;
     Result: = sqrt(.Qkn*.Qkn + Qkn1*.Qkn1 - Mk*.Qkn*.Qkn1);
     end;
-    [/CODE]            
     
-    Posted on www.delphimaster.ru by Jeer
-
-- **Date**: 2005-08-17 17:21:59
-- **By**: moc.yddaht@yddaht
-
-.. code-block:: text
-
-    Here's what I ment ;)
-    
-    <code>
-    function Goertzel(Buffer: array of double; frequency, samplerate: double):double;
-    var
-    Qkn, Qkn1, Qkn2, Wkn, Mk : double;
-    i : integer;
-    begin
-    Qkn:=0; Qkn1:=0;
-    Wkn:=2*PI*frequency/samplerate;
-    Mk:=2*Cos(Wkn);
-    for i:=0 to High(Buffer) do begin
-      Qkn2 := Qkn1; Qkn1 := Qkn;
-      Qkn  := Buffer[i] + Mk*Qkn1 - Qkn2;
-    end;
-    Result := sqrt(Qkn*Qkn + Qkn1*Qkn1 - Mk*Qkn*Qkn1);
-    end;
-    </code>
-
+    // Posted on www.delphimaster.ru by Jeer

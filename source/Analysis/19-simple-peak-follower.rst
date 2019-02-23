@@ -50,7 +50,7 @@ Comments
 - **Date**: 2013-01-26 09:48:15
 - **By**: moc.liamg@osoromaerfac
 
-.. code-block:: text
+.. code-block:: c++
 
     #ifndef VERY_SMALL_FLOAT
     #define VERY_SMALL_FLOAT 1.0e-30F

@@ -26,7 +26,9 @@ Comments
 
 .. code-block:: text
 
-    Thank you very much, this was useful, and it worked right out of the box, so to speak. It's very efficient, and the algorithm is readable. It also includes some very useful functions.
+    Thank you very much, this was useful, and it worked right out of the box,
+    so to speak. It's very efficient, and the algorithm is readable. It also includes some
+    very useful functions.
     
     
 

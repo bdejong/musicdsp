@@ -129,35 +129,29 @@ Magnitude and phase plot of arbitrary IIR function, up to 5th order
 Comments
 --------
 
-- **Date**: 2003-11-08 15:47:16
-- **By**:  
-
-.. code-block:: text
-
-    They don't appear to make any sense at all.
-
 - **Date**: 2004-01-02 08:46:35
 - **By**: Rob
 
-.. code-block:: text
+.. code-block:: matlab
 
-    Actually it is simpler to simply take the zero-padded b and a coefficients and do real->complex FFT like this (matlab code):
+    % Actually it is simpler to simply take the zero-padded b and a coefficients and do real->complex
+    % FFT like this (matlab code):
     
     H_complex=fft(b,N)./fft(a,N);
     phase=angle(H_complex);
     Magn=abs(H_complex);
     
-    This will give you N/2 points from 0 to pi angle freq (or 0 to nyquist freq).
-    
-    /Rob
+    % This will give you N/2 points from 0 to pi angle freq (or 0 to nyquist freq).
+    % /Rob
     
 
 - **Date**: 2004-10-01 00:55:09
 - **By**: ed.luosfosruoivas@naitsirhC
 
-.. code-block:: text
+.. code-block:: c++
 
-    Here are the formulas if you only have a biquad. But i am not sure, if maybe the phase is shifted with pi/2...
+    // Here are the formulas if you only have a biquad. But i am not sure, if maybe the
+    // phase is shifted with pi/2...
     
     20*Log10(
              sqrt(
@@ -204,44 +198,22 @@ Comments
             )
            )
 
-- **Date**: 2004-10-01 00:58:17
-- **By**: ed.luosfosruoivas@naitsirhC
-
-.. code-block:: text
-
-    Same code, but (hopefully) better layout...
-    
-    20*Log10(
-             sqrt(
-                  (a0*a0+a1*a1+a2*a2+
-                   2*(a0*a1+a1*a2)*cos(w)+ 
-                   2*(a0*a2)* cos(2*w)
-                  )
-                  /
-                  (
-                   1 + b1*b1 + b2*b2 +
-                   2*(b1 + b1*b2)*cos(w)+
-                   2*b2*cos(2*w)
-                  )
-                 )
-            )
-
 - **Date**: 2005-03-28 22:43:17
 - **By**: ed.luosfosruoivas@naitsirhC
 
-.. code-block:: text
+.. code-block:: delphi
 
-    Recursive Delphi Code with arbitrary order:
+    // Recursive Delphi Code with arbitrary order:
     
     unit Plot;
     
-    interface
+    // interface
     
     type TArrayOfDouble = Array of Double;
     
     function MagnitudeCalc(f,rate : Double; a,b : TArrayOfDouble): Double;
     
-    implementation
+    // implementation
     
     uses Math;
     
@@ -268,17 +240,10 @@ Comments
     
     end.
 
-- **Date**: 2005-05-12 21:16:04
-- **By**: John
-
-.. code-block:: text
-
-    Surely no-one here would actually code 20*log10(sqrt(x)) instead of using 10*log10(x) ... :-)              
-
 - **Date**: 2005-07-27 12:39:52
 - **By**: ed.luosfosruoivas@naitsirhC
 
-.. code-block:: text
+.. code-block:: delphi
 
     function CalcMagPart(w: Double; C : TDoubleArray):Double;
     var i,j,l : Integer;
@@ -305,6 +270,6 @@ Comments
      result:=10*log10(CalcMagPart(w,A)/CalcMagPart(w,B));
     end;
     
-    Here's a really fast function for an arbitrary IIR with high order without stack overflows or recursion. 
-    And specially for John without sqrt.
+    // Here's a really fast function for an arbitrary IIR with high order without stack overflows
+    // or recursion. And specially for John without sqrt.
 

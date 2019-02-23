@@ -29,19 +29,13 @@ Frequency response from biquad coefficients
 Comments
 --------
 
-- **Date**: 2004-12-20 21:07:20
-- **By**: Sergey
-
-.. code-block:: text
-
-    There is a better formula of a higher order by George Yohng available on this site
-
 - **Date**: 2006-03-16 19:36:32
 - **By**: ude.drofnats.amrcc@lfd
 
 .. code-block:: text
 
-    this formula can have roundoff errors with frequencies close to zero... (especially a problem with high samplerate filters)
+    this formula can have roundoff errors with frequencies close to zero... (especially a problem
+    with high samplerate filters)
     
     here is a better formula:
     

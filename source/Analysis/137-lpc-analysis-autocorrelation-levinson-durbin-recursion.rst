@@ -106,30 +106,23 @@ LPC analysis (autocorrelation + Levinson-Durbin recursion)
 Comments
 --------
 
-- **Date**: 2004-02-18 10:45:37
-- **By**: moc.socyl@jmihba
-
-.. code-block:: text
-
-    Hi, I the LPC coeffs are to be converted to cepstral coeffs, the formula for cepstral coeffs requires some 'gain term' that is calculated in the LPC analysis phase. Can you please tell how to get this gain term?
-
 - **Date**: 2005-03-31 15:16:20
 - **By**: ed.luosfosruoivas@naitsirhC
 
-.. code-block:: text
+.. code-block:: delphi
 
-    Blind Object Pascal Translation:
-    --------------------------------
+    // Blind Object Pascal Translation:
+    // --------------------------------
     
-    unit Levinson;
+    // unit Levinson;
     
-    interface
+    // interface
     
-    type
-      TDoubleArray = array of Double;
-      TSingleArray = array of Single;
+    // type
+    //  TDoubleArray = array of Double;
+    //  TSingleArray = array of Single;
     
-    implementation
+    // implementation
     
     //find the P-order autocorrelation array, R, for the sequence x of length L and warping of lambda
     procedure Autocorrelate(x,R : TSingleArray; P : Integer; lambda : Single; l: Integer = -1);
@@ -218,20 +211,5 @@ Comments
       end;
     end;
     
-    end.
-
-- **Date**: 2007-12-21 13:15:42
-- **By**: ku.oc.edultsop@eimaj
-
-.. code-block:: text
-
-    Hi,
-    
-    This loop:
-    
-    for (k=0;k<=P;k++){
-    A[0]=0;
-    Am1[0]=0; }
-    
-    Looks like it shouldn't be there?
+    // end.
 

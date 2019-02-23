@@ -17,7 +17,7 @@ Envelope detector
     :linenos:
     :caption: code
 
-    //attack and release in milliseconds
+    //attack and release in seconds
     float ga = (float) exp(-1/(SampleRate*attack));
     float gr = (float) exp(-1/(SampleRate*release));
     
@@ -26,7 +26,7 @@ Envelope detector
     for(...)
     {
       //get your data into 'input'
-      EnvIn = abs(input);
+      EnvIn = std::abs(input);
     
       if(envelope < EnvIn)
       {
@@ -44,19 +44,10 @@ Envelope detector
 Comments
 --------
 
-- **Date**: 2002-04-16 00:23:19
-- **By**: arguru@smartelectronix
-
-.. code-block:: text
-
-    Nice , just a typo: //attack and release is entered in SECONDS actually in this code ;)
-    
-    
-
 - **Date**: 2005-05-17 13:58:11
 - **By**: moc.liamg@sisehtnysorpitna
 
-.. code-block:: text
+.. code-block:: c++
 
     // Slightly faster version of the envelope follower using one multiply form.
     
@@ -80,28 +71,3 @@ Comments
     
         // envOut now contains the envelope
     }
-
-- **Date**: 2005-11-15 04:15:20
-- **By**: moc.etan@97legdam
-
-.. code-block:: text
-
-                  in my code , attack_coef and release_coef are always '0'.
-    
-    If I use only 'abs()' , it also work well.
-    why can it be possible?
-    
-    Would you please give me some infomation about this problem.
-    
-    Thanks.
-    
-
-- **Date**: 2009-05-19 16:53:31
-- **By**: moc.boohay@bob
-
-.. code-block:: text
-
-    Should use "fabsf" really.  :)
-    
-    
-

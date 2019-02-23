@@ -134,74 +134,12 @@ Tone detection with Goertzel
 Comments
 --------
 
-- **Date**: 2002-08-25 16:53:33
-- **By**: ten.hte@ghsa
-
-.. code-block:: text
-
-    Hello!
-     I am interested in knowing that could we  implement the Goertzel algorithm using only integer variables and not using floa at all. Please let me know. I need it urgently.
-    regards,
-    Ashish
-                  
-
-- **Date**: 2003-02-24 17:21:53
-- **By**: rt.moc.siselet@ksunuy
-
-.. code-block:: text
-
-    Hello,
-    
-    I will implement DTMF/MFR1/MFR2 generation/detection function using DSP. I have found goertzel algorithm for DTMF. Can I use this algorithm for MFR1 and MFR2? Could you please let me know ?
-    Best Regards
-    Yunus
-    
-
-- **Date**: 2003-04-14 15:50:43
-- **By**: moc.liamtoh@faieasa
-
-.. code-block:: text
-
-     Hello
-     I'm going to implement a Goertzel algorithm on a Fixed_point DSP .
-     Could you lead me to the changes I should consider?
-     I realy appreciate your helping me.
-    
-    regards,
-    Afsaneh Asaei             
-
-- **Date**: 2003-06-12 04:51:59
-- **By**: ude.limaim.sismu@namhsifj
-
-.. code-block:: text
-
-    Does anybody know if and how this can be done in real time?
-    
-    Thanks,
-    JF
-
-- **Date**: 2003-11-24 12:15:16
-- **By**: no
-
-.. code-block:: text
-
-    It can.
-
-- **Date**: 2003-12-12 13:40:41
-- **By**: moc.liamoohay@802nahom_artibap
-
-.. code-block:: text
-
-    sir.
-    i m pabitra.
-    please help me to understand this program.        
-
 - **Date**: 2004-04-12 22:03:56
 - **By**: ed.luosfosruoivas@naitsirhC
 
-.. code-block:: text
+.. code-block:: delphi
 
-    yet untested Delphi translation of the algorithm:
+    // yet untested Delphi translation of the algorithm:
     
     function Goertzel(Buffer:array of Single; frequency, samplerate: single):single;
     var Skn, Skn1, Skn2 : Single;
@@ -222,26 +160,6 @@ Comments
      Result:=(Skn - exp(-temp1)*Skn1);
     end;
     
-    Maybe someone can use it...
-    
-    Christian
-
-- **Date**: 2005-05-06 13:56:01
-- **By**: moc.eulgcimotabus@nivek
-
-.. code-block:: text
-
-    why's the 2*cos(2*PI*frequency/samplerate) in that inner loop?  It's all constants...  I'd precompute this outside the for loop.
-    
-    also.   use the float version of cos and exp... cosf expf... that way you're not wasting time converting and using the more expensive functions.
-
-- **Date**: 2005-06-19 07:16:52
-- **By**: moc.liamtoh@4002yad_ten
-
-.. code-block:: text
-
-    if anyone please can help me, i need a c++ code about the fft.the code should input and array of N rows and 1 column, all set to 1, and also it should input the length of fft(interval from f1 to f2) and output the results.
-    thank you,
-    i would appreciate your help,
-    bassem
-
+    // Maybe someone can use it...
+    //
+    // Christian

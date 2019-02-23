@@ -37,25 +37,3 @@ DFT
        for (int h=0;h<partials;h++)
            amp[h]= sqrt(aa[h]*aa[h]+bb[h]*bb[h])/hfs;
     }
-
-Comments
---------
-
-- **Date**: 2009-09-21 07:01:35
-- **By**: moc.liamg@zduobham
-
-.. code-block:: text
-
-    does anyone comment their code anymore?
-    
-    Is amp the return value?              
-
-- **Date**: 2013-07-01 13:27:13
-- **By**: ude.lexerd@253hls
-
-.. code-block:: text
-
-    This is nearly impossible to read!
-    
-    As Mahboudz asks... what does this return? Also, what is the variable "MaxPartials"?
-
