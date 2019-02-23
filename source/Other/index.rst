@@ -1,0 +1,77 @@
+Other
+=====
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contents:
+
+   212-16-point-fast-integer-sinc-interpolator
+   95-16-to-8-bit-first-order-dither
+   62-3rd-order-spline-interpollation
+   60-5-point-spline-interpollation
+   54-allocating-aligned-memory
+   162-antialiased-lines
+   228-automatic-pdc-system
+   50-base-2-exp
+   171-bit-reversed-counting
+   149-block-loop-benchmarking
+   210-branchless-clipping
+   103-calculate-notes-java
+   163-center-separation-in-a-stereo-mixdown
+   165-center-separation-in-a-stereo-mixdown
+   166-cheap-pseudo-sinusoidal-lfo
+   81-clipping-without-branching
+   71-constant-time-exponent-of-2-detector
+   248-conversion-and-normalization-of-16-bit-sample-to-a-floating-point-number
+   52-conversions-on-a-powerpc
+   49-cubic-interpollation
+   191-cure-for-malicious-samples
+   88-denormal-double-variables-macro
+   51-denormal-numbers
+   83-denormal-numbers-the-meta-text
+   193-denormalization-preventer
+   233-denormalization-preventer
+   61-dither-code
+   77-dithering
+   48-double-to-int
+   138-envelope-follower
+   260-exponential-curve-for
+   87-exponential-parameter-mapping
+   273-fast-float-random-numbers
+   132-fast-abs-neg-sign-for-32bit-floats
+   91-fast-binary-log-approximations
+   206-fast-cube-root-square-root-and-reciprocal-for-x86-sse-cpus
+   222-fast-exp-approximations
+   106-fast-exp2-approximation
+   63-fast-log2
+   133-fast-power-and-root-estimates-for-32bit-floats
+   252-fast-rounding-functions-in-pascal
+   249-fast-sign-for-32-bit-floats
+   56-float-to-int
+   170-float-to-int-more-intel-asm
+   246-float-to-integer-conversion
+   57-float-to-int-coverting-an-array-of-floats
+   121-gaussian-dithering
+   129-gaussian-random-numbers
+   157-hermite-interpolator-x86-asm
+   93-hermite-interpollation
+   245-linear-interpolation
+   119-lock-free-fifo
+   58-matlab-tools-for-sndan
+   125-midi-note-frequency-conversion
+   188-matlab-time-domain-impulse-response-inverter-divider
+   94-millimeter-to-db-faders
+   202-motorola-56300-disassembler
+   99-noise-shaping-class
+   148-nonblocking-multiprocessor-multithread-algorithms-in-c
+   250-piecewise-quadratic-approximate-exponential-function
+   55-pow-x-4-approximation
+   238-rational-tanh-approximation
+   84-reading-the-compressed-wa-parts-in-gigasampler-files
+   158-really-fast-x86-floating-point-sin-cos
+   178-reasonably-accurate-fastish-tanh-approximation
+   164-resampling
+   120-saturation
+   175-sin-x-aproximation-with-sse-code
+   115-sin-cos-tan-approximation
+   182-vst-sdk-gui-switch-without

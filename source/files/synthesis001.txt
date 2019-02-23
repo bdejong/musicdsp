@@ -1,0 +1,90 @@
+alias-free waveform generation with analog filtering
+----------------------------------------------------
+
+Ok, here is how I did it. I'm not 100% sure that everything is correct.
+I'll demonstrate it on a square wave instead, although i havent tried it.
+
+The impulse response of an analog pole is:
+
+r(t) = exp(p*x)   if t >= 0,
+       0          if t < 0
+
+notice that if we know r(t) we can get r(t+1) = r(t)*exp(p).
+
+You all know what the waveform looks like. It's a constant -1
+followed by constant 1 followed by .....
+
+We need to convolve the impulse response with the waveform and sample it at discrete intervals.
+What if we assume that we already know the result of the last sample?
+Then we can "move" the previous result backwards by multiplying it with exp(p) since
+r(t+1) = r(t)*exp(p)
+
+Now the problem is reduced to integrate only between the last sample and the current sample, and add that to the result.
+
+some pseudo-code:
+
+while forever
+{
+        result *= exp(pole);
+        phase += freq;
+        result += integrate(waveform(phase-freq*t), exp(t*pole), t=0..1);
+}
+
+integrate(square(phase-freq*t), exp(t*pole), t=0..1)
+
+The square is constant except for when it changes sign.
+Let's find out what you get if you integrate a constant multiplied with
+exp(t*pole) =)
+
+integrate(k*exp(t*pole)) = k*exp(t*pole)/pole
+k = square(phase-freq*t)
+
+and with t from 0 to 1, that becomes
+k*exp(pole)/pole-k/pole = (exp(pole)-1)*k/pole
+
+the only problem left to solve now is the jumps from +1 to -1 and vice versa.
+
+you first calculate (exp(pole)-1)*k/pole like you'd normally do
+
+then you detect if phase goes beyond 0.5 or 1. If so, find out exactly
+where between the samples this change takes place.
+
+subtract integrate(-2*exp(t*pole), t=0..place) from the result to
+undo the error
+
+Since I am terribly bad at explaining things, this is probably just a mess to you :)
+
+Here's the (unoptimised) code to do this with a saw:
+note that sum and pole are complex.
+
+float getsample()
+{
+        sum *= exp(pole);
+
+        phase += freq;
+
+        sum += (exp(pole)*((phase-freq)*pole+freq)-(phase*pole+freq))/pole;
+
+        if (phase >= 0.5)
+        {
+                float x = (phase-0.5)/freq;
+
+                sum -= exp(pole*x)-1.0f;
+
+                phase -= 1;
+        }       
+
+        return sum.real();
+}
+
+There's big speedup potential in this i think.
+
+Since the filtering is done "before" sampling, 
+aliasing is reduced, as a free bonus. with high cutoff
+and high frequencies it's still audible though, but
+much less than without the filter.
+
+If aliasing is handled in some other way,
+a digital filter will sound just as well, that's what i think.
+
+-- Magnus Jonsson <zeal@mail.kuriren.nu>

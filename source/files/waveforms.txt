@@ -1,0 +1,192 @@
+From: "Joe Wright" <joe@nyrsound.com>
+To: <music-dsp@shoko.calarts.edu>
+Subject: Re: waveform discussions
+Date: Tue, 19 Oct 1999 14:45:56 +0100
+
+After help from this group and reading various literature I have finished my
+waveform engine.  As requested, I am now going to share some of the things
+are have learnt from a practical viewpoint.
+
+Problem:
+
+The waveforms of interest are sawtooth, square and triangle.
+
+The waveforms must be bandlimited (i.e. fitting under Nyquist).  This
+precludes simple generation of the waveforms.  For example, the
+analogue/continuous formular (which has infinite harmonics):
+
+s(t) = (t*f0) mod 1  (t=time, f0=frequency of note)
+
+procudues aliasing that cannot be filtered out when converted to the
+digital/discrete form:
+
+s(n) = (f0*n*Ts) mod 1 (n=sample, Ts equals 1/sampling rate)
+
+
+The other condition of this problem is that the waveforms are generatable in
+real-time.  Additionally, bonuses are given for solutions which allow
+pulse-width modulation and triangle asymmetry.
+
+
+The generation of these waves is non-triaval and below is discussed three
+techniques to solve the problem - wavetables, approximation through
+processing of |sinewave| and BLIT integration.  BLIT integration is
+discussed in depth.
+
+
+Wavetables:
+
+You can generate a wavetable for the waveform by summing sine waves up to
+the Nyquist frequency.  For example, the sawtooth waveform can be generated
+by:
+
+s(n) = Sum[k=1,n] (1/k *sin(2PI*f0*k*Ts)) where f0*n < Ts/2
+
+The wavetable can then be played back, pitched up or down subject that
+pitched f*n < Ts/2.  Anything lower will not alias but it may lack some
+higher harmonics if pitched too low.
+
+To cover these situations, use multiple wavetables describing different
+frequency ranges within which it is fine to pitch up or down.
+
+You may need to compromise between number of wavetables and accuracy because
+of memory considerations (especially if over-sampling).  This means some
+wavetables will have to cover larger ranges than they should.  As long as
+the range is too far in the lower direction rather than higher, you will not
+alias (you will just miss some higher harmonics).
+
+With wavetables you can add a sawtooth to an inverted sawtooth offset in
+time, to produce a pulse/square wave.  Vary the offset to vary the pulse
+width.  Asymmetry of triangle waves is not possible (as far as I know)
+though.
+
+
+Approximation through processing of |sinewave|
+
+This method is discussed in detail in 'Modeling Analog Synthesis with
+DSPs' - Computer Music Journal, 21:4 pp.23 - 41, Winter 1997, Lane, Hoory,
+Marinez and Wang.
+
+The basic idea starts with the generation of a sawtooth by feeding
+abs(sin(n)) into a lowpass followed by a highpass filter.  This approximates
+(quite well supposedly) a bandlimited sawtooth.  Unfortunately, details of
+what the cutoff for the lowpass should be were not precise in the paper
+(although the highpass cutoff was given).
+
+Square wave and triangle wave approximation was implemented by subtracting
+abs(sin(n)) and abs(sin(n/2)).  With different gains, pulse width (and I
+presume asymmetry) were possible.
+
+For more information, consult the paper.
+
+
+BLIT intergration
+
+This topic refers to the paper 'Alias-Free Digital Synthesis of Classic
+Analog Waveforms' by Tim Stilson and Julius Smith of CCRMA.  The paper can
+be found at http://www-ccrma.stanford.edu/~stilti/papers
+
+BLIT stands for bandlimited impluse train.  I'm not going to go into the
+theory, you'll have to read the paper for that.  However, simply put, a
+pulse train of the form 10000100001000 etc... is not bandlimited.
+
+The formular for a BLIT is as follows:
+
+BLIT(x) = (m/p) * (sin(PI*x*m/p)/(m*sin(PI*x/p))
+
+x=sample number ranging from 1 to period
+p=period in samples (fs/f0).  Although this should theorectically not be an
+interger, I found pratically speaking it needs to be.
+m=2*((int)p/2)+1 (i.e. when p=odd, m=p otherwise m=p+1)
+
+[note] in the paper they describe m as the largest odd interger not
+exceeding the period when in fact their formular for m (which is the one
+that works in practive) makes it (int)p or (int)p +1
+
+As an extension, we also have a bipolar version:
+
+BP-BLIT k (x)=BLIT(x) - BLIT(x+k)   (where k is in the range [0,period])
+
+
+Now for the clever bit.  Lets start with the square/rectangle wave.  Through
+intergration we get:
+
+Rect(n) = Sum(i=0,n) (BP-BLIT k0 (i) - C4)
+
+C4 is a DC offset which for the BP-BLIT is zero.  This gives a nice
+iteration for rect(n):
+
+Rect(n) = Rect(n-1) + BP-BLIT k0 (n)  where k0 is the pulse width between
+[0,period] or in practive [1,period-1]
+
+
+A triangle wave is given by:
+
+Tri(n) = Sum(i=0,n) (Rect(k) - C6)
+
+Tri(n) = Tri(n-1) + Rect(n) - C6
+
+C6 = k0/period
+
+The triangle must also be scaled:
+
+Tri(b) = Tri(n-1) + g(f,d)*(Rect(n) - C6)
+
+where g(f,d) = 0.99 / (period* d * (d-1))   d=k0/period
+
+Theorietcally it could be 1.00 / ... but I found numerical error sometimes
+pushed it over the edge.  The paper actually states 2.00/... but for some
+reason I find this to be incorrect.
+
+Lets look at some rough and ready code.  I find the best thing to do is to
+generate one period at a time and then reset everything.  The numerical
+errors over one period are negligable (based on 32bit float) but if you keep
+on going without resetting, the errors start to creep in.
+
+    float period = samplingrate/frequency;
+    float m=2*(int)(period/2)+1.0f;
+    float k=(int)(k0*period);
+    float g=0.99f/(periodg*(k/period)*(1-k/period));
+    float t;
+    float bpblit;
+    float square=0.0f;
+    float triangle=0.0f;
+    for(t=1;t<=period;t++)
+    {
+        bpblit=sin(PI*(t+1)*m/period)/(m*sin(PI*(t+1)/period));
+        bpblit-=sin(PI*(t+k)*m/period)/(m*sin(PI*(t+k)/period));
+        square+=bpblit;
+        triangle+=g*(square+k/period);
+    }
+    square=0;
+    triangle=0;
+
+Highly un-optimised code but you get the point.  At each sample(t) the
+output values are square and triangle respectively.
+
+
+Sawtooth:
+
+This is given by:
+
+Saw(n) = Sum(k=0,n) (BLIT(k) - C2)   [as opposed to BP-BLIT]
+Saw(n) = Saw(n-1) + BLIT(n) - C2
+
+Now, C2 is a bit tricky.  Its the average of BLIT for that period (i.e. 1/n
+* Sum (k=0,n) (BLIT(k)).  [Note] Blit(0) = 0.
+
+I found the best way to deal with this is to have a lookup table which you
+have generated and saved to disk as a file which contains a value of C2 for
+every period you are interested in.  This is because I know of no easy way
+to generate C2 in real-time.
+
+Last thing.  My implementation of BLIT gives negative values.  Therefore my
+sawtooth is +C2 rather than -C2.
+
+
+I hope this helps, any questions don't hestitate to contact me.
+
+
+Joe Wright - Nyr Sound Ltd
+http://www.nyrsound.com
+info@nyrsound.com

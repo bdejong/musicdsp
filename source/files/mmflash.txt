@@ -1,0 +1,33 @@
+I think I can help you. I have had the same problem, but now I can write
+into a FLASH-EEPROM.
+Use the file FLASH.asm (Inventory of your Motorola DSP56002EVM
+Software).
+In the version I use, I find a great mistake !!!
+The first rep-command must be rep #6 and not rep#5 (because 64=2^6 and
+not 2^5=32).
+I wrote a dokumantation about the FLASH-EEprom-Programming, but in
+German-Language. I try to explain it:
+Use Atmel 29c256 Flash-EEPROM - it works !!!
+Assemble your corrected Flash.asm file (asm56000 Flash.asm).
+You have created the Flash.cld file.
+Start the debugger EVM56k.exe (PC!!!)
+Load your usercode (for example echo.cld) into the debugger
+- Remember the complete usercode must be in P-memory -
+Find out the last address of your usercode in P-memory (look on the
+assembly-window). A special trick: Last address to use can be 153F hex !
+Load the Flash.cld into the debugger. Flash.cld is behind your usercode
+at address 7f00 in P-memory - no conflicts!
+Write the last address of your usercode  into the R1-Register.
+Command-window: CHANGE R1 153F
+Start the EEPRM-Writing-Programm Flash.cld in the debugger:
+Command-window: GO 7f00
+Now the BOOTSTRAP-COMMAND and your USERCODE will be written in the
+FLASH-EEPROM. Wait till the Debugger stops - Debug mode!
+Press the reset-button on the EVM-Board. It will boot and start your
+userprogramm.
+Ready !!!   NO hardware changes nessessary 
+            EVM - stand alone 
+ Please tell me, if you are successfull!!
+
+Markus Maier, University of Applied Siences Braunschweig/Wolfenbuettel
+              DSP-Labor - Nachrichtentechnik

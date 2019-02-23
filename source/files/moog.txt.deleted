@@ -1,0 +1,498 @@
+///////////////////////////////////////////////////////////
+// Moog VCF
+// Nick Tsocanos 2003
+//
+// I don't claim this is super good DSP code, but I think
+// the filter sounds good. I purposely did alot of things
+// on the big side to make it sound better at the expense
+// of more memory and computing requirements. It is 
+// a very subjective thing so you might find that a trimmed
+// down version is better for your needs.
+//
+// It is a bit different than the other moog filters, 
+// not bad or good. It's worth having in your projects
+// in case you find it does some kind of sound you like
+// particularly better than the others. In my project I
+// have all the moog filters so I use them whenever I feel
+// like one sounds better than the other for certain things.
+///////////////////////////////////////////////////////////
+
+///////////
+// You don't need this, this is just the base class so you
+// can see where stuff comes from
+//
+// REAL = float or double whatever you want to use
+//
+// There might be junk in here from weird experiments
+// I do. If you see something weird ignore it.
+////////////////////////////////////////////////////////////
+struct Filter 
+{
+  REAL center;    // center
+  REAL sat;		  // saturation amount
+  REAL cutoff;    // cutoff
+  REAL res;       // resonance/q
+  REAL Q;         // bandwidth
+  REAL fs;        // sample rate
+  REAL dbGain;    // amplification
+  REAL drive;	  			  // overdrive/distortion
+  REAL cutoff_env[BUFFER_SIZE];	  // envelope data for cutoff
+  REAL cutoff_env_gain;
+  REAL reso_env[BUFFER_SIZE];	  // envelope data for resonance  
+  REAL reso_env_gain;
+  REAL hard_clip_top;
+  REAL hard_clip_bottom;
+  REAL cutoff_env_bias;
+  REAL reso_env_bias;
+  REAL fm_buffer[BUFFER_SIZE];
+  REAL fm_gain;
+  REAL clip_val;
+    
+  Filter(REAL sample_rate)
+	{
+	    fs = sample_rate;
+	    cutoff = 100.0;
+     	    res    = 1;    	
+      	    drive = 0.0;
+     	    dbGain = 1.0;    	
+	     cutoff_env_gain = 0.0;
+		reso_env_gain = 0.0;
+    	sat = 0.5;
+		hard_clip_top = 1.0;
+		hard_clip_bottom = -1.0;
+		cutoff_env_bias = 0.0;
+		reso_env_bias = 0.0;
+		clip_val = 1.0;
+	}
+
+	
+  virtual void setCutoff(REAL c) { cutoff = c; }
+  virtual void setRes(REAL r) { res = r; }
+  virtual void setQ(REAL q) { Q = q; }
+  virtual void setSampleRate(REAL sr) { fs = sr; }
+  virtual void setCenter(REAL c) { center = c; }
+  virtual void setdbGain(REAL db) { dbGain = db; }
+  virtual void setParams(REAL cut, REAL Q) { cutoff = cut; this->Q = Q; }
+  virtual void setDrive(REAL d) { drive = d; }
+  virtual void setSaturation(REAL s) { sat = s; }  
+  virtual void setHardClipTop(REAL t) { hard_clip_top = t; }
+  virtual void setHardClipBottom(REAL b) { hard_clip_bottom = b; }
+  virtual void setCutoffEnvGain(REAL c) { cutoff_env_gain = c; }
+  virtual void setResEnvGain(REAL r) { reso_env_gain = r; }
+  virtual void setCutoffEnvBias(REAL c) { cutoff_env_bias = c; }
+  virtual void setResEnvBias(REAL r) { reso_env_bias = r; }
+  virtual void setFmGain(REAL c) { fm_gain = c; }  
+};
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Moog VCF
+//
+// Note: This moog filter uses CV values.
+// CV is 1.0/12.0 per semitone, 1v per octave
+// Thus to get a control voltage from midi it is 
+// MIDI_NOTE/12.0. You can totally change this and use
+// normalized values [0..1] for cutoff if you want.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Table of coefficients
+// It takes up about 4 megs of RAM, but you can lower
+// The resolution if you don't want the extra oomph.
+// The more intermediate points you have the smoother
+// sweeps will sound. I use 1000
+
+typedef struct MoogCoef
+{
+	f64	a0[6], b0[6];	
+	f64 a1[6], b1[6];	
+}
+MOOGCOEF;
+
+
+struct MoogVCF : public Filter
+{
+
+// first if cutoff, second is resonance
+	static MOOGCOEF	coefs[1000][100];		
+
+	static bool init;
+	
+// f64 = double, this filter must use double precision
+// internally.
+   	f64 a0[6],b0[6];
+	f64 a1[6],b1[6];	
+    	f64 X[8], Y[8];
+	f64  X1[8], Y1[8];
+			
+    MoogVCF(REAL sample_rate);
+    virtual ~MoogVCF() { }
+	
+// Multimode output, low, high and band
+// Hi pass is not resonant.
+	void 	processSamples(REAL * in, uint32 len, REAL * lpout, REAL * hpout, REAL * bpout);
+
+    void    setCutoff(REAL c) ;
+    void    setRes(REAL rr);		
+
+};
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Moog VCF
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Definition of static coefficients
+// You only need to compute them once for multiple
+// instances.
+MOOGCOEF MoogVCF::coefs[1000][100];
+bool	 MoogVCF::init = false;
+
+MoogVCF::MoogVCF(REAL sample_rate) : Filter(sample_rate)
+{            	
+	memset(X, 0, sizeof(X));
+    memset(Y, 0, sizeof(Y)); 
+	memset(X1, 0, sizeof(X1));
+    memset(Y1, 0, sizeof(Y1)); 
+
+// the filter is oversampled so the sample rate is doubled
+	fs *= 2.0;
+	
+	if(!init)
+	{
+		init = true;
+
+		for(int i = 0; i < 1000; i++)
+		{
+
+			f64 cut;
+
+    		cut = (f64)i * (fs/(2000.0) );
+	
+// this is a warping function to map onto the z circle
+			f64 wa = 2.0 * fs * tan( (cut/2.0) * (1/fs));
+		
+			for(int j = 0; j < 100; j++)
+			{
+				f64 k  = (f64)j/25.0;
+
+// These coefficients are direct solution of H(S) of the
+// moog filter using bilinear transform. It has a unique
+// sound and is a little different than the other
+// moogs (probably because the resonance is not correct).
+				a0[0] = 16 + 32*wa/fs + 24*pow(wa/fs,2.0) + 8*pow(wa/fs, 3.0) + pow(wa/fs,4.0) + k*pow(wa/fs,4.0);
+				a0[1] = -64 - 64*wa/fs + 16*pow(wa/fs, 3.0) + 4*pow(wa/fs, 4.0) + 4*k*pow(wa/fs, 4.0);
+				a0[2] = 96 - 48*pow(wa/fs,2.0) + 6*pow(wa/fs, 4.0) + 6*k*pow(wa/fs, 4.0);
+				a0[3] = -64 + 64*wa/fs - 16*pow(wa/fs, 3.0) + 4*pow(wa/fs, 4.0) + 4*k*pow(wa/fs, 4.0);
+				a0[4] = 16 - 32*wa/fs + 24*pow(wa/fs, 2.0) - 8*pow(wa/fs, 3.0) + pow(wa/fs,4.0) + k*pow(wa/fs,4.0);
+	
+// Adjust coefficients so that a0[0] is 1 to satisfy the
+// IIR equation.
+				a0[1] /= a0[0];
+				a0[2] /= a0[0];
+				a0[3] /= a0[0];
+				a0[4] /= a0[0];
+				b0[0] = pow(wa/fs, 4.0) / a0[0];
+				b0[1] = 4*b0[0];
+				b0[2] = 6*b0[0];
+				b0[3] = 4*b0[0];
+				b0[4] = b0[0];
+      						
+				memcpy(coefs[i][j].a0, a0, sizeof(a0));
+				memcpy(coefs[i][j].b0, b0, sizeof(b0));				
+	
+
+// HPF is cascaded two poles and I think it's wrong
+// I did not feel like doing the hard work to do the full
+// bilinear (it's alot of work!).
+				// HPF
+				a0[0] = 4 + 4 *k + 4*wa/fs + pow(wa/fs, 2.0);
+				a0[1] = -8 - 8*k + 2*pow(wa/fs, 2.0);
+				a0[2] = 4 + 4*k  - 4*wa/fs + pow(wa/fs, 2.0);
+				a0[1] /= a0[0];
+				a0[2] /= a0[0];
+
+				a0[3] = a0[0];
+				a0[4] = a0[1];
+				a0[5] = a0[2];
+
+				b0[0] = 4/a0[0];
+				b0[1] = -2 * b0[0];
+				b0[2] = b0[0];
+
+				b0[3] = b0[0];
+				b0[4] = b0[1];
+				b0[5] = b0[2];
+
+      			
+				memcpy(coefs[i][j].a1, a0, sizeof(a0));
+				memcpy(coefs[i][j].b1, b0, sizeof(b0));
+
+			}
+		}
+	}
+	setCutoff(0.1);
+}
+
+
+
+void    MoogVCF::setCutoff(REAL c) 
+{	
+int c1,c2,r1,r2;
+REAL delta;
+	
+// cutoff_env_bias is your cutoff knob [-1,1]
+	cutoff = (fabs(c/cv_max)+(cutoff_env_bias))*999.0;	
+
+// these are used for interpolation because you can
+// generate a fractional cutoff and I think it sounds
+// smoother.
+	c1 = (int)cutoff;
+	r1 = (int)res;
+	if(c1 < 0) c1 = 0;
+	if(c1 > 998) c1 = 998;
+	if(r1 < 0) r1 = 0;
+	if(r1 > 98) r1 = 98;
+	c2 = c1+1;
+	r2 = r1+1;
+	
+	
+	delta = cutoff - (int)cutoff;
+	
+// linear interpolation of cutoff, not resonance
+	// coefficients									
+	//a0[0] = coefs[c1][r1].a0[0] + (coefs[c2][r2].a0[0]-coefs[c1][r1].a0[0])*delta;							
+	a0[1] = coefs[c1][r1].a0[1] + (coefs[c2][r2].a0[1]-coefs[c1][r1].a0[1])*delta;
+	a0[2] = coefs[c1][r1].a0[2] + (coefs[c2][r2].a0[2]-coefs[c1][r1].a0[2])*delta;
+	a0[3] = coefs[c1][r1].a0[3] + (coefs[c2][r2].a0[3]-coefs[c1][r1].a0[3])*delta;
+	a0[4] = coefs[c1][r1].a0[4] + (coefs[c2][r2].a0[4]-coefs[c1][r1].a0[4])*delta;
+	b0[0] = coefs[c1][r1].b0[0] + (coefs[c2][r2].b0[0]-coefs[c1][r1].b0[0])*delta;							
+	b0[1] = coefs[c1][r1].b0[1] + (coefs[c2][r2].b0[1]-coefs[c1][r1].b0[1])*delta;
+	b0[2] = coefs[c1][r1].b0[2] + (coefs[c2][r2].b0[2]-coefs[c1][r1].b0[2])*delta;
+	b0[3] = coefs[c1][r1].b0[3] + (coefs[c2][r2].b0[3]-coefs[c1][r1].b0[3])*delta;
+	b0[4] = coefs[c1][r1].b0[4] + (coefs[c2][r2].b0[4]-coefs[c1][r1].b0[4])*delta;
+	
+	// coefficients									
+	//a1[0] = coefs[c1][r1].a1[0] + (coefs[c2][r2].a1[0]-coefs[c1][r1].a1[0])*delta;							
+	a1[1] = coefs[c1][r1].a1[1] + (coefs[c2][r2].a1[1]-coefs[c1][r1].a1[1])*delta;
+	a1[2] = coefs[c1][r1].a1[2] + (coefs[c2][r2].a1[2]-coefs[c1][r1].a1[2])*delta;
+	a1[3] = coefs[c1][r1].a1[3] + (coefs[c2][r2].a1[3]-coefs[c1][r1].a1[3])*delta;
+	a1[4] = coefs[c1][r1].a1[4] + (coefs[c2][r2].a1[4]-coefs[c1][r1].a1[4])*delta;
+	a1[5] = coefs[c1][r1].a1[5] + (coefs[c2][r2].a1[5]-coefs[c1][r1].a1[5])*delta;
+	
+	b1[0] = coefs[c1][r1].b1[0] + (coefs[c2][r2].b1[0]-coefs[c1][r1].b1[0])*delta;							
+	b1[1] = coefs[c1][r1].b1[1] + (coefs[c2][r2].b1[1]-coefs[c1][r1].b1[1])*delta;
+	b1[2] = coefs[c1][r1].b1[2] + (coefs[c2][r2].b1[2]-coefs[c1][r1].b1[2])*delta;
+	b1[3] = coefs[c1][r1].b1[3] + (coefs[c2][r2].b1[3]-coefs[c1][r1].b1[3])*delta;
+	b1[4] = coefs[c1][r1].b1[4] + (coefs[c2][r2].b1[4]-coefs[c1][r1].b1[4])*delta;
+	b1[5] = coefs[c1][r1].b1[5] + (coefs[c2][r2].b1[5]-coefs[c1][r1].b1[5])*delta;
+
+}
+
+void    MoogVCF::setRes(REAL rr) 
+{
+	res = fabs(rr) * 99.0;
+	setCutoff(cutoff/1000.0);
+}
+
+void MoogVCF::processSamples(REAL * in, uint32 len, REAL * lpout, REAL * hpout, REAL * bpout)
+{
+REAL ct;
+REAL rs;
+int c1, r1, c2, r2;
+bool docalc = false;
+REAL c;
+REAL r;
+REAL ctv;
+
+	
+	ctv = (cutoff/999.0 - cutoff_env_bias) * cv_max;
+	ct = cutoff;
+	if(ct > 998) ct = 998.0;
+	if(ct < 0) ct = 0.0;
+			
+	rs = res;
+	if(rs > 98) rs = 98;
+	if(rs < 0 ) rs = 0;
+		
+	c = ct;
+	r = rs;
+	
+	c1 = (int)ct;	
+	r1 = (int)rs;
+	c2 = c1+1;
+	r2 = r1+1;
+	
+	
+	for(int j = 0; j < (int)len; j++)
+    {		
+// if you set the envelope gain on, 
+// cutoff envelope is a normal envelop but you can use
+// a cv attenuator and boost it outside of [-1,1] onto
+// any range (I use pow(10.0, amount/20.0)/20.0 as my 
+// exponential amplifier. It works ok. You can use a linear
+// amp (which most real analog seem to use for CV) and 
+// attenuate from 0 .. 10.5873333.
+		if(cutoff_env_gain > 0.0)
+		{			
+			c = ctv+( (fabs(cutoff_env[j])+cutoff_env_bias) *fabs(cutoff_env_gain));						
+			c /= cv_max;
+			c *= 999.0;
+			c1 = (int)c;
+			if(c1 > 998) c1 = 998;
+			c2 = c1 + 1;		
+			docalc = true;
+		}
+						
+        if(reso_env_gain > 0.0)
+		{			
+			r = (fabs(reso_env[j] + reso_env_bias)*fabs(reso_env_gain))*99.0;			
+			r1 = (int)r;
+			if(r1 > 98) r1 = 98;	
+			r2 = r1 + 1;			
+			docalc = true;
+		}
+	
+// Well, this seems to be how exponential FM works
+// it is cv +/- 1 volt which will swing up 1 octave
+// and down 1 octave ie at 440hz you get 220 down and 
+// 880 up but I could be wrong about this. IT sounds
+// cool though.	    
+		if(fm_gain != 0.0)
+		{			
+			REAL f = c/999.0 *cv_max;
+			c = f + fm_buffer[j]*fm_gain;			
+			c /= cv_max;
+			c *= 999.0;
+			c1 = (int)c;
+			if(c1 > 998) c1 = 998;
+			c2 = c1 + 1;
+			docalc = true;
+		}
+				
+	
+// if envelope changes than recalculate new 
+// coefs		
+		if(docalc)
+		{
+			REAL delta = c - (int)c;
+			// coefficients									
+			//a0[0] = coefs[c1][r1].a0[0] + (coefs[c2][r2].a0[0]-coefs[c1][r1].a0[0])*delta;							
+			a0[1] = coefs[c1][r1].a0[1] + (coefs[c2][r2].a0[1]-coefs[c1][r1].a0[1])*delta;
+			a0[2] = coefs[c1][r1].a0[2] + (coefs[c2][r2].a0[2]-coefs[c1][r1].a0[2])*delta;
+			a0[3] = coefs[c1][r1].a0[3] + (coefs[c2][r2].a0[3]-coefs[c1][r1].a0[3])*delta;			
+			a0[4] = coefs[c1][r1].a0[4] + (coefs[c2][r2].a0[4]-coefs[c1][r1].a0[4])*delta;
+											
+			b0[0] = coefs[c1][r1].b0[0] + (coefs[c2][r2].b0[0]-coefs[c1][r1].b0[0])*delta;							
+			b0[1] = coefs[c1][r1].b0[1] + (coefs[c2][r2].b0[1]-coefs[c1][r1].b0[1])*delta;
+			b0[2] = coefs[c1][r1].b0[2] + (coefs[c2][r2].b0[2]-coefs[c1][r1].b0[2])*delta;
+			b0[3] = coefs[c1][r1].b0[3] + (coefs[c2][r2].b0[3]-coefs[c1][r1].b0[3])*delta;
+			b0[4] = coefs[c1][r1].b0[4] + (coefs[c2][r2].b0[4]-coefs[c1][r1].b0[4])*delta;
+									
+			a1[1] = coefs[c1][r1].a1[1] + (coefs[c2][r2].a1[1]-coefs[c1][r1].a1[1])*delta;
+			a1[2] = coefs[c1][r1].a1[2] + (coefs[c2][r2].a1[2]-coefs[c1][r1].a1[2])*delta;
+			a1[3] = coefs[c1][r1].a1[3] + (coefs[c2][r2].a1[3]-coefs[c1][r1].a1[3])*delta;
+			a1[4] = coefs[c1][r1].a1[4] + (coefs[c2][r2].a1[4]-coefs[c1][r1].a1[4])*delta;
+			a1[5] = coefs[c1][r1].a1[5] + (coefs[c2][r2].a1[5]-coefs[c1][r1].a1[5])*delta;
+	
+			b1[0] = coefs[c1][r1].b1[0] + (coefs[c2][r2].b1[0]-coefs[c1][r1].b1[0])*delta;							
+			b1[1] = coefs[c1][r1].b1[1] + (coefs[c2][r2].b1[1]-coefs[c1][r1].b1[1])*delta;
+			b1[2] = coefs[c1][r1].b1[2] + (coefs[c2][r2].b1[2]-coefs[c1][r1].b1[2])*delta;
+			b1[3] = coefs[c1][r1].b1[3] + (coefs[c2][r2].b1[3]-coefs[c1][r1].b1[3])*delta;
+			b1[4] = coefs[c1][r1].b1[4] + (coefs[c2][r2].b1[4]-coefs[c1][r1].b1[4])*delta;
+			b1[5] = coefs[c1][r1].b1[5] + (coefs[c2][r2].b1[5]-coefs[c1][r1].b1[5])*delta;
+			docalc = false;
+		}
+			
+		
+		f64 s1,s2;
+// Saturate is directly from Music DSP archives for
+// soft saturation. I use the tanh() version because
+// the other one aliases on me.
+        f64 input = saturate(in[j],sat);
+		
+// This is just the IIR equation
+        s1 = input * b0[0] + X[0]*b0[1] + X[1]*b0[2] + X[2]*b0[3] + X[3]*b0[4];
+        s1-= Y[0] * a0[1] + Y[1] * a0[2] + Y[2] *a0[3] + Y[3] *a0[4];				
+// anti_denormal = 1e-18 this is to keep them out of the
+// feedback and that is what will cause it to break down.
+        s1 += anti_denormal;
+        s1 -= anti_denormal;	
+
+// This sets the last values for IIR equation	
+        X[3] = X[2]; X[2] = X[1]; X[1] = X[0]; X[0] = input;
+        Y[3] = Y[2]; Y[2] = Y[1]; Y[1] = Y[0]; Y[0] = s1;
+		s1 = saturate(s1, sat);
+
+	// dbGain is just any linear/exponential boost
+	lpout[j] = 0.5*dbGain*(REAL)s1;
+
+// this is the second sample, and it is necessary 
+// because the filter is not stable otherwise.
+		
+        s1 = input * b0[0] + X[0]*b0[1] + X[1]*b0[2] + X[2]*b0[3] + X[3]*b0[4];
+        s1-= Y[0] * a0[1] + Y[1] * a0[2] + Y[2] *a0[3] + Y[3] *a0[4];		
+		s1 += anti_denormal;
+        s1 -= anti_denormal;		
+        X[3] = X[2]; X[2] = X[1]; X[1] = X[0]; X[0] = input;
+        Y[3] = Y[2]; Y[2] = Y[1]; Y[1] = Y[0]; Y[0] = s1;
+						
+		s1 = saturate(s1, sat);
+// if you like you can add some hard clipping on the output
+// but you can take this out and put it somewhere else.
+		if(s1 > hard_clip_top) s1 = hard_clip_top;
+		if(s1 < hard_clip_bottom) s1 = hard_clip_bottom;
+
+		lpout[j] += 0.5*dbGain*(REAL)s1;
+		
+// hi pass
+		s1 = input * b1[0] + X1[0] * b1[1] + X1[1] * b1[2];
+        s1-= Y1[0] * a1[1] + Y1[1] * a1[2];
+        s1 += anti_denormal;
+        s1 -= anti_denormal;
+
+        X1[1] = X1[0]; X1[0] = input;
+        Y1[1] = Y1[0]; Y1[0] = s1;
+
+        s2 = s1 * b1[3] + X1[2] * b1[4] + X1[3] * b1[5];
+        s2-= a1[4] * Y1[2] + a1[5] * Y1[3];
+        s2 += anti_denormal;
+        s2 -= anti_denormal;
+	
+		X1[3] = X1[2]; X1[2] = s1;
+		Y1[3] = Y1[2]; Y1[2] = s2;
+		
+		hpout[j] = 3.0*dbGain*s2; 
+		
+		
+		s1 = input * b1[0] + X1[0] * b1[1] + X1[1] * b1[2];
+        s1-= Y1[0] * a1[1] + Y1[1] * a1[2];
+        s1 += anti_denormal;
+        s1 -= anti_denormal;
+
+        X1[1] = X1[0]; X1[0] = input;
+        Y1[1] = Y1[0]; Y1[0] = s1;
+
+        s2 = s1 * b1[3] + X1[2] * b1[4] + X1[3] * b1[5];
+        s2-= a1[4] * Y1[2] + a1[5] * Y1[3];
+        s2 += anti_denormal;
+        s2 -= anti_denormal;
+	
+		X1[3] = X1[2]; X1[2] = s1;
+		Y1[3] = Y1[2]; Y1[2] = s2;
+
+		hpout[j] += 3.0*dbGain*s2; 
+		
+// this could be flat out wrong, but it sounds like
+// a bandpass filter to me.
+		bpout[j] = hpout[j] - lpout[j];
+    }  
+}
+
+
+// That's it, I hope you enjoy it. It sounds a bit different
+// than the other moogs. The only reason I made this was
+// because I needed a multimode and I wanted to make my
+// own moog filter in a different way. I could not figure
+// out the paper at all so I jimmied the H(s) directly
+// and with a lot of hacking it finally worked.

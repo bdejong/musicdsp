@@ -1,0 +1,141 @@
+All-Pass Filters
+----------------
+
+A true allpass is not just:
+
+|
+|
+|    | 
+|    |    .       
+|    |    |    |    .    
+|____|____|____|____|____|____|____. 
+
+Instead, the first peak is negative and has a carefully chosen height.
+
+     |
+     |    |    .
+ ____|____|____|____|____|____.____.
+|
+|
+|
+|
+|
+
+This can be achieved by adding scaled in(T) to the scaled output of: 
+
+out(T) = in(T) + out(T-delay)*gain
+
+Choosing the scalings right... Looking at the critical frequencies, 
+those that go A) a number of full cycle per peak, and those that go B) a
+number of full cycles and a half-cycle per peak, we can set the 
+constraints to eliminate cancellation:
+
+A) The sum of all peaks must be 1.
+
+B) The sum of odd peaks minus the sum of even peaks (including the
+negative peak which we give number zero) must be 1.
+
+Let's get into business now that we know what we want. We call the
+amplitude of the negative peak "a" and the amplitude of the first postive
+peak "b". The ratio between adjacent positive peaks, the feedback gain, is
+denoted by "g".
+
+A) The sum of positive peaks is a geometric series and simplifies to
+b/(1-g). Our first constraint becomes: 
+
+a + b/(1-g) = 1.
+
+B) Using similar math... The sum of odd peaks is b/(1-g^2). The sum of
+even peaks is a + b*g/(1-g^2). So the second constraint is formed:
+
+b/(1-g^2) - (a + b*g/(1-g^2)) = 1.
+
+Solving the two equations we get:
+
+a = -g
+b = 1-g^2
+
+Here i had a GREAT phewwww feeling of relief looking at
+http://harmony-central.com/Effects/Articles/Reverb/allpass.html
+
+Choosing g is up to you. You can even make it negative, just remember to
+keep |g| < 1. Gosh, perhaps complex g could be used to create a
+pulsating response (forget i said that)!
+
+We can write the allpass routine in a programmer-wise pleasant way, 
+still preserving ease of mathematical analysis:
+
+mid(T) = in(T) + g*mid(T-delay);
+out(T) = (1/g-g)*mid(T) - (1/g)*in(T);
+
+That can be thought of as two filters put in serial and a third one in
+parallel with them. The first of the two serial ones is the delay with
+feedback. The other "filters" are just different gains. 
+
+For the first code line, the frequency response is the usual set peaks:
+
+         1
+--------------------
+1 - g e^(-i w delay)
+
+Adding the mixing on the second code line gives the flat-magnitude 
+frequency response of the whole allpass system:
+
+|       1/g - g              |
+| -------------------- - 1/g | = 1
+| 1 - g e^(-i w delay)       |
+
+The phase response is a wavy one: (formula not double-checked!)
+       
+        (g^2-1) sin(delay w)
+atan -------------------------
+     (g^2+1) cos(delay w) - 2g
+
+I hope this cleared things out - and that there aren't fatal errors! :)
+
+-- Olli Niemitalo <oniemita@mail.student.oulu.fi>
+
+Reprise des calculs (T = delay) :
+
+       1/g - g        1
+H = --------------- - -
+    1 - g*exp(-iwT)   g
+
+    1 - g^2 - (1 - g*exp(-iwT))
+H = ----------------------------
+       (1 - g*exp(-iwT)) * g
+
+    -g + exp(-iwT)
+H = ----------------
+    1 - g*exp(-iwT)
+
+                1 - g*exp(iwT)
+H = exp(-iwT) * ---------------
+                1 - g*exp(-iwT)
+
+Le numerateur et le denominateur sont conjugues. d'ou :
+
+|H| = 1
+
+et
+
+                             g * sin(wT)
+arg (H) = -wT - 2 * arctan ---------------
+                           1 - g * cos(wT)
+
+Ce dephasage est le meme que celui trouve par Olli mais a l'avantage de
+separer le retard global et le dephasage.
+
+-- Laurent de Soras <ldesoras@club-internet.fr>
+
+More generally (in fact, maximally generally) you will get an all-pass
+response with any transfer function of the form :
+
+           z^-n * sum (a(i) * z^i)
+H(z) = b * ------------------------
+           sum (conj (a(i)) * z^-i)
+
+where |b| = 1 and of course n should be large enough that your filter is
+causal.
+
+-- Frederick Umminger <fumminger@my-Deja.com>

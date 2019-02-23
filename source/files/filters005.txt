@@ -1,0 +1,137 @@
+Cookbook formulae for audio EQ biquad filter coefficients
+---------------------------------------------------------
+by Robert Bristow-Johnson, pbjrbj@viconet.com  a.k.a. robert@audioheads.com
+
+All filter transfer functions were derived from analog prototypes (that 
+are shown below for each EQ filter type) and had been digitized using the 
+bilinear transform.  BLT frequency warping has been taken into account 
+for both significant frequency relocation and for bandwidth readjustment.
+
+first, given a biquad transfer function defined as:
+
+            b0 + b1*z^-1 + b2*z^-2  
+    H(z) = ------------------------
+            a0 + a1*z^-1 + a2*z^-2 
+
+this shows 6 coefficients instead of 5 so, depending on your architechture,
+you will likely normalize a0 to be 1 and perhaps also b0 to 1 (and collect
+that into an overall gain coefficient).  then your transfer function would
+look like:
+
+            (b0/a0) + (b1/a0)*z^-1 + (b2/a0)*z^-2
+    H(z) = ---------------------------------------
+               1 + (a1/a0)*z^-1 + (a2/a0)*z^-2
+
+or
+
+                      1 + (b1/b0)*z^-1 + (b2/b0)*z^-2
+    H(z) = (b0/a0) * ---------------------------------
+                      1 + (a1/a0)*z^-1 + (a2/a0)*z^-2
+
+
+the most straight forward implementation would be the Direct I form (second equation):
+
+   y[n] = (b0/a0)*x[n] + (b1/a0)*x[n-1] + (b2/a0)*x[n-2] - (a1/a0)*y[n-1] - (a2/a0)*y[n-2]
+
+this is probably both the best and the easiest method to implement in the 56K.
+
+
+now, given:
+
+    frequency (wherever it's happenin', man.  "center" frequency or 
+        "corner" (-3 dB) frequency, or shelf midpoint frequency, 
+        depending on which filter type)
+    
+    dBgain (used only for peaking and shelving filters)
+
+    bandwidth in octaves (between -3 dB frequencies for BPF and notch
+        or between midpoint (dBgain/2) gain frequencies for peaking )
+
+     _or_ Q (the EE kinda definition)
+
+     _or_ S, a "shelf slope" parameter.  when S = 1, the shelf slope is 
+        as steep as you can get it and remain monotonically increasing 
+        or decreasing gain with frequency.
+        
+
+first compute a few intermediate variables:
+
+    A     = sqrt[ 10^(dBgain/20) ]   = 10^(dBgain/40)    (for for peaking and shelving EQ filters only)
+    omega = 2*PI*frequency/sample_rate
+    sn    = sin(omega)
+    cs    = cos(omega)
+    alpha = sn/(2*Q)
+          = sn*sinh[ ln(2)/2 * bandwidth * omega/sn ]     (if bandwidth is specified instead of Q)
+    beta  = sqrt[ (A^2 + 1)/S - (A-1)^2 ]   (for shelving EQ filters only)
+
+then compute the coefs for whichever filter type you want:
+
+  the analog prototypes are shown for normalized frequency.
+  the bilinear transform substitutes
+  
+                1          1 - z^-1
+  s  <-  -------------- * ----------
+          tan(omega/2)     1 + z^-1
+
+LPF:            H(s) = 1 / (s^2 + s/Q + 1)
+
+                b0 =  (1 - cs)/2
+                b1 =   1 - cs
+                b2 =  (1 - cs)/2
+                a0 =   1 + alpha
+                a1 =  -2*cs
+                a2 =   1 - alpha
+
+HPF:            H(s) = s^2 / (s^2 + s/Q + 1)
+
+                b0 =  (1 + cs)/2
+                b1 = -(1 + cs)
+                b2 =  (1 + cs)/2
+                a0 =   1 + alpha
+                a1 =  -2*cs
+                a2 =   1 - alpha
+
+BPF:            H(s) = (s/Q) / (s^2 + s/Q + 1)
+
+                b0 =   alpha
+                b1 =   0
+                b2 =  -alpha
+                a0 =   1 + alpha
+                a1 =  -2*cs
+                a2 =   1 - alpha
+
+notch:          H(s) = (s^2 + 1) / (s^2 + s/Q + 1)
+
+                b0 =   1
+                b1 =  -2*cs
+                b2 =   1
+                a0 =   1 + alpha
+                a1 =  -2*cs
+                a2 =   1 - alpha
+
+peakingEQ:      H(s) = (s^2 + s*(A/Q) + 1) / (s^2 + s/(A*Q) + 1)
+
+                b0 =   1 + alpha*A
+                b1 =  -2*cs
+                b2 =   1 - alpha*A
+                a0 =   1 + alpha/A
+                a1 =  -2*cs
+                a2 =   1 - alpha/A
+
+lowShelf:       H(s) = A * (A + beta*s + s^2) / (1 + beta*s + A*s^2)
+
+                b0 =    A*[ (A+1) - (A-1)*cs + beta*sn ]
+                b1 =  2*A*[ (A-1) - (A+1)*cs           ]
+                b2 =    A*[ (A+1) - (A-1)*cs - beta*sn ]
+                a0 =        (A+1) + (A-1)*cs + beta*sn
+                a1 =   -2*[ (A-1) + (A+1)*cs           ]
+                a2 =        (A+1) + (A-1)*cs - beta*sn
+
+highShelf:      H(s) = A * (1 + beta*s + A*s^2) / (A + beta*s + s^2)
+
+                b0 =    A*[ (A+1) + (A-1)*cs + beta*sn ]
+                b1 = -2*A*[ (A-1) + (A+1)*cs           ]
+                b2 =    A*[ (A+1) + (A-1)*cs - beta*sn ]
+                a0 =        (A+1) - (A-1)*cs + beta*sn
+                a1 =    2*[ (A-1) - (A+1)*cs           ]
+                a2 =        (A+1) - (A-1)*cs - beta*sn

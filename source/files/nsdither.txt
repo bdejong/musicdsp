@@ -1,0 +1,46 @@
+Noise shaped dither  (March 2000)
+-------------------
+
+This is a simple implementation of highpass triangular-PDF dither with
+2nd-order noise shaping, for use when truncating floating point audio
+data to fixed point.
+
+The noise shaping lowers the noise floor by 11dB below 5kHz (@ 44100Hz
+sample rate) compared to triangular-PDF dither. The code below assumes
+input data is in the range +1 to -1 and doesn't check for overloads!
+
+To save time when generating dither for multiple channels you can do
+things like this:  r3=(r1 & 0x7F)<<8; instead of calling rand() again.
+
+
+
+  int   r1, r2;                //rectangular-PDF random numbers
+  float s1, s2;                //error feedback buffers
+  float s = 0.5f;              //set to 0.0f for no noise shaping
+  float w = pow(2.0,bits-1);   //word length (usually bits=16)
+  float wi= 1.0f/w;            
+  float d = wi / RAND_MAX;     //dither amplitude (2 lsb)
+  float o = wi * 0.5f;         //remove dc offset
+  float in, tmp;
+  int   out;
+
+
+//for each sample...
+
+  r2=r1;                               //can make HP-TRI dither by
+  r1=rand();                           //subtracting previous rand()
+    
+  in += s * (s1 + s1 - s2);            //error feedback
+  tmp = in + o + d * (float)(r1 - r2); //dc offset and dither 
+  
+  out = (int)(w * tmp);                //truncate downwards
+  if(tmp<0.0f) out--;                  //this is faster than floor()
+
+  s2 = s1;                            
+  s1 = in - wi * (float)out;           //error
+
+
+
+-- 
+paul.kellett@maxim.abel.co.uk
+http://www.maxim.abel.co.uk

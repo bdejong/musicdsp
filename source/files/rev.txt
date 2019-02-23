@@ -1,0 +1,455 @@
+; rev.asm
+;
+; ECE320 project: Reverberation w/ parameter control from PC
+;
+; Hua Zheng and Shobhit Jain
+; 12/02/98 ~ 12/11/98
+;
+; bugs fixed
+;	wrong co coefficients
+;	using current out point to calculate new in point
+;	r6 changed in set_dl (now changed to r4)
+;	initialize er delaylines to be 0 causes no output -- program memory 
+;	periodic pops: getting garbage because external memory is configured to 16k
+
+;================================================
+; Initialization
+;================================================
+
+SAMPLERATE equ 48
+	   nolist
+	   include 'core302.asm'
+	   list
+
+;---------------------------
+; Variables and storage setup
+;---------------------------
+
+RESET 	equ	255		; serial data reset character
+n_para	equ	29		; number of parameters expected from serial port
+delayline_number	equ	12
+delay_pointers	equ	24
+er_number	equ	3
+co_number	equ	6
+ap_number	equ	3
+
+	org	x:$0
+ser_data	ds	n_para	; location of serial data chunk
+delays			; default rev parameters: delay length
+	dc	967			; er1 $3c7
+	dc	1867			; er2 $74b
+	dc	3359			; er3 $d1f
+	dc	2399			; co1 $95f
+	dc	2687			; co2 $a7f
+	dc	2927			; co3 $b6f
+	dc	3271			; co4 $cc7
+	dc	3457			; co5 $d81
+	dc	3761			; co6 $eb1
+	dc	293			; ap1 $125
+	dc	83			; ap2 $53
+	dc	29			; ap3 $1d
+coeffs			; default rev parameters: coefficients
+	dc	0.78			; er1
+	dc	0.635			; er2
+	dc	0.267			; er3
+;	dc	0
+;	dc	0
+;	dc	0
+	dc	0.652149		; co1 $7774de
+	dc	0.301209
+	dc	0.615737		; co2 $53799e
+	dc	0.334735
+	dc	0.586396		; co3 $4ed078
+	dc	0.362044
+	dc	0.546884		; co4 $4b0f06
+	dc	0.399249
+	dc	0.525135		; co5 $4337a0
+	dc	0.419943
+	dc	0.493653		; co6 $3f3006
+	dc	0.450179
+	dc	0.2			; brightness
+	dc	0.4			; mix
+comb	ds	6			; one sample delay in comb filters
+in	ds	1			; input sample
+lpf 	ds	1			; one sample delay in LPF
+dl_p	ds	delay_pointers	; delayline in/out pointers
+
+dl_er_l	equ	$1000		; max er delayline length 4096/48=85.3ms
+dl_co_l	equ	$1000		; max co delayline length 85.3ms
+dl_ap_l	equ	$200		; max ap delayline length 512/48=10.67ms
+
+	org	p:$1000
+dl_er1	dsm	dl_er_l	; er1 delayline
+dl_er2	dsm	dl_er_l	; er2 delayline
+dl_er3	dsm	dl_er_l	; er3 delayline
+	org	y:$8000
+dl_co1	dsm	dl_co_l	; co1 delayline
+dl_co2	dsm	dl_co_l	; co2 delayline
+dl_co3	dsm	dl_co_l	; co3 delayline
+dl_co4	dsm	dl_co_l	; co4 delayline
+dl_co5	dsm	dl_co_l	; co5 delayline
+dl_co6	dsm	dl_co_l	; co6 delayline
+	org	y:$F000
+dl_ap1	dsm	dl_ap_l	; ap1 delayline
+dl_ap2	dsm	dl_ap_l	; ap2 delayline
+dl_ap3	dsm	dl_ap_l	; ap3 delayline
+
+;---------------------------
+; Memory usage
+;---------------------------
+; P:$0000 -- $0200	core file
+; P:$0200 -- $0300	progam
+;
+; X:$0000 -- $1BFF	data 7168=149.3ms		serial data, parameters, pointers
+; Y:$0000 -- $1BFF	data 7168=149.3ms		not used
+; P:$1000 -- $4FFF	data 16384=341.3ms	er(85*3=255ms)
+; Y:$8000 -- $FFFF	data 32768=682.67ms	co(80*6=480ms) and ap(10*3=30ms)
+;
+; X,Y:$1C00 -- $1BFF	reserved for system
+;
+
+;================================================
+; Main program
+;================================================
+
+	org     p:$200 
+main
+
+;---------------------------
+; Initialization
+;---------------------------
+
+	move	#0,x0
+;	move	#dl_er1,r0
+;	move	#dl_er_l,y0
+;	do	#er_number,clear_dl_er_loop
+;	rep	y0
+;		movem	x0,p:(r0)+
+;	nop
+;clear_dl_er_loop
+
+	move	#dl_co1,r0
+	move	#dl_co_l,y0
+	do	#co_number,clear_dl_co_loop
+	rep	y0
+		move	x0,y:(r0)+
+	nop
+clear_dl_co_loop
+
+	move	#dl_ap1,r0
+	move	#dl_ap_l,y0
+	do	#ap_number,clear_dl_ap_loop
+	rep	y0
+		move	x0,y:(r0)+
+	nop
+clear_dl_ap_loop
+
+	move	#comb,r0
+	rep	#co_number
+		move	x0,x:(r0)+	; init comb filter states
+	move	#lpf,r0
+	move	x0,x:(r0)		; init LPF state
+
+	move	#ser_data,r6	; incoming data buffer pointer
+	move	#(n_para-1),m6 
+
+	jsr	set_dl		; set all delayline pointers
+
+	; initialize SCI
+	movep	#$0302,x:M_SCR	; R/T enable, INT disable
+	movep	#$006a,x:M_SCCR   ; SCP=0, CD=106 (9636 bps)
+	movep	#7,x:M_PCRE
+
+;---------------------------
+; Main loop
+;	Register usage
+;		r0: delayline pointer pointer
+;		r1: coefficients pointer
+;		r2: comb filter internal state pointer
+;		r4,r5: used in delayline subroutine
+;		r6: incoming buffer pointer
+;		a: output of each segment
+;---------------------------
+
+main_loop:
+
+	move	#dl_p,r0
+	move	#coeffs,r1
+
+	waitdata	r3,buflen,1
+	move	x:(r3)+,a
+	move	a,x:<in		; save input sample for mix	
+
+;---------------------------
+; Early reflection
+;---------------------------
+;	temp = in;
+;	for (int i=0; i<earlyRefNum; i++)
+;	{
+;		in = delayLineEarlyRef[c][i]->tick(in);
+;		temp += earlyRefCoeff[i] * in;
+;	}
+;	return temp;
+
+	move	a,b				; b=temp=in
+	move	#(dl_er_l-1),n6
+	do	#er_number,er_loop
+		jsr	use_dl_er
+		move	a,y0			; y0=a=in (delayline out)
+		move	x:(r1)+,x0		; x0=coeff
+		mac	x0,y0,b		; b=temp
+er_loop
+	asr	#2,b,a
+	move	b,a
+
+;---------------------------
+; Comb filter
+;---------------------------
+;	float temp1 = 0., temp2;
+;	for (int i=0; i<combNum; i++)
+;	{
+;		temp2 = delayLineComb[c][i]->tick
+;			(in + combCoeff[i] * combLastOut[c][i]);
+;		combLastOut[c][i] = temp2+combDamp[i]*combLastOut[c][i];
+;		temp1 += temp2;
+;	}
+;	return temp1 / float(combNum);
+
+	move	#comb,r2
+	move	a,y1
+	clr	b
+	move	#(dl_co_l-1),n6
+	do	#co_number,co_loop
+		move	y1,a			; a=in
+		move	x:(r1)+,x0		; x0=coeff
+		move	x:(r2),y0		; y0=lastout
+		mac	x0,y0,a	x:(r1)+,x0	; x0=damp
+		jsr	use_dl
+		move	a,x1			; a=x1=temp2
+		mac	x0,y0,a		; a=lastout
+		move	a,x:(r2)+
+		add	x1,b			; b=temp1
+co_loop
+;	asr	#2,b,a
+	move	b,a
+
+;---------------------------
+; All-pass filter
+;---------------------------
+;	float temp1, temp2;
+;	for (int i=0; i<allPassNum; i++)
+;	{
+;		temp1 = delayLineAllPass[c][i]->lastOut();
+;		temp2 = allPassCoeff[i] * (in - temp1);
+;		delayLineAllPass[c][i]->tick(in + temp2);
+;		in = temp1 + temp2;
+;	}
+;	return in;
+
+	move	#1,n0
+	move	#0.7,x1
+	move	#(dl_ap_l-1),n6
+	do	#ap_number,ap_loop
+		move	y:(r0+n0),x0	; x0=temp1
+		sub	x0,a			; a=in-temp1
+		move	a,y0
+		mpy	x1,y0,b		; b=temp2
+		add	b,a			; a=in+temp2
+		jsr	use_dl
+		add	x0,b			; b=temp1+temp2
+		move	b,a			; a=in
+ap_loop
+
+;---------------------------
+; Brightness
+;---------------------------
+;	lastout = lastout + BW * (in - lastout);
+	move	x:<lpf,b
+	sub	b,a		x:(r1)+,x0	; a=in-lastout, x0=bri
+	move	a,y0
+	mpy	x0,y0,a
+	add	b,a
+	move	a,x:<lpf
+	
+;---------------------------
+; Mix
+;---------------------------
+;	out = (1-mix)*in + mix*out = in + mix * (out - in);
+	move	x:<in,y0			; y0=in
+	sub	y0,a		x:(r1)+,x0	; a=out-in, x0=mix
+	move	a,y1				; y1=out-in
+	mpy	x0,y1,b	y0,a		; b=mix*(out-in), a=in
+	add	b,a		
+
+;---------------------------
+; Spit out
+;---------------------------
+	move	a,y:(r3)+
+	move	a,y:(r3)+
+	move	(r3)+
+
+;---------------------------
+; Get parameters and reformat them
+;---------------------------
+	jclr	#2,x:M_SSR,main_loop		; do nothing if no new data arrived
+
+	movep	x:M_SRXL,a				; get next 8-bit word from SCI
+
+	cmp	#RESET,a
+	jeq	reformat_data			; if it's RESET, then reformat data
+
+	move	a,x:(r6)+				; save one incoming data for later reformatting
+	
+	jmp	main_loop
+
+reformat_data:
+; order of parameters:
+;	er1 delay, er1 coeff, er2 ..., er3 ...
+;	co1 delay, coeff_c, coeff_d, co2 ... , ... , co6
+;	ap1 delay, ap2, ap3
+;	brightness
+;	mix
+
+	move	#ser_data,r0
+	move	#delays,r1
+	move	#coeffs,r2
+
+	do	#3,format_er_loop
+		move	x:(r0)+,a		; er delay
+		asr	#20,a,a
+		; max delay 4096=2^12, max value 256=2^8, scale 256/4096=2^-4
+		move	a0,x:(r1)+
+		move	x:(r0)+,a		; er coeff
+		asr	#9,a,a
+		move	a0,x:(r2)+
+format_er_loop
+
+	move	#>$000001,x0
+	do	#6,format_co_loop
+		move	x:(r0)+,a		; co delay
+		asr	#20,a,a		; max delay 4096=2^12
+		move	a0,a1
+;try this:		asl	#4,a,a
+		or	x0,a
+		move	a1,x:(r1)+
+		move	x:(r0)+,a		; co coeff
+		asr	#9,a,a
+		move	a0,x:(r2)+
+		move	x:(r0)+,a		; co damping
+		asr	#9,a,a
+		move	a0,x:(r2)+
+format_co_loop
+
+	do	#3,format_ap_loop
+		move	x:(r0)+,a		; ap delay
+		asr	#23,a,a		; max delay 528=2^9
+		move	a0,a1
+		or	x0,a
+		move	a1,x:(r1)+
+format_ap_loop
+
+	jsr	set_dl
+
+	move	x:(r0)+,a			; brightness
+	asr	#9,a,a
+	move	a0,x:(r2)+
+
+	move	x:(r0)+,a			; mix
+	asr	#9,a,a
+	move	a0,x:(r2)+
+
+	jmp	main_loop
+
+;================================================
+; Set all delayline length subroutine
+;	IN:	nothing
+;	OUT:	out pointer UNCHANGED
+;		in pointer = out + length e.g. (#(dl_p+3))=(#(dl_p+4))+x:(r4)
+;		r4=r4+1: next delay length
+;================================================
+set_dl:
+	move	#(dl_p+1),r5	; first out pointer
+	move	#dl_er1,r4
+	move	r4,x:(r5)+		; initial out point=delayline starting address
+	move	(r5)+
+	move	#dl_er2,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+	move	#dl_er3,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+	move	#dl_co1,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+	move	#dl_co2,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+	move	#dl_co3,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+	move	#dl_co4,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+	move	#dl_co5,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+	move	#dl_co6,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+	move	#dl_ap1,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+	move	#dl_ap2,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+	move	#dl_ap3,r4
+	move	r4,x:(r5)+
+	move	(r5)+
+
+	move	#delays,r4			; delayline length
+	move	#(dl_p+1),r5		; first out pointer
+	move	#2,n5
+	do	#delayline_number,set_dl_loop
+		move	x:(r4)+,x0		; x0=length
+		move	x:(r5)-,a		; a=out pointer
+		add	x0,a
+		move	a,x:(r5)+		; in=out+length
+		move	(r5)+n5		; next out pointer
+set_dl_loop
+	rts
+
+;================================================
+; Access delayline subroutine
+;	IN:	in and out pointers in r4,r5
+;		modulo (delayline length-1) in n6
+;		input sample in a
+;	OUT:	in and out pointers modulo incremented
+;		output sample in a
+;================================================
+;	inputs[inPoint++] = sample;
+;	inPoint &= lengthm1;
+;	lastOutput = inputs[outPoint++];
+;	outPoint &= lengthm1;
+;	return lastOutput;
+use_dl:
+	move	n6,m4
+	move	n6,m5
+	move	x:(r0)+,r4	; in point
+	move	x:(r0)-,r5	; out point
+	move	a,y:(r4)+	; queue in
+	move	y:(r5)+,a	; queue out
+	move	r4,x:(r0)+	; modulo incremented in point
+	move	r5,x:(r0)+	; modulo incremented out point
+	rts
+
+use_dl_er:			; using P memory
+	move	n6,m4
+	move	n6,m5
+	move	x:(r0)+,r4	; in point
+	move	x:(r0)-,r5	; out point
+	movem	a,p:(r4)+	; queue in
+	movem	p:(r5)+,a	; queue out
+	move	r4,x:(r0)+	; modulusly incremented in point
+	move	r5,x:(r0)+	; modulusly incremented out point
+	rts
+
