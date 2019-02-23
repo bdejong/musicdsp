@@ -207,13 +207,13 @@ Comments
     
     unit Plot;
     
-    // interface
+    interface
     
     type TArrayOfDouble = Array of Double;
     
     function MagnitudeCalc(f,rate : Double; a,b : TArrayOfDouble): Double;
     
-    // implementation
+    implementation
     
     uses Math;
     

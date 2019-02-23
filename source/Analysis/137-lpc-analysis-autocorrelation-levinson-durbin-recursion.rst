@@ -114,15 +114,15 @@ Comments
     // Blind Object Pascal Translation:
     // --------------------------------
     
-    // unit Levinson;
+    unit Levinson;
     
-    // interface
+    interface
     
-    // type
-    //  TDoubleArray = array of Double;
-    //  TSingleArray = array of Single;
+    type
+     TDoubleArray = array of Double;
+     TSingleArray = array of Single;
     
-    // implementation
+    implementation
     
     //find the P-order autocorrelation array, R, for the sequence x of length L and warping of lambda
     procedure Autocorrelate(x,R : TSingleArray; P : Integer; lambda : Single; l: Integer = -1);
@@ -211,5 +211,5 @@ Comments
       end;
     end;
     
-    // end.
+    end.
 
