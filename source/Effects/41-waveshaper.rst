@@ -25,14 +25,3 @@ WaveShaper
     :caption: code
 
     f(x,a) = x*(abs(x) + a)/(x^2 + (a-1)*abs(x) + 1)
-
-Comments
---------
-
-- **Date**: 2014-06-18 22:35:44
-- **By**: moc.liamg@jdcisumff
-
-.. code-block:: text
-
-    This just raised the volume, it didn't do much else.                
-

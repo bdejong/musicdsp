@@ -17,11 +17,12 @@ Polynominal Waveshaper
     alias free.
 
 
-.. code-block:: c++
+.. code-block:: text
     :linenos:
     :caption: code
 
-    We assume the input is a sinewave (works for any input signal, but this makes everything more clear). Then we have x = sin(a)
+    We assume the input is a sinewave (works for any input signal, but this makes everything more clear).
+    Then we have x = sin(a)
     
     the first harmonic is plain simple (using trigonometric identities):
     
@@ -77,34 +78,45 @@ Comments
 
 .. code-block:: text
 
-    Actually, this *doesn't* work in the way described on any input, only on single sinusoids of amplitude 1. It's nonlinear - (a+b)^n is not the same thing as a^n+b^n, nor are (a*b)^n and a*(b^n). Even just a sum of two sinusoids or a single sinusoid of a different amplitude breaks the chosen-harmonics-only thing.
+    Actually, this *doesn't* work in the way described on any input, only on single sinusoids of
+    amplitude 1. It's nonlinear - (a+b)^n is not the same thing as a^n+b^n, nor are (a*b)^n and a*(b^n).
+    Even just a sum of two sinusoids or a single sinusoid of a different amplitude breaks the
+    chosen-harmonics-only thing.
 
 - **Date**: 2006-07-29 10:30:46
 - **By**: ed.luosfosruoivas@naitsirhC
 
 .. code-block:: text
 
-    Do'oh. You're right. Once more I got fooled by the way of my measurement. That explains a lot of things...
-    Thanks for the clarification!
+    Do'oh. You're right. Once more I got fooled by the way of my measurement. That explains a
+    lot of things... Thanks for the clarification!
 
 - **Date**: 2006-07-29 20:34:11
 - **By**: ed.luosfosruoivas@naitsirhC
 
 .. code-block:: text
 
-    Btw. the coeffitients follow the chebyshev polynomials. Just in case you wonder about the logic behind. Maybe we can call it chebyshev waveshaper from now on...
+    Btw. the coeffitients follow the chebyshev polynomials. Just in case you wonder about the
+    logic behind. Maybe we can call it chebyshev waveshaper from now on...
 
 - **Date**: 2008-01-23 01:56:21
 - **By**: ten.enilnotpo@kcirtscisyhp
 
 .. code-block:: text
 
-                  I played with this idea for a while yesterday to no avail before discovering this post tonight. I thought I could excite any harmonic I wanted using select Chebyshev Polynomials. But you are totally right - it doesn't work that way. Any complex waveform that can be broken down into a Fourier series is a linear sum of terms. Squaring or cubing the waveform, and therefor this sum, leads to multiple cross terms which introduce additional frequencies. It does only work with normalized single sinusoids . . .which is too bad.
+    I played with this idea for a while yesterday to no avail before discovering this post tonight.
+    I thought I could excite any harmonic I wanted using select Chebyshev Polynomials. But you are
+    totally right - it doesn't work that way. Any complex waveform that can be broken down into a
+    Fourier series is a linear sum of terms. Squaring or cubing the waveform, and therefor this sum,
+    leads to multiple cross terms which introduce additional frequencies. It does only work with
+    normalized single sinusoids . . .which is too bad.
     
-    Right now, the only way I can see to do this sort of thing where you excite select harmonics at will is to run an FFT and then work from there in the frequency domain. 
+    Right now, the only way I can see to do this sort of thing where you excite select harmonics at will
+    is to run an FFT and then work from there in the frequency domain. 
     
-    But my question is, if we are looking to simulate tube saturation, is the Chebyshev method good enough. What, after all, do tubes do? Does a tube amp actually add discrete harmonics or is it introducing all of those cross term frequencies as well? 
-    
+    But my question is, if we are looking to simulate tube saturation, is the Chebyshev method good
+    enough. What, after all, do tubes do? Does a tube amp actually add discrete harmonics or is it
+    introducing all of those cross term frequencies as well? 
     
 
 - **Date**: 2009-05-19 22:26:03
@@ -112,27 +124,45 @@ Comments
 
 .. code-block:: text
 
-    According to another post, the tube is simply a non linear function, for example a tan(x). Actually by saturating any signal you will get harmonics (any but a pure square which cannot be more saturated of couse...). As tan(x) is not linear, you should get harmonics… that's all. Now if you want to pass only the high frequencies,just split the signal into 2 frequencies using a lowpass vs highpass = signal - lowpass and process the frequencies you want to.              
+    According to another post, the tube is simply a non linear function, for example a tan(x).
+    Actually by saturating any signal you will get harmonics (any but a pure square which cannot
+    be more saturated of couse...). As tan(x) is not linear, you should get harmonics… that's all.
+    Now if you want to pass only the high frequencies,just split the signal into 2 frequencies using
+    a lowpass vs highpass = signal - lowpass and process the frequencies you want to.              
 
 - **Date**: 2010-09-16 19:17:13
 - **By**: moc.liamg@libojyr
 
 .. code-block:: text
 
-    I would like to add that this method could result in an approximated harmonic exciter using an array of filters sufficiently narrow and steep to approximately single out individual frequencies composing the original signal.
+    I would like to add that this method could result in an approximated harmonic exciter using an
+    array of filters sufficiently narrow and steep to approximately single out individual frequencies
+    composing the original signal.
     
-    As such, it would be processing intensive because the polynomial would need to be calculated on each band.  
+    As such, it would be processing intensive because the polynomial would need to be calculated on
+    each band.  
     
-    What you have presented is not completely bad.  You only need to take into consideration that you're getting frequency terms that are not necessarily harmonics.  Steve Harris has a LADSPA plugin that uses the chebychev polynomial as a waveshaper...and he calls it a harmonic exciter.
+    What you have presented is not completely bad.  You only need to take into consideration that you're
+    getting frequency terms that are not necessarily harmonics.  Steve Harris has a LADSPA plugin that
+    uses the chebychev polynomial as a waveshaper...and he calls it a harmonic exciter.
     
-    To user physicstrick:  Tube emulation is much more than waveshaping.  Bias conditions change with signal dynamics, and you essentially get signal-power modulated duty cycle.  I have found some good articles about this and also there is a commercial product that claims to solve the discretized system of ODE's in real time.  This model eats CPU like you would not imagine.
+    To user physicstrick:  Tube emulation is much more than waveshaping.  Bias conditions change with
+    signal dynamics, and you essentially get signal-power modulated duty cycle.  I have found some good
+    articles about this and also there is a commercial product that claims to solve the discretized
+    system of ODE's in real time.  This model eats CPU like you would not imagine.
     
-    My simple "trick" is to include the nonlinear function in a 1rst order filter calculation and also to modulate the filter time constants with the filter state variable amplitude.  This is not quite right, but it produces an emulation that is more pleasing than plain waveshaping.
+    My simple "trick" is to include the nonlinear function in a 1rst order filter calculation and
+    also to modulate the filter time constants with the filter state variable amplitude.  This is not
+    quite right, but it produces an emulation that is more pleasing than plain waveshaping.
 
 - **Date**: 2013-01-18 02:31:27
 - **By**: moc.liamtoh@niffumtohrepus
 
 .. code-block:: text
 
-    If I'm correct, you're describing the same technique achievable by use of Chebyschev polynomials, i.e. generating any integral harmonic of the original signal. I've experimented with these, synthesizing only the second, third, fourth, etc. harmonics, but could never get a realistic sound, probably because overdiven tubes/transistors don't work this way and there's no intermodulation distortion, only the pure harmonics.          
+    If I'm correct, you're describing the same technique achievable by use of Chebyschev polynomials,
+    i.e. generating any integral harmonic of the original signal. I've experimented with these,
+    synthesizing only the second, third, fourth, etc. harmonics, but could never get a realistic
+    sound, probably because overdiven tubes/transistors don't work this way and there's no intermodulation
+    distortion, only the pure harmonics.          
 

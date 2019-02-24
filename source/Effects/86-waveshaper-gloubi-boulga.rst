@@ -22,26 +22,22 @@ Waveshaper :: Gloubi-boulga
 Comments
 --------
 
-- **Date**: 2004-09-10 23:10:42
-- **By**: theo.burt[@@@T]virgin.net
-
-.. code-block:: text
-
-    Just tried this out, sound is incredible, but is horrifically expensive... Can anyone think of any realistic ways to optimize/approximate this?
-
 - **Date**: 2004-09-25 21:42:39
 - **By**: ten.etelirt@gnihtliam
 
 .. code-block:: text
 
-    you can use a taylor series approximation for the exp , save time by realizing that exp(-x) = 1/exp(x), use newton's method to calculate the sqrt with less precision... and if you use SIMD instructions, you can calculate several values in parallel. dunno what the savings would be like, but it would surely be faster.
+    you can use a taylor series approximation for the exp , save time by realizing that
+    exp(-x) = 1/exp(x), use newton's method to calculate the sqrt with less precision...
+    and if you use SIMD instructions, you can calculate several values in parallel. dunno
+    what the savings would be like, but it would surely be faster.
 
 - **Date**: 2005-05-25 22:32:21
 - **By**: ed.luosfosruoivas@naitsirhC
 
-.. code-block:: text
+.. code-block:: delphi
 
-    Maybe something like this:
+    // Maybe something like this:
     
     function GloubiBoulga(x:Single):Single;
     var a,b:Single;
@@ -89,13 +85,15 @@ Comments
 .. code-block:: text
 
     IMHO, you can use
-    x-0.15*x^2-0.15*x^3
+    x - 0.15 * x^2 - 0.15 * x^3
     instead of this scary formula.
     
     I try to explain my position with this small graph:
-    http://liteprint.com/download/replacment.png 
+    http://liteprint.com/download/replacment.png
     
-    This is only first step, if you want to get more correct result you can use interpolation method called method of minimal squares (this is translation from russian, maybe in england it has another name)
+    This is only first step, if you want to get more correct result you can use interpolation
+    method called method of minimal squares (this is translation from russian, maybe in england
+    it has another name)
 
 - **Date**: 2005-09-22 07:19:07
 - **By**: ku.oc.snosrapsd@psdcisum
@@ -113,7 +111,8 @@ Comments
 
     You are welcome :)
     
-    Now I've working under plugin with wapeshapping processing like this. I've put a link to it here, when I've done it.
+    Now I've working under plugin with wapeshapping processing like this. I've put a link to it
+    here, when I've done it.
 
 - **Date**: 2005-09-24 01:15:38
 - **By**: ten.baltg@liced
@@ -133,7 +132,8 @@ Comments
 
 .. code-block:: text
 
-    Which formula exactly did you use decil, for your plugin? How do you get different harmonics from this algo. thanx     
+    Which formula exactly did you use decil, for your plugin? How do you get different harmonics
+    from this algo. thanx
     
     jay      
 
@@ -144,7 +144,12 @@ Comments
 
     wow, blast from the past seeing this turn up on kvraudio.
     
-    christian - i'd have thought that an advantage of using a taylor series approximation would be that it limits the order of the polynomial (and the resulting bandwidth) somewhat.  it's been ages since i tested, but i thought i got some reasonable sounding results using the taylor series approximation.  maybe not.  
+    christian - i'd have thought that an advantage of using a taylor series approximation would be
+    that it limits the order of the polynomial (and the resulting bandwidth) somewhat.  it's been ages
+    since i tested, but i thought i got some reasonable sounding results using the taylor series
+    approximation.  maybe not.  
     
-    decil - isn't that a completely unrelated polynomial (similar to the common and cheap x - a x^3 ?).  i'd think you'd have to do something about the dc from the x^2 term, too (or do a sign(x)*x^2).  anyway, your plugin sounds to be popular so i look forward to checking it out later at home.
+    decil - isn't that a completely unrelated polynomial (similar to the common and cheap x - a x^3 ?).
+    i'd think you'd have to do something about the dc from the x^2 term, too (or do a sign(x)*x^2).
+    anyway, your plugin sounds to be popular so i look forward to checking it out later at home.
 

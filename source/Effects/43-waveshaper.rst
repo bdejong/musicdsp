@@ -40,39 +40,5 @@ Waveshaper
     else
       f(x) = sin(z*x)*s
 
-Comments
---------
-
-- **Date**: 2005-05-25 23:08:34
-- **By**: ed.luosfosruoivas@naitsirhC
-
-.. code-block:: text
-
-    This one doesn't work for me. What have i done wrong? On positive inputs, the output get messed up (usually one constant instead of a sine-like function)              
-
-- **Date**: 2006-10-30 23:01:57
-- **By**: moc.erehwon@ydobon
-
-.. code-block:: text
-
-    >>This one doesn't work for me. 
-    
-    I haven't tried it yet, but it's always possible your compiler decided the constants are ints instead of floats. Try "1.0f" everywhere you see "1". May not be it, but you never know.
-    
-    Anyone have any luck with this one?
-
-- **Date**: 2014-05-30 09:46:18
-- **By**: moc.liamtoh@ertekul
-
-.. code-block:: text
-
-    It works fine for me..thank you!
-
-- **Date**: 2017-04-05 14:15:21
-- **By**: moc.liamg@oiduaolfmail
-
-.. code-block:: text
-
-                  Hello, Getting an error as 'f' is an undeclared function- any idea of why this is happening? 
     
 

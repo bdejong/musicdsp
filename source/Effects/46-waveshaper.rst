@@ -11,7 +11,7 @@ Waveshaper
     amount should be in [-1..1[ Plot it and stand back in astonishment! ;)
 
 
-.. code-block:: c++
+.. code-block:: text
     :linenos:
     :caption: code
 
@@ -29,19 +29,8 @@ Comments
 
 .. code-block:: text
 
-    I haven't compared this to the other waveshapers, but its behavior with input outside the [-1..1] range is interesting. With a relatively moderate shaping amounts which don't distort in-range signals severely, it damps extremely out-of-range signals fairly hard, e.g. x = 100, k = 0.1 yields y = 5.26; as x goes to infinity, y approaches 5.5. This might come in handy to control nonlinear processes which would otherwise be prone to computational blowup. 
-
-- **Date**: 2009-04-16 04:34:10
-- **By**: moc.b@a
-
-.. code-block:: text
-
-    This is one of my faves...
-
-- **Date**: 2016-03-01 04:03:08
-- **By**: moc.oohay@onirraicspd
-
-.. code-block:: text
-
-    How did you come up with the equation?
-
+    I haven't compared this to the other waveshapers, but its behavior with input outside the [-1..1]
+    range is interesting. With a relatively moderate shaping amounts which don't distort in-range
+    signals severely, it damps extremely out-of-range signals fairly hard, e.g. x = 100,
+    k = 0.1 yields y = 5.26; as x goes to infinity, y approaches 5.5. This might come in handy
+    to control nonlinear processes which would otherwise be prone to computational blowup.

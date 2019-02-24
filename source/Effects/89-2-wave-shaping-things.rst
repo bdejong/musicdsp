@@ -42,5 +42,13 @@ Comments
 
 .. code-block:: text
 
-    Yeah, atan & tanh, and really any sigmoid function, can create decent overdrive sound if oversampled and eq'ed properly. I've used them in some of my modelers w/ good results. For a more realistic sound, two half-wave soft clippers in series will add duty-cycle modulation and a transfer curve similar to 3/2 tube power curve. Something like: if(x < 0) y = -A * tanh(B * x); followed immediately by: if(y >= 0) y = -A * tanh(B * y); Don't forget to invert each output (-A * tanh). Coefficients A & B are left to the designer. I got this technique after reading a paper discussing a hardware implementation of this type of circuit used in Carvin amps, here: http://www.trueaudio.com/at_eetjlm.htm (original link at www.simulanalog.org)            
+    Yeah, atan & tanh, and really any sigmoid function, can create decent overdrive sound if
+    oversampled and eq'ed properly. I've used them in some of my modelers w/ good results. For
+    a more realistic sound, two half-wave soft clippers in series will add duty-cycle modulation
+    and a transfer curve similar to 3/2 tube power curve. Something like:
+    if(x < 0) y = -A * tanh(B * x); followed immediately by: if(y >= 0) y = -A * tanh(B * y);
+    Don't forget to invert each output (-A * tanh). Coefficients A & B are left to the designer.
+    I got this technique after reading a paper discussing a hardware implementation of this type
+    of circuit used in Carvin amps, here: http://www.trueaudio.com/at_eetjlm.htm (original link at
+    www.simulanalog.org)
 

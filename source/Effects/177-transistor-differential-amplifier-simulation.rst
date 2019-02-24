@@ -21,7 +21,7 @@ Transistor differential amplifier simulation
     know, the the parameters passing is done via registers. So pinp=EAX pout=EDX sf=ECX.
 
 
-.. code-block:: c++
+.. code-block:: delphi
     :linenos:
     :caption: code
 

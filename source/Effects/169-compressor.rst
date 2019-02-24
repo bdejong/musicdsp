@@ -121,16 +121,21 @@ Comments
 
     My comments:
     
-    A rectangular window is not physical. It would make more physical sense, and be a lot cheaper, to use a 1-pole low pass filter to do the RMS averaging. A 1-pole filter means you can lose the bounds checks in the RMS calculation.
+    A rectangular window is not physical. It would make more physical sense, and be a lot cheaper, to
+    use a 1-pole low pass filter to do the RMS averaging. A 1-pole filter means you can lose the bounds
+    checks in the RMS calculation.
     
-    It does not make sense to convert to mono before squaring, you should square each channel separately and then add them together to get the total signal power.
+    It does not make sense to convert to mono before squaring, you should square each channel
+    separately and then add them together to get the total signal power.
     
-    You might also consider whether you even need any filtering other than the attack/release filter. You could modify the attack/release rates appropriately, place the sqrt after the attack/release, and lose the rms averager entirely.
+    You might also consider whether you even need any filtering other than the attack/release filter.
+    You could modify the attack/release rates appropriately, place the sqrt after the attack/release,
+    and lose the rms averager entirely.
     
-    I don't think your compressor actually approaches a linear slope in the decibel domain. You need a gain law more like
+    I don't think your compressor actually approaches a linear slope in the decibel domain. You need
+    a gain law more like
     
     double gain = exp(max(0.0,log(env)-log(thresh))*slope);
-    
     
     Sincerely,
          Frederick Umminger
@@ -146,9 +151,14 @@ Comments
     **********
     
     music-dsp@shoko.calarts.edu writes:
-    I am looking at gain processing algorithms. I haven't found much in the way of reference material on this, any pointers? In the level detection code, if one is doing peak detection, how many samples does one generally average over (if at all)? What kind of window size for RMS level detection? Is the RMS level detection generally the same algo. as peak, but with a bigger window?
+    I am looking at gain processing algorithms. I haven't found much in the way of reference material on
+    this, any pointers? In the level detection code, if one is doing peak detection, how many samples
+    does one generally average over (if at all)? What kind of window size for RMS level detection?
+    Is the RMS level detection generally the same algo. as peak, but with a bigger window?
     
-    The peak detector can be easily implemented as a one-pole low pass, you just have modify it, so that it tracks the peaks and gently falls down afterwards. RMS detection is done squaring the input signal, averaging with a lowpass and taking the root afterwards.
+    The peak detector can be easily implemented as a one-pole low pass, you just have modify it,
+    so that it tracks the peaks and gently falls down afterwards. RMS detection is done squaring
+    the input signal, averaging with a lowpass and taking the root afterwards.
     
     Hope this helps.
     
@@ -177,7 +187,9 @@ Comments
 
 .. code-block:: text
 
-    Use x = exp(-1/d), where d is the time constant in samples. A 1 pole IIR filter has an infinite impulse response, so instead of window width, this coeff determines the time when the impulse response reaches 36.8% of the original value.
+    Use x = exp(-1/d), where d is the time constant in samples. A 1 pole IIR filter has an infinite
+    impulse response, so instead of window width, this coeff determines the time when the impulse
+    response reaches 36.8% of the original value.
     
     Coeffs:
     a0 = 1.0-x;
@@ -210,7 +222,8 @@ Comments
 
 .. code-block:: text
 
-    This is a useful reference, however the RMS calculations are pretty dodgy. Firstly there is a bug where is calculates the number of samples to use:
+    This is a useful reference, however the RMS calculations are pretty dodgy. Firstly there is a
+    bug where is calculates the number of samples to use:
     
     int sr, // sample rate (smp/sec)
     ...
@@ -219,13 +232,20 @@ Comments
     // samples count in lookahead window
     int nrms = (int) (sr * twnd);
     
-    The units are mixed when calculating the number of samples in the RMS window. The window time needs to be converted to seconds before multiplying by the sample rate.
+    The units are mixed when calculating the number of samples in the RMS window. The window time needs
+    to be converted to seconds before multiplying by the sample rate.
     
-    As others have mentioned the RMS calculation is also really expensive, and in my tests I found it was pretty innacurate unless you use a LOT of samples (you basically need a (sample rate)/2 window of samples in your RMS calculation to accurately measure the power of all frequencies). 
+    As others have mentioned the RMS calculation is also really expensive, and in my tests I found it
+    was pretty innacurate unless you use a LOT of samples (you basically need a (sample rate)/2 window
+    of samples in your RMS calculation to accurately measure the power of all frequencies). 
     
-    I ended up using the 1 pole low pass filter approach suggested here, and it is a good cheap approximation of power. I did, however, end up mulitplying it by root(2) (the RMS of a sine wave, which seemed like a reasonable normalisation factor) in order to get it between 0 and 1, which is a more useful range.
+    I ended up using the 1 pole low pass filter approach suggested here, and it is a good cheap
+    approximation of power. I did, however, end up mulitplying it by root(2) (the RMS of a sine wave,
+    which seemed like a reasonable normalisation factor) in order to get it between 0 and 1, which is
+    a more useful range.
     
-    Another slightly more accurate way to caculate the RMS without iterating over and entire window  for each sample is to keep a running total of the squared sums of samples.
+    Another slightly more accurate way to caculate the RMS without iterating over and entire window
+    for each sample is to keep a running total of the squared sums of samples.
     
     for( i = 0; i < NumSamples; ++i )
     {

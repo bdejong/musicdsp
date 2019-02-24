@@ -8,10 +8,7 @@ Stereo Enhancer
 .. code-block:: text
     :caption: notes
 
-    
     Stereo Enhanca
-    
-
 
 .. code-block:: c++
     :linenos:
@@ -26,21 +23,10 @@ Stereo Enhancer
       DeltaLeft = SamplL - MonoSign; \
       DeltaLeft = DeltaLeft * WideCoeff; \
       SamplL=SamplL + DeltaLeft; \
-      SamplR=SamplR - DeltaLeft;  
-    
+      SamplR=SamplR - DeltaLeft;      
 
 Comments
 --------
-
-- **Date**: 2004-07-09 12:53:58
-- **By**: hc.onitsop@emohat
-
-.. code-block:: text
-
-    This code is nonsense, all it does is create an out-of-balance stereo field...
-    
-    --th
-    
 
 - **Date**: 2004-08-20 17:45:38
 - **By**: moc.liamg@noteex
@@ -59,24 +45,26 @@ Comments
       SamplL += DeltaLeft;
       SamplR += DeltaRight;
     
-    I think this is more along the lines of what you were trying to accomplish. I doubt this is the correct way of implementing this type of thing however.
+    I think this is more along the lines of what you were trying to accomplish. I doubt this is
+    the correct way of implementing this type of thing however.
 
 - **Date**: 2004-08-24 15:40:31
 - **By**: moc.noomyab@grubmah_kram
 
 .. code-block:: text
 
-    I believe both pieces of code do the same thing. Since MonoSign is set equal to the average of the two signals, in the second case DeltaRight = -DeltaLeft.
+    I believe both pieces of code do the same thing. Since MonoSign is set equal to the average
+    of the two signals, in the second case DeltaRight = -DeltaLeft.
 
 - **Date**: 2005-01-07 10:20:20
 - **By**: thaddy[@]thaddy.com
 
-.. code-block:: text
+.. code-block:: delphi
 
                 
-    Here's an implementation of the classic stereo enhancer in Delphi BASM
-    Values below 0.1 have a narrowing effect
-    Values abouve 0.1 widens
+    // Here's an implementation of the classic stereo enhancer in Delphi BASM
+    // Values below 0.1 have a narrowing effect
+    // Values abouve 0.1 widens
     parameters:
     Buffer = eax
     Amount = edx
@@ -124,7 +112,7 @@ Comments
 
 .. code-block:: text
 
-       Note 'half' is defined as const half:single = 0.5;          
+    Note 'half' is defined as const half:single = 0.5;          
     This is an ommission in the above posting 
 
 - **Date**: 2005-04-21 22:04:02
@@ -141,6 +129,7 @@ Comments
     >DeltaLeft = DeltaLeft * WideCoeff; \
     >SamplL=SamplL + DeltaLeft; \
     >SamplR=SamplR - DeltaLeft; 
+    
     Deltaleft hold no stereoinformation.
     explained: Deltaleft=L-(L+R) = R!!!
     So, in this example your stereo image would slide to the right more as you put widecoeff higher.
@@ -160,8 +149,6 @@ Comments
     Gtekprog.
     
     Evert Verduin
-    
-    
     
 
 - **Date**: 2005-04-21 22:06:51
@@ -194,8 +181,6 @@ Comments
     This will do.
     
     Evert
-    
-    
 
 - **Date**: 2009-04-17 13:16:42
 - **By**: moc.liamg@nostohnotyalc

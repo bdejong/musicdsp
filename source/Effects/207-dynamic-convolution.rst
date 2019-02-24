@@ -118,7 +118,8 @@ Comments
 
     You can speed things up by:
     
-    a) rewriting the "double dynaconv::conv(double *x, int d)" function using Assembler, SSE and 3DNow routines.
+    a) rewriting the "double dynaconv::conv(double *x, int d)" function using Assembler, SSE and 3DNow
+	routines.
     
     b) instead of this
     
@@ -130,13 +131,16 @@ Comments
     y = w*a + (1-w)*b;
     }"
     
-    you can create a temp IR by fading the two impulse responses before convolution. Then you'll only need ONE CPU-expensive-convolution.
+    you can create a temp IR by fading the two impulse responses before convolution. Then you'll only
+	need ONE CPU-expensive-convolution.
     
     c) this one only works with the upper half wave!
     
-    d) only nonlinear components can be modeled. For time-variant modeling (compressor/limiter) you'll need more than this.
+    d) only nonlinear components can be modeled. For time-variant modeling (compressor/limiter) you'll
+	need more than this.
     
-    e) the algo is proteced by a patent. But it's easy to find more efficient ways, which aren't protected by the patent.
+    e) the algo is proteced by a patent. But it's easy to find more efficient ways, which aren't
+	protected by the patent.
     
     With my implementation i can fold up to 4000 Samples (IR) in realtime on my machine.
 
@@ -147,5 +151,8 @@ Comments
 
     Correction to d:
     
-    d) only time invariant nonlinear components can be modeled; and then adequate memory must be used. Compressors/Limiters can be modelled, but the memory requirements will be somewhat frightening. Time-variant systems, such as flangers, phasors, and sub-harmonic generators (i.e. anything with an internal clock) will need more than this.
+    d) only time invariant nonlinear components can be modeled; and then adequate memory must be used.
+	Compressors/Limiters can be modelled, but the memory requirements will be somewhat frightening.
+	Time-variant systems, such as flangers, phasors, and sub-harmonic generators (i.e. anything
+	with an internal clock) will need more than this.
 

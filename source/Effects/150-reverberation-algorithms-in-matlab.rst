@@ -34,7 +34,8 @@ Comments
 
 .. code-block:: text
 
-                  StereoVerb is the name of an old car stereo "enhancer" from way back. I was just trying to find it's roots.
+      StereoVerb is the name of an old car stereo "enhancer" from way back. I was just trying to find
+      it's roots.
 
 - **Date**: 2004-04-02 04:44:46
 - **By**: moc.oohay@y_sunave
@@ -49,5 +50,6 @@ Comments
     g is the attenuation 
     m is the number of delay (in sampel)
     
-    This allpass will give exponential decay impulse response, compare to your allpass that give half sinc decay impulse response.              
+    This allpass will give exponential decay impulse response, compare to your allpass that give
+    half sinc decay impulse response.              
 

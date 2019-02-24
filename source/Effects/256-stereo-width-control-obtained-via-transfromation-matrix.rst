@@ -44,7 +44,8 @@ Comments
 
 .. code-block:: text
 
-    Nice peace of code. I would add the following code at the end of the source to compensate for the loss/gain of amplitude:
+    Nice peace of code. I would add the following code at the end of the source to compensate for the
+    loss/gain of amplitude:
     
     out_left  /= 0.5 + coef_S;
     out_right /= 0.5 + coef_S;
@@ -55,11 +56,15 @@ Comments
 
 .. code-block:: text
 
-    Scanner, no I wouldn't add that. First off it is unnecessary calculation you can rescale the MS matrix to your liking already! Plus your methode will cause a boost by 6dBs when you set the width to 0 = mono. So mono signals get boosted by 6dB which I'm sure isn't what you intented.
+    Scanner, no I wouldn't add that. First off it is unnecessary calculation you can rescale the MS
+    matrix to your liking already! Plus your methode will cause a boost by 6dBs when you set the width
+    to 0 = mono. So mono signals get boosted by 6dB which I'm sure isn't what you intented.
     
-    Note: My original code is correct that is, when you'd look at an audio signal on a goniometer it would scale the audio signal at the S-axis and leaving everything else unaffected.
+    Note: My original code is correct that is, when you'd look at an audio signal on a goniometer it
+    would scale the audio signal at the S-axis and leaving everything else unaffected.
     
-    But as I don't want people that add the additional calculation that scanner requested (sorry not trying to mock you), an volume adjusted version.
+    But as I don't want people that add the additional calculation that scanner requested (sorry not
+    trying to mock you), an volume adjusted version.
     
     [code]
     // calc coefs
@@ -82,13 +87,15 @@ Comments
 
     Hi Michael,
     
-    Thanks for the correction, I have build your solution in PureData and it is better than my suggestion was. B.t.w. there was already a posting on stereo enhancement on this site, you can find it under the effects section.
-    
+    Thanks for the correction, I have build your solution in PureData and it is better than my
+    suggestion was. B.t.w. there was already a posting on stereo enhancement on this site, you can
+    find it under the effects section.
 
 - **Date**: 2008-04-07 22:47:14
 - **By**: -
 
 .. code-block:: text
 
-    Scanner, no problem and yes I've seen the "Stereo Enhancer" entry, though (even though it seems to try to achieve the same as this here) it is (as far as I can see) broken.
+    Scanner, no problem and yes I've seen the "Stereo Enhancer" entry, though (even though it
+    seems to try to achieve the same as this here) it is (as far as I can see) broken.
 

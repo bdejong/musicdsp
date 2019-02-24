@@ -10,78 +10,30 @@ Guitar feedback
 
     It is fairly simple to simulate guitar feedback with a simple Karplus-Strong algorithm
     (this was described in a CMJ article in the early 90's):
-    
-    
 
 
-.. code-block:: c++
+.. code-block:: text
     :linenos:
     :caption: code
 
-    Run the output of the Karplus-Strong delay lines into a nonlinear shaping function for distortion (i.e. 6 parallel delay lines for 6 strings, going into 1 nonlinear shaping function that simulates an overdriven amplifier, fuzzbox, etc.);
+    Run the output of the Karplus-Strong delay lines into a nonlinear shaping function for distortion
+    (i.e. 6 parallel delay lines for 6 strings, going into 1 nonlinear shaping function that simulates
+    an overdriven amplifier, fuzzbox, etc.);
     
-    Run part of the output into a delay line, to simulate the distance from the amplifier to the "strings";
+    Run part of the output into a delay line, to simulate the distance from the amplifier to the
+    "strings";
     
-    The delay line feeds back into the Karplus-Strong delay lines. By controlling the amount of the output fed into the delay line, and the length of the delay line, you can control the intensity and pitch of the feedback note.
+    The delay line feeds back into the Karplus-Strong delay lines. By controlling the amount of the
+    output fed into the delay line, and the length of the delay line, you can control the intensity
+    and pitch of the feedback note.
 
 Comments
---------
-
-- **Date**: 2002-11-23 19:27:09
-- **By**: az.oc.liambew@ztangi
-
-.. code-block:: text
-
-    any C snippet code ???
-    
-    thx
-
-- **Date**: 2004-06-09 22:54:43
-- **By**: moc.loa@12asorival
-
-.. code-block:: text
-
-                  Are you Sean Costello the Blues Musician/Guitarist?
-    
-    Lenora
-    lavirosa21@aol.com
-
-- **Date**: 2004-08-22 18:31:41
-- **By**: ed.xmg@resiaknegah
-
-.. code-block:: text
-
-                  what is a Karplus-Strong-Delay??
-
-- **Date**: 2004-10-25 10:23:00
-- **By**: gro.lortnocniarb@reyalsniarb
-
-.. code-block:: text
-
-    a physical modelling algorithm
-
-- **Date**: 2016-06-10 19:58:07
-- **By**: moc.liamg@1a7102egroj
-
-.. code-block:: text
-
-                  formula.......... y (n) =  x(n) + c * [ y (n-N) + y (n - (N+1))]
-    '''A simple model (based on Karplus-Strong algorithm) may be used to model a plucked string instrument like a guitar.
-    '''The input-output relationship of the causal LTI system is given by:
-    '''    y (n) =  x(n) + ? * [ y (n-N) + y (n - (N+1))]
-    '''
-    '''Where
-    '''    x(n) is a zero mean random variable, uniformly distributed between -1 and 1
-    '''    y(n) is the output
-    '''c is a real-valued constant, whose typical value is 0.5 (experiment with other values and comment)
-    '''N controls the pitch of the note; N = floor ( Fs / Fp), where Fs is the sampling frequency in Hz, and Fp
-    '''is the pitch of the note in Hz.  For example, at 8 kHz sampling frequency, N = 20 implies a pitch frequency of 400 Hz.
-    
+--------    
 
 - **Date**: 2016-06-10 19:59:36
 - **By**: moc.liamg@1a7102egroj
 
-.. code-block:: text
+.. code-block:: VB.net
 
     'NO esta completo falta algo, no se, si es el filtro biquad
     

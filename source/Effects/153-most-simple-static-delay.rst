@@ -50,13 +50,14 @@ Comments
 - **Date**: 2003-09-08 12:21:20
 - **By**: gro.ekaf@suomynona
 
-.. code-block:: text
+.. code-block:: c++
 
-    I think you should be careful with mixing floats and integers that way (error-prone, slow float-to-int conversions, etc).
+    // I think you should be careful with mixing floats and integers that way (error-prone,
+    // slow float-to-int conversions, etc).
     
-    This should also work (haven't checked, not best way of doing it):
+    // This should also work (haven't checked, not best way of doing it):
     
-    ... (initializing) ..
+    // ... (initializing) ..
     
     float numSecondsDelay = 0.3f;
     int numSamplesDelay_ = (int)(numSecondsDelay * sampleRate); // maybe want to round to an integer instead of truncating..
@@ -71,7 +72,7 @@ Comments
     int readPtr_ = 0;
     int writePtr_ = numSamplesDelay_;
     
-    ... (processing) ...
+    // ... (processing) ...
     
     for (i = each sample)
     {
@@ -92,7 +93,8 @@ Comments
 
 .. code-block:: text
 
-    I may be missing something, but I think it gets a little simpler than the previous two examples. The difference in result is that actual delay will be 1 if d is 0 or 1. 
+    I may be missing something, but I think it gets a little simpler than the previous two examples.
+    The difference in result is that actual delay will be 1 if d is 0 or 1. 
     
     i = input/output index
     d = delay (in samples)
@@ -103,8 +105,6 @@ Comments
     buffer[i] = in;
     i++;
     if(i >= delay) i = 0;
-    
-    
 
 - **Date**: 2005-12-18 02:35:00
 - **By**: moc.liamg@noteex
@@ -122,9 +122,15 @@ Comments
 
 .. code-block:: text
 
-    The only problem with this implementation, is that it is not really an audio effect! all this will do is to delay the input signal by a given number of samples! ...why would you ever want to do that? ...this would only ever work if you had a DSP and speakers both connected to the audio source and run them at the same time, so the speakers would be playing the original sorce and the DSP containing the delayed source connected to another set of speakers! this is not really an audio efffect! 
+    The only problem with this implementation, is that it is not really an audio effect! all this
+    will do is to delay the input signal by a given number of samples! ...why would you ever want
+    to do that? ...this would only ever work if you had a DSP and speakers both connected to the
+    audio source and run them at the same time, so the speakers would be playing the original sorce
+    and the DSP containing the delayed source connected to another set of speakers! this is not
+    really an audio efffect! 
     
-    ...Here is a pseudo code example of a delay effect that will mix both the original sound with the delayed sound:
+    ...Here is a pseudo code example of a delay effect that will mix both the original sound with
+    the delayed sound:
     
     Pseudo Code implementation for simple delay:
      - This implementation will put the current audio signal to the 
@@ -166,37 +172,4 @@ Comments
         else index = 0
       }
     
-    }  
-
-- **Date**: 2007-01-04 00:20:58
-- **By**: moc.erehwon@ydobon
-
-.. code-block:: text
-
-    I've need a delay before, many a time.
-    
-    1) To compensate for a delay in another effect.
-    2) To manually build a high-pass delay.
-    3) In other ways for interesting effects in a modular host.
-    4) Building block for physical modeling or filtering.
-    
-    As long as you have multiple ins and/or outs, you want something like this.
-
-- **Date**: 2008-05-22 05:47:54
-- **By**: moc.liamg@ubibik
-
-.. code-block:: text
-
-    With (-1 < feedback < 1):
-    
-    out = buffer[i];
-    buffer[i++] = (out * feedback) + in;
-    if(i >= delay) i = 0;
-
-- **Date**: 2011-02-05 09:25:40
-- **By**: gro.lleh@nona
-
-.. code-block:: text
-
-    delays are the fundamental building blocks for almost any type of effects.              
-
+    }

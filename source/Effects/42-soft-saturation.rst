@@ -33,14 +33,16 @@ Comments
 
     This is a most excellent waveshaper.
     
-    I have implemented it as an effect for the music tracker Psycle, and so far I am very pleased with the results. Thanks for sharing this knowledge, Bram!
+    I have implemented it as an effect for the music tracker Psycle, and so far I am very pleased with the
+    results. Thanks for sharing this knowledge, Bram!
 
 - **Date**: 2006-03-12 02:35:16
 - **By**: moc.erawtfosnetpot@nosniborb
 
 .. code-block:: text
 
-    I'm wondering about the >1 condition here.  If a is 0.8, values <1 approach 0.85 but values >1 are clamped to 0.9  (there's a gap)
+    I'm wondering about the >1 condition here.  If a is 0.8, values <1 approach 0.85 but values >1
+    are clamped to 0.9  (there's a gap)
     
     If you substitute x=1 to the equation for x>a you get: a+((1-a)/4) not (a+1)/2
     

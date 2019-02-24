@@ -31,29 +31,38 @@ Lookahead Limiter
     Recipe:
     -------
     
-    0. Make sure all buffers are properly initialized and do not contain any dirt (pure zeros are what we need).
+    0. Make sure all buffers are properly initialized and do not contain any dirt (pure zeros are what
+    we need).
     
     For each sample do the following procedure:
     
-    1. Store current sample in the lookahead time circular buffer, for later use (and retrieve the value that falls out as the preliminary 'Output')
+    1. Store current sample in the lookahead time circular buffer, for later use (and retrieve the value
+    that falls out as the preliminary 'Output')
     
-    2. Find maximum within this circular buffer. This can also be implemented efficiently with an hold algorithm.
+    2. Find maximum within this circular buffer. This can also be implemented efficiently with an hold
+    algorithm.
     
     3. Gain this maximum by the 'Input Gain [dB]' parameter
     
-    4. Calculate necessary gain reduction factor (=1, if no gain reduction takes place and <1 for any signal above 0 dBFS)
+    4. Calculate necessary gain reduction factor (=1, if no gain reduction takes place and <1 for any
+    signal above 0 dBFS)
     
     5. Eventually subtract this value from 1 for a better numerical stability. (MUST BE UNDONE LATER!)
     
-    6. Add this gain reduction value to the first of the smaller circular buffers to calculate the short time sum (add this value to a sum and subtract the value that felt out of the circular buffer).
+    6. Add this gain reduction value to the first of the smaller circular buffers to calculate the short
+    time sum (add this value to a sum and subtract the value that felt out of the circular buffer).
     
-    7. normalize the sum by dividing it by the length of the circular buffer (-> / ('Lookahead Time' [samples] / 2))
+    7. normalize the sum by dividing it by the length of the circular buffer (-> / ('Lookahead Time'
+    [samples] / 2))
     
-    8. repeat step 6 & 7 with this sum in the second circular buffer. The reason for these steps is to transform dirac impulses to a triangle (dirac -> rect -> triangle)
+    8. repeat step 6 & 7 with this sum in the second circular buffer. The reason for these steps is to
+    transform dirac impulses to a triangle (dirac -> rect -> triangle)
     
-    9. apply the release time (release time -> release slew rate 'factor' -> multiply by that factor) to the 'Maximum Gain Reduction' state variable
+    9. apply the release time (release time -> release slew rate 'factor' -> multiply by that factor) to
+    the 'Maximum Gain Reduction' state variable
     
-    10. check whether the currently calculated gain reduction is higher than the 'Maximum Gain Reduction'. If so, replace!
+    10. check whether the currently calculated gain reduction is higher than the 'Maximum Gain Reduction'.
+    If so, replace!
     
     11. eventually remove (1 - x) from step 5 here
     

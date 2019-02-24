@@ -16,34 +16,13 @@ Phaser code
 Comments
 --------
 
-- **Date**: 2002-02-27 20:28:01
-- **By**: moc.liamtoh@ekki_jd
-
-.. code-block:: text
-
-    What range should be the float parameter of the Update function? From -1 to 1, 0 to 1 or -32768 to 32767?
-
-- **Date**: 2002-06-10 08:38:11
-- **By**: moc.hclumoidua@bssor
-
-.. code-block:: text
-
-    It doesn't matter what the range of the parameter to the Update function is. Usually in a floating point signal chain you would use -1 to 1,but anything else will work just as well.
-
-- **Date**: 2003-02-12 22:41:02
-- **By**: rf.eerf@elahwyksa
-
-.. code-block:: text
-
-    Please what is the usual range of frequencies ?
-
 - **Date**: 2005-06-01 22:48:17
 - **By**: ed.luosfosruoivas@naitsirhC
 
-.. code-block:: text
+.. code-block:: delphi
 
-    Delphi / Object Pascal Translation:
-    -----------------------------------
+    // Delphi / Object Pascal Translation:
+    // -----------------------------------
     
     unit Phaser;
     
@@ -211,16 +190,20 @@ Comments
 
 .. code-block:: text
 
-    Ups, forgot to remove my special, magic incredients "tanh2a(1.4*(". It's just to make the sound even warmer.
+    Ups, forgot to remove my special, magic incredients "tanh2a(1.4*(". It's just
+    to make the sound even warmer.
     
-    The frequency range i used for Minimum and Maximum is 0..22000. But I believe there is still an error in that formula. The input range doesn't matter (if you remove my special incredient), because it is a linear system.
+    The frequency range i used for Minimum and Maximum is 0..22000. But I believe there
+    is still an error in that formula. The input range doesn't matter (if you remove my special
+    incredient), because it is a linear system.
 
 - **Date**: 2005-06-05 21:40:35
 - **By**: moc.yddaht@yddaht
 
-.. code-block:: text
+.. code-block:: delphi
 
-    I thought I already posted this but here's my interpretation for Delphi and KOL. The reason I repost this, is that it is rather efficient and has no denormal problems.
+    // I thought I already posted this but here's my interpretation for Delphi and KOL.
+    // The reason I repost this, is that it is rather efficient and has no denormal problems.
     
     unit Phaser;
     {
@@ -377,9 +360,9 @@ Comments
 - **Date**: 2005-06-05 21:44:47
 - **By**: moc.yddaht@yddaht
 
-.. code-block:: text
+.. code-block:: delphi
 
-    And here the allpass:
+    // And here the allpass:
     unit SimpleAllpass;
     {
            Unit: SimpleAllpass
@@ -435,9 +418,11 @@ Comments
 
 .. code-block:: text
 
-    You'll get a good performance boost by combining the 6 allpasses to one and rewriting that one to FPU code. Heavy speed increase AND you can make the number of allpasses variable as well.
+    // You'll get a good performance boost by combining the 6 allpasses to one and rewriting
+    // that one to FPU code. Heavy speed increase AND you can make the number of allpasses
+    // variable as well.
     
-    This would look similar to this:
+    // This would look similar to this:
     
     function TMasterAllpass.Process(const x:single):single;
     var a : array[0..1] of Single;

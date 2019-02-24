@@ -11,7 +11,6 @@ Effects
    96-bit-quantization-reduction-effect
    98-class-for-waveguide-delay-effects
    169-compressor
-   201-dirac-free-c-c-library-for-time-and-pitch-manipulation-of-audio-based-on-time-frequency-transforms
    124-decimator
    44-delay-time-calculation-for-reverberation
    207-dynamic-convolution
@@ -29,7 +28,6 @@ Effects
    150-reverberation-algorithms-in-matlab
    45-reverberation-techniques
    204-simple-compressor-class-c
-   105-smspitchscale-source-code
    42-soft-saturation
    173-stereo-enhancer
    255-stereo-field-rotation-via-transformation-matrix

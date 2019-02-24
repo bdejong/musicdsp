@@ -122,7 +122,8 @@ Comments
 
     Did anyone try this?
     
-    How is the antialiasing compared to applying phaserror between two oscs in zerocross, one aliasing the other not (but pitcherror).
+    How is the antialiasing compared to applying phaserror between two oscs in zerocross, one aliasing
+    the other not (but pitcherror).
     
     Best Regards,
     Arif Ove Karlsen.
@@ -133,6 +134,7 @@ Comments
 
 .. code-block:: text
 
-     
-    The implementation certainly produces aliased waveforms -- they are glaring on a spectrogram at -60dB and faint at -30dB.  But it is a remarkably efficient algorithm. The aliasing can be mitigated somewhat by using a smaller feedback coefficient.
+    The implementation certainly produces aliased waveforms -- they are glaring on a spectrogram
+    at -60dB and faint at -30dB.  But it is a remarkably efficient algorithm. The aliasing can be
+    mitigated somewhat by using a smaller feedback coefficient.
 

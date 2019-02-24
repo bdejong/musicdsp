@@ -22,7 +22,7 @@ Decimator
     
 
 
-.. code-block:: c++
+.. code-block:: delphi
     :linenos:
     :caption: code
 
@@ -53,7 +53,10 @@ Decimator
      result:=y;
     end;
     
-    ********** C source **********
+.. code-block:: c++
+    :linenos:
+    :caption: code
+
     int bits=16;
     float rate=0.5;
      
@@ -95,9 +98,7 @@ Comments
     y = floorf( x * quantum ) / quantum;
     
     ---------------------------------------
-    
-    
-    
+
 
 - **Date**: 2003-02-14 20:04:36
 - **By**: es.yarps@fek.rd
@@ -108,7 +109,9 @@ Comments
     
     long int m=1<<(bits-1);
     
-    doesnt give the correct number of quantisation levels if the number of levels is defined as 2^bits. if bits=2 for instance, the above code line returns a bit pattern of 10 (3) and not 11 (2^2) like one would expect. 
+    doesnt give the correct number of quantisation levels if the number of levels is defined as
+    2^bits. if bits=2 for instance, the above code line returns a bit pattern of 10 (3) and not
+    11 (2^2) like one would expect. 
     
     please, do correct me if im wrong.
     

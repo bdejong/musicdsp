@@ -16,7 +16,7 @@ Lo-Fi Crusher
     Output gain is greater than unity when bits < 1.0;
 
 
-.. code-block:: c++
+.. code-block:: matlab
     :linenos:
     :caption: code
 
@@ -43,7 +43,8 @@ Comments
 
 .. code-block:: text
 
-    what's the "bits" here? I tried to run the code, it seems it's a dead loop here, can not figure out why
+    what's the "bits" here? I tried to run the code, it seems it's a dead loop here, can not
+    figure out why
 
 - **Date**: 2005-10-26 23:25:13
 - **By**: dfl

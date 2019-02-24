@@ -42,7 +42,7 @@ Nfft = 2^(nextpow2(Nfft));
 
 La        = floor((1-over) * Nfft);
 nb_frames = floor((N-Nfft) / La);
-max 	  = (nb_frames-2)*La + Nfft;
+max 	  = (nb_frame)*La+Nfft;
 ls        = floor(alpha * La);
 
 S         = zeros(floor(max*alpha),1);
@@ -77,7 +77,7 @@ for loop=2:nb_frames-1
     
     omega = mod( (Phia2-Phia1)-2*pi*([0:Nfft-1].')/Nfft * La + pi, 2*pi) - pi;
     omega = 2 * pi * ([0:Nfft-1].') / Nfft + omega / La;
-    Phis2 = Phis1 + lss_frame*omega;
+    Phis2 = Phis1 + Ls*omega;
  
     % The new phases values  :
     

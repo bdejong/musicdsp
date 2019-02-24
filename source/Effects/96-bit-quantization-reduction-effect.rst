@@ -32,30 +32,13 @@ Comments
 - **Date**: 2005-05-30 23:01:56
 - **By**: moc.liamg@codlli
 
-.. code-block:: text
+.. code-block:: c++
 
-    I add some code to prevent offset. 
+    //I add some code to prevent offset. 
     
-    Code :
+    // Code :
     short keep_bits_from_16( short input, int keepBits ) {
-    short prevent_offset = static_cast<unsigned short>(-1) >> keepBits+1;
-    input &= (-1 << (16-keepBits)));
-    return input + prevent_offset
+        short prevent_offset = static_cast<unsigned short>(-1) >> keepBits+1;
+        input &= (-1 << (16-keepBits)));
+        return input + prevent_offset
     }
-    
-    
-
-- **Date**: 2009-07-26 19:39:26
-- **By**: lp.po@casi
-
-.. code-block:: text
-
-                  
-
-- **Date**: 2012-07-03 15:27:56
-- **By**: ue.nemmaknav.noel@ofni
-
-.. code-block:: text
-
-    Im having trouble how to use this on floats..any example would be great              
-

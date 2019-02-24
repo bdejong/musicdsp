@@ -44,31 +44,10 @@ Waveshaper (simple description)
 Comments
 --------
 
-- **Date**: 2005-06-30 04:11:01
-- **By**: moc.liamtoh@seogpsd
-
-.. code-block:: text
-
-    Has anyone tried implementing this distortion effect?  All I get on the output is static... thanks
-
 - **Date**: 2005-06-30 09:41:07
 - **By**: ed.luosfosruoivas@naitsirhC
 
 .. code-block:: text
 
-    Yes! It's one of the most simple waveshaper and you know the amount of oversampling! Works very nice (and fast).
-
-- **Date**: 2006-08-23 06:30:28
-- **By**: moc.liamg@ubibik
-
-.. code-block:: text
-
-    If you are getting static, make sure your input is scaled to between -1 and +1.
-
-- **Date**: 2017-01-13 15:24:22
-- **By**: moc.asas@tcatnoc
-
-.. code-block:: text
-
-    This formula do not modify the wave, only increase the sound.
-
+    Yes! It's one of the most simple waveshaper and you know the amount of oversampling!
+    Works very nice (and fast).

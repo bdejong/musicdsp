@@ -29,6 +29,7 @@ Delay time calculation for reverberation
       printf ("d%d t=%.3f g=%.3f\n", n, dt, g);
     }
     
+    /*
     The above with t1=50.0 and g1=0.75 yields:
     
      d0 t=50.000 g=0.750
@@ -44,17 +45,4 @@ Delay time calculation for reverberation
     effectively creating a phase-shifter in the feedback path, then things get
     more exciting.. Though what the optimum phase shifts would be I couldn't
     tell you right now..
-
-Comments
---------
-
-- **Date**: 2008-09-11 20:35:03
-- **By**: moc.boohay@bob
-
-.. code-block:: text
-
-    Hello, when you say 'dual feedback paths with one cycle delay' do you mean dual as in stereo? And one cycle means one sample?
-    My experiments have massive energy build up of energy unless the feedback was something like * 0.01, but there was still ringing in the sound. Can you hint a little more about what you mean?
-    Thanks
-    
-
+    */
