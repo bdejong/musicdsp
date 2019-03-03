@@ -8,7 +8,7 @@ Musicdsp.org is a collection of algorithms, thoughts and snippets, gathered for 
 .. IMPORTANT::
    Please help us edit these pages at https://github.com/bdejong/musicdsp
 
-- Special thanks: http://www.fxpansion.com for sponsering a server to host the archive for many, many years
+- Special thanks: http://www.fxpansion.com for sponsoring a server to host the archive for many, many years
 - Special thanks: http://www.dspdimension.com for pointing http://www.musicdsp.com to this site too
 
 .. toctree::
