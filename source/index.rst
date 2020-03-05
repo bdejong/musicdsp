@@ -6,9 +6,6 @@ Welcome to musicdsp.org.
 Musicdsp.org is a collection of algorithms, thoughts and snippets, gathered for the music dsp community. Most of this data was gathered by and for the people of the splendid Music-DSP mailing list at http://sites.music.columbia.edu/cmc/music-dsp/
 
 .. important::
-   Looking for a job? `Holoplot <http://www.holoplot.com>`__ is looking for a `Plugin Developer <https://holoplot-jobs.personio.de/job/110503>`__
-
-.. IMPORTANT::
    Please help us edit these pages at https://github.com/bdejong/musicdsp
 
 - Special thanks: http://www.fxpansion.com for sponsoring a server to host the archive for many, many years
