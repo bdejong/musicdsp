@@ -107,3 +107,6 @@ Comments
     
     You can keep the norm = 1/(fSampling+fCut) if you like.
 
+another comment 
+---------------
+The euqation of the original contributor is correct. It is a first order Butterworth-Filter H(s') = 1/(1+s') and than denormalized s' = s/wcut and transformed by the bilinear transform s = 2f_s (z-1)/(z+1). Only the tan-prewarp is missing for fcut/wcut. 
