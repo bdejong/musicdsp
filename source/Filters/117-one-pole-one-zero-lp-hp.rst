@@ -107,7 +107,7 @@ Comments
     
     You can keep the norm = 1/(fSampling+fCut) if you like.
 
-- **Date**: 2006-07-21 09:07:12
+- **Date**: 2020-05-23
 - **By**: JoergBitzer
 
 .. code-block:: text
