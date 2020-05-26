@@ -526,7 +526,7 @@ Comments
 
 .. code-block:: text 
 
-    In my experience, simply changing all the variables used in LRCrossoverFilter::setup() to doubles is sufficient to reduce/eliminate noise, thanks to an idea from here: https://www.musicdsp.org/en/latest/Filters/232-type-lpf-24db-oct.html
+    In my experience, simply changing all the variables used in LRCrossoverFilter::setup() and processBlock() to doubles is sufficient to reduce/eliminate noise, thanks to an idea from here: https://www.musicdsp.org/en/latest/Filters/232-type-lpf-24db-oct.html
     "It turns out, that the filter is only unstable if the coefficient/state precision isn't high enough. Using double instead of single precision already makes it a lot more stable."
 
 
