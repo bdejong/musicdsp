@@ -106,3 +106,13 @@ Comments
     
     depending on whether you're looking at the first or second saturate function (in the orig post)
 
+- **Date**: 2021-01-01 11:50:14
+- **By**: DKDiveDude
+
+.. code-block:: text
+The first function seems to be only a unnecessary complicated brick limit function. See below how I implemented the first function's code. Left is a sample between -1 and 1, positiveThreshold and negativeThreshold should be self explanatory.
+
+if (left > positiveThreshold)
+	left = positiveThreshold + (1 - positiveThreshold) * tanh ((left - positiveThreshold) / (1 - positiveThreshold));
+else if (left < negativeThreshold)
+	left = -(positiveThreshold + (1 - positiveThreshold) * tanh ((-left - positiveThreshold) / (1 - positiveThreshold)));
