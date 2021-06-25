@@ -118,3 +118,13 @@ Comments
 
     SID noise! cool.
 
+- **Date**: 2021-06-25 11:43:00
+- **By**: TaleTN
+
+.. code-block:: text
+
+    I still seem to run into this noise generator from time to time, so I thought I'd provide some extra info here:
+    
+    The seed provided above will result in a sequence with a period of 3/4 * 2^29, and with 268876131 unique output values in the [-2147483635, 2147483642] range. This is probably more than enough to generate white noise at any reasonable sample rate, but you can easily increase/max out the period and range, simply by using different seed values.
+    
+    If you instead use g_x1 = 0x70f4f854 and g_x2 = 0xe1e9f0a7, then this will result in a sequence with a period of 3/4 * 2^32, with 1896933636 unique output values in the [-2147483647, 2147483647] range. This is probably the best you can do with a word size of 32 bits. Also note that only the highest bit will actually have the max period, lower bits will have increasingly shorter periods (just like with a Linear Congruential Generator).
