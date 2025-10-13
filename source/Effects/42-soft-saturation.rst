@@ -16,12 +16,15 @@ Soft saturation
     :linenos:
     :caption: code
 
-    x < a:
+    // a must be in the interval [0,1]
+    // First check overflow condition
+    x > 1:
+      f(x) = (a+1)/2
+    // If data is in range, apply saturation curve
+    x <= a:
       f(x) = x
     x > a:
       f(x) = a + (x-a)/(1+((x-a)/(1-a))^2)
-    x > 1:
-      f(x) = (a+1)/2
 
 Comments
 --------
