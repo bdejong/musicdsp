@@ -8,8 +8,9 @@ Pull requests welcome!
 In order to build the HTML locally with python3:
 
 .. code-block:: bash
-    
-    python -m venv .env
+
+    python -m venv .venv
+    source .venv/bin/activate
     pip install -r requirements.txt
     make html
 
