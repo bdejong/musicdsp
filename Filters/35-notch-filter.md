@@ -1,6 +1,6 @@
 # Notch filter
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [6 comments](#comments)
 
 - **Author or source:** Olli Niemitalo
 - **Type:** 2 poles 2 zeros IIR
@@ -62,114 +62,119 @@ for (streamofs = 0; streamofs < streamsize; streamofs++)
 
 ## Comments
 
-**moc.liamtoh@18recnuor** · 2006-09-27 09:53:49
+<details>
+<summary>Read 6 archived comments</summary>
 
-i tried implementing it, failed,
-and its wierd how it looks further in time
-instead of backwards, you cant use it in
-a running rendered stream cause the end of
-it stuffs up....
+1. **moc.liamtoh@18recnuor** · *2006-09-27 09:53:49*
 
-**musicdsp@Nospam dsparsons.co.uk** · 2006-09-27 11:43:49
+   i tried implementing it, failed,
+   and its wierd how it looks further in time
+   instead of backwards, you cant use it in
+   a running rendered stream cause the end of
+   it stuffs up....
 
-```text
-I think it's a type, and should be
-=-=-=
-reg0 = a0a2 * ((double)fromstream[streamofs]
-+ fromstream[streamofs-2])
-+ a1 * fromstream[streamofs-1]
-- b1 * reg1
-- b2 * reg2;
-=-=-=
-In which case there is some rangechecking to be done when streamofs<2
-```
+2. **musicdsp@Nospam dsparsons.co.uk** · *2006-09-27 11:43:49*
 
-You could just use the coeffs, and stick them into whatever biquad code you have hanging around :)
+   ```text
+   I think it's a type, and should be
+   =-=-=
+   reg0 = a0a2 * ((double)fromstream[streamofs]
+   + fromstream[streamofs-2])
+   + a1 * fromstream[streamofs-1]
+   - b1 * reg1
+   - b2 * reg2;
+   =-=-=
+   In which case there is some rangechecking to be done when streamofs<2
+   ```
 
-DSP
+   You could just use the coeffs, and stick them into whatever biquad code you have hanging around :)
 
-**moc.loa@561kluafla** · 2007-02-17 10:44:00
+   DSP
 
-Still doesn't work. Either way its looking one each side of a centre value, so it doesn't change the maths. Not sure what the code should be. Ideas???
+3. **moc.loa@561kluafla** · *2007-02-17 10:44:00*
 
-**moc.liamg@naecohsife** · 2009-04-24 16:34:32
+   Still doesn't work. Either way its looking one each side of a centre value, so it doesn't change the maths. Not sure what the code should be. Ideas???
 
-does this code work with float output?
-I really need a notch filter, i will try the code.
+4. **moc.liamg@naecohsife** · *2009-04-24 16:34:32*
 
-**moc.oohay@skinyela** · 2011-05-12 11:22:57
+   does this code work with float output?
+   I really need a notch filter, i will try the code.
 
-yes, there are some errors in this source.
+5. **moc.oohay@skinyela** · *2011-05-12 11:22:57*
 
-Here is the correct version:
+   yes, there are some errors in this source.
 
-```text
-// (C) Sergey Aleynik.   aleyniks@yahoo.com
+   Here is the correct version:
 
-     // BW_Coeff is changing from 0.0 to 1.0 (excluded) and the more the narrow:
-     // |  BW_Coeff   |  Real BandWidth (approxim.)  |
-     // |   0.975     | 0.00907 * Sampling_Frequency |
-     // |   0.95      | 0.01814 * Sampling_Frequency |
-     // |   0.9       | 0.03628 * Sampling_Frequency |
+   ```text
+   // (C) Sergey Aleynik.   aleyniks@yahoo.com
 
-void  Notch_Filter_Test(short int *Data_In,
-                        short int *Data_Out,
-                        long       nData_Length,
-                        double     Sampling_Frequency,
-                        double     CutOff_Frequency,
-                        double     BW_Coeff)
-{
-  // If wrong parameters:
-  if((NULL == Data_In)||(Data_Out)||(nData_Length <= 0))   return;
-  if((Sampling_Frequency < 0.0)||(CutOff_Frequency < 0.0)) return;
-  if(CutOff_Frequency > (Sampling_Frequency/2))            return;
-  if((BW_Coeff <= 0.0)||(BW_Coeff >= 1.0))                 return;
+        // BW_Coeff is changing from 0.0 to 1.0 (excluded) and the more the narrow:
+        // |  BW_Coeff   |  Real BandWidth (approxim.)  |
+        // |   0.975     | 0.00907 * Sampling_Frequency |
+        // |   0.95      | 0.01814 * Sampling_Frequency |
+        // |   0.9       | 0.03628 * Sampling_Frequency |
 
-  static const double  pi = 3.141592654;
+   void  Notch_Filter_Test(short int *Data_In,
+                           short int *Data_Out,
+                           long       nData_Length,
+                           double     Sampling_Frequency,
+                           double     CutOff_Frequency,
+                           double     BW_Coeff)
+   {
+     // If wrong parameters:
+     if((NULL == Data_In)||(Data_Out)||(nData_Length <= 0))   return;
+     if((Sampling_Frequency < 0.0)||(CutOff_Frequency < 0.0)) return;
+     if(CutOff_Frequency > (Sampling_Frequency/2))            return;
+     if((BW_Coeff <= 0.0)||(BW_Coeff >= 1.0))                 return;
 
-  // Filter coefficients:
-  double z1x = cos(2*pi*CutOff_Frequency/Sampling_Frequency);
-  double b0 = (1-BW_Coeff)*(1-BW_Coeff)/(2*(fabs(z1x)+1)) + BW_Coeff;
-  double b2 = b0;
-  double b1 = -2*z1x*b0;
-  double a1 = -2*z1x*BW_Coeff;
-  double a2 = BW_Coeff*BW_Coeff;
+     static const double  pi = 3.141592654;
 
-  // Filter internal vars:
-  double y=0,  y1=0, y2=0;
-  double x0=0, x1=0, x2=0;
+     // Filter coefficients:
+     double z1x = cos(2*pi*CutOff_Frequency/Sampling_Frequency);
+     double b0 = (1-BW_Coeff)*(1-BW_Coeff)/(2*(fabs(z1x)+1)) + BW_Coeff;
+     double b2 = b0;
+     double b1 = -2*z1x*b0;
+     double a1 = -2*z1x*BW_Coeff;
+     double a2 = BW_Coeff*BW_Coeff;
 
-  long i;
-  for(i=0; i<nData_Length; i++)
-  {
-    y  = b0 * x0 + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2;
-    y2 = y1;
-    y1 = y;
-    x2 = x1;
-    x1 = x0;
-    x0 = Data_In[i];
+     // Filter internal vars:
+     double y=0,  y1=0, y2=0;
+     double x0=0, x1=0, x2=0;
 
-    if(      y >  32767) y =  32767;
-    else if (y < -32768) y = -32768;
+     long i;
+     for(i=0; i<nData_Length; i++)
+     {
+       y  = b0 * x0 + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2;
+       y2 = y1;
+       y1 = y;
+       x2 = x1;
+       x1 = x0;
+       x0 = Data_In[i];
 
-    Data_Out[i] = (short int)y;
-  }
-}
-```
+       if(      y >  32767) y =  32767;
+       else if (y < -32768) y = -32768;
 
-**rf.liamtoh@abe.yrduabreivilo** · 2011-11-11 03:30:26
+       Data_Out[i] = (short int)y;
+     }
+   }
+   ```
 
-```text
-Just an idea on coef notch :
- a0 = 1;
- a1 = -2 * cs;
-a2 = 1;
-b0 = 1 + alpha;
-b1 = -2 * cs;
-b2 = 1 - alpha;
- notch: H(s) = (s^2 + 1) / (s^2 + s/Q + 1);
- omega = 2*PI*cf/sample_rate;
-sn = sin(omega);
-cs = cos(omega);
-alpha = sn/(2*Q);
-```
+6. **rf.liamtoh@abe.yrduabreivilo** · *2011-11-11 03:30:26*
+
+   ```text
+   Just an idea on coef notch :
+    a0 = 1;
+    a1 = -2 * cs;
+   a2 = 1;
+   b0 = 1 + alpha;
+   b1 = -2 * cs;
+   b2 = 1 - alpha;
+    notch: H(s) = (s^2 + 1) / (s^2 + s/Q + 1);
+    omega = 2*PI*cf/sample_rate;
+   sn = sin(omega);
+   cs = cos(omega);
+   alpha = sn/(2*Q);
+   ```
+
+</details>

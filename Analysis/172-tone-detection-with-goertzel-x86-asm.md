@@ -1,6 +1,6 @@
 # Tone detection with Goertzel (x86 ASM)
 
-[MusicDSP](../README.md) / [Analysis](README.md)
+[MusicDSP](../README.md) / [Analysis](README.md) · [1 comment](#comments)
 
 - **Author or source:** ed.luosfosruoivas@naitsirhC
 - **Type:** Tone detection with Goertzel in x86 assembly
@@ -79,25 +79,30 @@ end;
 
 ## Comments
 
-**moc.yddaht@yddaht** · 2005-08-17 17:20:02
+<details>
+<summary>Read 1 archived comment</summary>
 
-```pascal
-// Here's a variant on the theme that compensates for harmonics:
+1. **moc.yddaht@yddaht** · *2005-08-17 17:20:02*
 
-Function Goertzel(.Buffer: array of double; frequency, samplerate: double):.double;
-var
-Qkn, Qkn1, Qkn2, Wkn, Mk: double;
-i: integer;
-begin
-Qkn:=0; Qkn1:=0;
-Wkn:=2*.PI*.frequency/samplerate;
-Mk:=2*.Cos(.Wkn);
-for i:=0 to High(.Buffer) do begin
-  Qkn2: = Qkn1; Qkn1: = Qkn;
-  Qkn  : = Buffer[.i ] + Mk*.Qkn1 - Qkn2;
-end;
-Result: = sqrt(.Qkn*.Qkn + Qkn1*.Qkn1 - Mk*.Qkn*.Qkn1);
-end;
+   ```pascal
+   // Here's a variant on the theme that compensates for harmonics:
 
-// Posted on www.delphimaster.ru by Jeer
-```
+   Function Goertzel(.Buffer: array of double; frequency, samplerate: double):.double;
+   var
+   Qkn, Qkn1, Qkn2, Wkn, Mk: double;
+   i: integer;
+   begin
+   Qkn:=0; Qkn1:=0;
+   Wkn:=2*.PI*.frequency/samplerate;
+   Mk:=2*.Cos(.Wkn);
+   for i:=0 to High(.Buffer) do begin
+     Qkn2: = Qkn1; Qkn1: = Qkn;
+     Qkn  : = Buffer[.i ] + Mk*.Qkn1 - Qkn2;
+   end;
+   Result: = sqrt(.Qkn*.Qkn + Qkn1*.Qkn1 - Mk*.Qkn*.Qkn1);
+   end;
+
+   // Posted on www.delphimaster.ru by Jeer
+   ```
+
+</details>

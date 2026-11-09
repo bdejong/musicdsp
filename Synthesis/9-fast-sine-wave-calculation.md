@@ -1,6 +1,6 @@
 # Fast sine wave calculation
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [2 comments](#comments)
 
 - **Author or source:** James McCartney in Computer Music Journal, also the Julius O. Smith paper
 - **Type:** waveform generation
@@ -43,13 +43,18 @@ y1 = b1*y2 - y0
 
 ## Comments
 
-**moc.liamtoh@trahniak** · 2003-04-22 15:05:21
+<details>
+<summary>Read 2 archived comments</summary>
 
-try using this to make sine waves with frequency less that 1. I did and it gives very rough half triangle-like waves. Is there any way to fix this? I want to use a sine generated for LFO so I need one that works for low frequencies.
+1. **moc.liamtoh@trahniak** · *2003-04-22 15:05:21*
 
-**moc.oi@htnysa** · 2006-10-24 22:34:59
+   try using this to make sine waves with frequency less that 1. I did and it gives very rough half triangle-like waves. Is there any way to fix this? I want to use a sine generated for LFO so I need one that works for low frequencies.
 
-```text
-looks like the formula has gotten munged.
-w = freq * twopi / samplerate
-```
+2. **moc.oi@htnysa** · *2006-10-24 22:34:59*
+
+   ```text
+   looks like the formula has gotten munged.
+   w = freq * twopi / samplerate
+   ```
+
+</details>

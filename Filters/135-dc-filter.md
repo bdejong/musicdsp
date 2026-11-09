@@ -1,6 +1,6 @@
 # DC filter
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** hc.niweulb@lossor.ydna
 - **Type:** 1-pole/1-zero DC filter
@@ -33,24 +33,29 @@ y(n) = x(n) - x(n-1) + R * y(n-1)
 
 ## Comments
 
-**hc.niweulb@lossor.ydna** · 2003-01-04 01:58:04
+<details>
+<summary>Read 2 archived comments</summary>
 
-I just received a mail from a musicdsp reader:
+1. **hc.niweulb@lossor.ydna** · *2003-01-04 01:58:04*
 
-'How to calculate "R" for a given (-3dB) low frequency point?'
+   I just received a mail from a musicdsp reader:
 
-```text
-R = 1 - (pi*2 * frequency /samplerate)
-```
+   'How to calculate "R" for a given (-3dB) low frequency point?'
 
-(pi=3.14159265358979)
+   ```text
+   R = 1 - (pi*2 * frequency /samplerate)
+   ```
 
-**ten.labolgfrus@jbr** · 2003-05-10 09:11:42
+   (pi=3.14159265358979)
 
-particularly if fixed-point arithmetic is used, this simple high-pass filter can create it's own DC offset because of limit-cycles.  to cure that look at
+2. **ten.labolgfrus@jbr** · *2003-05-10 09:11:42*
 
-<http://www.dspguru.com/comp.dsp/tricks/alg/dc_block.htm>
+   particularly if fixed-point arithmetic is used, this simple high-pass filter can create it's own DC offset because of limit-cycles.  to cure that look at
 
-this trick uses the concept of "noise-shaping" to prevent DC in any limit-cycles.
+   <http://www.dspguru.com/comp.dsp/tricks/alg/dc_block.htm>
 
-r b-j
+   this trick uses the concept of "noise-shaping" to prevent DC in any limit-cycles.
+
+   r b-j
+
+</details>

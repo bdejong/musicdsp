@@ -1,6 +1,6 @@
 # Branchless Clipping
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [6 comments](#comments)
 
 - **Author or source:** ku.oc.snosrapsd@psdcisum
 - **Type:** Clipping at 0dB, with none of the usual 'if..then..'
@@ -51,131 +51,136 @@ end;
 
 ## Comments
 
-**hotpop.com@blargg** · 2005-11-29 18:33:09
+<details>
+<summary>Read 6 archived comments</summary>
 
-Since most processors include a sign-preserving right shift, you can right shift by 31 to end up with either -1 (all bits set) or 0, then mask the original value with it:
+1. **hotpop.com@blargg** · *2005-11-29 18:33:09*
 
-```text
-out = (in >> 31) & in;
-```
+   Since most processors include a sign-preserving right shift, you can right shift by 31 to end up with either -1 (all bits set) or 0, then mask the original value with it:
 
-**moc.liamg@tramum** · 2005-12-01 20:33:28
+   ```text
+   out = (in >> 31) & in;
+   ```
 
-I prefer this method, using a sign-preserving shift, as it can clip a signal to arbitrary bounds:
+2. **moc.liamg@tramum** · *2005-12-01 20:33:28*
 
-```text
-over = upper_limit - samp
-mask = over >> 31
-over = over & mask
-samp = samp + over
-over = samp - lower_limit
-mask = over >> 31
-over = over & mask
-samp = samp - over
-```
+   I prefer this method, using a sign-preserving shift, as it can clip a signal to arbitrary bounds:
 
-Is it faster? Maybe on modern machines with 20-plus-stage pipelines and if the signal is clipped often, as the branches are not predictable.
+   ```text
+   over = upper_limit - samp
+   mask = over >> 31
+   over = over & mask
+   samp = samp + over
+   over = samp - lower_limit
+   mask = over >> 31
+   over = over & mask
+   samp = samp - over
+   ```
 
-**ku.oc.snosrapsd@psdcisum** · 2006-03-22 17:53:44
+   Is it faster? Maybe on modern machines with 20-plus-stage pipelines and if the signal is clipped often, as the branches are not predictable.
 
-hmm.. Did some looking into the sign preserving thing. My laptop has an P3 which didn't preserve as mentioned, and my work PC (P4HT) didn't either. Maybe its an AMD or motorola thing :)
+3. **ku.oc.snosrapsd@psdcisum** · *2006-03-22 17:53:44*
 
-unless it's how delphi interprets the shr.. what does a C++ compiler generate for '\>\>' ?
+   hmm.. Did some looking into the sign preserving thing. My laptop has an P3 which didn't preserve as mentioned, and my work PC (P4HT) didn't either. Maybe its an AMD or motorola thing :)
 
-**moc.liamg@tramum** · 2006-03-28 14:42:44
+   unless it's how delphi interprets the shr.. what does a C++ compiler generate for '\>\>' ?
 
-C and C++ have sign-preserving shifts. If the value is negative, a right shift will add ones onto the left hand side (thus -2 becomes -1 etc).
+4. **moc.liamg@tramum** · *2006-03-28 14:42:44*
 
-Java also has a non-sign-preserving right shift operator (\>\>\>).
+   C and C++ have sign-preserving shifts. If the value is negative, a right shift will add ones onto the left hand side (thus -2 becomes -1 etc).
 
-I tried googling for information on how Delphi handles shifts, but nothing turned up. Looks like you might need to use in-line assembly :/
+   Java also has a non-sign-preserving right shift operator (\>\>\>).
 
-**ed.ko0@oreb** · 2006-03-30 02:47:35
+   I tried googling for information on how Delphi handles shifts, but nothing turned up. Looks like you might need to use in-line assembly :/
 
-Here my SAR function for Delphi+FreePascal
+5. **ed.ko0@oreb** · *2006-03-30 02:47:35*
 
-```text
-FUNCTION SAR(Value,Shift:INTEGER):INTEGER; {$IFDEF CPU386}ASSEMBLER; REGISTER;{$ELSE}{$IFDEF FPC}INLINE;{$ELSE}REGISTER;{$ENDIF}{$ENDIF}
-{$IFDEF CPU386}
-ASM
- MOV ECX,EDX
- SAR EAX,CL
-END;
-{$ELSE}
-BEGIN
- RESULT:=(Value SHR Shift) OR (($FFFFFFFF+(1-((Value AND (1 SHL 31)) SHR 31) AND ORD(Shift<>0))) SHL (32-Shift));
-END;
-{$ENDIF}
-```
+   Here my SAR function for Delphi+FreePascal
 
-**ed.ko0@oreb** · 2006-03-30 03:19:59
+   ```text
+   FUNCTION SAR(Value,Shift:INTEGER):INTEGER; {$IFDEF CPU386}ASSEMBLER; REGISTER;{$ELSE}{$IFDEF FPC}INLINE;{$ELSE}REGISTER;{$ENDIF}{$ENDIF}
+   {$IFDEF CPU386}
+   ASM
+    MOV ECX,EDX
+    SAR EAX,CL
+   END;
+   {$ELSE}
+   BEGIN
+    RESULT:=(Value SHR Shift) OR (($FFFFFFFF+(1-((Value AND (1 SHL 31)) SHR 31) AND ORD(Shift<>0))) SHL (32-Shift));
+   END;
+   {$ENDIF}
+   ```
 
-Ny branchless clipping functions (the first is faster than the second)
+6. **ed.ko0@oreb** · *2006-03-30 03:19:59*
 
-```text
-FUNCTION Clip(Value,Min,Max:SINGLE):SINGLE; ASSEMBLER; STDCALL;
-CONST Constant0Dot5:SINGLE=0.5;
-ASM
- FLD DWORD PTR Value
- FLD DWORD PTR Min
- FLD DWORD PTR Max
+   Ny branchless clipping functions (the first is faster than the second)
 
- FLD ST(2)
- FSUB ST(0),ST(2)
- FABS
- FADD ST(0),ST(2)
- FADD ST(0),ST(1)
+   ```text
+   FUNCTION Clip(Value,Min,Max:SINGLE):SINGLE; ASSEMBLER; STDCALL;
+   CONST Constant0Dot5:SINGLE=0.5;
+   ASM
+    FLD DWORD PTR Value
+    FLD DWORD PTR Min
+    FLD DWORD PTR Max
 
- FLD ST(3)
- FSUB ST(0),ST(2)
- FABS
- FSUBP ST(1),ST(0)
- FMUL DWORD PTR Constant0Dot5
+    FLD ST(2)
+    FSUB ST(0),ST(2)
+    FABS
+    FADD ST(0),ST(2)
+    FADD ST(0),ST(1)
 
- FFREE ST(4)
- FFREE ST(3)
- FFREE ST(2)
- FFREE ST(1)
-END;
+    FLD ST(3)
+    FSUB ST(0),ST(2)
+    FABS
+    FSUBP ST(1),ST(0)
+    FMUL DWORD PTR Constant0Dot5
 
-FUNCTION ClipDSP(Value:SINGLE):SINGLE; {$IFDEF CPU386} ASSEMBLER; REGISTER;
-ASM
- MOV EAX,DWORD PTR Value
- AND EAX,$80000000
+    FFREE ST(4)
+    FFREE ST(3)
+    FFREE ST(2)
+    FFREE ST(1)
+   END;
 
- AND DWORD PTR Value,$7FFFFFFF
+   FUNCTION ClipDSP(Value:SINGLE):SINGLE; {$IFDEF CPU386} ASSEMBLER; REGISTER;
+   ASM
+    MOV EAX,DWORD PTR Value
+    AND EAX,$80000000
 
- FLD DWORD PTR Value
- FLD1
- FSUBP ST(1),ST(0)
- FSTP DWORD PTR Value
+    AND DWORD PTR Value,$7FFFFFFF
 
- MOV EDX,DWORD PTR Value
- AND EDX,$80000000
- SHR EDX,31
- NEG EDX
- AND DWORD PTR Value,EDX
+    FLD DWORD PTR Value
+    FLD1
+    FSUBP ST(1),ST(0)
+    FSTP DWORD PTR Value
 
- FLD DWORD PTR Value
- FLD1
- FADDP ST(1),ST(0)
- FSTP DWORD PTR Value
+    MOV EDX,DWORD PTR Value
+    AND EDX,$80000000
+    SHR EDX,31
+    NEG EDX
+    AND DWORD PTR Value,EDX
 
- OR DWORD PTR Value,EAX
+    FLD DWORD PTR Value
+    FLD1
+    FADDP ST(1),ST(0)
+    FSTP DWORD PTR Value
 
- FLD DWORD PTR Value
-END;
-{$ELSE}
-VAR ValueCasted:LONGWORD ABSOLUTE Value;
-    Sign:LONGWORD;
-BEGIN
- Sign:=ValueCasted AND $80000000;
- ValueCasted:=ValueCasted AND $7FFFFFFF;
- Value:=Value-1;
- ValueCasted:=ValueCasted AND (-LONGWORD((ValueCasted AND $80000000) SHR 31));
- Value:=Value+1;
- ValueCasted:=ValueCasted OR Sign;
- RESULT:=Value;
-END;
-{$ENDIF}
-```
+    OR DWORD PTR Value,EAX
+
+    FLD DWORD PTR Value
+   END;
+   {$ELSE}
+   VAR ValueCasted:LONGWORD ABSOLUTE Value;
+       Sign:LONGWORD;
+   BEGIN
+    Sign:=ValueCasted AND $80000000;
+    ValueCasted:=ValueCasted AND $7FFFFFFF;
+    Value:=Value-1;
+    ValueCasted:=ValueCasted AND (-LONGWORD((ValueCasted AND $80000000) SHR 31));
+    Value:=Value+1;
+    ValueCasted:=ValueCasted OR Sign;
+    RESULT:=Value;
+   END;
+   {$ENDIF}
+   ```
+
+</details>

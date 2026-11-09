@@ -1,6 +1,6 @@
 # Hermite Interpolator (x86 ASM)
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [4 comments](#comments)
 
 - **Author or source:** moc.oiduacbr@kileib.trebor
 - **Type:** Hermite interpolator in x86 assembly (for MS VC++)
@@ -71,42 +71,47 @@ __declspec(naked) float __hermite(float frac_pos, const float* pntr)
 
 ## Comments
 
-**dmi@smartelectronix** · 2003-11-27 04:53:16
+<details>
+<summary>Read 4 archived comments</summary>
 
-This code produces a nasty buzzing sound.  I think there might be a bug somwhere but I haven't found it yet.
+1. **dmi@smartelectronix** · *2003-11-27 04:53:16*
 
-**gro.lortnocdnim@psdcisum-sulph** · 2003-11-29 16:41:41
+   This code produces a nasty buzzing sound.  I think there might be a bug somwhere but I haven't found it yet.
 
-I agree; the output, when plotted, looks like it has overlaid rectangular shapes on it.
+2. **gro.lortnocdnim@psdcisum-sulph** · *2003-11-29 16:41:41*
 
-**moc.oiduacbr@kileib.trebor** · 2003-12-02 21:18:57
+   I agree; the output, when plotted, looks like it has overlaid rectangular shapes on it.
 
-AHH! True! A bug has sneaked in! Change the row that says:
-fsubp st(1), st(0); // a\*f-b c
-to:
-fsubrp st(1), st(0); // a\*f-b c
+3. **moc.oiduacbr@kileib.trebor** · *2003-12-02 21:18:57*
 
-and it should be much better. Although I noticed that a good optimization by the compiler generates nearly as fast a code, but only nearly. This is still about 10% faster.
+   AHH! True! A bug has sneaked in! Change the row that says:
+   fsubp st(1), st(0); // a\*f-b c
+   to:
+   fsubrp st(1), st(0); // a\*f-b c
 
-**moc.enecslatnemirepxe@renrewd** · 2004-09-07 02:24:34
+   and it should be much better. Although I noticed that a good optimization by the compiler generates nearly as fast a code, but only nearly. This is still about 10% faster.
 
-I have tested the four hermite interpolation algorithms posted to musicdsp.org plus the assemblified version of
+4. **moc.enecslatnemirepxe@renrewd** · *2004-09-07 02:24:34*
 
-Laurent de Soras' code by Robert Bielik and found that on a Pentium 4 with full optimization (targeting the
+   I have tested the four hermite interpolation algorithms posted to musicdsp.org plus the assemblified version of
 
-Pentium 4 and above, but not using code that won't work on older processors) with MS VC++ 7 that the second
+   Laurent de Soras' code by Robert Bielik and found that on a Pentium 4 with full optimization (targeting the
 
-function is the fastest.
+   Pentium 4 and above, but not using code that won't work on older processors) with MS VC++ 7 that the second
 
-```text
-Function    Percent Total    Time    Return Value
+   function is the fastest.
 
-hermite1:   18.90%,          375ms,  0.52500004f
-hermite2:   16.53%,          328ms,  0.52500004f
-hermite3:   17.34%,          344ms,  0.52500004f
-hermite4:   19.66%,          390ms,  0.52500004f
-hermite5:   27.57%,          547ms,  0.52500004f
-```
+   ```text
+   Function    Percent Total    Time    Return Value
 
-\- Daniel Werner
-<http://experimentalscene.com/>
+   hermite1:   18.90%,          375ms,  0.52500004f
+   hermite2:   16.53%,          328ms,  0.52500004f
+   hermite3:   17.34%,          344ms,  0.52500004f
+   hermite4:   19.66%,          390ms,  0.52500004f
+   hermite5:   27.57%,          547ms,  0.52500004f
+   ```
+
+   \- Daniel Werner
+   <http://experimentalscene.com/>
+
+</details>

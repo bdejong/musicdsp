@@ -1,6 +1,6 @@
 # 5-point spline interpollation
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [4 comments](#comments)
 
 - **Author or source:** Joshua Scholar,David Waugh
 - **Type:** interpollation
@@ -34,27 +34,32 @@ double interpolate(double* wavetable, int nMask, double location)
 
 ## Comments
 
-**moc.oohay@SIHTEVOMERralohcshsoj** · 2003-05-27 12:20:46
+<details>
+<summary>Read 4 archived comments</summary>
 
-The code works much better if you oversample before interpolating. If you oversample enough (maybe 4 to 6 times oversampling) then the results are audiophile quality.
+1. **moc.oohay@SIHTEVOMERralohcshsoj** · *2003-05-27 12:20:46*
 
-**moc.oohay@xofirgomsnart** · 2010-08-26 20:55:45
+   The code works much better if you oversample before interpolating. If you oversample enough (maybe 4 to 6 times oversampling) then the results are audiophile quality.
 
-This looks old...but if anybody reads this:
-What do you mean by oversample first?  That is practically what you are doing with interpolation.  For example, if you want to oversample 6x, you would interpolate 5 evenly spaced points in between p2 and p3 using 5 points at base frequency centered around p2.  The 5-point spline interpolation seems like a lower CPU algorithm than a good sinc interpolation, and as a bonus it does not have much of a transient response (only 5 samples worth).
+2. **moc.oohay@xofirgomsnart** · *2010-08-26 20:55:45*
 
-My main target application for something like this is delay line interpolation where there is a concern regarding high frequency notch depth...5th order interpolation is certainly an improvement over linear interpolation :)
+   This looks old...but if anybody reads this:
+   What do you mean by oversample first?  That is practically what you are doing with interpolation.  For example, if you want to oversample 6x, you would interpolate 5 evenly spaced points in between p2 and p3 using 5 points at base frequency centered around p2.  The 5-point spline interpolation seems like a lower CPU algorithm than a good sinc interpolation, and as a bonus it does not have much of a transient response (only 5 samples worth).
 
-**Josh Scholar** · 2012-10-04 08:00:31
+   My main target application for something like this is delay line interpolation where there is a concern regarding high frequency notch depth...5th order interpolation is certainly an improvement over linear interpolation :)
 
-By oversample I meant do a windowed sinc doubling oversample a couple times.
+3. **Josh Scholar** · *2012-10-04 08:00:31*
 
-The point is that a 4 times oversample can be based on table values and only gives you points exactly 1/4, 1/2 and 3/4 between the samples.
+   By oversample I meant do a windowed sinc doubling oversample a couple times.
 
-Then the spline can be used to interpolate totally arbitrary points between those, say speeding up and slowing down as needed, at very high quality.
+   The point is that a 4 times oversample can be based on table values and only gives you points exactly 1/4, 1/2 and 3/4 between the samples.
 
-If you don't oversample first, you'll get an audible amount of aliasing, though not as much as a linear interpolation. Unless the source has a lot of roll off (which is equivalent to it being oversampled anyway).
+   Then the spline can be used to interpolate totally arbitrary points between those, say speeding up and slowing down as needed, at very high quality.
 
-**moc.liamg@rellimennad.sirhc** · 2014-08-16 17:55:33
+   If you don't oversample first, you'll get an audible amount of aliasing, though not as much as a linear interpolation. Unless the source has a lot of roll off (which is equivalent to it being oversampled anyway).
 
-Can any explain the derivation of this?
+4. **moc.liamg@rellimennad.sirhc** · *2014-08-16 17:55:33*
+
+   Can any explain the derivation of this?
+
+</details>

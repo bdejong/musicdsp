@@ -1,6 +1,6 @@
 # Fast binary log approximations
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [1 comment](#comments)
 
 - **Author or source:** gro.lortnocdnim@gro.psdcisum
 - **Type:** C code
@@ -66,23 +66,28 @@ main()
 
 ## Comments
 
-**ed.bew@raebybot** · 2002-12-18 20:08:06
+<details>
+<summary>Read 1 archived comment</summary>
 
-Here is some code to do this in Delphi/Pascal:
+1. **ed.bew@raebybot** · *2002-12-18 20:08:06*
 
-```text
-function approxLn2(f:single):single;
-begin
- result:=(((longint((@f)^) and $7f800000) shr 23)-$7f)+(longint((@f)^) and $007fffff)/$800000;
-end;
+   Here is some code to do this in Delphi/Pascal:
 
-function floorOfLn2(f:single):longint;
-begin
- result:=(((longint((@f)^) and $7f800000) shr 23)-$7f);
-end;
-```
+   ```text
+   function approxLn2(f:single):single;
+   begin
+    result:=(((longint((@f)^) and $7f800000) shr 23)-$7f)+(longint((@f)^) and $007fffff)/$800000;
+   end;
 
-Cheers,
+   function floorOfLn2(f:single):longint;
+   begin
+    result:=(((longint((@f)^) and $7f800000) shr 23)-$7f);
+   end;
+   ```
 
-Tobybear
-www.tobybear.de
+   Cheers,
+
+   Tobybear
+   www.tobybear.de
+
+</details>

@@ -1,6 +1,6 @@
 # DSF (super-set of BLIT)
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [1 comment](#comments)
 
 - **Author or source:** David Lowenfels
 - **Type:** matlab code
@@ -60,6 +60,11 @@ out = out * 2 - 1;                  %make bipolar
 
 ## Comments
 
-**David Lowenfels** · 2003-04-03 15:05:42
+<details>
+<summary>Read 1 archived comment</summary>
 
-oops, there's an error in this version. frequency should not be normalized until after the maxN calculation is done.
+1. **David Lowenfels** · *2003-04-03 15:05:42*
+
+   oops, there's an error in this version. frequency should not be normalized until after the maxN calculation is done.
+
+</details>

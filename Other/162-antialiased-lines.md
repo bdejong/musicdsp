@@ -1,6 +1,6 @@
 # Antialiased Lines
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [7 comments](#comments)
 
 - **Author or source:** moc.xinortceletrams@urugra
 - **Type:** A slow, ugly, and unoptimized but short method to perform antialiased lines in a framebuffer
@@ -104,35 +104,40 @@ void LineAntialiased(int const x1,int const y1,int const x2,int const y2,UCHAR c
 
 ## Comments
 
-**Gog** · 2004-02-11 12:53:12
+<details>
+<summary>Read 7 archived comments</summary>
 
-Sorry, but what does this have to do with music DSP ??
+1. **Gog** · *2004-02-11 12:53:12*
 
-**moc.liamtoh@101\_vap** · 2004-02-14 17:39:38
+   Sorry, but what does this have to do with music DSP ??
 
-well, for drawing envelopes, waveforms, etc on screen in your DSP app....
+2. **moc.liamtoh@101\_vap** · *2004-02-14 17:39:38*
 
-**Gog** · 2004-02-15 11:59:04
+   well, for drawing envelopes, waveforms, etc on screen in your DSP app....
 
-But... there are TONS of graphic toolkits to do just that. No reason to "roll your own". One f.i. is GDI+ (works darn well to be honest), or if you want non-M\$ (and better!) go with AGG at (<http://www.antigrain.com>). And there are even open-source cross-platform toolkits (if you want to do Unix and Mac without coding).
-Graphics and GUIs is a very time-consuming task to do from scratch, therefore I think using libraries such as the above is the way to go, liberating energy to do the DSP stuff... ;-)
+3. **Gog** · *2004-02-15 11:59:04*
 
-**Rich** · 2004-03-11 02:56:19
+   But... there are TONS of graphic toolkits to do just that. No reason to "roll your own". One f.i. is GDI+ (works darn well to be honest), or if you want non-M\$ (and better!) go with AGG at (<http://www.antigrain.com>). And there are even open-source cross-platform toolkits (if you want to do Unix and Mac without coding).
+   Graphics and GUIs is a very time-consuming task to do from scratch, therefore I think using libraries such as the above is the way to go, liberating energy to do the DSP stuff... ;-)
 
-I don't want a toolkit, I want antialiased line drawing and nothing more. Everything else is fine.
+4. **Rich** · *2004-03-11 02:56:19*
 
-**Justin** · 2004-03-11 17:32:09
+   I don't want a toolkit, I want antialiased line drawing and nothing more. Everything else is fine.
 
-Anyone know how to get the pointer to the framebuffer?  Perhaps there is a different answer for different platforms?
+5. **Justin** · *2004-03-11 17:32:09*
 
-**ed.stratnemesab@kcaahcs.leinad** · 2004-09-12 07:39:28
+   Anyone know how to get the pointer to the framebuffer?  Perhaps there is a different answer for different platforms?
 
-you can also draw everything in a 2x (vertically and horizontally) higher resolution and then reduce the size again by always taking the average of 4 pixels. that works well.
+6. **ed.stratnemesab@kcaahcs.leinad** · *2004-09-12 07:39:28*
 
-**moc.liamg@okolila** · 2008-11-20 18:07:21
+   you can also draw everything in a 2x (vertically and horizontally) higher resolution and then reduce the size again by always taking the average of 4 pixels. that works well.
 
-I think it can be useful to those designing graphical synths.
+7. **moc.liamg@okolila** · *2008-11-20 18:07:21*
 
-But the Wu line algorithm is considerably more fast and works only with integers.
+   I think it can be useful to those designing graphical synths.
 
-<http://en.wikipedia.org/wiki/Xiaolin_Wu>'s\_line\_algorith
+   But the Wu line algorithm is considerably more fast and works only with integers.
+
+   <http://en.wikipedia.org/wiki/Xiaolin_Wu>'s\_line\_algorith
+
+</details>

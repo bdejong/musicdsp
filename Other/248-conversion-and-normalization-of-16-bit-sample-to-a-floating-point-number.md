@@ -1,6 +1,6 @@
 # Conversion and normalization of 16-bit sample to a floating point number
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [2 comments](#comments)
 
 - **Author or source:** George Yohng
 - **Created:** 2007-05-02 13:34:21
@@ -25,18 +25,23 @@ out-=259.0f;
 
 ## Comments
 
-**moc.mot@lx\_iruy** · 2007-05-15 06:09:54
+<details>
+<summary>Read 2 archived comments</summary>
 
-Hi George Yohng
+1. **moc.mot@lx\_iruy** · *2007-05-15 06:09:54*
 
-I tried it... but it's create the heavy noise!!
+   Hi George Yohng
 
-**George Yohng** · 2007-09-20 17:51:12
+   I tried it... but it's create the heavy noise!!
 
-```text
-Correction:
-    ((unsigned &)out)=0x43818000^((unsigned short)in);
-    out-=259.0f;
-```
+2. **George Yohng** · *2007-09-20 17:51:12*
 
-(needs to have a cast to 'unsigned short')
+   ```text
+   Correction:
+       ((unsigned &)out)=0x43818000^((unsigned short)in);
+       out-=259.0f;
+   ```
+
+   (needs to have a cast to 'unsigned short')
+
+</details>

@@ -1,6 +1,6 @@
 # Direct form II
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [4 comments](#comments)
 
 - **Author or source:** Fuzzpilz
 - **Type:** generic
@@ -51,112 +51,117 @@ d1 = a2*in - b2*out;
 
 ## Comments
 
-**uh.etle.fni@yfoocs** · 2007-02-21 17:31:20
+<details>
+<summary>Read 4 archived comments</summary>
 
-I think the per sample denormal number elimination on x87 FPUs is more difficult, since you need to check for denormals at 3 places instead of one (if I'm right).
+1. **uh.etle.fni@yfoocs** · *2007-02-21 17:31:20*
 
-**moc.liamg@sgninnejtg** · 2007-06-11 16:44:05
+   I think the per sample denormal number elimination on x87 FPUs is more difficult, since you need to check for denormals at 3 places instead of one (if I'm right).
 
-Are the constants (a and b) wrong here.  Don't they need to be switched?  If you look at like wikipedia that's the case and it makes more since.  I'm trying to implement a low pass filter at 25mhz passband edge.  I'm getting alot of fluctuation in my output more that expect.  Any suggestions?
+2. **moc.liamg@sgninnejtg** · *2007-06-11 16:44:05*
 
-```text
-int main(int argc, char *argv[])
-{
-double b[3] = {1,2,1};
-double a1[3] = {1,-1.9995181705254206,0.99952100328066507};
-//double a1[3] = {1,-1.9252217796690612,0.95315661147483732};
-double a2[3] = {1,-1.9985996261556458,0.99860245760957123};
-double a3[3] = {1,-1.9977949691405856,0.99779779945453828};
-double a4[3] = {1,-1.9971690447494761,0.99717187417666975};
-double a5[3] = {1,-1.9967721889631873,0.9967750178281477};
-double a6[2] = {1, -0.99831813425055116};
-double d[3] = {0};
-double y[5][3] = {0};
-double out[2] = {0};
-double x[3]={0}, x1,x2,in;
-double i=0;
-char wait;
-while(i<10000000)
-{
-x1 = sin(2*10000*3.14159265*i);
-x2 = sin(2*10000*3.14159265*i-3.14159265);
-in = x1 * x2;
+   Are the constants (a and b) wrong here.  Don't they need to be switched?  If you look at like wikipedia that's the case and it makes more since.  I'm trying to implement a low pass filter at 25mhz passband edge.  I'm getting alot of fluctuation in my output more that expect.  Any suggestions?
 
-x[0] = in * 7.0818881108085789e-7;
+   ```text
+   int main(int argc, char *argv[])
+   {
+   double b[3] = {1,2,1};
+   double a1[3] = {1,-1.9995181705254206,0.99952100328066507};
+   //double a1[3] = {1,-1.9252217796690612,0.95315661147483732};
+   double a2[3] = {1,-1.9985996261556458,0.99860245760957123};
+   double a3[3] = {1,-1.9977949691405856,0.99779779945453828};
+   double a4[3] = {1,-1.9971690447494761,0.99717187417666975};
+   double a5[3] = {1,-1.9967721889631873,0.9967750178281477};
+   double a6[2] = {1, -0.99831813425055116};
+   double d[3] = {0};
+   double y[5][3] = {0};
+   double out[2] = {0};
+   double x[3]={0}, x1,x2,in;
+   double i=0;
+   char wait;
+   while(i<10000000)
+   {
+   x1 = sin(2*10000*3.14159265*i);
+   x2 = sin(2*10000*3.14159265*i-3.14159265);
+   in = x1 * x2;
 
-y[0][0] = b[0]*x[0] + b[1]*x[1] + b[2]*x[2] - a1[1]*y[0][1] - a1[2]*y[0][1];
-y[0][1] = y[0][0];
-x[2] = x[1];
-x[1] = x[0];
-//////////////////////////////////////////////////////////////////////////////////
-y[0][0] = y[0][0] * 7.0786348128153693e-7;
-y[1][0] = b[0]*y[0][0] + b[1]*y[0][1] + b[2]*y[0][2] - a2[1]*y[1][1] - a2[2]*y[1][1];
-y[0][2] = y[0][1];
-y[0][1] = y[0][0];
-y[1][1] = y[1][0];
-//////////////////////////////////////////////////////////////////////////////////
-y[1][0] = y[1][0] * 7.0757848807506174e-7;
-y[2][0] = b[0]*y[1][0] + b[1]*y[1][1] + b[2]*y[1][2] - a3[1]*y[2][1] - a3[2]*y[2][1];
-y[1][2] = y[1][1];
-y[1][1] = y[1][0];
-y[2][1] = y[2][0];
-//////////////////////////////////////////////////////////////////////////////////
-y[2][0] = y[2][0] * 7.0735679834155469e-7;
-y[3][0] = b[0]*y[2][0] + b[1]*y[2][1] + b[2]*y[2][2] - a4[1]*y[3][1] - a4[2]*y[3][1];
-y[2][2] = y[2][1];
-y[2][1] = y[2][0];
-y[3][1] = y[3][0];
-//////////////////////////////////////////////////////////////////////////////////
-y[3][0] = y[3][0] * 7.0721624006526327e-007;
-y[4][0] = b[0]*y[3][0] + b[1]*y[3][1] + b[2]*y[3][2] - a5[1]*y[4][1] - a5[2]*y[4][1];
-y[3][2] = y[3][1];
-y[3][1] = y[3][0];
-y[4][1] = y[4][0];
-//////////////////////////////////////////////////////////////////////////////////
-/*y[4][0] = y[4][0]* 0.000840932874724457;
-out[0] = 1*y[4][0] + 1*y[4][1] - a6[1]*out[1];
-y[4][1] = y[4][0];
-out[1] = out[0];*/
+   x[0] = in * 7.0818881108085789e-7;
 
-cout<<y[4][0]<<"\n";
+   y[0][0] = b[0]*x[0] + b[1]*x[1] + b[2]*x[2] - a1[1]*y[0][1] - a1[2]*y[0][1];
+   y[0][1] = y[0][0];
+   x[2] = x[1];
+   x[1] = x[0];
+   //////////////////////////////////////////////////////////////////////////////////
+   y[0][0] = y[0][0] * 7.0786348128153693e-7;
+   y[1][0] = b[0]*y[0][0] + b[1]*y[0][1] + b[2]*y[0][2] - a2[1]*y[1][1] - a2[2]*y[1][1];
+   y[0][2] = y[0][1];
+   y[0][1] = y[0][0];
+   y[1][1] = y[1][0];
+   //////////////////////////////////////////////////////////////////////////////////
+   y[1][0] = y[1][0] * 7.0757848807506174e-7;
+   y[2][0] = b[0]*y[1][0] + b[1]*y[1][1] + b[2]*y[1][2] - a3[1]*y[2][1] - a3[2]*y[2][1];
+   y[1][2] = y[1][1];
+   y[1][1] = y[1][0];
+   y[2][1] = y[2][0];
+   //////////////////////////////////////////////////////////////////////////////////
+   y[2][0] = y[2][0] * 7.0735679834155469e-7;
+   y[3][0] = b[0]*y[2][0] + b[1]*y[2][1] + b[2]*y[2][2] - a4[1]*y[3][1] - a4[2]*y[3][1];
+   y[2][2] = y[2][1];
+   y[2][1] = y[2][0];
+   y[3][1] = y[3][0];
+   //////////////////////////////////////////////////////////////////////////////////
+   y[3][0] = y[3][0] * 7.0721624006526327e-007;
+   y[4][0] = b[0]*y[3][0] + b[1]*y[3][1] + b[2]*y[3][2] - a5[1]*y[4][1] - a5[2]*y[4][1];
+   y[3][2] = y[3][1];
+   y[3][1] = y[3][0];
+   y[4][1] = y[4][0];
+   //////////////////////////////////////////////////////////////////////////////////
+   /*y[4][0] = y[4][0]* 0.000840932874724457;
+   out[0] = 1*y[4][0] + 1*y[4][1] - a6[1]*out[1];
+   y[4][1] = y[4][0];
+   out[1] = out[0];*/
 
-i+=.1;
-}
-```
+   cout<<y[4][0]<<"\n";
 
-**es.tuanopx@kileib.trebor** · 2009-03-23 07:17:12
+   i+=.1;
+   }
+   ```
 
-Regarding denormals: Don't check for them. Prevent them by adding a small value (\~1e-20) to the filter memory pipeline.
+3. **es.tuanopx@kileib.trebor** · *2009-03-23 07:17:12*
 
-**es.tuanopx@kileib.trebor** · 2009-03-23 18:15:40
+   Regarding denormals: Don't check for them. Prevent them by adding a small value (\~1e-20) to the filter memory pipeline.
 
-Processing a single biquad doesn't benefit much (if any) from doing a DF II implementation. However, if you'd process stereo, the DF II variant is very suitable for interleaving of non-dependent calculations, making it easier for the compiler to generate effective code. Actually, the DF II stereo implementation below is more than 2 times faster than the naive DF I stereo one:
+4. **es.tuanopx@kileib.trebor** · *2009-03-23 18:15:40*
 
-```text
-struct stereo_biquad
-{
-    float b0,b1,b2,a1,a2 // From rb-j's cookbook with a0 normalized to 1.0
-    float lm1,lm2,rm1,rm2; // Filter state
-    float dn;              // de-denormal coeff (1.0e-20f)
-};
+   Processing a single biquad doesn't benefit much (if any) from doing a DF II implementation. However, if you'd process stereo, the DF II variant is very suitable for interleaving of non-dependent calculations, making it easier for the compiler to generate effective code. Actually, the DF II stereo implementation below is more than 2 times faster than the naive DF I stereo one:
 
-void processStereoBiquadDF2(
-    struct stereo_biquad& bq,
-    const float* inL,
-    const float* inR,
-    float* outL,
-    float* outR,
-    unsigned length)
-{
-    for (unsigned i = 0; i < length; ++i)
-    {
-        register float w1 = inL[i] - bq.a1*bq.lm1 - bq.a2*bq.lm2 + bq.dn;
-        register float w2 = inR[i] - bq.a1*bq.rm1 - bq.a2*bq.rm2 + bq.dn;
-        outL[i] = bq.b1*bq.lm1 + bq.b2*bq.lm2 + bq.b0*w1;
-        bq.lm2 = bq.lm1; bq.lm1 = w1;
-        outR[i] = bq.b1*bq.rm1 + bq.b2*bq.rm2 + bq.b0*w2;
-        bq.rm2 = bq.rm1; bq.rm1 = w2;
-    }
-    bq.dn = -bq.dn;
-}
-```
+   ```text
+   struct stereo_biquad
+   {
+       float b0,b1,b2,a1,a2 // From rb-j's cookbook with a0 normalized to 1.0
+       float lm1,lm2,rm1,rm2; // Filter state
+       float dn;              // de-denormal coeff (1.0e-20f)
+   };
+
+   void processStereoBiquadDF2(
+       struct stereo_biquad& bq,
+       const float* inL,
+       const float* inR,
+       float* outL,
+       float* outR,
+       unsigned length)
+   {
+       for (unsigned i = 0; i < length; ++i)
+       {
+           register float w1 = inL[i] - bq.a1*bq.lm1 - bq.a2*bq.lm2 + bq.dn;
+           register float w2 = inR[i] - bq.a1*bq.rm1 - bq.a2*bq.rm2 + bq.dn;
+           outL[i] = bq.b1*bq.lm1 + bq.b2*bq.lm2 + bq.b0*w1;
+           bq.lm2 = bq.lm1; bq.lm1 = w1;
+           outR[i] = bq.b1*bq.rm1 + bq.b2*bq.rm2 + bq.b0*w2;
+           bq.rm2 = bq.rm1; bq.rm1 = w2;
+       }
+       bq.dn = -bq.dn;
+   }
+   ```
+
+</details>

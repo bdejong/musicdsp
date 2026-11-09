@@ -1,6 +1,6 @@
 # Millimeter to DB (faders...)
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [2 comments](#comments)
 
 - **Author or source:** James McCartney
 - **Created:** 2002-04-09 16:55:26
@@ -68,73 +68,78 @@ float DBtoMM(float db)
 
 ## Comments
 
-**ed.luosfosruoivas@naitsirhC** · 2004-01-29 21:31:18
+<details>
+<summary>Read 2 archived comments</summary>
 
-Pascal Translation...
+1. **ed.luosfosruoivas@naitsirhC** · *2004-01-29 21:31:18*
 
-```text
-function MMtoDB(Milimeter:Single):Single;
-var mm: Single;
-begin
-  mm:=100-Milimeter;
-  if mm = 0 then Result:=10
-  else if mm < 48 then Result:=10-5/12*mm;
-  else if mm < 84 then Result:=-10-10/12*(mm-48);
-  else if mm < 96 then Result:=-40-20./12*(mm-84);
-  else if mm < 100 then Result:=-60-35*(mm-96);
-  else Result:=-200.;
-end;
+   Pascal Translation...
 
-function DBtoMM(db:Single):Single;
-begin
-  if db>=10 then result:=0;
-  else if db>-10 then result:=-12/5*(db-10);
-  else if db>-40 then result:=48-12/10(db+10);
-  else if db>-60 then result:=84-12/20(db+40);
-  else if db>-200 then result:=96-1/35(db+60);
-  else result:=100.;
-  Result:=100-Result;
-end;
-```
+   ```text
+   function MMtoDB(Milimeter:Single):Single;
+   var mm: Single;
+   begin
+     mm:=100-Milimeter;
+     if mm = 0 then Result:=10
+     else if mm < 48 then Result:=10-5/12*mm;
+     else if mm < 84 then Result:=-10-10/12*(mm-48);
+     else if mm < 96 then Result:=-40-20./12*(mm-84);
+     else if mm < 100 then Result:=-60-35*(mm-96);
+     else Result:=-200.;
+   end;
 
-**moc.liamg@rellomehcssih.retuow** · 2010-03-11 22:31:06
+   function DBtoMM(db:Single):Single;
+   begin
+     if db>=10 then result:=0;
+     else if db>-10 then result:=-12/5*(db-10);
+     else if db>-40 then result:=48-12/10(db+10);
+     else if db>-60 then result:=84-12/20(db+40);
+     else if db>-200 then result:=96-1/35(db+60);
+     else result:=100.;
+     Result:=100-Result;
+   end;
+   ```
 
-Flash ActionScript translation:
+2. **moc.liamg@rellomehcssih.retuow** · *2010-03-11 22:31:06*
 
-```text
-/**
- * Maps normalized value between 0 and 1 to decibel from -200 to 10.
- * @param normalizedValue: Value between 0 and 1.
- * @return Number: Value in decibel from -200 to 10.
- */
-public function normalizedToDecibel(value : Number) : Number
-{
-	value = (1 - value) * 100;
+   Flash ActionScript translation:
 
-	if(value <= 0.0) var db : Number = 10.0;
-	else if(value < 48.0) db = 10.0 - 5.0 / 12.0 * value;
-	else if(value < 84.0) db = -10.0 - 10.0 / 12.0 * (value - 48.0);
-	else if(value < 96.0) db = -40.0 - 20.0 / 12.0 * (value - 84.0);
-	else if(value < 100.0) db = -60.0 - 35.0 * (value - 96.0);
-	else db = -200.0;
+   ```text
+   /**
+    * Maps normalized value between 0 and 1 to decibel from -200 to 10.
+    * @param normalizedValue: Value between 0 and 1.
+    * @return Number: Value in decibel from -200 to 10.
+    */
+   public function normalizedToDecibel(value : Number) : Number
+   {
+   	value = (1 - value) * 100;
 
-	return db;
-}
+   	if(value <= 0.0) var db : Number = 10.0;
+   	else if(value < 48.0) db = 10.0 - 5.0 / 12.0 * value;
+   	else if(value < 84.0) db = -10.0 - 10.0 / 12.0 * (value - 48.0);
+   	else if(value < 96.0) db = -40.0 - 20.0 / 12.0 * (value - 84.0);
+   	else if(value < 100.0) db = -60.0 - 35.0 * (value - 96.0);
+   	else db = -200.0;
 
-/**
- * Maps decibel from -200 to 10 to normalized value between 0 and 1.
- * @param decibel: Value in decibel from -200 to 10.
- * @return Number:
- */
-public function decibelToNormalized(decibel : Number) : Number
-{
-	if(decibel >= 10.0) var normalizedValue : Number = 0.0;
-	else if (decibel > -10.0) normalizedValue = -12.0 / 5.0 * (decibel - 10.0);
-	else if (decibel > -40.0) normalizedValue = 48.0 - 12.0 / 10.0 * (decibel + 10.0);
-	else if (decibel > -60.0) normalizedValue = 84.0 - 12.0 / 20.0 * (decibel + 40.0);
-	else if (decibel > -200.0) normalizedValue = 96.0 - 1.0 / 35.0 * (decibel + 60.0);
-	else normalizedValue = 100.0;
+   	return db;
+   }
 
-	return (100.0 - normalizedValue) / 100.0;
-}
-```
+   /**
+    * Maps decibel from -200 to 10 to normalized value between 0 and 1.
+    * @param decibel: Value in decibel from -200 to 10.
+    * @return Number:
+    */
+   public function decibelToNormalized(decibel : Number) : Number
+   {
+   	if(decibel >= 10.0) var normalizedValue : Number = 0.0;
+   	else if (decibel > -10.0) normalizedValue = -12.0 / 5.0 * (decibel - 10.0);
+   	else if (decibel > -40.0) normalizedValue = 48.0 - 12.0 / 10.0 * (decibel + 10.0);
+   	else if (decibel > -60.0) normalizedValue = 84.0 - 12.0 / 20.0 * (decibel + 40.0);
+   	else if (decibel > -200.0) normalizedValue = 96.0 - 1.0 / 35.0 * (decibel + 60.0);
+   	else normalizedValue = 100.0;
+
+   	return (100.0 - normalizedValue) / 100.0;
+   }
+   ```
+
+</details>

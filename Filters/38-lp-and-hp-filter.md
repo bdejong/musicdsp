@@ -1,6 +1,6 @@
 # LP and HP filter
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [13 comments](#comments)
 
 - **Author or source:** Patrice Tarrabia
 - **Type:** biquad, tweaked butterworth
@@ -38,243 +38,248 @@ Hipass:
 
 ## Comments
 
-**moc.liamtoh@lossor\_ydna** · 2002-03-14 15:24:20
+<details>
+<summary>Read 13 archived comments</summary>
 
-Ok, the filter works, but how to use the resonance parameter (r)? The range from sqrt(2)-lowest to 0.1 (highest res.) is Ok for a LP with Cutoff \> 3 or 4 KHz, but for lower cutoff frequencies and higher res you will get values much greater than 1! (And this means clipping like hell)
+1. **moc.liamtoh@lossor\_ydna** · *2002-03-14 15:24:20*
 
-So, has anybody calculated better parameters (for r, b1, b2)?
+   Ok, the filter works, but how to use the resonance parameter (r)? The range from sqrt(2)-lowest to 0.1 (highest res.) is Ok for a LP with Cutoff \> 3 or 4 KHz, but for lower cutoff frequencies and higher res you will get values much greater than 1! (And this means clipping like hell)
 
-**moc.liamtoh@trahniak** · 2003-04-03 10:23:36
+   So, has anybody calculated better parameters (for r, b1, b2)?
 
-Below is my attempt to implement the above lowpass filter in c#. I'm just a beginner at this so it's probably something that I've messed up. If anybody can offer a suggestion of what I may be doing wrong please help. I'm getting a bunch of stable staticky noise as my output of this filter currently.
+2. **moc.liamtoh@trahniak** · *2003-04-03 10:23:36*
 
-**moc.liamtoh@trahniak** · 2003-04-03 10:25:15
+   Below is my attempt to implement the above lowpass filter in c#. I'm just a beginner at this so it's probably something that I've messed up. If anybody can offer a suggestion of what I may be doing wrong please help. I'm getting a bunch of stable staticky noise as my output of this filter currently.
 
-```text
-public class LowPassFilter
-{
-        /// <summary>
-        /// rez amount, from sqrt(2) to ~ 0.1
-        /// </summary>
-        float r;
-        /// <summary>
-        /// cutoff frequency
-        /// (from ~0 Hz to SampleRate/2 - though many
-        /// synths seem to filter only up to SampleRate/4)
-        ///</summary>
-        float f;
-        float c;
+3. **moc.liamtoh@trahniak** · *2003-04-03 10:25:15*
 
-        float a1;
-        float a2;
-        float a3;
-        float b1;
-        float b2;
+   ```text
+   public class LowPassFilter
+   {
+           /// <summary>
+           /// rez amount, from sqrt(2) to ~ 0.1
+           /// </summary>
+           float r;
+           /// <summary>
+           /// cutoff frequency
+           /// (from ~0 Hz to SampleRate/2 - though many
+           /// synths seem to filter only up to SampleRate/4)
+           ///</summary>
+           float f;
+           float c;
 
-//      float in0 = 0;
-        float in1 = 0;
-        float in2 = 0;
+           float a1;
+           float a2;
+           float a3;
+           float b1;
+           float b2;
 
-//      float out0;
-        float out1 = 0;
-        float out2 = 0;
+   //      float in0 = 0;
+           float in1 = 0;
+           float in2 = 0;
 
-        private int _SampleRate;
+   //      float out0;
+           float out1 = 0;
+           float out2 = 0;
 
-        public LowPassFilter(int sampleRate)
-        {
-                _SampleRate = sampleRate;
+           private int _SampleRate;
 
-//              SetParams(_SampleRate / 2f, 0.1f);
-                SetParams(_SampleRate / 8f, 1f);
-        }
+           public LowPassFilter(int sampleRate)
+           {
+                   _SampleRate = sampleRate;
 
-        public float Process(float input)
-        {
-                float output = a1 * input +
-                                 a2 * in1 +
-                                 a3 * in2 -
-                                 b1 * out1 -
-                                 b2 * out2;
+   //              SetParams(_SampleRate / 2f, 0.1f);
+                   SetParams(_SampleRate / 8f, 1f);
+           }
 
-                in2 = in1;
-                in1 = input;
+           public float Process(float input)
+           {
+                   float output = a1 * input +
+                                    a2 * in1 +
+                                    a3 * in2 -
+                                    b1 * out1 -
+                                    b2 * out2;
 
-                out2 = out1;
-                out1 = output;
+                   in2 = in1;
+                   in1 = input;
 
-                Console.WriteLine(input + ", " + output);
+                   out2 = out1;
+                   out1 = output;
 
-                return output;
-        }
-```
+                   Console.WriteLine(input + ", " + output);
 
-**moc.liamtoh@trahniak** · 2003-04-03 10:25:39
+                   return output;
+           }
+   ```
 
-```text
-        /// <summary>
-        ///
-        /// </summary>
-        public float CutoffFrequency
-        {
-                set
-                {
-                        f = value;
-                        c = (float) (1.0f / Math.Tan(Math.PI * f / _SampleRate));
-                        SetParams();
-                }
-                get
-                {
-                        return f;
-                }
-        }
+4. **moc.liamtoh@trahniak** · *2003-04-03 10:25:39*
 
-        /// <summary>
-        ///
-        /// </summary>
-        public float Resonance
-        {
-                set
-                {
-                        r = value;
-                        SetParams();
-                }
-                get
-                {
-                        return r;
-                }
-        }
+   ```text
+           /// <summary>
+           ///
+           /// </summary>
+           public float CutoffFrequency
+           {
+                   set
+                   {
+                           f = value;
+                           c = (float) (1.0f / Math.Tan(Math.PI * f / _SampleRate));
+                           SetParams();
+                   }
+                   get
+                   {
+                           return f;
+                   }
+           }
 
-        public void SetParams(float cutoffFrequency, float resonance)
-        {
-                r = resonance;
-                CutoffFrequency = cutoffFrequency;
-        }
+           /// <summary>
+           ///
+           /// </summary>
+           public float Resonance
+           {
+                   set
+                   {
+                           r = value;
+                           SetParams();
+                   }
+                   get
+                   {
+                           return r;
+                   }
+           }
 
-        /// <summary>
-        /// TODO rename
-        /// </summary>
-        /// <param name="c"></param>
-        /// <param name="resonance"></param>
-        private void SetParams()
-        {
-                a1 = 1f / (1f + r*c + c*c);
-                a2 = 2 * a1;
-                a3 = a1;
-                b1 = 2f * (1f - c*c) * a1;
-                b2 = (1f - r*c + c*c) * a1;
-        }
-}
-```
+           public void SetParams(float cutoffFrequency, float resonance)
+           {
+                   r = resonance;
+                   CutoffFrequency = cutoffFrequency;
+           }
 
-**moc.liamtoh@trahniak** · 2003-04-03 11:58:51
+           /// <summary>
+           /// TODO rename
+           /// </summary>
+           /// <param name="c"></param>
+           /// <param name="resonance"></param>
+           private void SetParams()
+           {
+                   a1 = 1f / (1f + r*c + c*c);
+                   a2 = 2 * a1;
+                   a3 = a1;
+                   b1 = 2f * (1f - c*c) * a1;
+                   b2 = (1f - r*c + c*c) * a1;
+           }
+   }
+   ```
 
-Nevermind I think I solved my problem. I was missing parens around the coefficients and the variables ...(a1 \* input)...
+5. **moc.liamtoh@trahniak** · *2003-04-03 11:58:51*
 
-**moc.liamtoh@trahniak** · 2003-04-22 17:30:14
+   Nevermind I think I solved my problem. I was missing parens around the coefficients and the variables ...(a1 \* input)...
 
-After implementing the lowpass algorithm I get a loud ringing noise on some frequencies both high and low. Any ideas?
+6. **moc.liamtoh@trahniak** · *2003-04-22 17:30:14*
 
-**ed.xmg@lhadl** · 2006-03-29 14:10:59
+   After implementing the lowpass algorithm I get a loud ringing noise on some frequencies both high and low. Any ideas?
 
-hi,
-since this is the best filter i found on the net, i really need bandpass and bandstop!!! can anyone help me with the coefficents?
+7. **ed.xmg@lhadl** · *2006-03-29 14:10:59*
 
-**uh.etle.fni@yfoocs** · 2006-05-23 18:25:18
+   hi,
+   since this is the best filter i found on the net, i really need bandpass and bandstop!!! can anyone help me with the coefficents?
 
-AFAIK there's no separate bandpass and bandstop version of Butterworth filters. Instead, bandpass is usually done by cascading a HP and a LP filter, and bandstop is the mixed output of a HP and a LP filter. However, there's bandpass biquad code (for example RBJ biquad filters). Cheers Peter
+8. **uh.etle.fni@yfoocs** · *2006-05-23 18:25:18*
 
-**uh.etle.fni@yfoocs** · 2006-05-28 20:15:48
+   AFAIK there's no separate bandpass and bandstop version of Butterworth filters. Instead, bandpass is usually done by cascading a HP and a LP filter, and bandstop is the mixed output of a HP and a LP filter. However, there's bandpass biquad code (for example RBJ biquad filters). Cheers Peter
 
-```text
-You can save two divisions for lowpass using
-  c = tan((0.5 - (f * inv_samplerate))*pi);
-instead of
-  c = 1.0 / tan(pi * f / sample_rate);
-where inv_samplerate is 1.0/samplerate precalculated. (mul is faster than div)
+9. **uh.etle.fni@yfoocs** · *2006-05-28 20:15:48*
 
-However, the latter form can be approximated very well below 4kHz (at 44kHz samplerate) with
-  c = 1.0 / (pi * f * inv_sample_rate);
-which is far better than both of the previous two equations, because it does not use any transcendental functions. So, an optimized form is:
+   ```text
+   You can save two divisions for lowpass using
+     c = tan((0.5 - (f * inv_samplerate))*pi);
+   instead of
+     c = 1.0 / tan(pi * f / sample_rate);
+   where inv_samplerate is 1.0/samplerate precalculated. (mul is faster than div)
 
-f0 = f * inv_sample_rate;
-if (f0 < 0.1) c = 1.0 / (f0 * pi); // below 4.4k
-else c = tan((0.5 - f0) * pi);
-```
+   However, the latter form can be approximated very well below 4kHz (at 44kHz samplerate) with
+     c = 1.0 / (pi * f * inv_sample_rate);
+   which is far better than both of the previous two equations, because it does not use any transcendental functions. So, an optimized form is:
 
-This needs only about \~60% CPU below 4.4kHz. Probably using lookup tables could make it even faster...
+   f0 = f * inv_sample_rate;
+   if (f0 < 0.1) c = 1.0 / (f0 * pi); // below 4.4k
+   else c = tan((0.5 - f0) * pi);
+   ```
 
-```text
-Mapping resonance range 0..1 to 0..self-osc:
-  float const sqrt_two = 1.41421356;
-  r = sqrt_two - resonance * sqrt_two;
+   This needs only about \~60% CPU below 4.4kHz. Probably using lookup tables could make it even faster...
 
-Setting resonance in the conventional q form (like in RBJ biquads):
-  r = 1.0/q;
-```
+   ```text
+   Mapping resonance range 0..1 to 0..self-osc:
+     float const sqrt_two = 1.41421356;
+     r = sqrt_two - resonance * sqrt_two;
 
-Cheers, Peter
+   Setting resonance in the conventional q form (like in RBJ biquads):
+     r = 1.0/q;
+   ```
 
-**uh.etle@yfoocs** · 2006-05-28 20:43:28
+   Cheers, Peter
 
-However I find that this algorythm has a slight tuning error regardless of using approximation or not. 'inv\_samplerate = 0.95 \* samplerate' seems to give a more accurate frequency tuning.
+10. **uh.etle@yfoocs** · *2006-05-28 20:43:28*
 
-**uh.etle.fni@yfoocs** · 2006-05-29 15:50:13
+    However I find that this algorythm has a slight tuning error regardless of using approximation or not. 'inv\_samplerate = 0.95 \* samplerate' seems to give a more accurate frequency tuning.
 
-You can use the same trick for highpass:
+11. **uh.etle.fni@yfoocs** · *2006-05-29 15:50:13*
 
-```text
-precalc when setting up the filter:
-  inv_samplerate = 1.0 / samplerate * 0.957;
-(multipying by 0.957 seems to give the most precise tuning)
-```
+    You can use the same trick for highpass:
 
-and then calculating c:
+    ```text
+    precalc when setting up the filter:
+      inv_samplerate = 1.0 / samplerate * 0.957;
+    (multipying by 0.957 seems to give the most precise tuning)
+    ```
 
-```text
-f0 = f * inv_samplerate;
-if (f0 < 0.05) c = (f0 * pi);
-else c = tan(f0 * pi);
-```
+    and then calculating c:
 
-Now I used 0.05 instead of 0.1, thats 0.05 \* 44100  = 2.2k instead of 4.4k. So, this is a bit more precise than 0.1, becuase around 3-4k it had a slight error, however, only noticeable on the analyzer when compared to the original version. This is still about two third of the logarithmic frequency scale, so it's quite a bit of a speed improvement. You can use either precision for both lowpass and highpass.
+    ```text
+    f0 = f * inv_samplerate;
+    if (f0 < 0.05) c = (f0 * pi);
+    else c = tan(f0 * pi);
+    ```
 
-```text
-For calculating tan(), you can take some quick sin() approximation, and use:
-  tan(x)=sin(x)/sin(half_pi-x)
-```
+    Now I used 0.05 instead of 0.1, thats 0.05 \* 44100  = 2.2k instead of 4.4k. So, this is a bit more precise than 0.1, becuase around 3-4k it had a slight error, however, only noticeable on the analyzer when compared to the original version. This is still about two third of the logarithmic frequency scale, so it's quite a bit of a speed improvement. You can use either precision for both lowpass and highpass.
 
-There are many good pieces of code for that in the archive.
+    ```text
+    For calculating tan(), you can take some quick sin() approximation, and use:
+      tan(x)=sin(x)/sin(half_pi-x)
+    ```
 
-I tried to make some 1/x based approximations for 1.0/tan(x), here is one:
+    There are many good pieces of code for that in the archive.
 
-```text
-inline float tan_inv_approx(float x)
-{
-    float const two_div_pi = 2.0f/3.141592654f;
-    if (x<0.5f) return 1.0f/x;
-    else return 1.467f*(1.0f/x-two_div_pi);
-}
-```
+    I tried to make some 1/x based approximations for 1.0/tan(x), here is one:
 
-This one is pretty fast, however it is a quite rough estimate; it has some 1-2 semitones frequency tuning error around 5-8 kHz and above 10kHz. Might be usable for synths, however, or somewhere where scientific precision is not needed.
+    ```text
+    inline float tan_inv_approx(float x)
+    {
+        float const two_div_pi = 2.0f/3.141592654f;
+        if (x<0.5f) return 1.0f/x;
+        else return 1.467f*(1.0f/x-two_div_pi);
+    }
+    ```
 
-Cheers, Peter
+    This one is pretty fast, however it is a quite rough estimate; it has some 1-2 semitones frequency tuning error around 5-8 kHz and above 10kHz. Might be usable for synths, however, or somewhere where scientific precision is not needed.
 
-**uh.etle.fni@yfoocs** · 2006-05-30 21:12:13
+    Cheers, Peter
 
-Sorry, forget the \* 0.957 tuning, this algorythm is precise without that, the mistake was in my program. Everything else is valid, I hope.
+12. **uh.etle.fni@yfoocs** · *2006-05-30 21:12:13*
 
-**ur.kb@sexof** · 2008-03-11 13:31:52
+    Sorry, forget the \* 0.957 tuning, this algorythm is precise without that, the mistake was in my program. Everything else is valid, I hope.
 
-Optimization for Hipass:
+13. **ur.kb@sexof** · *2008-03-11 13:31:52*
 
-```text
-c = tan(pi * f / sample_rate);
+    Optimization for Hipass:
 
-c = ( c + r ) * c;
-a1 = 1.0 / ( 1.0 + c );
-b1 = ( 1.0 - c );
+    ```text
+    c = tan(pi * f / sample_rate);
 
-out(n) = ( a1 * out(n-1) + in - in(n-1) ) * b1;
-```
+    c = ( c + r ) * c;
+    a1 = 1.0 / ( 1.0 + c );
+    b1 = ( 1.0 - c );
+
+    out(n) = ( a1 * out(n-1) + in - in(n-1) ) * b1;
+    ```
+
+</details>

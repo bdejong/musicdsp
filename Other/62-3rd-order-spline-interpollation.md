@@ -1,6 +1,6 @@
 # 3rd order Spline interpollation
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [6 comments](#comments)
 
 - **Author or source:** Dave from Muon Software, originally from Josh Scholar
 - **Created:** 2002-01-17 03:14:54
@@ -91,51 +91,56 @@ float H0,const float H1)
 
 ## Comments
 
-**moc.a@a** · 2002-05-21 06:14:20
+<details>
+<summary>Read 6 archived comments</summary>
 
-What is x ?
+1. **moc.a@a** · *2002-05-21 06:14:20*
 
-**yahoo.co.uk@sewar\_ekim** · 2002-06-09 19:45:59
+   What is x ?
 
-The samples being interpolated represent the wave amplitude at a particular instant of time, T - an impulse train. So each sample is the amplitude at T=0,1,2,3 etc.
+2. **yahoo.co.uk@sewar\_ekim** · *2002-06-09 19:45:59*
 
-The purpose of interpolation is to determine the amplitude, a, for an arbitrary t, where t is any real number:
+   The samples being interpolated represent the wave amplitude at a particular instant of time, T - an impulse train. So each sample is the amplitude at T=0,1,2,3 etc.
 
-```text
-   p1      p0  a   n0      n1
-   :       :   :   :       :
-   0-------1---t---2-------3------> T
-           :   :
-           :   :
-           <-x->
+   The purpose of interpolation is to determine the amplitude, a, for an arbitrary t, where t is any real number:
 
-x = t - T(p0)
-```
+   ```text
+      p1      p0  a   n0      n1
+      :       :   :   :       :
+      0-------1---t---2-------3------> T
+              :   :
+              :   :
+              <-x->
 
-\-
-myk
+   x = t - T(p0)
+   ```
 
-**yahoo.co.uk@sewar\_ekim** · 2002-06-09 19:53:03
+   \-
+   myk
 
-Dang! My nice diagram had its spacing stolen, and it now makes no sense!
+3. **yahoo.co.uk@sewar\_ekim** · *2002-06-09 19:53:03*
 
-p1, p0, n0, n1 are supposed to line up with 0,1,2,3 respectively. a is supposed to line up with the t. And finally, \<-x-\> spans between 1 and t.
+   Dang! My nice diagram had its spacing stolen, and it now makes no sense!
 
-\-
-myk
+   p1, p0, n0, n1 are supposed to line up with 0,1,2,3 respectively. a is supposed to line up with the t. And finally, \<-x-\> spans between 1 and t.
 
-**lc.arret@assenacf** · 2002-09-16 02:34:30
+   \-
+   myk
 
-1.- What is 5f ?
+4. **lc.arret@assenacf** · *2002-09-16 02:34:30*
 
-2.- How I can test this procedure?.
+   1.- What is 5f ?
 
-Thank you
+   2.- How I can test this procedure?.
 
-**moc.oohay@SIHT\_EVOMER\_ralohcshsoj** · 2003-04-15 10:59:26
+   Thank you
 
-This is years later. but just in case anyone has the same problem as fcanessa...  In C or C++ you can append an 'f' to a number to make it single precision, so .5f is the same as .5
+5. **moc.oohay@SIHT\_EVOMER\_ralohcshsoj** · *2003-04-15 10:59:26*
 
-**ac.cisum-mutnauq@noidc** · 2012-07-10 13:51:17
+   This is years later. but just in case anyone has the same problem as fcanessa...  In C or C++ you can append an 'f' to a number to make it single precision, so .5f is the same as .5
 
-About that thing you've said "5 point seems to be the sweet spot". Well, it might depends on the sampling rate.
+6. **ac.cisum-mutnauq@noidc** · *2012-07-10 13:51:17*
+
+   About that thing you've said "5 point seems to be the sweet spot". Well, it might depends on the sampling rate.
+
+</details>

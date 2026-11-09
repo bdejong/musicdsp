@@ -1,6 +1,6 @@
 # Phase modulation Vs. Frequency modulation II
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [1 comment](#comments)
 
 - **Author or source:** James McCartney
 - **Created:** 2003-12-01 08:24:26
@@ -82,8 +82,13 @@ double oscil(orec, fm, pm, am)
 
 ## Comments
 
-**ed.redienhcsslin@mapsvulipsdcisum** · 2011-03-08 11:29:32
+<details>
+<summary>Read 1 archived comment</summary>
 
-As the PM/FM is "iterative", won't this code produce different results at different sampling rates? How can this be prevented?
+1. **ed.redienhcsslin@mapsvulipsdcisum** · *2011-03-08 11:29:32*
 
-Any advice is highly appreciated!
+   As the PM/FM is "iterative", won't this code produce different results at different sampling rates? How can this be prevented?
+
+   Any advice is highly appreciated!
+
+</details>

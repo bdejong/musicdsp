@@ -1,6 +1,6 @@
 # Butterworth Optimized C++ Class
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [13 comments](#comments)
 
 - **Author or source:** neotec
 - **Type:** 24db Resonant Lowpass
@@ -148,83 +148,88 @@ float CFilterButterworth24db::Run(float input)
 
 ## Comments
 
-**moc.oohay@bob** · 2007-01-22 18:38:23
+<details>
+<summary>Read 13 archived comments</summary>
 
-This sounds really nice, especially with resonance. Although it becomes unstable below 4K (at 44100 s/r), which explains why the min\_cutoff value has been set quite high. Would using doubles help stabilise it?
-Also, I can't figure out how to get a high pass out of this, can anybody help?
-Cheers.
+1. **moc.oohay@bob** · *2007-01-22 18:38:23*
 
-**neotec** · 2007-01-22 19:54:21
+   This sounds really nice, especially with resonance. Although it becomes unstable below 4K (at 44100 s/r), which explains why the min\_cutoff value has been set quite high. Would using doubles help stabilise it?
+   Also, I can't figure out how to get a high pass out of this, can anybody help?
+   Cheers.
 
-I have checked the peak output of this filter and especially for low frequences ... there is a simple fix, which makes it sound better with low frequences: change the line in Set(...) that reads 'this-\>gain = bd \* 0.5f;' to 'this-\>gain = bd;'
+2. **neotec** · *2007-01-22 19:54:21*
 
-**moc.oohay@bob** · 2007-01-22 22:27:11
+   I have checked the peak output of this filter and especially for low frequences ... there is a simple fix, which makes it sound better with low frequences: change the line in Set(...) that reads 'this-\>gain = bd \* 0.5f;' to 'this-\>gain = bd;'
 
-Thanks for the quick reply. I've tried your change and it's made a slight tonal difference here, but the tests were not particularly scientific. I've discovered more detail in the problem, and it's one that has been commented on with other filters: If I sweep the filter quickly up or down the low frequencies it blows out really badly, even with zero Q. I'm new to filter math, so excuse my ignorance if this is a common thing with Butterworth.
+3. **moc.oohay@bob** · *2007-01-22 22:27:11*
 
-**neotec** · 2007-01-23 12:54:03
+   Thanks for the quick reply. I've tried your change and it's made a slight tonal difference here, but the tests were not particularly scientific. I've discovered more detail in the problem, and it's one that has been commented on with other filters: If I sweep the filter quickly up or down the low frequencies it blows out really badly, even with zero Q. I'm new to filter math, so excuse my ignorance if this is a common thing with Butterworth.
 
-Yep ... this filter reacts very extreme on fast cutoff changes. I've added a function to my VST Synthesizer, which 'fades' the cutoff value from actual value to the desired one in about 0.05 seconds. My modulation envelopes do have similar restrictions concerning speed.
+4. **neotec** · *2007-01-23 12:54:03*
 
-**neotec** · 2007-01-23 16:35:51
+   Yep ... this filter reacts very extreme on fast cutoff changes. I've added a function to my VST Synthesizer, which 'fades' the cutoff value from actual value to the desired one in about 0.05 seconds. My modulation envelopes do have similar restrictions concerning speed.
 
-If you want to know how this filter sounds, visit the kvraudio forum, and search here: "KVR Forum » Instruments" for "Cetone VST Plugins".
+5. **neotec** · *2007-01-23 16:35:51*
 
-**moc.erehwon@ydobon** · 2007-01-29 21:57:52
+   If you want to know how this filter sounds, visit the kvraudio forum, and search here: "KVR Forum » Instruments" for "Cetone VST Plugins".
 
-I'm wondering about that tanh in the "Set."
+6. **moc.erehwon@ydobon** · *2007-01-29 21:57:52*
 
-Could replace with a pade appromimation, maybe. What is the range of inputs going into it?
+   I'm wondering about that tanh in the "Set."
 
-In other words, how small and big does this get?...
+   Could replace with a pade appromimation, maybe. What is the range of inputs going into it?
 
-this-\>t3 \* cutoff
+   In other words, how small and big does this get?...
 
-**moc.dniftnacuoyerehwemos@tsaot** · 2007-01-29 22:06:28
+   this-\>t3 \* cutoff
 
-Possible small optimization. It depends on how smart your compiler is, but sections like this...
+7. **moc.dniftnacuoyerehwemos@tsaot** · *2007-01-29 22:06:28*
 
-```text
-    output = new_hist + this->history3 * 2.f;
-    output += this->history4;
-```
+   Possible small optimization. It depends on how smart your compiler is, but sections like this...
 
-can be changed to this to change the multiply to an addition:
+   ```text
+       output = new_hist + this->history3 * 2.f;
+       output += this->history4;
+   ```
 
-```text
-output = this->history3;
-output += output+new_Hist+this->history4;
-```
+   can be changed to this to change the multiply to an addition:
 
-**moc.dniftnacuoyerehwemos@tsaot** · 2007-01-30 03:05:05
+   ```text
+   output = this->history3;
+   output += output+new_Hist+this->history4;
+   ```
 
-While I'm at it, one of these divisions can easily be switched to a multiply...
+8. **moc.dniftnacuoyerehwemos@tsaot** · *2007-01-30 03:05:05*
 
-```text
- b1 = (1.847759f / q) / wp;
+   While I'm at it, one of these divisions can easily be switched to a multiply...
 
-b1=(1.847759f/(q*wp);
-```
+   ```text
+    b1 = (1.847759f / q) / wp;
 
-**moc.oohay@bob** · 2007-02-04 19:32:55
+   b1=(1.847759f/(q*wp);
+   ```
 
-Four times oversampling removes the problems with fast cut-off sweeps at low values.
-This filter has the same shape as a normal biquad filter, with a more pronounced resonance boost.
+9. **moc.oohay@bob** · *2007-02-04 19:32:55*
 
-**gro.lortnocdnim@gro.psdcisum** · 2008-01-12 20:42:34
+   Four times oversampling removes the problems with fast cut-off sweeps at low values.
+   This filter has the same shape as a normal biquad filter, with a more pronounced resonance boost.
 
-Why would oversampling solve the problem? If you over-sample, the poles have to reach even further into the relative frequencies, and stability would become more of a problem AFAICT.
+10. **gro.lortnocdnim@gro.psdcisum** · *2008-01-12 20:42:34*
 
-**moc.oohay@bob** · 2008-01-21 14:58:55
+    Why would oversampling solve the problem? If you over-sample, the poles have to reach even further into the relative frequencies, and stability would become more of a problem AFAICT.
 
-It just seems to. If you 4X over-sample, then it gives it a 4X chance to recover from each sweep change, presuming you're not changing the filter cut-off at 4X also.
+11. **moc.oohay@bob** · *2008-01-21 14:58:55*
 
-**erehwon.ku.oc.snosrapsd@psdcisum** · 2008-01-25 14:46:31
+    It just seems to. If you 4X over-sample, then it gives it a 4X chance to recover from each sweep change, presuming you're not changing the filter cut-off at 4X also.
 
-thing is with 4X oversampling on this is that you'll be reducing precision on omega (wp here), and so should probably shift to double rather than float to help accuracy.
+12. **erehwon.ku.oc.snosrapsd@psdcisum** · *2008-01-25 14:46:31*
 
-**moc.liam@ttocs** · 2013-04-24 02:48:07
+    thing is with 4X oversampling on this is that you'll be reducing precision on omega (wp here), and so should probably shift to double rather than float to help accuracy.
 
-Did anyone figure out how to get a high pass out of this?
+13. **moc.liam@ttocs** · *2013-04-24 02:48:07*
 
-Thanks!
+    Did anyone figure out how to get a high pass out of this?
+
+    Thanks!
+
+</details>

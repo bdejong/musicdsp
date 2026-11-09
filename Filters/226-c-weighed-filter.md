@@ -1,6 +1,6 @@
 # C-Weighed Filter
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [1 comment](#comments)
 
 - **Author or source:** ed.luosfosruoivas@naitsirhC
 - **Type:** digital implementation (after bilinear transform)
@@ -49,9 +49,14 @@ State3 = b5*Stage1 + a5/a3*Output;
 
 ## Comments
 
-**ed.luosfosruoivas@naitsirhC** · 2006-07-12 21:07:28
+<details>
+<summary>Read 1 archived comment</summary>
 
-You might still need to normalize the filter output. You can do this easily by multipliing either the b0 and b2 or the b3 and b5 with a constant.
-Typically the filter is normalized to have a gain of 0dB at 1kHz
+1. **ed.luosfosruoivas@naitsirhC** · *2006-07-12 21:07:28*
 
-Also oversampling of this filter might be useful.
+   You might still need to normalize the filter output. You can do this easily by multipliing either the b0 and b2 or the b3 and b5 with a constant.
+   Typically the filter is normalized to have a gain of 0dB at 1kHz
+
+   Also oversampling of this filter might be useful.
+
+</details>

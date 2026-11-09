@@ -1,6 +1,6 @@
 # Formant filter
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [12 comments](#comments)
 
 - **Author or source:** Alex
 - **Created:** 2002-08-02 18:26:59
@@ -70,92 +70,97 @@ return res;
 
 ## Comments
 
-**moc.oohay@nosrednattehr** · 2002-08-21 04:47:36
+<details>
+<summary>Read 12 archived comments</summary>
 
-Where did the coefficients come from? Do they relate to frequencies somehow? Are they male or female? Etc.
+1. **moc.oohay@nosrednattehr** · *2002-08-21 04:47:36*
 
-**es.umu.gni@nhs89le** · 2002-09-20 02:45:20
+   Where did the coefficients come from? Do they relate to frequencies somehow? Are they male or female? Etc.
 
-And are the coeffiecients for 44k1hz?
-/stefancrs
+2. **es.umu.gni@nhs89le** · *2002-09-20 02:45:20*
 
-**ten.ooleem@ooleem** · 2002-11-17 09:16:51
+   And are the coeffiecients for 44k1hz?
+   /stefancrs
 
-```text
-It seem to be ok at 44KHz although I get quite lot of distortion with this filter.
-There are typos in the given code too, the correct version looks like this i think:
-float formant_filter(float *in, int vowelnum)
-{
-  float res= (float) ( coeff[vowelnum][0]* (*in) +
-  coeff[vowelnum][1] *memory[0] +
-  coeff[vowelnum][2] *memory[1] +
-  coeff[vowelnum][3] *memory[2] +
-  coeff[vowelnum][4] *memory[3] +
-  coeff[vowelnum][5] *memory[4] +
-  coeff[vowelnum][6] *memory[5] +
-  coeff[vowelnum][7] *memory[6] +
-  coeff[vowelnum][8] *memory[7] +
-  coeff[vowelnum][9] *memory[8] +
-  coeff[vowelnum][10] *memory[9] );
-...
-```
+3. **ten.ooleem@ooleem** · *2002-11-17 09:16:51*
 
-(missing type and asterisk in the first calc line ;).
+   ```text
+   It seem to be ok at 44KHz although I get quite lot of distortion with this filter.
+   There are typos in the given code too, the correct version looks like this i think:
+   float formant_filter(float *in, int vowelnum)
+   {
+     float res= (float) ( coeff[vowelnum][0]* (*in) +
+     coeff[vowelnum][1] *memory[0] +
+     coeff[vowelnum][2] *memory[1] +
+     coeff[vowelnum][3] *memory[2] +
+     coeff[vowelnum][4] *memory[3] +
+     coeff[vowelnum][5] *memory[4] +
+     coeff[vowelnum][6] *memory[5] +
+     coeff[vowelnum][7] *memory[6] +
+     coeff[vowelnum][8] *memory[7] +
+     coeff[vowelnum][9] *memory[8] +
+     coeff[vowelnum][10] *memory[9] );
+   ...
+   ```
 
-I tried morphing from one vowel to another and it works ok except in between 'A' and 'U' as I get a lot of distortion and sometime (depending on the signal) the filter goes into auto-oscilation.
+   (missing type and asterisk in the first calc line ;).
 
-Sebastien Metrot
+   I tried morphing from one vowel to another and it works ok except in between 'A' and 'U' as I get a lot of distortion and sometime (depending on the signal) the filter goes into auto-oscilation.
 
-**gro.kale@ybsral** · 2002-12-17 20:22:08
+   Sebastien Metrot
 
-How did you get the coeffiecients?
+4. **gro.kale@ybsral** · *2002-12-17 20:22:08*
 
-Did I miss something?
+   How did you get the coeffiecients?
 
-/Larsby
+   Did I miss something?
 
-**es.ecid@nellah.nafets** · 2003-01-22 15:22:02
+   /Larsby
 
-Yeah, morphing lineary between the coefficients works just fine. The distortion I only get when not lowering the amplitude of the input. So I lower it :)
+5. **es.ecid@nellah.nafets** · *2003-01-22 15:22:02*
 
-Larsby, you can approximate filter curves quite easily, check your dsp literature :)
+   Yeah, morphing lineary between the coefficients works just fine. The distortion I only get when not lowering the amplitude of the input. So I lower it :)
 
-**moc.xinortceletrams@xela** · 2003-07-07 08:45:53
+   Larsby, you can approximate filter curves quite easily, check your dsp literature :)
 
-Correct, it is for sampling rate of 44kHz.
-It supposed to be female (soprano), approximated with its five formants.
+6. **moc.xinortceletrams@xela** · *2003-07-07 08:45:53*
 
---Alex.
+   Correct, it is for sampling rate of 44kHz.
+   It supposed to be female (soprano), approximated with its five formants.
 
-**moc.liamtoh@33reniur** · 2003-08-21 03:21:28
+   --Alex.
 
-Can you tell us how you calculated the coefficients?
+7. **moc.liamtoh@33reniur** · *2003-08-21 03:21:28*
 
-**moc.liamtoh@sisehtnysorpitna** · 2003-10-04 18:42:31
+   Can you tell us how you calculated the coefficients?
 
-The distorting/sharp A vowel can be toned down easy by just changing the first coeff from 8.11044e-06 to 3.11044e-06. Sounds much better that way.
+8. **moc.liamtoh@sisehtnysorpitna** · *2003-10-04 18:42:31*
 
-**moc.liamg@grebronj** · 2005-05-04 22:40:18
+   The distorting/sharp A vowel can be toned down easy by just changing the first coeff from 8.11044e-06 to 3.11044e-06. Sounds much better that way.
 
-Hi, I get the last formant (U) to self-oscillate and distort out of control whatever I feed it with. all the other ones sound fine...
+9. **moc.liamg@grebronj** · *2005-05-04 22:40:18*
 
-any sugesstions?
+   Hi, I get the last formant (U) to self-oscillate and distort out of control whatever I feed it with. all the other ones sound fine...
 
-Thanks,
-Jonas
+   any sugesstions?
 
-**if.iki@xemxet** · 2006-04-12 22:07:35
+   Thanks,
+   Jonas
 
-I was playing around this filter, and after hours of debugging finally noticed that converting those coeffecients to float just won't do it. The resulting filter is not stable anymore. Doh...
+10. **if.iki@xemxet** · *2006-04-12 22:07:35*
 
-I don't have any idea how to convert them, though.
+    I was playing around this filter, and after hours of debugging finally noticed that converting those coeffecients to float just won't do it. The resulting filter is not stable anymore. Doh...
 
-**mysterious T** · 2008-10-29 00:35:27
+    I don't have any idea how to convert them, though.
 
-Fantastic, it's all I can say! Done the linear blending and open blending matrix (a-e, a-i, a-o, a-u, e-i, e-o...etc..etc..). Too much fun!
+11. **mysterious T** · *2008-10-29 00:35:27*
 
-Thanks a lot, Alex!
+    Fantastic, it's all I can say! Done the linear blending and open blending matrix (a-e, a-i, a-o, a-u, e-i, e-o...etc..etc..). Too much fun!
 
-**johnny** · 2010-12-14 13:16:19
+    Thanks a lot, Alex!
 
-What about input and output range? When I feed the filter with audio data in -1 to 1 range, output doesn't stay in the same range. Maybe the input or output needs to be scaled?
+12. **johnny** · *2010-12-14 13:16:19*
+
+    What about input and output range? When I feed the filter with audio data in -1 to 1 range, output doesn't stay in the same range. Maybe the input or output needs to be scaled?
+
+</details>

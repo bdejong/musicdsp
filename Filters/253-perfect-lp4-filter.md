@@ -1,6 +1,6 @@
 # Perfect LP4 filter
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** rf.eerf@aipotreza
 - **Type:** LP
@@ -64,11 +64,16 @@ end;
 
 ## Comments
 
-**moc.liamg@321tiloen** · 2008-10-20 07:44:35
+<details>
+<summary>Read 2 archived comments</summary>
 
-This is basically a Moog filter.
+1. **moc.liamg@321tiloen** · *2008-10-20 07:44:35*
 
-**moc.liamG@0356orbratiug** · 2010-09-16 23:07:30
+   This is basically a Moog filter.
 
-Same as [Moog VCF](24-moog-vcf.md)
-but seems to be in pascal.
+2. **moc.liamG@0356orbratiug** · *2010-09-16 23:07:30*
+
+   Same as [Moog VCF](24-moog-vcf.md)
+   but seems to be in pascal.
+
+</details>

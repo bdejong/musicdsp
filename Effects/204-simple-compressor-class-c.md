@@ -1,6 +1,6 @@
 # Simple Compressor class (C++)
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [1 comment](#comments)
 
 - **Author or source:** Citizen Chunk
 - **Type:** stereo, feed-forward, peak compressor
@@ -28,13 +28,18 @@ don't try setAttack( 0.f ).)
 
 ## Comments
 
-**moc.liamtoh@361\_lt** · 2005-11-26 01:56:48
+<details>
+<summary>Read 1 archived comment</summary>
 
-This code works perfectly, and I have tried a number of sound and each worked correctly. The
-conversion is linear in logarithm domain.
+1. **moc.liamtoh@361\_lt** · *2005-11-26 01:56:48*
 
-The code has been written in such a professional style, can not believe it is FREE!!
+   This code works perfectly, and I have tried a number of sound and each worked correctly. The
+   conversion is linear in logarithm domain.
 
-Keep it up. Two super huge thumbs up.
+   The code has been written in such a professional style, can not believe it is FREE!!
 
-Ting
+   Keep it up. Two super huge thumbs up.
+
+   Ting
+
+</details>

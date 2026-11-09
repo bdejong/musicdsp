@@ -1,6 +1,6 @@
 # Fast SIN approximation for usage in e.g. additive synthesizers
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [2 comments](#comments)
 
 - **Author or source:** neotec
 - **Created:** 2008-12-09 11:56:33
@@ -54,21 +54,26 @@ float fastsin2(UINT32 phase)
 
 ## Comments
 
-**neotec** · 2008-12-09 12:11:11
+<details>
+<summary>Read 2 archived comments</summary>
 
-PS: To use this as an OSC you'll need the following vars/equ's:
+1. **neotec** · *2008-12-09 12:11:11*
 
-```text
-UINT32 phase = 0;
-UINT32 step = frequency * powf(2.0f, 32.0f) / samplerate;
+   PS: To use this as an OSC you'll need the following vars/equ's:
 
-Then it's just:
-...
-out = fastsin(phase);
-phase += step;
-...
-```
+   ```text
+   UINT32 phase = 0;
+   UINT32 step = frequency * powf(2.0f, 32.0f) / samplerate;
 
-**moc.toohay@bob** · 2008-12-14 20:04:10
+   Then it's just:
+   ...
+   out = fastsin(phase);
+   phase += step;
+   ...
+   ```
 
-Woah! Seven multiplies, on top of those adds and memory lookup. Is this really all that fast?
+2. **moc.toohay@bob** · *2008-12-14 20:04:10*
+
+   Woah! Seven multiplies, on top of those adds and memory lookup. Is this really all that fast?
+
+</details>

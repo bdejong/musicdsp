@@ -1,6 +1,6 @@
 # RBJ Audio-EQ-Cookbook
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** Robert Bristow-Johnson
 - **Created:** 2005-05-04 20:33:31
@@ -12,45 +12,50 @@ see attached file
 
 ## Comments
 
-**eb.tenyks@didid** · 2005-05-14 06:35:17
+<details>
+<summary>Read 2 archived comments</summary>
 
-Hi
+1. **eb.tenyks@didid** · *2005-05-14 06:35:17*
 
-In your most recent version, you write:
+   Hi
 
-```text
---
-    alpha = sin(w0)/(2*Q)       (case: Q)
-          = sin(w0)*sinh( ln(2)/2 * BW * w0/sin(w0) )       (case: BW)
-          = sin(w0)/2 * sqrt( (A + 1/A)*(1/S - 1) + 2 )        (case: S)
---
-```
+   In your most recent version, you write:
 
-But the 'slope' case doesn't seem to work for me. It results in some kind of bad resonance at higher samplerates.
+   ```text
+   --
+       alpha = sin(w0)/(2*Q)       (case: Q)
+             = sin(w0)*sinh( ln(2)/2 * BW * w0/sin(w0) )       (case: BW)
+             = sin(w0)/2 * sqrt( (A + 1/A)*(1/S - 1) + 2 )        (case: S)
+   --
+   ```
 
-Now I found this 'beta' in an older version of your paper (I think), describing:
+   But the 'slope' case doesn't seem to work for me. It results in some kind of bad resonance at higher samplerates.
 
-```text
---
-    beta  = sqrt(A)/Q   (for shelving EQ filters only)
-          = sqrt(A)*sqrt[ (A + 1/A)*(1/S - 1) + 2 ]        (if shelf slope is specified)
-          = sqrt[ (A^2 + 1)/S - (A-1)^2 ]
---
-```
+   Now I found this 'beta' in an older version of your paper (I think), describing:
 
-..and here the
-sqrt(A)\*sqrt\[ (A + 1/A)\*(1/S - 1) + 2 \]
-formula works perfectly for me.
+   ```text
+   --
+       beta  = sqrt(A)/Q   (for shelving EQ filters only)
+             = sqrt(A)*sqrt[ (A + 1/A)*(1/S - 1) + 2 ]        (if shelf slope is specified)
+             = sqrt[ (A^2 + 1)/S - (A-1)^2 ]
+   --
+   ```
 
-I must say I don't understand half of the theory, so it's probably my fault somewhere. But why the change in the newer version?
+   ..and here the
+   sqrt(A)\*sqrt\[ (A + 1/A)\*(1/S - 1) + 2 \]
+   formula works perfectly for me.
 
-**moc.noitanigamioidua@jbr** · 2005-05-20 20:56:45
+   I must say I don't understand half of the theory, so it's probably my fault somewhere. But why the change in the newer version?
 
-\>But why the change in the newer version?
-\----------------------------------------------------------
+2. **moc.noitanigamioidua@jbr** · *2005-05-20 20:56:45*
 
-i wanted to get rid of an extraneous intermediate variable and there was enough similarity between alpha and beta that i changed the lowShelf and highShelf coefficient equations to be in terms of alpha rather than beta.
+   \>But why the change in the newer version?
+   \----------------------------------------------------------
 
-i believe if you use the new version as shown, in terms of alpha (but remember the coef equations are changed accordingly from the old version), it will come up with the same coefficients given the same boost gain, Q (or S), and shelf frequency (and same Fs).  lemme know if you still have trouble.
+   i wanted to get rid of an extraneous intermediate variable and there was enough similarity between alpha and beta that i changed the lowShelf and highShelf coefficient equations to be in terms of alpha rather than beta.
 
-r b-j
+   i believe if you use the new version as shown, in terms of alpha (but remember the coef equations are changed accordingly from the old version), it will come up with the same coefficients given the same boost gain, Q (or S), and shelf frequency (and same Fs).  lemme know if you still have trouble.
+
+   r b-j
+
+</details>

@@ -1,6 +1,6 @@
 # Moog VCF, variation 1
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [7 comments](#comments)
 
 - **Author or source:** CSound source code, Stilson/Smith CCRMA paper., Paul Kellett version
 - **Type:** 24db resonant lowpass
@@ -53,60 +53,65 @@ They are only 6dB/oct, but still seem musically useful - the 'fruity' sound of t
 
 ## Comments
 
-**ten.xmg@42nitram.leinad** · 2005-01-06 00:57:41
+<details>
+<summary>Read 7 archived comments</summary>
 
-I just tried the filter code and it seems like the highpass output is the same as the lowpass output, or at least another lowpass...
+1. **ten.xmg@42nitram.leinad** · *2005-01-06 00:57:41*
 
-But i´m still testing the filter code...
+   I just tried the filter code and it seems like the highpass output is the same as the lowpass output, or at least another lowpass...
 
-**ten.xmg@42nitram.leinad** · 2005-01-06 01:30:37
+   But i´m still testing the filter code...
 
-Sorry for the Confusion, it works....
-I just had a typo in my code.
+2. **ten.xmg@42nitram.leinad** · *2005-01-06 01:30:37*
 
-One thing i did to get the HP sound nicer was
+   Sorry for the Confusion, it works....
+   I just had a typo in my code.
 
-HP output: (in - 3.0f \* (b3 - b4))-b4
+   One thing i did to get the HP sound nicer was
 
-But I´m a newbie to DSP Filters...
+   HP output: (in - 3.0f \* (b3 - b4))-b4
 
-**ten.epacsten@0002skcuswodniw** · 2005-08-19 00:17:24
+   But I´m a newbie to DSP Filters...
 
-Hey, thanks for this code. I'm a bit confused as to the range to the frequency and resonance. Is it really 0.0-1.0? If so, how so I specify a certain frequency, such as... 400Hz? THANKS!
+3. **ten.epacsten@0002skcuswodniw** · *2005-08-19 00:17:24*
 
-**ed.luosfosruoivas@naitsirhC** · 2005-08-20 13:28:54
+   Hey, thanks for this code. I'm a bit confused as to the range to the frequency and resonance. Is it really 0.0-1.0? If so, how so I specify a certain frequency, such as... 400Hz? THANKS!
 
-frequency \* nyquist
-or
-frequency \* samplerate
+4. **ed.luosfosruoivas@naitsirhC** · *2005-08-20 13:28:54*
 
-don't know the exact implementation.
+   frequency \* nyquist
+   or
+   frequency \* samplerate
 
-**moc.erehwon@ydobon** · 2007-02-05 18:28:48
+   don't know the exact implementation.
 
-\>\>Hey, thanks for this code. I'm a bit confused as to the range to the frequency and resonance. Is it really 0.0-1.0? If so, how so I specify a certain frequency, such as... 400Hz? THANKS!
+5. **moc.erehwon@ydobon** · *2007-02-05 18:28:48*
 
-I'd guess it would be:
+   > Hey, thanks for this code. I'm a bit confused as to the range to the frequency and resonance. Is it really 0.0-1.0? If so, how so I specify a certain frequency, such as... 400Hz? THANKS!
 
-frequency/(samplerate/2.f)
+   I'd guess it would be:
 
-**moc.erehwon@yugsiht** · 2009-10-23 19:05:04
+   frequency/(samplerate/2.f)
 
-The domain seems to be 0-nyquest (samplerate/2.0), but the range is 0-1
+6. **moc.erehwon@yugsiht** · *2009-10-23 19:05:04*
 
-A better way to get smoother non-linear mapping of frequency would be this:
-(give you a range of 20Hz to 20kHz)
+   The domain seems to be 0-nyquest (samplerate/2.0), but the range is 0-1
 
-```text
-freqinhz = 20.f * 1000.f ^ range;
-```
+   A better way to get smoother non-linear mapping of frequency would be this:
+   (give you a range of 20Hz to 20kHz)
 
-then
+   ```text
+   freqinhz = 20.f * 1000.f ^ range;
+   ```
 
-```text
-frequency = freqinhz * (1.f/(samplerate/2.0f));
-```
+   then
 
-**ed.redienhcsslin@psdcisum** · 2012-02-24 13:45:09
+   ```text
+   frequency = freqinhz * (1.f/(samplerate/2.0f));
+   ```
 
-I like the sound of this one, unfortunately, it breaks quite fast, causing the internal values b1-b4 to be "infinity". Any hints?
+7. **ed.redienhcsslin@psdcisum** · *2012-02-24 13:45:09*
+
+   I like the sound of this one, unfortunately, it breaks quite fast, causing the internal values b1-b4 to be "infinity". Any hints?
+
+</details>

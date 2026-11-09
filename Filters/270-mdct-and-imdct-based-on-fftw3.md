@@ -1,6 +1,6 @@
 # MDCT and IMDCT based on FFTW3
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** moc.liamg@gnahz.auhuhs
 - **Type:** analysis and synthesis filterbank
@@ -264,87 +264,92 @@ void imdctf(float* time_signal, float* mdct_line, mdctf_plan* m_plan)
 
 ## Comments
 
-**none** · 2009-08-05 14:42:44
+<details>
+<summary>Read 2 archived comments</summary>
 
-Hi, your "freq, time" example in your comments feed into the main function as "mdct\_line, time\_signal" float pointers.
-Can you explain what these are?
-Thanks
-D
+1. **none** · *2009-08-05 14:42:44*
 
-**moc.liamg@gnahz.auhuhs** · 2009-08-11 05:11:59
+   Hi, your "freq, time" example in your comments feed into the main function as "mdct\_line, time\_signal" float pointers.
+   Can you explain what these are?
+   Thanks
+   D
 
-Hi,
+2. **moc.liamg@gnahz.auhuhs** · *2009-08-11 05:11:59*
 
-```text
-  Here I past a complete test bench for the MDCT/IMDCT routine. Suppose the MDCT/IMDCT routines named "mdctf.c" and the following benchmark routine named "ftestbench.c", the gcc compilation command will be
-  gcc -o ftestbench -O2 ftestbench.c mdctf.c -lfftw3f -lm
-```
+   Hi,
 
-Shuhua Zhang, Aug. 11, 2009
+   ```text
+     Here I past a complete test bench for the MDCT/IMDCT routine. Suppose the MDCT/IMDCT routines named "mdctf.c" and the following benchmark routine named "ftestbench.c", the gcc compilation command will be
+     gcc -o ftestbench -O2 ftestbench.c mdctf.c -lfftw3f -lm
+   ```
 
-```text
-/* benchmark MDCT and IMDCT, floating point */
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
+   Shuhua Zhang, Aug. 11, 2009
 
-extern void* mdctf_init(int);
+   ```text
+   /* benchmark MDCT and IMDCT, floating point */
+   #include <stdio.h>
+   #include <stdlib.h>
+   #include <math.h>
+   #include <time.h>
 
-int main(int argc, char* argv[])
-{
-    int N, r, i;
-    float* time;
-    float* freq;
-    void* m_plan;
-    clock_t t0, t1;
+   extern void* mdctf_init(int);
 
-    if(3 != argc)
-    {
-        fprintf(stderr, " Usage: %s <MDCT_SIZE> <run_times> \n", argv[0]);
-        return -1;
-    }
+   int main(int argc, char* argv[])
+   {
+       int N, r, i;
+       float* time;
+       float* freq;
+       void* m_plan;
+       clock_t t0, t1;
 
-    sscanf(argv[1], "%d", &N);
-    sscanf(argv[2], "%d", &r);
+       if(3 != argc)
+       {
+           fprintf(stderr, " Usage: %s <MDCT_SIZE> <run_times> \n", argv[0]);
+           return -1;
+       }
 
-	time = (float*)malloc(sizeof(float) * N);
-	freq = (float*)malloc(sizeof(float) * (N >> 1));
-    for(i = 0; i < N; i++)
-        time[i] = 2.f * rand() / RAND_MAX - 1.f;
+       sscanf(argv[1], "%d", &N);
+       sscanf(argv[2], "%d", &r);
 
-	/* MDCT/IMDCT floating point initialization */
-	m_plan = mdctf_init(N);
-	if(NULL == m_plan)
-	{
-		free(freq);
-		free(time);
-		return -1;
-	}
+   	time = (float*)malloc(sizeof(float) * N);
+   	freq = (float*)malloc(sizeof(float) * (N >> 1));
+       for(i = 0; i < N; i++)
+           time[i] = 2.f * rand() / RAND_MAX - 1.f;
 
-	/* benchmark MDCT floating point*/
-	t0 = clock();
-	for(i = 0; i < r; i++)
-        mdctf(freq, time, m_plan);
-    t1 = clock();
-    fprintf(stdout, "MDCT of size %d, float, running %d times, uses %.2e s\n",
-            N, r, (float) (t1 - t0) / CLOCKS_PER_SEC);
+   	/* MDCT/IMDCT floating point initialization */
+   	m_plan = mdctf_init(N);
+   	if(NULL == m_plan)
+   	{
+   		free(freq);
+   		free(time);
+   		return -1;
+   	}
 
-    /* benchmark IMDCT floating point*/
-    t0 = clock();
-    for(i = 0; i < r; i++)
-        imdctf(time, freq, m_plan);
-    t1 = clock();
-    fprintf(stdout, "IMDCT of size %d, float, running %d times, uses %.2e s\n",
-            N, r, (float) (t1 - t0) / CLOCKS_PER_SEC);
+   	/* benchmark MDCT floating point*/
+   	t0 = clock();
+   	for(i = 0; i < r; i++)
+           mdctf(freq, time, m_plan);
+       t1 = clock();
+       fprintf(stdout, "MDCT of size %d, float, running %d times, uses %.2e s\n",
+               N, r, (float) (t1 - t0) / CLOCKS_PER_SEC);
 
-	/* free MDCT/IMDCT workspace */
-    mdctf_free(m_plan);
+       /* benchmark IMDCT floating point*/
+       t0 = clock();
+       for(i = 0; i < r; i++)
+           imdctf(time, freq, m_plan);
+       t1 = clock();
+       fprintf(stdout, "IMDCT of size %d, float, running %d times, uses %.2e s\n",
+               N, r, (float) (t1 - t0) / CLOCKS_PER_SEC);
 
-	free(freq);
-	free(time);
+   	/* free MDCT/IMDCT workspace */
+       mdctf_free(m_plan);
 
-    return 0;
+   	free(freq);
+   	free(time);
 
-}
-```
+       return 0;
+
+   }
+   ```
+
+</details>

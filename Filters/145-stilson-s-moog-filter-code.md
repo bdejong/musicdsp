@@ -1,6 +1,6 @@
 # Stilson's Moog filter code
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [5 comments](#comments)
 
 - **Author or source:** DFL
 - **Type:** 4-pole LP, with fruity BP/HP
@@ -90,36 +90,41 @@ process loop:
 
 ## Comments
 
-**ku.oc.sdnuosdionamuh@nhoj** · 2004-06-07 08:01:13
+<details>
+<summary>Read 5 archived comments</summary>
 
-What is "x-\>p" in the code for setting Q?
+1. **ku.oc.sdnuosdionamuh@nhoj** · *2004-06-07 08:01:13*
 
-**DFL** · 2004-06-09 07:19:43
+   What is "x-\>p" in the code for setting Q?
 
-you should set the frequency first, to get the value of p.
-Then use that value to get the normalized Q value.
+2. **DFL** · *2004-06-09 07:19:43*
 
-**ku.oc.sdnuosdionamuh@nhoj** · 2004-06-09 12:22:00
+   you should set the frequency first, to get the value of p.
+   Then use that value to get the normalized Q value.
 
-Ah! That p. Thanks.
+3. **ku.oc.sdnuosdionamuh@nhoj** · *2004-06-09 12:22:00*
 
-**soeren.parton-\>soerenskleinewelt,de** · 2009-01-06 13:35:18
+   Ah! That p. Thanks.
 
-Hi!
+4. **soeren.parton-\>soerenskleinewelt,de** · *2009-01-06 13:35:18*
 
-My Output gets stuck at about 1E-7 even when the input is way below. Is that a quantisation problem? Looks as if it´s the saturation´s fault...
+   Hi!
 
-Cheers
-Sören
+   My Output gets stuck at about 1E-7 even when the input is way below. Is that a quantisation problem? Looks as if it´s the saturation´s fault...
 
-**ten.reknirdaet@cisum** · 2010-10-27 15:51:42
+   Cheers
+   Sören
 
-```text
-I have not tested, but it looks like gaintable and interpolation can be replaced using approx:
- 1 / (x * 1.48 + 0.85) - 0.1765
-```
+5. **ten.reknirdaet@cisum** · *2010-10-27 15:51:42*
 
-(range 0 -\> 1)
+   ```text
+   I have not tested, but it looks like gaintable and interpolation can be replaced using approx:
+    1 / (x * 1.48 + 0.85) - 0.1765
+   ```
 
-Peace
-/Martin
+   (range 0 -\> 1)
+
+   Peace
+   /Martin
+
+</details>

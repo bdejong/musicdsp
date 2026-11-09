@@ -1,6 +1,6 @@
 # Most simple static delay
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [5 comments](#comments)
 
 - **Author or source:** moc.liamtoh@sisehtnysorpitna
 - **Type:** Static delay
@@ -39,131 +39,136 @@ Output = DlyBuffer[ j ];
 
 ## Comments
 
-**moc.liamtoh@sisehtnysorpitna** · 2003-09-02 09:17:47
+<details>
+<summary>Read 5 archived comments</summary>
 
-Another note: The delay time will be 0 if fDlyTime is 0 or 1.
+1. **moc.liamtoh@sisehtnysorpitna** · *2003-09-02 09:17:47*
 
-**gro.ekaf@suomynona** · 2003-09-08 12:21:20
+   Another note: The delay time will be 0 if fDlyTime is 0 or 1.
 
-```cpp
-// I think you should be careful with mixing floats and integers that way (error-prone,
-// slow float-to-int conversions, etc).
+2. **gro.ekaf@suomynona** · *2003-09-08 12:21:20*
 
-// This should also work (haven't checked, not best way of doing it):
+   ```cpp
+   // I think you should be careful with mixing floats and integers that way (error-prone,
+   // slow float-to-int conversions, etc).
 
-// ... (initializing) ..
+   // This should also work (haven't checked, not best way of doing it):
 
-float numSecondsDelay = 0.3f;
-int numSamplesDelay_ = (int)(numSecondsDelay * sampleRate); // maybe want to round to an integer instead of truncating..
+   // ... (initializing) ..
 
-float *buffer_ = new float[2*numSamplesDelay];
+   float numSecondsDelay = 0.3f;
+   int numSamplesDelay_ = (int)(numSecondsDelay * sampleRate); // maybe want to round to an integer instead of truncating..
 
-for (int i = 0; i < numSamplesDelay_; ++i)
-{
-  buffer_[i] = 0.f;
-}
+   float *buffer_ = new float[2*numSamplesDelay];
 
-int readPtr_ = 0;
-int writePtr_ = numSamplesDelay_;
+   for (int i = 0; i < numSamplesDelay_; ++i)
+   {
+     buffer_[i] = 0.f;
+   }
 
-// ... (processing) ...
+   int readPtr_ = 0;
+   int writePtr_ = numSamplesDelay_;
 
-for (i = each sample)
-{
-  buffer_[writePtr_] = input[i];
-  output[i] = buffer_[readPtr_];
+   // ... (processing) ...
 
-  ++writePtr_;
-  if (writePtr_ >= 2*numSamplesDelay_)
-    writePtr_ = 0;
+   for (i = each sample)
+   {
+     buffer_[writePtr_] = input[i];
+     output[i] = buffer_[readPtr_];
 
-  ++readPtr_;
-  if (readPtr_ >= 2*numSamplesDelay_)
-    readPtr_ = 0;
-}
-```
+     ++writePtr_;
+     if (writePtr_ >= 2*numSamplesDelay_)
+       writePtr_ = 0;
 
-**moc.liamg@noteex** · 2004-08-24 19:31:45
+     ++readPtr_;
+     if (readPtr_ >= 2*numSamplesDelay_)
+       readPtr_ = 0;
+   }
+   ```
 
-I may be missing something, but I think it gets a little simpler than the previous two examples.
-The difference in result is that actual delay will be 1 if d is 0 or 1.
+3. **moc.liamg@noteex** · *2004-08-24 19:31:45*
 
-```text
-i = input/output index
-d = delay (in samples)
-```
+   I may be missing something, but I think it gets a little simpler than the previous two examples.
+   The difference in result is that actual delay will be 1 if d is 0 or 1.
 
-Code:
+   ```text
+   i = input/output index
+   d = delay (in samples)
+   ```
 
-```text
-out = buffer[i];
-buffer[i] = in;
-i++;
-if(i >= delay) i = 0;
-```
+   Code:
 
-**moc.liamg@noteex** · 2005-12-18 02:35:00
+   ```text
+   out = buffer[i];
+   buffer[i] = in;
+   i++;
+   if(i >= delay) i = 0;
+   ```
 
-or even in three lines...
+4. **moc.liamg@noteex** · *2005-12-18 02:35:00*
 
-```text
-out = buffer[i];
-buffer[i++] = in;
-if(i >= delay) i = 0;
-```
+   or even in three lines...
 
-**ku.oc.etativarg-jd@etativarg** · 2006-12-30 16:29:07
+   ```text
+   out = buffer[i];
+   buffer[i++] = in;
+   if(i >= delay) i = 0;
+   ```
 
-The only problem with this implementation, is that it is not really an audio effect! all this
-will do is to delay the input signal by a given number of samples! ...why would you ever want
-to do that? ...this would only ever work if you had a DSP and speakers both connected to the
-audio source and run them at the same time, so the speakers would be playing the original sorce
-and the DSP containing the delayed source connected to another set of speakers! this is not
-really an audio efffect!
+5. **ku.oc.etativarg-jd@etativarg** · *2006-12-30 16:29:07*
 
-...Here is a pseudo code example of a delay effect that will mix both the original sound with
-the delayed sound:
+   The only problem with this implementation, is that it is not really an audio effect! all this
+   will do is to delay the input signal by a given number of samples! ...why would you ever want
+   to do that? ...this would only ever work if you had a DSP and speakers both connected to the
+   audio source and run them at the same time, so the speakers would be playing the original sorce
+   and the DSP containing the delayed source connected to another set of speakers! this is not
+   really an audio efffect!
 
-```text
-Pseudo Code implementation for simple delay:
- - This implementation will put the current audio signal to the
-   left channel and the delayed audio signal to the right channel.
-   this is suitable for any stereo codec!
+   ...Here is a pseudo code example of a delay effect that will mix both the original sound with
+   the delayed sound:
 
-delay_function {
+   ```text
+   Pseudo Code implementation for simple delay:
+    - This implementation will put the current audio signal to the
+      left channel and the delayed audio signal to the right channel.
+      this is suitable for any stereo codec!
 
-  left_channel   // for stereo left
-  right_channel  // for stereo right
-  mono           // mono representation of stereo input
-  delay_time     // amount of time to delay input
-  counter = 0    // counter
+   delay_function {
 
-  //setup an array that is the same length as the maximum delay time:
-  delay_array[max delay time]  // array containing delayed data
+     left_channel   // for stereo left
+     right_channel  // for stereo right
+     mono           // mono representation of stereo input
+     delay_time     // amount of time to delay input
+     counter = 0    // counter
 
-  // convert stereo to mono:
-  (left_channel + right_channel) / 2
+     //setup an array that is the same length as the maximum delay time:
+     delay_array[max delay time]  // array containing delayed data
 
-  // initalise time to delay signal - maybe input from user
-  delay_time = x
+     // convert stereo to mono:
+     (left_channel + right_channel) / 2
 
-  if (delay_time = 0){
-    left_out = mono
-    right_out = mono
-  }
-  else {
-    // put current input data to left channel:
-    left_out = mono
-    // put oldest delayed input data to right channel:
-    right_out = delay_array[index]
+     // initalise time to delay signal - maybe input from user
+     delay_time = x
 
-    // overwrite with newest input:
-    delay_array[index] = mono;
+     if (delay_time = 0){
+       left_out = mono
+       right_out = mono
+     }
+     else {
+       // put current input data to left channel:
+       left_out = mono
+       // put oldest delayed input data to right channel:
+       right_out = delay_array[index]
 
-    // is index at end of delay buffer? if not increment, else set to zero
-    if (index < delay_time) index++
-    else index = 0
-  }
+       // overwrite with newest input:
+       delay_array[index] = mono;
 
-}
-```
+       // is index at end of delay buffer? if not increment, else set to zero
+       if (index < delay_time) index++
+       else index = 0
+     }
+
+   }
+   ```
+
+</details>

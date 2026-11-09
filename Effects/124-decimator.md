@@ -1,6 +1,6 @@
 # Decimator
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [2 comments](#comments)
 
 - **Author or source:** ed.bew@raeybot
 - **Type:** Bit-reducer and sample\&hold unit
@@ -75,38 +75,43 @@ float decimate(float i)
 
 ## Comments
 
-**moc.noicratse@ajelak** · 2002-12-03 12:44:42
+<details>
+<summary>Read 2 archived comments</summary>
 
-Nothing wrong with that, but you can also do fractional-bit-depth decimations, allowing
-smooth degradation from high bit depth to
-low and back:
-\---------------------------------------
+1. **moc.noicratse@ajelak** · *2002-12-03 12:44:42*
 
-```text
-// something like this -- this is
-// completely off the top of my head
-// precalculate the quantization level
-float bits; // effective bit depth
-float quantum = powf( 2.0f, bits );
+   Nothing wrong with that, but you can also do fractional-bit-depth decimations, allowing
+   smooth degradation from high bit depth to
+   low and back:
+   \---------------------------------------
 
-// per sample
-y = floorf( x * quantum ) / quantum;
+   ```text
+   // something like this -- this is
+   // completely off the top of my head
+   // precalculate the quantization level
+   float bits; // effective bit depth
+   float quantum = powf( 2.0f, bits );
 
----------------------------------------
-```
+   // per sample
+   y = floorf( x * quantum ) / quantum;
 
-**es.yarps@fek.rd** · 2003-02-14 20:04:36
+   ---------------------------------------
+   ```
 
-it looks to me like the c-line
+2. **es.yarps@fek.rd** · *2003-02-14 20:04:36*
 
-```text
-long int m=1<<(bits-1);
-```
+   it looks to me like the c-line
 
-doesnt give the correct number of quantisation levels if the number of levels is defined as
-2^bits. if bits=2 for instance, the above code line returns a bit pattern of 10 (3) and not
-11 (2^2) like one would expect.
+   ```text
+   long int m=1<<(bits-1);
+   ```
 
-please, do correct me if im wrong.
+   doesnt give the correct number of quantisation levels if the number of levels is defined as
+   2^bits. if bits=2 for instance, the above code line returns a bit pattern of 10 (3) and not
+   11 (2^2) like one would expect.
 
-/heatrof
+   please, do correct me if im wrong.
+
+   /heatrof
+
+</details>

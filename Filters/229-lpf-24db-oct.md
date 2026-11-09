@@ -1,6 +1,6 @@
 # LPF 24dB/Oct
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [3 comments](#comments)
 
 - **Author or source:** ed.luosfosruoivas@naitsirhC
 - **Type:** Chebyshev
@@ -57,91 +57,96 @@ State3 = B5*Stage1 + A5/A3*Output;
 
 ## Comments
 
-**musicdsp@Nospam dsparsons.co.uk** · 2006-09-14 10:36:43
+<details>
+<summary>Read 3 archived comments</summary>
 
-You've used two notations here (as admitted on KVR!)..
-Updated calculation code reads:
+1. **musicdsp@Nospam dsparsons.co.uk** · *2006-09-14 10:36:43*
 
-=-=-=-= Start =-=-=-=
+   You've used two notations here (as admitted on KVR!)..
+   Updated calculation code reads:
 
-Calculate the first biquad:
+   =-=-=-= Start =-=-=-=
 
-```text
-//A0 =   (Coeff[1]+K+Coeff[0]);
-t  = 1/(Coeff[1]+K+Coeff[0]);
-A1 = 2*(Coeff[0]-K)*t;
-A2 =   (Coeff[1]-K-Coeff[0])*t;
-B0 = t*K;
-B1 = 2*B0;
-B2 = B0;
-```
+   Calculate the first biquad:
 
-Calculate the second biquad:
+   ```text
+   //A0 =   (Coeff[1]+K+Coeff[0]);
+   t  = 1/(Coeff[1]+K+Coeff[0]);
+   A1 = 2*(Coeff[0]-K)*t;
+   A2 =   (Coeff[1]-K-Coeff[0])*t;
+   B0 = t*K;
+   B1 = 2*B0;
+   B2 = B0;
+   ```
 
-```text
-//A3 =   (Coeff[3]+K+Coeff[2]);
-t  = 1/(Coeff[3]+K+Coeff[2]);
-A4 = 2*(Coeff[2]-K)*t;
-A5 =   (Coeff[3]-K-Coeff[2])*t;
-B3 = t*K;
-B4 = 2*B3;
-B5 = B3;
-```
+   Calculate the second biquad:
 
-Then calculate the output as follows:
+   ```text
+   //A3 =   (Coeff[3]+K+Coeff[2]);
+   t  = 1/(Coeff[3]+K+Coeff[2]);
+   A4 = 2*(Coeff[2]-K)*t;
+   A5 =   (Coeff[3]-K-Coeff[2])*t;
+   B3 = t*K;
+   B4 = 2*B3;
+   B5 = B3;
+   ```
 
-```text
-Stage1 = B0*Input + State0;
-State0 = B1*Input + A1*Stage1 + State1;
-State1 = B2*Input + A2*Stage1;
+   Then calculate the output as follows:
 
-Output = B3*Stage1 + State2;
-State2 = B4*Stage1 + A4*Output + State2;
-State3 = B5*Stage1 + A5*Output;
-```
+   ```text
+   Stage1 = B0*Input + State0;
+   State0 = B1*Input + A1*Stage1 + State1;
+   State1 = B2*Input + A2*Stage1;
 
-=-=-=-=  End  =-=-=-=
+   Output = B3*Stage1 + State2;
+   State2 = B4*Stage1 + A4*Output + State2;
+   State3 = B5*Stage1 + A5*Output;
+   ```
 
-Hope that clears up any confusion for future readers :-)
+   =-=-=-=  End  =-=-=-=
 
-**moc.liamg@tnemelCssoR** · 2008-06-24 13:57:19
+   Hope that clears up any confusion for future readers :-)
 
-The variable State3 is assigned a value, but is never used anywhere. Is there a reason for this?
+2. **moc.liamg@tnemelCssoR** · *2008-06-24 13:57:19*
 
-**moc.liamg@321tiloen** · 2008-10-17 00:40:33
+   The variable State3 is assigned a value, but is never used anywhere. Is there a reason for this?
 
-Just ported this into Reaper's native JesuSonic.
+3. **moc.liamg@321tiloen** · *2008-10-17 00:40:33*
 
-There are errors in both of the codes above :D
-Use this:
+   Just ported this into Reaper's native JesuSonic.
 
-```text
-//start
+   There are errors in both of the codes above :D
+   Use this:
 
-A0  = 1/(Coeff[1]+K+Coeff[0]);
-A1 = 2*(Coeff[0]-K)*A0;
-A2 = (Coeff[1]-K-Coeff[0])*A0;
-B0 = A0*K;
-B1 = 2*B0;
-B2 = B0;
+   ```text
+   //start
 
-A3  = 1/(Coeff[3]+K+Coeff[2]);
-A4 = 2*(Coeff[2]-K)*A3;
-A5 = (Coeff[3]-K-Coeff[2])*A3;
-B3 = A3*K;
-B4 = 2*B3;
-B5 = B3;
+   A0  = 1/(Coeff[1]+K+Coeff[0]);
+   A1 = 2*(Coeff[0]-K)*A0;
+   A2 = (Coeff[1]-K-Coeff[0])*A0;
+   B0 = A0*K;
+   B1 = 2*B0;
+   B2 = B0;
 
-Stage1 = B0*Input + State0;
-State0 = B1*Input + A1*Stage1 + State1;
-State1 = B2*Input + A2*Stage1;
-Output = B3*Stage1 + State2;
-State2 = B4*Stage1 + A4*Output + State3;
-State3 = B5*Stage1 + A5*Output;
+   A3  = 1/(Coeff[3]+K+Coeff[2]);
+   A4 = 2*(Coeff[2]-K)*A3;
+   A5 = (Coeff[3]-K-Coeff[2])*A3;
+   B3 = A3*K;
+   B4 = 2*B3;
+   B5 = B3;
 
-//end
+   Stage1 = B0*Input + State0;
+   State0 = B1*Input + A1*Stage1 + State1;
+   State1 = B2*Input + A2*Stage1;
+   Output = B3*Stage1 + State2;
+   State2 = B4*Stage1 + A4*Output + State3;
+   State3 = B5*Stage1 + A5*Output;
 
-@RossClement[ AT ]gmail[ DOT ]com
-'State3' should be added in this line
--> State2 = B4*Stage1 + A4*Output + State3;
-```
+   //end
+
+   @RossClement[ AT ]gmail[ DOT ]com
+   'State3' should be added in this line
+   -> State2 = B4*Stage1 + A4*Output + State3;
+   ```
+
+</details>

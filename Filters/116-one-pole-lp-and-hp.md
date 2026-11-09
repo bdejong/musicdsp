@@ -1,6 +1,6 @@
 # One pole LP and HP
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [4 comments](#comments)
 
 - **Author or source:** Bram
 - **Created:** 2002-08-26 23:33:27
@@ -21,32 +21,37 @@ coeficient approximation: p = (2*cutoff/samplerate)^2
 
 ## Comments
 
-**moc.liamtoh@wta\_sohpyks** · 2006-03-23 15:39:07
+<details>
+<summary>Read 4 archived comments</summary>
 
-coefficient: p = (2-cos(x)) - sqrt((2-cos(x))^2 - 1) with x = 2\*pi\*cutoff/samplerate
+1. **moc.liamtoh@wta\_sohpyks** · *2006-03-23 15:39:07*
 
-p is always -1 using the formula above. The square eliminates the squareroot and (2-cos(x)) - (2-cos(x)) is 0.
+   coefficient: p = (2-cos(x)) - sqrt((2-cos(x))^2 - 1) with x = 2\*pi\*cutoff/samplerate
 
-**q@q** · 2006-03-24 09:37:19
+   p is always -1 using the formula above. The square eliminates the squareroot and (2-cos(x)) - (2-cos(x)) is 0.
 
-Look again. The -1 is inside the sqrt.
+2. **q@q** · *2006-03-24 09:37:19*
 
-**batlord\[.A.T.\]o2\[.D.O.T.\]pl** · 2008-08-11 09:34:07
+   Look again. The -1 is inside the sqrt.
 
-skyphos:
-sqrt((2-cos(x))^2 - 1) doesn't equal
-sqrt((2-cos(x))^2) + sqrt(- 1)
+3. **batlord\[.A.T.\]o2\[.D.O.T.\]pl** · *2008-08-11 09:34:07*
 
-so
+   skyphos:
+   sqrt((2-cos(x))^2 - 1) doesn't equal
+   sqrt((2-cos(x))^2) + sqrt(- 1)
 
--1 can be inside the sqrt, because (2-cos(x))^2 will be always \>= one.
+   so
 
-**No** · 2009-07-13 01:22:43
+   -1 can be inside the sqrt, because (2-cos(x))^2 will be always \>= one.
 
-HP is wrong!
-Or at least it does not work here. It acts like a lofi low-shelf. However this works:
+4. **No** · *2009-07-13 01:22:43*
 
-HP:
-recursion: tmp = (1-p)\*in + p\*tmp with output = in-tmp
-coefficient: p = (2-cos(x)) - sqrt((2-cos(x))^2 - 1) with x = 2\*pi\*cutoff/samplerate
-coeficient approximation: p = (1 - 2\*cutoff/samplerate)^2
+   HP is wrong!
+   Or at least it does not work here. It acts like a lofi low-shelf. However this works:
+
+   HP:
+   recursion: tmp = (1-p)\*in + p\*tmp with output = in-tmp
+   coefficient: p = (2-cos(x)) - sqrt((2-cos(x))^2 - 1) with x = 2\*pi\*cutoff/samplerate
+   coeficient approximation: p = (1 - 2\*cutoff/samplerate)^2
+
+</details>

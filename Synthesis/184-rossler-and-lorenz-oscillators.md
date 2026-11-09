@@ -1,6 +1,6 @@
 # Rossler and Lorenz Oscillators
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [1 comment](#comments)
 
 - **Author or source:** moc.noicratse@ajelak
 - **Type:** Chaotic LFO
@@ -29,9 +29,14 @@ http://www.tinygod.com/code/BLorenzOsc.zip
 
 ## Comments
 
-**moc.yddaht@yddaht** · 2005-01-10 09:11:12
+<details>
+<summary>Read 1 archived comment</summary>
 
-A Delphi/pascal version for VCL, KOL, Kylix and Freepascal on my website:
-<http://members.chello.nl/t.koning8/loro_sc.pas>
+1. **moc.yddaht@yddaht** · *2005-01-10 09:11:12*
 
-Nice work!
+   A Delphi/pascal version for VCL, KOL, Kylix and Freepascal on my website:
+   <http://members.chello.nl/t.koning8/loro_sc.pas>
+
+   Nice work!
+
+</details>

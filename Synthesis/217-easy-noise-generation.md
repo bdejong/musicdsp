@@ -1,6 +1,6 @@
 # Easy noise generation
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [7 comments](#comments)
 
 - **Author or source:** moc.psd-nashi@liam
 - **Type:** White Noise
@@ -35,55 +35,60 @@ Ove Karlsen.
 
 ## Comments
 
-**moc.liamg@saoxyz** · 2006-07-16 18:24:22
+<details>
+<summary>Read 7 archived comments</summary>
 
-This is quite a good PRNG! The numbers it generates exhibit a slight a pattern (obviously, since it's not very sophisticated) but they seem quite usable! The real FFT spectrum is very flat and "white" with just one or two aberrant spikes while the imaginary spectrum is almost perfect (as is the case with most PRNGs). Very nice! Either that or I need more practice with MuPad...
+1. **moc.liamg@saoxyz** · *2006-07-16 18:24:22*
 
-**moc.liamtoh@neslrakevofira** · 2007-01-16 12:16:24
+   This is quite a good PRNG! The numbers it generates exhibit a slight a pattern (obviously, since it's not very sophisticated) but they seem quite usable! The real FFT spectrum is very flat and "white" with just one or two aberrant spikes while the imaginary spectrum is almost perfect (as is the case with most PRNGs). Very nice! Either that or I need more practice with MuPad...
 
-Alternatively you can do:
+2. **moc.liamtoh@neslrakevofira** · *2007-01-16 12:16:24*
 
-```text
- 		double b_noiselast = b_noise;
-		b_noise = b_noise + 19;
-		b_noise = b_noise * b_noise;
-		b_noise = b_noise + ((-b_noise + b_noiselast) * 0.5);
-		int i_noise = b_noise;
-		b_noise = b_noise - i_noise;
-```
+   Alternatively you can do:
 
-This will remove the patterning.
+   ```text
+    		double b_noiselast = b_noise;
+   		b_noise = b_noise + 19;
+   		b_noise = b_noise * b_noise;
+   		b_noise = b_noise + ((-b_noise + b_noiselast) * 0.5);
+   		int i_noise = b_noise;
+   		b_noise = b_noise - i_noise;
+   ```
 
-**moc.erehwon@ydobon** · 2007-01-16 16:56:19
+   This will remove the patterning.
 
-```text
->>b_noise = b_noise + ((-b_noise + b_noiselast) * 0.5);
-```
+3. **moc.erehwon@ydobon** · *2007-01-16 16:56:19*
 
-That seems to reduce to just:
+   ```text
+   >>b_noise = b_noise + ((-b_noise + b_noiselast) * 0.5);
+   ```
 
-```text
-b_noise=(b_noise+b_noiselast) * 0.5;
-```
+   That seems to reduce to just:
 
-**mymail@com** · 2007-01-18 22:04:19
+   ```text
+   b_noise=(b_noise+b_noiselast) * 0.5;
+   ```
 
-Hi, is this integer? Please do not disturb the forum, rather send me an email.
+4. **mymail@com** · *2007-01-18 22:04:19*
 
-B.i.T
+   Hi, is this integer? Please do not disturb the forum, rather send me an email.
 
-**moc.liamtoh@neslrakevofira** · 2007-02-01 16:21:12
+   B.i.T
 
-The line is written like that, so you can change 0.5, to for instance 0.19.
+5. **moc.liamtoh@neslrakevofira** · *2007-02-01 16:21:12*
 
-**moc.erehwon@ydobon** · 2007-02-01 16:52:21
+   The line is written like that, so you can change 0.5, to for instance 0.19.
 
-\>\>The line is written like that, so you can change 0.5, to for instance 0.19.
+6. **moc.erehwon@ydobon** · *2007-02-01 16:52:21*
 
-OK. Why would I do that? What's that number control?
+   > The line is written like that, so you can change 0.5, to for instance 0.19.
 
-**moc.liamtoh@neslrakevofira** · 2007-02-03 15:51:46
+   OK. Why would I do that? What's that number control?
 
-It controls the patterning. I usually write my algorithms tweakable.
+7. **moc.liamtoh@neslrakevofira** · *2007-02-03 15:51:46*
 
-You could try even lower aswell, maybe 1e-19.
+   It controls the patterning. I usually write my algorithms tweakable.
+
+   You could try even lower aswell, maybe 1e-19.
+
+</details>

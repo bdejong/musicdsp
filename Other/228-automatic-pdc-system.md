@@ -1,6 +1,6 @@
 # Automatic PDC system
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [3 comments](#comments)
 
 - **Author or source:** Tebello Thejane
 - **Type:** the type that actually works, completely
@@ -34,18 +34,23 @@ Tebello Thejane.
 
 ## Comments
 
-**moc.liamg@saoxyz** · 2006-07-18 08:12:00
+<details>
+<summary>Read 3 archived comments</summary>
 
-Oops! RBJ's first name is Robert, not Richard! Man, that's a bad one...
+1. **moc.liamg@saoxyz** · *2006-07-18 08:12:00*
 
-**moc.liamg@saoxyz** · 2006-07-21 10:24:53
+   Oops! RBJ's first name is Robert, not Richard! Man, that's a bad one...
 
-Okay, I've sent a fixed version to Bram. It should be uploaded shortly. Bigger diagrams, too, so there's less aliasing in Adode Acrobat Reader. Hopefully no more embarisingly bad errors (like misspelling my own name, or something...).
+2. **moc.liamg@saoxyz** · *2006-07-21 10:24:53*
 
-**moc.liamg@saoxyz** · 2006-10-09 15:27:24
+   Okay, I've sent a fixed version to Bram. It should be uploaded shortly. Bigger diagrams, too, so there's less aliasing in Adode Acrobat Reader. Hopefully no more embarisingly bad errors (like misspelling my own name, or something...).
 
-```text
-              The revised version may be found here:
-http(:)//www.vormdicht.nl /misc/PDC_paper-rev.pdf
-Naturally, you need to remove the brackets from the address.
-```
+3. **moc.liamg@saoxyz** · *2006-10-09 15:27:24*
+
+   ```text
+                 The revised version may be found here:
+   http(:)//www.vormdicht.nl /misc/PDC_paper-rev.pdf
+   Naturally, you need to remove the brackets from the address.
+   ```
+
+</details>

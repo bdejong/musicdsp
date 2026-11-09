@@ -1,6 +1,6 @@
 # Fast exp() approximations
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [1 comment](#comments)
 
 - **Author or source:** uh.etle.fni@yfoocs
 - **Type:** Taylor series approximation
@@ -73,48 +73,53 @@ inline float fastexp9(float x) {
 
 ## Comments
 
-**uh.etle.fni@yfoocs** · 2006-07-03 00:40:15
+<details>
+<summary>Read 1 archived comment</summary>
 
-These series converge fast only near zero. But there is an identity:
+1. **uh.etle.fni@yfoocs** · *2006-07-03 00:40:15*
 
-```text
- exp(x) = exp(a) * exp(x-a)
-```
+   These series converge fast only near zero. But there is an identity:
 
-So, if you want a relatively fast polynomial approximation for exp(x) for 0 to \~7.5, you can use:
+   ```text
+    exp(x) = exp(a) * exp(x-a)
+   ```
 
-```text
-// max error in the 0 .. 7.5 range: ~0.45%
-inline float fastexp(float const &x)
-{
-  if (x<2.5)
-      return 2.7182818f * fastexp5(x-1.f);
-  else if (x<5)
-      return 33.115452f * fastexp5(x-3.5f);
-  else
-      return 403.42879f * fastexp5(x-6.f);
-}
-```
+   So, if you want a relatively fast polynomial approximation for exp(x) for 0 to \~7.5, you can use:
 
-where 2.7182.. = exp(1), 33.1154.. = exp(3.5) and 403.428.. = exp(6). I chose these values because fastexp5 has a maximum error of 0.45% between -1 - 1.5 (using fastexp6, the maximum error is 0.09%).
+   ```text
+   // max error in the 0 .. 7.5 range: ~0.45%
+   inline float fastexp(float const &x)
+   {
+     if (x<2.5)
+         return 2.7182818f * fastexp5(x-1.f);
+     else if (x<5)
+         return 33.115452f * fastexp5(x-3.5f);
+     else
+         return 403.42879f * fastexp5(x-6.f);
+   }
+   ```
 
-Using the identity
+   where 2.7182.. = exp(1), 33.1154.. = exp(3.5) and 403.428.. = exp(6). I chose these values because fastexp5 has a maximum error of 0.45% between -1 - 1.5 (using fastexp6, the maximum error is 0.09%).
 
-```text
-  pow(a,x) = exp(x * log(a))
-```
+   Using the identity
 
-you can use any base, for example to get 2^x:
+   ```text
+     pow(a,x) = exp(x * log(a))
+   ```
 
-```text
-// max error in the 0-10.58 range: ~0.45%
-inline float fastpow2(float const &x)
-{
-  float const log_two = 0.6931472f;
-  return fastexp(x * log_two);
-}
-```
+   you can use any base, for example to get 2^x:
 
-These functions are about 3x faster than exp().
+   ```text
+   // max error in the 0-10.58 range: ~0.45%
+   inline float fastpow2(float const &x)
+   {
+     float const log_two = 0.6931472f;
+     return fastexp(x * log_two);
+   }
+   ```
 
--- Peter Schoffhauzer
+   These functions are about 3x faster than exp().
+
+   -- Peter Schoffhauzer
+
+</details>

@@ -1,6 +1,6 @@
 # MIDI note/frequency conversion
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [3 comments](#comments)
 
 - **Author or source:** ed.bew@raebybot
 - **Type:** -
@@ -85,47 +85,52 @@ end;
 
 ## Comments
 
-**ed.bew@raebybot** · 2002-11-29 17:34:28
+<details>
+<summary>Read 3 archived comments</summary>
 
-For the sake of completeness, here is octave fraction notation and pitch class notation:
+1. **ed.bew@raebybot** · *2002-11-29 17:34:28*
 
-```text
-// converts from MIDI note to octave fraction notation
-// the integer part of the result is the octave number, where
-// 8 is the octave starting with middle C. The fractional part
-// is the note within the octave, where 1/12 represents a semitone.
-// example: NoteToOct(57)=7.75
-function NoteToOct(i:integer):double;
-begin
- result:=3+(i div 12)+(i mod 12)/12;
-end;
+   For the sake of completeness, here is octave fraction notation and pitch class notation:
 
-// converts from MIDI note to pitch class notation
-// the integer part of the number is the octave number, where
-// 8 is the octave starting with middle C. The
-fractional part
-// is the note within the octave, where a 0.01 increment is a
-// semitone.
-// example: NoteToPch(57)=7.09
-function NoteToPch(i:integer):double;
-begin
- result:=3+(i div 12)+(i mod 12)*0.01;
-end;
-```
+   ```text
+   // converts from MIDI note to octave fraction notation
+   // the integer part of the result is the octave number, where
+   // 8 is the octave starting with middle C. The fractional part
+   // is the note within the octave, where 1/12 represents a semitone.
+   // example: NoteToOct(57)=7.75
+   function NoteToOct(i:integer):double;
+   begin
+    result:=3+(i div 12)+(i mod 12)/12;
+   end;
 
-**moc.noicratse@ajelak** · 2002-12-03 12:36:05
+   // converts from MIDI note to pitch class notation
+   // the integer part of the number is the octave number, where
+   // 8 is the octave starting with middle C. The
+   fractional part
+   // is the note within the octave, where a 0.01 increment is a
+   // semitone.
+   // example: NoteToPch(57)=7.09
+   function NoteToPch(i:integer):double;
+   begin
+    result:=3+(i div 12)+(i mod 12)*0.01;
+   end;
+   ```
 
-I thought most sources gave A-440Hz = MIDI note 69. MIDI 60 = middle C = \~262Hz, A-440 = "A above middle C". Not so?
+2. **moc.noicratse@ajelak** · *2002-12-03 12:36:05*
 
-**DFL** · 2003-05-14 03:24:58
+   I thought most sources gave A-440Hz = MIDI note 69. MIDI 60 = middle C = \~262Hz, A-440 = "A above middle C". Not so?
 
-Kaleja is correct. Here is some C code:
+3. **DFL** · *2003-05-14 03:24:58*
 
-```text
-  double MIDItoFreq( char keynum ) {
-    return 440.0 * pow( 2.0, ((double)keynum - 69.0) / 12.0 );
-  }
-```
+   Kaleja is correct. Here is some C code:
 
-you can double-check the table here:
-<http://tomscarff.tripod.com/midi_analyser/midi_note_frequency.htm>
+   ```text
+     double MIDItoFreq( char keynum ) {
+       return 440.0 * pow( 2.0, ((double)keynum - 69.0) / 12.0 );
+     }
+   ```
+
+   you can double-check the table here:
+   <http://tomscarff.tripod.com/midi_analyser/midi_note_frequency.htm>
+
+</details>

@@ -1,6 +1,6 @@
 # State Variable Filter (Double Sampled, Stable)
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [5 comments](#comments)
 
 - **Author or source:** Andrew Simper
 - **Type:** 2 Pole Low, High, Band, Notch and  Peaking
@@ -49,59 +49,64 @@ for (i=0; i<numSamples; i++)
 
 ## Comments
 
-**eb.tenyks@didid** · 2004-11-19 13:30:07
+<details>
+<summary>Read 5 archived comments</summary>
 
-Correct me if I'm wrong, but the double-sampling here looks like doubling the input, which is a bad resampling introducing aliasing, followed by an averaging of the 2 outputs, thus filtering that aliasing.
-It works, but I think it (the averaging) has the side effect of smoothing up the high freqs in the source material, thus with this filter you can't really fully open it and have the original signal.
-At least, it's what seems to happen practically in my tests.
+1. **eb.tenyks@didid** · *2004-11-19 13:30:07*
 
-Problem is that this SVF indeed has a crap stability near nyquist, but I can't think of any better way to make it work better, unless you use a better but much more costy upsampling/downsampling.
+   Correct me if I'm wrong, but the double-sampling here looks like doubling the input, which is a bad resampling introducing aliasing, followed by an averaging of the 2 outputs, thus filtering that aliasing.
+   It works, but I think it (the averaging) has the side effect of smoothing up the high freqs in the source material, thus with this filter you can't really fully open it and have the original signal.
+   At least, it's what seems to happen practically in my tests.
 
-Anyone confirms?
+   Problem is that this SVF indeed has a crap stability near nyquist, but I can't think of any better way to make it work better, unless you use a better but much more costy upsampling/downsampling.
 
-**kd.utd.xaspmak@mj** · 2004-11-26 09:45:28
+   Anyone confirms?
 
-Interesting that this question pops up right now. Lately I have been wondering about the same thing, not so much about the (possibly limited) frequency range, but about stability problems of the filter that I have had (even when using smoothed control signals). The non-linearity introduced by the "drive\*band\*band\*band" factor does not seem to be covered by the stability measurements.
-In particular I would like to know, how the filter graphs in <http://vellocet.com/dsp/svf/svf-stability.html> and <http://www-2.cs.cmu.edu/~eli/tmp/svf/stability.png> were obtained? Would you like to post the code that generated the stability graph to the musicdsp archive?
-For the double-sampling scheme, wouldn't it make more sense to zero-stuff the input signal (that is interleave all input samples with zeros) instead of doubling the samples?
+2. **kd.utd.xaspmak@mj** · *2004-11-26 09:45:28*
 
-**kd.utd.xaspmak@mj** · 2004-11-27 00:07:09
+   Interesting that this question pops up right now. Lately I have been wondering about the same thing, not so much about the (possibly limited) frequency range, but about stability problems of the filter that I have had (even when using smoothed control signals). The non-linearity introduced by the "drive\*band\*band\*band" factor does not seem to be covered by the stability measurements.
+   In particular I would like to know, how the filter graphs in <http://vellocet.com/dsp/svf/svf-stability.html> and <http://www-2.cs.cmu.edu/~eli/tmp/svf/stability.png> were obtained? Would you like to post the code that generated the stability graph to the musicdsp archive?
+   For the double-sampling scheme, wouldn't it make more sense to zero-stuff the input signal (that is interleave all input samples with zeros) instead of doubling the samples?
 
-Oh, just noticed that Eli's SVF stability measurement code has already been made available at <http://www-2.cs.cmu.edu/~eli/tmp/svf/>
-However, I think it is up to him to decide whether he wants to include it in the archive or not.
+3. **kd.utd.xaspmak@mj** · *2004-11-27 00:07:09*
 
-**moc.kisuw@kmailliw** · 2007-12-13 11:01:38
+   Oh, just noticed that Eli's SVF stability measurement code has already been made available at <http://www-2.cs.cmu.edu/~eli/tmp/svf/>
+   However, I think it is up to him to decide whether he wants to include it in the archive or not.
 
-I was having problems with this filter when DRIVE is set to MAX and Rezonance is set to MIN. A quick way to fix it was to make DRIVE\*REZO, so when there's no resonance, there's no need for DRIVE anyway. That fixed the problem.
+4. **moc.kisuw@kmailliw** · *2007-12-13 11:01:38*
 
-**moc.liamg@libojyr** · 2017-05-11 21:39:28
+   I was having problems with this filter when DRIVE is set to MAX and Rezonance is set to MIN. A quick way to fix it was to make DRIVE\*REZO, so when there's no resonance, there's no need for DRIVE anyway. That fixed the problem.
 
-Here is how I am handling the resampling.  I know from trying this zero padding is nasty (terrible noise) without a good filter for downsampling back to base rate.
+5. **moc.liamg@libojyr** · *2017-05-11 21:39:28*
 
-Below the input is linear interpolated input.  This is a slight improvement on what Nigel Redmon suggests here: <http://www.earlevel.com/main/2003/03/02/the-digital-state-variable-filter/>
+   Here is how I am handling the resampling.  I know from trying this zero padding is nasty (terrible noise) without a good filter for downsampling back to base rate.
 
-Which is simply to tick the filter twice per sample with the same input.  This is very similar to above code except that there should not be averaging of the two outputs.  You just tick the filter twice with the same input and take the output.  The state variables take care of the band limiting.  Remember the aliased terms are multiples of the sample rate so they fall on 0 and nyquist frequencies, not really having more severe artefacts than what you get from running the filter at base sample rate.
+   Below the input is linear interpolated input.  This is a slight improvement on what Nigel Redmon suggests here: <http://www.earlevel.com/main/2003/03/02/the-digital-state-variable-filter/>
 
-For the low pass and bandpass outputs the filter itself performs the band-limiting necessary for clean decimation.  Intuitively the high pass output is due to a phase cancellation with the dual-integrator loop, so it should be about as clean as the LP and BP outputs.  The dual integrator is band-limiting in nature...just some thoughts.
+   Which is simply to tick the filter twice per sample with the same input.  This is very similar to above code except that there should not be averaging of the two outputs.  You just tick the filter twice with the same input and take the output.  The state variables take care of the band limiting.  Remember the aliased terms are multiples of the sample rate so they fall on 0 and nyquist frequencies, not really having more severe artefacts than what you get from running the filter at base sample rate.
 
-```text
-//-- Here's the Code --//
-//x[i] = input
-//x1 = x[i-1] = last input
-//Run 1 : Linear interpolate between x[n-1] and x[i]
-lpf = lpf + f* bpf;
-hpf = 0.5 * g * (x[i] + x1) - lpf - q*bpf;
-bpf = f* hpf + bpf;
+   For the low pass and bandpass outputs the filter itself performs the band-limiting necessary for clean decimation.  Intuitively the high pass output is due to a phase cancellation with the dual-integrator loop, so it should be about as clean as the LP and BP outputs.  The dual integrator is band-limiting in nature...just some thoughts.
 
-//Run 2
-lpf = lpf + f* bpf;
-hpf = g * x[i] - lpf - q*bpf;
-bpf = f* hpf + bpf;
+   ```cpp
+   //-- Here's the Code --//
+   //x[i] = input
+   //x1 = x[i-1] = last input
+   //Run 1 : Linear interpolate between x[n-1] and x[i]
+   lpf = lpf + f* bpf;
+   hpf = 0.5 * g * (x[i] + x1) - lpf - q*bpf;
+   bpf = f* hpf + bpf;
 
-x1 = x[i];
+   //Run 2
+   lpf = lpf + f* bpf;
+   hpf = g * x[i] - lpf - q*bpf;
+   bpf = f* hpf + bpf;
 
-// Coefficients on each state variable
-// allows for any filter response function possible
-// with a biquad filter structure
-x[i] = lmix*lpf + hmix*hpf + bmix*bpf;
-```
+   x1 = x[i];
+
+   // Coefficients on each state variable
+   // allows for any filter response function possible
+   // with a biquad filter structure
+   x[i] = lmix*lpf + hmix*hpf + bmix*bpf;
+   ```
+
+</details>

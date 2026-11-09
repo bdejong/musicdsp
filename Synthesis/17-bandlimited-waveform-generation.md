@@ -1,6 +1,6 @@
 # Bandlimited waveform generation
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [1 comment](#comments)
 
 - **Author or source:** Joe Wright
 - **Type:** waveform generation
@@ -14,10 +14,15 @@
 
 ## Comments
 
-**ed.redienhcsslin@psdcisum** · 2012-02-10 16:26:11
+<details>
+<summary>Read 1 archived comment</summary>
 
-The code to reduce the gibbs effect causes aliasing if a transition is made from wavetable A with x partials to wavetable B with y partials.
+1. **ed.redienhcsslin@psdcisum** · *2012-02-10 16:26:11*
 
-The aliasing can clearly be seen in a spectral view.
+   The code to reduce the gibbs effect causes aliasing if a transition is made from wavetable A with x partials to wavetable B with y partials.
 
-The problem is, that the volume modification for partial N is different depending on the number of partials the wavetable row contains
+   The aliasing can clearly be seen in a spectral view.
+
+   The problem is, that the volume modification for partial N is different depending on the number of partials the wavetable row contains
+
+</details>

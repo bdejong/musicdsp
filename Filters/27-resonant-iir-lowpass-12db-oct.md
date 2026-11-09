@@ -1,6 +1,6 @@
 # Resonant IIR lowpass (12dB/oct)
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** Olli Niemitalo
 - **Type:** Resonant IIR lowpass (12dB/oct)
@@ -55,28 +55,33 @@ for (streamofs = 0; streamofs < streamsize; streamofs++) {
 
 ## Comments
 
-**moc.ibtta@suocuar** · 2002-05-05 08:59:19
+<details>
+<summary>Read 2 archived comments</summary>
 
-This looks similar to the low-pass filter I used in FilterKing (<http://home.attbi.com/~spaztek4/>) Can you cruft up a high-pass example for me?
+1. **moc.ibtta@suocuar** · *2002-05-05 08:59:19*
 
-Thanks,
-\_\_e
+   This looks similar to the low-pass filter I used in FilterKing (<http://home.attbi.com/~spaztek4/>) Can you cruft up a high-pass example for me?
 
-**faster init** · 2006-05-18 17:01:21
+   Thanks,
+   \_\_e
 
-thank you! works nicely...
-here a simplified init version for faster changes of the filter properties for amps = 1.0
+2. **faster init** · *2006-05-18 17:01:21*
 
-```text
-void init( double resofreq )
-{
-static const double FAC = pi * 2.0 /samplerate;
-double q, w;
+   thank you! works nicely...
+   here a simplified init version for faster changes of the filter properties for amps = 1.0
 
-w = FAC * resofreq;
-q = 1.0f - w /( ( 3.0 /( 1.0+w ) ) + w - 2.0 );
+   ```text
+   void init( double resofreq )
+   {
+   static const double FAC = pi * 2.0 /samplerate;
+   double q, w;
 
-_r = q * q;
-_c = r + 1.0f - 2.0f * cos(w) * q;
-}
-```
+   w = FAC * resofreq;
+   q = 1.0f - w /( ( 3.0 /( 1.0+w ) ) + w - 2.0 );
+
+   _r = q * q;
+   _c = r + 1.0f - 2.0f * cos(w) * q;
+   }
+   ```
+
+</details>

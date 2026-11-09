@@ -1,6 +1,6 @@
 # Float to int (more intel asm)
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [5 comments](#comments)
 
 - **Author or source:** Laurent de Soras (via flipcode)
 - **Created:** 2004-06-14 14:51:47
@@ -81,50 +81,55 @@ inline int ceil_int (double x)
 
 ## Comments
 
-**daniel.schaack\[-dot-\]basementarts.de** · 2004-06-15 07:29:25
+<details>
+<summary>Read 5 archived comments</summary>
 
-cool trick, but using round to zero FPU mode is still the best methode (2 lines):
+1. **daniel.schaack\[-dot-\]basementarts.de** · *2004-06-15 07:29:25*
 
-```text
-__asm
-{
- fld x
- fistp y
-}
-```
+   cool trick, but using round to zero FPU mode is still the best methode (2 lines):
 
-**moc.krod@dje** · 2004-06-18 01:28:41
+   ```text
+   __asm
+   {
+    fld x
+    fistp y
+   }
+   ```
 
-If anyone is using NASM, here is how I implemented the first function, if anyone is interested.  I did this after sitting down for a while with the intel manuals.  I've not done any x86-FPU stuff before, so this may not be the \*best\* code.  The other functions are easily implemented by modifying this one.
+2. **moc.krod@dje** · *2004-06-18 01:28:41*
 
-bits 32
-global dsp\_round
+   If anyone is using NASM, here is how I implemented the first function, if anyone is interested.  I did this after sitting down for a while with the intel manuals.  I've not done any x86-FPU stuff before, so this may not be the \*best\* code.  The other functions are easily implemented by modifying this one.
 
-HALF dq 0.5
+   bits 32
+   global dsp\_round
 
-```text
-align 4
-dsp_round:
-	fld qword[HALF]
-	fld qword[esp+4]
+   HALF dq 0.5
 
-	fadd st0
-	fadd st1
+   ```text
+   align 4
+   dsp_round:
+   	fld qword[HALF]
+   	fld qword[esp+4]
 
-	fistp qword[eax]
-	mov eax, [eax]
-	sar eax, 1
-	ret
-```
+   	fadd st0
+   	fadd st1
 
-**moc.krod@dje** · 2004-06-18 13:48:09
+   	fistp qword[eax]
+   	mov eax, [eax]
+   	sar eax, 1
+   	ret
+   ```
 
-Whoops.  I've really gone and embarassed myself this time.  The code I posted is actually broken -- I don't know what I was thinking.  I'll post the fixed version a bit later today.  My appologies.
+3. **moc.krod@dje** · *2004-06-18 13:48:09*
 
-**pj.krowtenctu@remmah** · 2004-08-10 10:29:44
+   Whoops.  I've really gone and embarassed myself this time.  The code I posted is actually broken -- I don't know what I was thinking.  I'll post the fixed version a bit later today.  My appologies.
 
-Will this method also work for other processor types like AMD and CELERON?
+4. **pj.krowtenctu@remmah** · *2004-08-10 10:29:44*
 
-**uh.etle.fni@yfoocs** · 2007-02-19 11:13:19
+   Will this method also work for other processor types like AMD and CELERON?
 
-It works with AMD and Celeron too (and as I know, probably with all x87 FPUs)
+5. **uh.etle.fni@yfoocs** · *2007-02-19 11:13:19*
+
+   It works with AMD and Celeron too (and as I know, probably with all x87 FPUs)
+
+</details>

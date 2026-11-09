@@ -1,6 +1,6 @@
 # Bit quantization/reduction effect
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [1 comment](#comments)
 
 - **Author or source:** Jon Watte
 - **Type:** Bit-level noise-generating effect
@@ -24,15 +24,20 @@ short keep_bits_from_16( short input, int keepBits ) {
 
 ## Comments
 
-**moc.liamg@codlli** · 2005-05-30 23:01:56
+<details>
+<summary>Read 1 archived comment</summary>
 
-```cpp
-//I add some code to prevent offset.
+1. **moc.liamg@codlli** · *2005-05-30 23:01:56*
 
-// Code :
-short keep_bits_from_16( short input, int keepBits ) {
-    short prevent_offset = static_cast<unsigned short>(-1) >> keepBits+1;
-    input &= (-1 << (16-keepBits)));
-    return input + prevent_offset
-}
-```
+   ```cpp
+   //I add some code to prevent offset.
+
+   // Code :
+   short keep_bits_from_16( short input, int keepBits ) {
+       short prevent_offset = static_cast<unsigned short>(-1) >> keepBits+1;
+       input &= (-1 << (16-keepBits)));
+       return input + prevent_offset
+   }
+   ```
+
+</details>

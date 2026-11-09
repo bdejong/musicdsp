@@ -1,6 +1,6 @@
 # Cool Sounding Lowpass With Decibel Measured Resonance
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [7 comments](#comments)
 
 - **Author or source:** ua.moc.ohay@renrew\_bocaj\_leinad
 - **Type:** LP 2-pole resonant tweaked butterworth
@@ -42,71 +42,76 @@ b2 = a0 * (1.0f - (q * c) + csq);
 
 ## Comments
 
-**acid\_mutant\[aat\]yahoo\[doot\]com** · 2005-11-24 17:59:36
+<details>
+<summary>Read 7 archived comments</summary>
 
-For some reason when I tested this algorithm, even though the frequency response looked OK in my graphs - i.e. it should resonate the output didn't seem to be very resonant - it could be a phase issue, I'll keep checking.
+1. **acid\_mutant\[aat\]yahoo\[doot\]com** · *2005-11-24 17:59:36*
 
-(BTW: I use an impulse, then FFT, then display the power bands returned)
+   For some reason when I tested this algorithm, even though the frequency response looked OK in my graphs - i.e. it should resonate the output didn't seem to be very resonant - it could be a phase issue, I'll keep checking.
 
-**moc.snad@snad** · 2006-03-09 18:38:39
+   (BTW: I use an impulse, then FFT, then display the power bands returned)
 
-shouldn't it be
+2. **moc.snad@snad** · *2006-03-09 18:38:39*
 
-```text
-resonance = powf(10.0f, -(resonancedB * 0.05f));
-```
+   shouldn't it be
 
-instead of
+   ```text
+   resonance = powf(10.0f, -(resonancedB * 0.05f));
+   ```
 
-```text
-resonance = powf(10.0f, -(resonancedB * 0.1f));
-```
+   instead of
 
-to get correct dB gain?
+   ```text
+   resonance = powf(10.0f, -(resonancedB * 0.1f));
+   ```
 
-... since gain = 10^(dB/20) ...
+   to get correct dB gain?
 
-**uh.etle.fni@yfoocs** · 2007-01-06 04:29:10
+   ... since gain = 10^(dB/20) ...
 
-Agree with the last post.
+3. **uh.etle.fni@yfoocs** · *2007-01-06 04:29:10*
 
-**moc.enecslatnemirepxe.ecnuob@ton.em.maps.renrewd** · 2007-08-21 14:00:21
+   Agree with the last post.
 
-The algorithm was developed with a digital signal of 32-bit floating point pseudo-random white noise running through it. The level of resonance was measured by visually plotting the output of the FFT of the signal. I half agree with the second last post, i.e. dB in acoustics is not the same as dB in digital audio. Correct me if I am wrong, it is a long time since I thought about this.
+4. **moc.enecslatnemirepxe.ecnuob@ton.em.maps.renrewd** · *2007-08-21 14:00:21*
 
-**moc.oohay@tsvsoxox** · 2010-12-10 23:53:27
+   The algorithm was developed with a digital signal of 32-bit floating point pseudo-random white noise running through it. The level of resonance was measured by visually plotting the output of the FFT of the signal. I half agree with the second last post, i.e. dB in acoustics is not the same as dB in digital audio. Correct me if I am wrong, it is a long time since I thought about this.
 
-there is something very wrong with this code as it is printed here, i don't expect anyone is going to make any effort to correct it or verify it.
+5. **moc.oohay@tsvsoxox** · *2010-12-10 23:53:27*
 
-**moc.halb@halb** · 2015-09-14 18:11:21
+   there is something very wrong with this code as it is printed here, i don't expect anyone is going to make any effort to correct it or verify it.
 
-You need to use 0.5 in the power function to convert from the db to the linear.
+6. **moc.halb@halb** · *2015-09-14 18:11:21*
 
-You can apply a GAIN reduction by doing the same thing but make it smaller.
+   You need to use 0.5 in the power function to convert from the db to the linear.
 
-```text
-GAIN = powf(10.0f, -((resonance*0.25) * 0.05 ));
-```
+   You can apply a GAIN reduction by doing the same thing but make it smaller.
 
-The use the GAIN to the input of the filter. If you use it to the output and change resonance rapidly it will click.
+   ```text
+   GAIN = powf(10.0f, -((resonance*0.25) * 0.05 ));
+   ```
 
-For the gain you can change the 0.25 to 0.125 or 0.075 if you feel that it is to quiet when you turn the resonance up.
+   The use the GAIN to the input of the filter. If you use it to the output and change resonance rapidly it will click.
 
-**moc.halb@halb** · 2015-09-14 18:14:36
+   For the gain you can change the 0.25 to 0.125 or 0.075 if you feel that it is to quiet when you turn the resonance up.
 
-Correction to me previous post, I meant 0.05 in the first line.
+7. **moc.halb@halb** · *2015-09-14 18:14:36*
 
-Convert resonance as dB to q for use in filter, use this formula.
+   Correction to me previous post, I meant 0.05 in the first line.
 
-```text
-  q = powf(10.0f, -(resonanceDb * 0.05) );
-```
+   Convert resonance as dB to q for use in filter, use this formula.
 
-It will give you a value from 0 to 1. But for most butterworth you do not want zero and you want it to go a little more than one to fully exploit the resonance, so scale it like below.
+   ```text
+     q = powf(10.0f, -(resonanceDb * 0.05) );
+   ```
 
-```text
-For me this works to scale the q
-  q = 0.1 + q * 1.5
-```
+   It will give you a value from 0 to 1. But for most butterworth you do not want zero and you want it to go a little more than one to fully exploit the resonance, so scale it like below.
 
-For example, the 1.5 and 0.1 can be adjusted to suit your preference.
+   ```text
+   For me this works to scale the q
+     q = 0.1 + q * 1.5
+   ```
+
+   For example, the 1.5 and 0.1 can be adjusted to suit your preference.
+
+</details>

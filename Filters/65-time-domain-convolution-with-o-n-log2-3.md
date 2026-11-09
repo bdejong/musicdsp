@@ -1,6 +1,6 @@
 # Time domain convolution with O(n^log2(3))
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [3 comments](#comments)
 
 - **Author or source:** Wilfried Welti
 - **Created:** 2002-02-10 12:38:01
@@ -153,96 +153,101 @@ void signal_add_to(value* out, value* in, int size)
 
 ## Comments
 
-**ed.luosfosruoivas@naitsirhC** · 2003-11-05 11:53:05
+<details>
+<summary>Read 3 archived comments</summary>
 
-Here is a delphi translation of the code:
+1. **ed.luosfosruoivas@naitsirhC** · *2003-11-05 11:53:05*
 
-```text
-// "value" may be a suitable type like int or float.
-// Parameter "size" is the size of the input signals and must be a power of 2.
-// out and buffer must point to arrays of size 2*n.
+   Here is a delphi translation of the code:
 
-procedure signal_add(in1, in2, ou1 :PValue; Size:Integer);
-var i            : Integer;
-begin
- for i:=0 to Size-1 do
-  begin
-   ou1^[i] := in1^[i] + in2^[i];
-  end;
-end;
+   ```text
+   // "value" may be a suitable type like int or float.
+   // Parameter "size" is the size of the input signals and must be a power of 2.
+   // out and buffer must point to arrays of size 2*n.
 
-procedure signal_sub_from(in1, ou1 :PValue; Size:Integer);
-var i       : Integer;
-begin
- for i:=0 to Size-1 do
-  begin
-   ou1^[i] := ou1^[i] - in1^[i];
-  end;
-end;
+   procedure signal_add(in1, in2, ou1 :PValue; Size:Integer);
+   var i            : Integer;
+   begin
+    for i:=0 to Size-1 do
+     begin
+      ou1^[i] := in1^[i] + in2^[i];
+     end;
+   end;
 
-procedure signal_add_to(in1, ou1: PValue; Size:Integer);
-var i       : Integer;
-    po, pi1 : PValue;
-begin
- po:=ou1;
- pi1:=in1;
- for i:=0 to Size-1 do
-  begin
-   ou1^[i] := ou1^[i] + in1^[i];
-   Inc(po);
-   Inc(pi1);
-  end;
-end;
+   procedure signal_sub_from(in1, ou1 :PValue; Size:Integer);
+   var i       : Integer;
+   begin
+    for i:=0 to Size-1 do
+     begin
+      ou1^[i] := ou1^[i] - in1^[i];
+     end;
+   end;
 
-procedure convolution(in1, in2, ou1, buffer :PValue; Size:Integer);
-var tmp1, tmp2 : PValue;
-    i          : Integer;
-begin
- tmp1:=Buffer;
- tmp2:=@(Buffer^[(Size div 2)]);
+   procedure signal_add_to(in1, ou1: PValue; Size:Integer);
+   var i       : Integer;
+       po, pi1 : PValue;
+   begin
+    po:=ou1;
+    pi1:=in1;
+    for i:=0 to Size-1 do
+     begin
+      ou1^[i] := ou1^[i] + in1^[i];
+      Inc(po);
+      Inc(pi1);
+     end;
+   end;
 
- // clear output.
- for i:=0 to size*2 do ou1^[i]:=0;
+   procedure convolution(in1, in2, ou1, buffer :PValue; Size:Integer);
+   var tmp1, tmp2 : PValue;
+       i          : Integer;
+   begin
+    tmp1:=Buffer;
+    tmp2:=@(Buffer^[(Size div 2)]);
 
- // Break condition for recursion: 1x1 convolution is multiplication.
- if Size = 1 then
-  begin
-   ou1^[0] := in1^[0] * in2^[0];
-   exit;
-  end;
+    // clear output.
+    for i:=0 to size*2 do ou1^[i]:=0;
 
- // first calculate (A1 + A2 * z^-n)*(B1 + B2 * z^-n)*z^n
- signal_add(in1, @(in1^[(Size div 2)]), tmp1, Size div 2);
- signal_add(in2, @(in1^[(Size div 2)]), tmp2, Size div 2);
- convolution(tmp1, tmp2, @(ou1^[(Size div 2)]), @(Buffer^[Size]), Size div 2);
+    // Break condition for recursion: 1x1 convolution is multiplication.
+    if Size = 1 then
+     begin
+      ou1^[0] := in1^[0] * in2^[0];
+      exit;
+     end;
 
- // then add A1*B1 and substract A1*B1*z^n
- convolution(in1, in2, tmp1, @(Buffer^[Size]), Size div 2);
- signal_add_to(ou1, tmp1, size);
- signal_sub_from(@(ou1^[(Size div 2)]), tmp1, size);
+    // first calculate (A1 + A2 * z^-n)*(B1 + B2 * z^-n)*z^n
+    signal_add(in1, @(in1^[(Size div 2)]), tmp1, Size div 2);
+    signal_add(in2, @(in1^[(Size div 2)]), tmp2, Size div 2);
+    convolution(tmp1, tmp2, @(ou1^[(Size div 2)]), @(Buffer^[Size]), Size div 2);
 
- // then add A2*B2 and substract A2*B2*z^-n
- convolution(@(in1^[(Size div 2)]), @(in2^[(Size div 2)]), tmp1, @(Buffer^[Size]), Size div 2);
- signal_add_to(@(ou1^[Size]), tmp1, size);
- signal_sub_from(@(ou1^[Size]), tmp1, size);
-end;
-```
+    // then add A1*B1 and substract A1*B1*z^n
+    convolution(in1, in2, tmp1, @(Buffer^[Size]), Size div 2);
+    signal_add_to(ou1, tmp1, size);
+    signal_sub_from(@(ou1^[(Size div 2)]), tmp1, size);
 
-**ed.luosfosruoivas@naitsirhC** · 2003-11-05 12:19:05
+    // then add A2*B2 and substract A2*B2*z^-n
+    convolution(@(in1^[(Size div 2)]), @(in2^[(Size div 2)]), tmp1, @(Buffer^[Size]), Size div 2);
+    signal_add_to(@(ou1^[Size]), tmp1, size);
+    signal_sub_from(@(ou1^[Size]), tmp1, size);
+   end;
+   ```
 
-Sorry, i forgot the definitions:
+2. **ed.luosfosruoivas@naitsirhC** · *2003-11-05 12:19:05*
 
-```text
-type
-  Values = Array[0..0] of Single;
-  PValue = ^Values;
-```
+   Sorry, i forgot the definitions:
 
-**ed.luosfosruoivas@naitsirhC** · 2004-04-19 19:47:52
+   ```text
+   type
+     Values = Array[0..0] of Single;
+     PValue = ^Values;
+   ```
 
-I have implemented a Suround-Plugin using this Source-Code.
-Basicly a FIR-Filter with 512 Taps, bundled with some HRTF's for sourround panning
+3. **ed.luosfosruoivas@naitsirhC** · *2004-04-19 19:47:52*
 
-<http://www.savioursofsoul.de/Christian/ITA-HRTF.EXE>
+   I have implemented a Suround-Plugin using this Source-Code.
+   Basicly a FIR-Filter with 512 Taps, bundled with some HRTF's for sourround panning
 
-(Delphi Sourcecode available on request)
+   <http://www.savioursofsoul.de/Christian/ITA-HRTF.EXE>
+
+   (Delphi Sourcecode available on request)
+
+</details>

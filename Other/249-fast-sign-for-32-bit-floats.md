@@ -1,6 +1,6 @@
 # Fast sign for 32 bit floats
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [2 comments](#comments)
 
 - **Author or source:** Peter Schoffhauzer
 - **Created:** 2007-05-14 10:15:43
@@ -59,50 +59,55 @@ inline int fast_sign_int(float f) {
 
 ## Comments
 
-**uh.etle.fni@yfoocs** · 2007-05-15 16:49:02
+<details>
+<summary>Read 2 archived comments</summary>
 
-Now consider when you want to multiply a number by the sign of another:
+1. **uh.etle.fni@yfoocs** · *2007-05-15 16:49:02*
 
-```text
-  if (a>0.f) b = b;
-    else b = -b;
-```
+   Now consider when you want to multiply a number by the sign of another:
 
-This involves 1) a comparison, 2) a branch, 3) an inversion (multiply or bit flip) in one branch. Another method for calculating the same:
+   ```text
+     if (a>0.f) b = b;
+       else b = -b;
+   ```
 
-```text
-  b *= fast_sign_nozero_(a);
-```
+   This involves 1) a comparison, 2) a branch, 3) an inversion (multiply or bit flip) in one branch. Another method for calculating the same:
 
-This involves 1) a bitwise and, 2) a bitwise or 3) and a multiply. Using only bit operations, the branch and/or multiply can be totally eliminated:
+   ```text
+     b *= fast_sign_nozero_(a);
+   ```
 
-```text
-// equivalent to dest *= sgn(source)
-inline void mul_sign(float &dest, float &source) {
-	(int&)dest &= 0x7FFFFFFF; // clear sign bit
-	(int&)dest |= ((int&)dest ^ (int&)source) & 0x80000000f; // set sign bit if necessary
-}
-```
+   This involves 1) a bitwise and, 2) a bitwise or 3) and a multiply. Using only bit operations, the branch and/or multiply can be totally eliminated:
 
-This function has only three bitwise operations, which should be very fast. Usage:
+   ```text
+   // equivalent to dest *= sgn(source)
+   inline void mul_sign(float &dest, float &source) {
+   	(int&)dest &= 0x7FFFFFFF; // clear sign bit
+   	(int&)dest |= ((int&)dest ^ (int&)source) & 0x80000000f; // set sign bit if necessary
+   }
+   ```
 
-```text
-  mul_sign(b,a); // b = b*sign(a)
-```
+   This function has only three bitwise operations, which should be very fast. Usage:
 
-The speed increase with all these functions greatly depends on the predictability of the branches. If the branch is highly predictable (a lot of positive numbers, then a lot of negative numbers, without mixing them), then an if/else solution is pretty fast. If the branch is unpredictable (random numbers, or audio similar to white noise) then bit operations should perform significantly better on today's most CPUs with multi-level pipelines.
+   ```text
+     mul_sign(b,a); // b = b*sign(a)
+   ```
 
--- Peter Schoffhauzer
+   The speed increase with all these functions greatly depends on the predictability of the branches. If the branch is highly predictable (a lot of positive numbers, then a lot of negative numbers, without mixing them), then an if/else solution is pretty fast. If the branch is unpredictable (random numbers, or audio similar to white noise) then bit operations should perform significantly better on today's most CPUs with multi-level pipelines.
 
-**uh.etle.fni@yfoocs** · 2007-07-01 19:14:04
+   -- Peter Schoffhauzer
 
-Sorry, there is a bug in the above code. Correctly:
+2. **uh.etle.fni@yfoocs** · *2007-07-01 19:14:04*
 
-```text
-// equivalent to dest *= sgn(source)
-inline void mul_sign_nozero(float &dest, float const &source) {
-	int sign_mask = ((int&)dest ^ (int&)source) & 0x80000000; // XOR and mask
-	(int&)dest &= 0x7FFFFFFF; // clear sign bit
-	(int&)dest |= sign_mask; // set sign bit if necessary
-}
-```
+   Sorry, there is a bug in the above code. Correctly:
+
+   ```text
+   // equivalent to dest *= sgn(source)
+   inline void mul_sign_nozero(float &dest, float const &source) {
+   	int sign_mask = ((int&)dest ^ (int&)source) & 0x80000000; // XOR and mask
+   	(int&)dest &= 0x7FFFFFFF; // clear sign bit
+   	(int&)dest |= sign_mask; // set sign bit if necessary
+   }
+   ```
+
+</details>

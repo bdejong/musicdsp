@@ -1,6 +1,6 @@
 # One pole filter, LP and HP
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [5 comments](#comments)
 
 - **Author or source:** uh.etle.fni@yfoocs
 - **Type:** Simple 1 pole LP and HP filter
@@ -32,59 +32,64 @@ b1 = -x;
 
 ## Comments
 
-**moc.liamtoh@ojer\_jd** · 2007-01-05 11:43:21
+<details>
+<summary>Read 5 archived comments</summary>
 
-Why don't you just say:
+1. **moc.liamtoh@ojer\_jd** · *2007-01-05 11:43:21*
 
-```text
-Process loop (lowpass):
-out = a0*in + b1*tmp;
-tmp = out;
+   Why don't you just say:
 
-Simple HP version: subtract lowpass output from the input (has strange behaviour towards nyquist):
-out = a0*in + b1*tmp;
-tmp = out;
-hp = in-out;
+   ```text
+   Process loop (lowpass):
+   out = a0*in + b1*tmp;
+   tmp = out;
 
-Coefficient calculation:
-x = exp(-2.0*pi*freq/samplerate);
-a0 = 1.0-x;
-b1 = x;
-```
+   Simple HP version: subtract lowpass output from the input (has strange behaviour towards nyquist):
+   out = a0*in + b1*tmp;
+   tmp = out;
+   hp = in-out;
 
-**uh.etle.fni@yfoocs** · 2007-01-06 04:12:56
+   Coefficient calculation:
+   x = exp(-2.0*pi*freq/samplerate);
+   a0 = 1.0-x;
+   b1 = x;
+   ```
 
-There's a tradition among digital filter designers that the pole coefficients have a negative sign. Of course the other one is also valid, and sometimes these notations are mixed up.
+2. **uh.etle.fni@yfoocs** · *2007-01-06 04:12:56*
 
-If you're worried about the extra negation operation, then you could say
+   There's a tradition among digital filter designers that the pole coefficients have a negative sign. Of course the other one is also valid, and sometimes these notations are mixed up.
 
-```text
-b1 = -x;
-a0 = 1.0+b1;
-```
+   If you're worried about the extra negation operation, then you could say
 
-so that there's no additional operation overhead.
+   ```text
+   b1 = -x;
+   a0 = 1.0+b1;
+   ```
 
--- peter schoffhauzer
+   so that there's no additional operation overhead.
 
-**moc.erehwon@ydobon** · 2007-01-06 16:26:27
+   -- peter schoffhauzer
 
-Of course, you don't need tmp.
+3. **moc.erehwon@ydobon** · *2007-01-06 16:26:27*
 
-```text
-Process loop (lowpass):
-out = a0*in + b1*out;
-```
+   Of course, you don't need tmp.
 
-**uh.etle.fni@yfoocs** · 2007-02-16 19:27:48
+   ```text
+   Process loop (lowpass):
+   out = a0*in + b1*out;
+   ```
 
-Indeed.
+4. **uh.etle.fni@yfoocs** · *2007-02-16 19:27:48*
 
-**moc.boohay@bob** · 2009-06-18 17:29:20
+   Indeed.
 
-```text
-Or...
-out += a0 * (in - out);
-```
+5. **moc.boohay@bob** · *2009-06-18 17:29:20*
 
-:)
+   ```text
+   Or...
+   out += a0 * (in - out);
+   ```
+
+   :)
+
+</details>

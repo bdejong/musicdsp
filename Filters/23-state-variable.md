@@ -1,6 +1,6 @@
 # State variable
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [8 comments](#comments)
 
 - **Author or source:** Effect Deisgn Part 1, Jon Dattorro, J. Audio Eng. Soc., Vol 45, No. 9, 1997 September
 - **Type:** 12db resonant low, high or bandpass
@@ -37,102 +37,107 @@ notch = high + low;
 
 ## Comments
 
-**nope** · 2006-01-11 15:06:56
+<details>
+<summary>Read 8 archived comments</summary>
 
-Wow, great. Sounds good, thanks.
+1. **nope** · *2006-01-11 15:06:56*
 
-**es.aelp@maps.on** · 2007-02-13 13:45:02
+   Wow, great. Sounds good, thanks.
 
-The variable "high" doesn't have to be initialised, does it? It looks to me like the only variables that need to be kept around between iterations are "low" and "band".
+2. **es.aelp@maps.on** · *2007-02-13 13:45:02*
 
-**moc.erehwon@ydobon** · 2007-02-13 15:28:30
+   The variable "high" doesn't have to be initialised, does it? It looks to me like the only variables that need to be kept around between iterations are "low" and "band".
 
-Right. High and notch are calculated from low and band every iteration.
+3. **moc.erehwon@ydobon** · *2007-02-13 15:28:30*
 
-**og.on@alal** · 2007-07-18 11:34:21
+   Right. High and notch are calculated from low and band every iteration.
 
-Anyone know what the difference is between q and scale?
+4. **og.on@alal** · *2007-07-18 11:34:21*
 
-**moc.liamtoh@rebbadrebbaj** · 2007-07-29 17:17:16
+   Anyone know what the difference is between q and scale?
 
-"most res: q=1, less: q=0"
+5. **moc.liamtoh@rebbadrebbaj** · *2007-07-29 17:17:16*
 
-Someone correct me if I'm wrong, but isn't that backwards? q=0 is max res, q=1 is min res.
+   "most res: q=1, less: q=0"
 
-q and scale are the same value. What the algorithm is doing is scaling the input the higher the resonance is turned up to prevent clipping. One reason why I think 0 equals max resonance and 1 equals no resonance.
+   Someone correct me if I'm wrong, but isn't that backwards? q=0 is max res, q=1 is min res.
 
-So as q approaches zero, the input is attenuated more and more. In other words, as you turn up the resonance, the input is turned down.
+   q and scale are the same value. What the algorithm is doing is scaling the input the higher the resonance is turned up to prevent clipping. One reason why I think 0 equals max resonance and 1 equals no resonance.
 
-**rettam.ton@seod** · 2007-11-16 12:58:03
+   So as q approaches zero, the input is attenuated more and more. In other words, as you turn up the resonance, the input is turned down.
 
-```text
-scale = sqrt(q);
-```
+6. **rettam.ton@seod** · *2007-11-16 12:58:03*
 
-and
+   ```text
+   scale = sqrt(q);
+   ```
 
-```text
-//value (0;100) - for example
-q = sqrt(1.0 - atan(sqrt(value)) * 2.0 / PI);
-f = frqHz / sampleRate*4.;
-```
+   and
 
-uffffffff :)
+   ```text
+   //value (0;100) - for example
+   q = sqrt(1.0 - atan(sqrt(value)) * 2.0 / PI);
+   f = frqHz / sampleRate*4.;
+   ```
 
-Now enjoy!
+   uffffffff :)
 
-**gro.ybbek@bk** · 2008-11-29 20:04:47
+   Now enjoy!
 
-One drawback of this is that the cutoff frequency can only go up to SR/4 instead of SR/2 - but you can easily compensate it by using 2x oversampling, eg. simply running this thing twice per sample (apply input interpolation or further output filtering ad lib, but from my experience simple linear interpolation of the input values (in and (in+lastin)/2) works well enough).
+7. **gro.ybbek@bk** · *2008-11-29 20:04:47*
 
-**moc.liamg@321tiloen** · 2009-03-05 13:24:35
+   One drawback of this is that the cutoff frequency can only go up to SR/4 instead of SR/2 - but you can easily compensate it by using 2x oversampling, eg. simply running this thing twice per sample (apply input interpolation or further output filtering ad lib, but from my experience simple linear interpolation of the input values (in and (in+lastin)/2) works well enough).
 
-here is the filter with 2x oversampling + some x,y pad functionality to morph between states:
-like this fx (uses different filter)
+8. **moc.liamg@321tiloen** · *2009-03-05 13:24:35*
 
-<http://img299.imageshack.us/img299/4690/statevarible.png>
+   here is the filter with 2x oversampling + some x,y pad functionality to morph between states:
+   like this fx (uses different filter)
 
-smoothing with interpolation is suggest for most parameters:
+   <http://img299.imageshack.us/img299/4690/statevarible.png>
 
-```text
-//sr: samplerate;
-//cutoff: 20 - 20k;
-//qvalue: 0 - 100;
-//x, y: 0 - 1
+   smoothing with interpolation is suggest for most parameters:
 
-q = sqrt(1 - atan(sqrt(qvalue)) * 2 / pi);
-scale = sqrt(q);
-f = slider1 / sr * 2; // * 2 here instead of 4
+   ```text
+   //sr: samplerate;
+   //cutoff: 20 - 20k;
+   //qvalue: 0 - 100;
+   //x, y: 0 - 1
 
-//----------sample loop
+   q = sqrt(1 - atan(sqrt(qvalue)) * 2 / pi);
+   scale = sqrt(q);
+   f = slider1 / sr * 2; // * 2 here instead of 4
 
-//set 'input' here
+   //----------sample loop
 
-//os x2
-for (i=0; i<2; i++) {
-low = low + f * band;
-high = scale * input - low - q * band;
-band = f * high + band;
-notch = high + low;
-);
+   //set 'input' here
 
-//  x,y pad scheme
-//
-//  high -- notch
-//  |           |
-//  |           |
-//  low ---- band
-//
-//
-// use two pairs
+   //os x2
+   for (i=0; i<2; i++) {
+   low = low + f * band;
+   high = scale * input - low - q * band;
+   band = f * high + band;
+   notch = high + low;
+   );
 
-//low, high
-pair1 = low * y + high * (1-y);
-//band, notch
-pair2 = band * y + notch * (1-y);
+   //  x,y pad scheme
+   //
+   //  high -- notch
+   //  |           |
+   //  |           |
+   //  low ---- band
+   //
+   //
+   // use two pairs
 
-//out
-out = pair2 * x + pair1 * (1-x);
+   //low, high
+   pair1 = low * y + high * (1-y);
+   //band, notch
+   pair2 = band * y + notch * (1-y);
 
-//----------sample loop
-```
+   //out
+   out = pair2 * x + pair1 * (1-x);
+
+   //----------sample loop
+   ```
+
+</details>

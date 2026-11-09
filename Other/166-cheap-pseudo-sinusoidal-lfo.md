@@ -1,6 +1,6 @@
 # Cheap pseudo-sinusoidal lfo
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [2 comments](#comments)
 
 - **Author or source:** moc.regnimmu@regnimmuf
 - **Created:** 2004-04-07 09:39:28
@@ -34,16 +34,21 @@ double pseudo_sine(double x)
 
 ## Comments
 
-**ed.bew@hakkeb** · 2004-03-31 09:08:57
+<details>
+<summary>Read 2 archived comments</summary>
 
-You forgot a
+1. **ed.bew@hakkeb** · *2004-03-31 09:08:57*
 
-```text
-return x;
-```
+   You forgot a
 
-**moc.regnimmu@regnimmuf** · 2004-04-05 19:43:15
+   ```text
+   return x;
+   ```
 
-Doh! You're right.
+2. **moc.regnimmu@regnimmuf** · *2004-04-05 19:43:15*
 
--Frederick
+   Doh! You're right.
+
+   -Frederick
+
+</details>

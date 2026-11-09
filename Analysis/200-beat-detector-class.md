@@ -1,6 +1,6 @@
 # Beat Detector Class
 
-[MusicDSP](../README.md) / [Analysis](README.md)
+[MusicDSP](../README.md) / [Analysis](README.md) · [1 comment](#comments)
 
 - **Author or source:** rf.eerf@retsaMPSD
 - **Created:** 2005-05-12 14:35:52
@@ -109,101 +109,106 @@ void TBeatDetector::AudioProcess (float input)
 
 ## Comments
 
-**moc.yddaht@yddaht** · 2005-05-18 22:59:08
+<details>
+<summary>Read 1 archived comment</summary>
 
-```pascal
-// Nice work!
-//Here's a Delphi and freepascal version:
-unit beattrigger;
+1. **moc.yddaht@yddaht** · *2005-05-18 22:59:08*
 
-interface
+   ```pascal
+   // Nice work!
+   //Here's a Delphi and freepascal version:
+   unit beattrigger;
 
-type
-TBeatDetector = class
-private
-  KBeatFilter,               // Filter coefficient
-  Filter1Out,
-  Filter2Out,
-  BeatRelease,               // Release time coefficient
-  PeakEnv:single;            // Peak enveloppe follower
-  BeatTrigger,               // Schmitt trigger output
-  PrevBeatPulse:Boolean;     // Rising edge memory
-public
-  BeatPulse:Boolean;            // Beat detector output
-  constructor Create;
-  procedure setSampleRate(SampleRate:single);
-  procedure AudioProcess (input:single);
-end;
+   interface
 
-function fabs(value:single):Single;
+   type
+   TBeatDetector = class
+   private
+     KBeatFilter,               // Filter coefficient
+     Filter1Out,
+     Filter2Out,
+     BeatRelease,               // Release time coefficient
+     PeakEnv:single;            // Peak enveloppe follower
+     BeatTrigger,               // Schmitt trigger output
+     PrevBeatPulse:Boolean;     // Rising edge memory
+   public
+     BeatPulse:Boolean;            // Beat detector output
+     constructor Create;
+     procedure setSampleRate(SampleRate:single);
+     procedure AudioProcess (input:single);
+   end;
 
-implementation
+   function fabs(value:single):Single;
 
-
-const
- FREQ_LP_BEAT = 150.0;                    // Low Pass filter frequency
- T_FILTER = 1.0/(2.0 * PI*FREQ_LP_BEAT);  // Low Pass filter time constant
- BEAT_RTIME = 0.02;   // Release time of enveloppe detector in second
-
-constructor TBeatDetector.create;
-// Beat detector constructor
-begin
-  inherited;
-  Filter1Out:=0.0;
-  Filter2Out:=0.0;
-  PeakEnv:=0.0;
-  BeatTrigger:=false;
-  PrevBeatPulse:=false;
-  setSampleRate(44100);
-end;
+   implementation
 
 
-procedure TBeatDetector.setSampleRate (sampleRate:single);
-// Compute all sample frequency related coeffs
-begin
-  KBeatFilter:=1.0/(sampleRate*T_FILTER);
-  BeatRelease:= exp(-1.0/(sampleRate*BEAT_RTIME));
-end;
+   const
+    FREQ_LP_BEAT = 150.0;                    // Low Pass filter frequency
+    T_FILTER = 1.0/(2.0 * PI*FREQ_LP_BEAT);  // Low Pass filter time constant
+    BEAT_RTIME = 0.02;   // Release time of enveloppe detector in second
 
-function fabs(value:single):Single;
-asm
- fld value
- fabs
- fwait
-end;
+   constructor TBeatDetector.create;
+   // Beat detector constructor
+   begin
+     inherited;
+     Filter1Out:=0.0;
+     Filter2Out:=0.0;
+     PeakEnv:=0.0;
+     BeatTrigger:=false;
+     PrevBeatPulse:=false;
+     setSampleRate(44100);
+   end;
 
-procedure  TBeatDetector.AudioProcess (input:single);
-var
- EnvIn:Single;
-// Process incoming signal
-begin
-  // Step 1 : 2nd order low pass filter (made of two 1st order RC filter)
-  Filter1Out:=Filter1Out+(KBeatFilter*(input-Filter1Out));
-  Filter2Out:=Filter2Out+(KBeatFilter*(Filter1Out-Filter2Out));
-  // Step 2 : peak detector
-  EnvIn:=fabs(Filter2Out);
-  if EnvIn>PeakEnv then PeakEnv:=EnvIn  // Attack time = 0
-  else
-  begin
-    PeakEnv:=PeakEnv*BeatRelease;
-    PeakEnv:=PeakEnv+(1.0-BeatRelease)*EnvIn;
-  end;
-  // Step 3 : Schmitt trigger
-  if not BeatTrigger then
-  begin
-    if PeakEnv>0.3 then BeatTrigger:=true;
-  end
-  else
-  begin
-    if PeakEnv<0.15 then BeatTrigger:=false;
-  end;
 
-  // Step 4 : rising edge detector
-  BeatPulse:=false;
-  if (BeatTrigger = true ) and( not PrevBeatPulse) then
-    BeatPulse:=true;
-  PrevBeatPulse:=BeatTrigger;
-end;
+   procedure TBeatDetector.setSampleRate (sampleRate:single);
+   // Compute all sample frequency related coeffs
+   begin
+     KBeatFilter:=1.0/(sampleRate*T_FILTER);
+     BeatRelease:= exp(-1.0/(sampleRate*BEAT_RTIME));
+   end;
 
-end.
-```
+   function fabs(value:single):Single;
+   asm
+    fld value
+    fabs
+    fwait
+   end;
+
+   procedure  TBeatDetector.AudioProcess (input:single);
+   var
+    EnvIn:Single;
+   // Process incoming signal
+   begin
+     // Step 1 : 2nd order low pass filter (made of two 1st order RC filter)
+     Filter1Out:=Filter1Out+(KBeatFilter*(input-Filter1Out));
+     Filter2Out:=Filter2Out+(KBeatFilter*(Filter1Out-Filter2Out));
+     // Step 2 : peak detector
+     EnvIn:=fabs(Filter2Out);
+     if EnvIn>PeakEnv then PeakEnv:=EnvIn  // Attack time = 0
+     else
+     begin
+       PeakEnv:=PeakEnv*BeatRelease;
+       PeakEnv:=PeakEnv+(1.0-BeatRelease)*EnvIn;
+     end;
+     // Step 3 : Schmitt trigger
+     if not BeatTrigger then
+     begin
+       if PeakEnv>0.3 then BeatTrigger:=true;
+     end
+     else
+     begin
+       if PeakEnv<0.15 then BeatTrigger:=false;
+     end;
+
+     // Step 4 : rising edge detector
+     BeatPulse:=false;
+     if (BeatTrigger = true ) and( not PrevBeatPulse) then
+       BeatPulse:=true;
+     PrevBeatPulse:=BeatTrigger;
+   end;
+
+   end.
+   ```
+
+</details>

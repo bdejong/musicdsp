@@ -1,6 +1,6 @@
 # Cascaded resonant lp/hp filter
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [5 comments](#comments)
 
 - **Author or source:** ed.bew@raebybot
 - **Type:** lp+hp
@@ -44,56 +44,61 @@ end;
 
 ## Comments
 
-**moc.biesnnamreh@eciffo** · 2003-07-13 07:43:17
+<details>
+<summary>Read 5 archived comments</summary>
 
-```text
-I guess the last line should read
-  result:=inp-n4;
-```
+1. **moc.biesnnamreh@eciffo** · *2003-07-13 07:43:17*
 
-Right?
+   ```text
+   I guess the last line should read
+     result:=inp-n4;
+   ```
 
-Bye,
+   Right?
 
-```text
-  Hermann
-```
+   Bye,
 
-**moc.liamtoh@tsvreiruoc** · 2003-12-26 19:56:21
+   ```text
+     Hermann
+   ```
 
-excuse me which type is? 6db/oct or 12 or what?
+2. **moc.liamtoh@tsvreiruoc** · *2003-12-26 19:56:21*
 
-thanks
+   excuse me which type is? 6db/oct or 12 or what?
 
-**ed.xmg@suahtlanaitsirhc** · 2004-02-02 15:43:00
+   thanks
 
-result := n2-n4
+3. **ed.xmg@suahtlanaitsirhc** · *2004-02-02 15:43:00*
 
-:)
+   result := n2-n4
 
-**ten.raenila@ssov** · 2011-01-25 17:52:08
+   :)
 
-WOW this is old but handy. Anyway what to do about the divide-by-zero caused by the feedback calc if the cutoff is set to 1.0?
+4. **ten.raenila@ssov** · *2011-01-25 17:52:08*
 
-Also, should the feedback for the hpf be:
+   WOW this is old but handy. Anyway what to do about the divide-by-zero caused by the feedback calc if the cutoff is set to 1.0?
 
-```text
-fb_hp:=res_hp+res_hp/(1-cut_hp);
-```
+   Also, should the feedback for the hpf be:
 
-not:
+   ```text
+   fb_hp:=res_hp+res_hp/(1-cut_hp);
+   ```
 
-```text
-fb_hp:=res_hp+res_hp/(1-cut_lp);
-```
+   not:
 
-?
+   ```text
+   fb_hp:=res_hp+res_hp/(1-cut_lp);
+   ```
 
-Thanks
-NV
+   ?
 
-**moc.liamg@dnuosG** · 2017-03-17 08:28:07
+   Thanks
+   NV
 
-Nobody can see ?
+5. **moc.liamg@dnuosG** · *2017-03-17 08:28:07*
 
-There is two lowpass filters in series, no differences between them.
+   Nobody can see ?
+
+   There is two lowpass filters in series, no differences between them.
+
+</details>

@@ -1,6 +1,6 @@
 # Reverberation Algorithms in Matlab
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [2 comments](#comments)
 
 - **Author or source:** Gautham J. Mysore (moc.oohay@mjmahtuag)
 - **Created:** 2003-07-15 08:58:05
@@ -25,22 +25,27 @@ algorithms.
 
 ## Comments
 
-**moc.loa@mnijwerb** · 2003-08-15 04:04:56
+<details>
+<summary>Read 2 archived comments</summary>
 
-StereoVerb is the name of an old car stereo "enhancer" from way back. I was just trying to find
-it's roots.
+1. **moc.loa@mnijwerb** · *2003-08-15 04:04:56*
 
-**moc.oohay@y\_sunave** · 2004-04-02 04:44:46
+   StereoVerb is the name of an old car stereo "enhancer" from way back. I was just trying to find
+   it's roots.
 
-```text
-There is another allpass filter transfer function.
-      -g+Z^(-m)
-H(z)=------------
-      1-gZ^(-m)
-```
+2. **moc.oohay@y\_sunave** · *2004-04-02 04:44:46*
 
-g is the attenuation
-m is the number of delay (in sampel)
+   ```text
+   There is another allpass filter transfer function.
+         -g+Z^(-m)
+   H(z)=------------
+         1-gZ^(-m)
+   ```
 
-This allpass will give exponential decay impulse response, compare to your allpass that give
-half sinc decay impulse response.
+   g is the attenuation
+   m is the number of delay (in sampel)
+
+   This allpass will give exponential decay impulse response, compare to your allpass that give
+   half sinc decay impulse response.
+
+</details>

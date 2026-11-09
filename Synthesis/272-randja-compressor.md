@@ -1,6 +1,6 @@
 # Randja compressor
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [3 comments](#comments)
 
 - **Author or source:** randja
 - **Type:** compressor
@@ -129,122 +129,127 @@ class compressor
 
 ## Comments
 
-**moc.oohay@xofirgomsnart** · 2010-08-30 21:04:37
+<details>
+<summary>Read 3 archived comments</summary>
 
-```text
-env = det >= env ? det : det+envelope_decay*(env-det);
+1. **moc.oohay@xofirgomsnart** · *2010-08-30 21:04:37*
 
-I have found it is good to add either a timed peak hold-before-release or something like a "peak magnetism" with an attack/release time that is within a cycle of the lowest expected frequency in the side chain...often ~80Hz is a good reference point... for example here is a snippet to illustrate the idea...please keep in mind this will not work as show because of some obvious things needing to be added...
-//add these variables to your compressor object...
-class compressor {
-float patk;  //"seek" slope
-float ipatk;
-float peakdet;
-float target;
-float envelope;  //the final value used for gain control
-int hold;  //time to hold peak
-int holdcnt;
+   ```text
+   env = det >= env ? det : det+envelope_decay*(env-det);
 
-patk = SAMPLE_RATE/80.0f;
-ipatk = 1.0f - patk;
-.
-.
-.
-}
-///now the envelope following function
-float compressor::envelope_tracker(float input)
-{
-float rect = fabs(input);
-holdcnt++;
-if(rect>peakdet) {
- peakdet = rect;
- if(holdcnt>hold) //the hold is really optional
- {
- target = rect;
- holdcnt = 0;
- }
-}
-peakdet*=ipatk;  //sort of like capacitor+diode discharge.
+   I have found it is good to add either a timed peak hold-before-release or something like a "peak magnetism" with an attack/release time that is within a cycle of the lowest expected frequency in the side chain...often ~80Hz is a good reference point... for example here is a snippet to illustrate the idea...please keep in mind this will not work as show because of some obvious things needing to be added...
+   //add these variables to your compressor object...
+   class compressor {
+   float patk;  //"seek" slope
+   float ipatk;
+   float peakdet;
+   float target;
+   float envelope;  //the final value used for gain control
+   int hold;  //time to hold peak
+   int holdcnt;
 
-if(envelope<target) envelope+=patk;
-else envelope -= patk;  //sort of like a heat seeking missile ;)
-//for the seek function this is really nothing more than a feedback control system, so a more elaborate higher order system could be used...
-//the linear interpolation is good to use because
-///it is simple while the main attack & release
-//functions filter off the corners.
-//In either case it is an improvement to a leaky
-//peak detector.
+   patk = SAMPLE_RATE/80.0f;
+   ipatk = 1.0f - patk;
+   .
+   .
+   .
+   }
+   ///now the envelope following function
+   float compressor::envelope_tracker(float input)
+   {
+   float rect = fabs(input);
+   holdcnt++;
+   if(rect>peakdet) {
+    peakdet = rect;
+    if(holdcnt>hold) //the hold is really optional
+    {
+    target = rect;
+    holdcnt = 0;
+    }
+   }
+   peakdet*=ipatk;  //sort of like capacitor+diode discharge.
 
-}
-```
+   if(envelope<target) envelope+=patk;
+   else envelope -= patk;  //sort of like a heat seeking missile ;)
+   //for the seek function this is really nothing more than a feedback control system, so a more elaborate higher order system could be used...
+   //the linear interpolation is good to use because
+   ///it is simple while the main attack & release
+   //functions filter off the corners.
+   //In either case it is an improvement to a leaky
+   //peak detector.
 
-Another thing I saw in the form of an analog circuit was a "round robin" peak detector which had 4 peak detectors being reset by a JFET to ground and was clocked by simple binary counter IC.  The full cycle from 0 to 15 on the binary counter was set at about 80Hz, then the JFET gates were reset every /4 of that period.  That way the envelope tracker pretty much grabbed every peak during the 1/80 period, then the "release" time was 1/80th second.  This could be implemented digitally very easily ;)
+   }
+   ```
 
-**moc.liamg@etteresemv** · 2012-12-14 15:24:30
+   Another thing I saw in the form of an analog circuit was a "round robin" peak detector which had 4 peak detectors being reset by a JFET to ground and was clocked by simple binary counter IC.  The full cycle from 0 to 15 on the binary counter was set at about 80Hz, then the JFET gates were reset every /4 of that period.  That way the envelope tracker pretty much grabbed every peak during the 1/80 period, then the "release" time was 1/80th second.  This could be implemented digitally very easily ;)
 
-Hi randja,
+2. **moc.liamg@etteresemv** · *2012-12-14 15:24:30*
 
-I am trying to use your compressor.
-Could you explain in what unity shall be given the values of threshold, ratio, release, attack and output ?
-Have you a good set of values for these parameters to make it work ?
+   Hi randja,
 
-Thanks in advance
+   I am trying to use your compressor.
+   Could you explain in what unity shall be given the values of threshold, ratio, release, attack and output ?
+   Have you a good set of values for these parameters to make it work ?
 
-**moc.elpmaxe@ylper-on** · 2013-07-17 21:22:21
+   Thanks in advance
 
-@vmeserette:
+3. **moc.elpmaxe@ylper-on** · *2013-07-17 21:22:21*
 
-```text
-To quote the original code that randja "found" on the Internet and then "made some improvements" (he only added __forceinline):
-"
-How to use it:
---------------
-free_comp.cpp and free_comp.hpp implement a simple C++ class called free_comp.
-(People are expected to know what to do with it! If not seek help on a beginner
-programming forum!)
-The free_comp class implements the following methods:
-	void	set_threshold(float value);
-		Sets the threshold level; 'value' must be a _positive_ value
-		representing the amplitude as a floating point figure which should be
-		1.0 at 0dBFS
+   @vmeserette:
 
-	void	set_ratio(float value);
-		Sets the ratio; 'value' must be in range [0.0; 1.0] with 0.0
-		representing a oo:1 ratio, 0.5 a 2:1 ratio; 1.0 a 1:1 ratio and so on
+   ```text
+   To quote the original code that randja "found" on the Internet and then "made some improvements" (he only added __forceinline):
+   "
+   How to use it:
+   --------------
+   free_comp.cpp and free_comp.hpp implement a simple C++ class called free_comp.
+   (People are expected to know what to do with it! If not seek help on a beginner
+   programming forum!)
+   The free_comp class implements the following methods:
+   	void	set_threshold(float value);
+   		Sets the threshold level; 'value' must be a _positive_ value
+   		representing the amplitude as a floating point figure which should be
+   		1.0 at 0dBFS
 
-	void	set_attack(float value);
-		Sets the attack time; 'value' gives the attack time in _samples_
+   	void	set_ratio(float value);
+   		Sets the ratio; 'value' must be in range [0.0; 1.0] with 0.0
+   		representing a oo:1 ratio, 0.5 a 2:1 ratio; 1.0 a 1:1 ratio and so on
 
-	void	set_release(float value);
-		Sets the release time; 'value' gives the release time in _samples_
+   	void	set_attack(float value);
+   		Sets the attack time; 'value' gives the attack time in _samples_
 
-	void	set_output(float value);
-		Sets the output gain; 'value' represents the gain, where 0dBFS is 1.0
-		(see set_threshold())
+   	void	set_release(float value);
+   		Sets the release time; 'value' gives the release time in _samples_
 
-	void	reset();
-		Resets the internal state of the compressor (gain reduction)
+   	void	set_output(float value);
+   		Sets the output gain; 'value' represents the gain, where 0dBFS is 1.0
+   		(see set_threshold())
 
-	void	process(float *input_left, float *input_right,
-					float *output_left, float *output_right,
-					int frames, int skip);
-	void	process(double *input_left, double *input_right,
-					double *output_left, double *output_right,
-					int frames, int skip);
-		Processes a stereo stream of length 'frames' from either two arrays of
-		floats or arrays of doubles 'input_left' and 'input_right' then puts
-		the processed data in 'output_left' and 'output_right'.
-		'input_{left,right}' and 'output_{left,right}' may be the same location
-		in which case the algorithm will work in place. '{input,output}_left'
-		and '{input,output}_right' can also point to the same data, in which
-		case the algorithm works in mono (although if you process a lot of mono
-		data it will yield more performance if you modify the source to make the
-		algorithm mono in the first place).
-		The 'skip' parameter allows for processing of interleaved as well as two
-		separate contiguous streams. For two separate streams this value should
-		be 1, for interleaved stereo it should be 2 (but it can also have other
-		values than that to process specific channels in an interleaved audio
-		stream, though if you do that it is highly recommended to study the
-		source first to	check whether it yields the expected behaviour or not).
-" - Source: http://outsim.co.uk/forum/download/file.php?id=7296
-```
+   	void	reset();
+   		Resets the internal state of the compressor (gain reduction)
+
+   	void	process(float *input_left, float *input_right,
+   					float *output_left, float *output_right,
+   					int frames, int skip);
+   	void	process(double *input_left, double *input_right,
+   					double *output_left, double *output_right,
+   					int frames, int skip);
+   		Processes a stereo stream of length 'frames' from either two arrays of
+   		floats or arrays of doubles 'input_left' and 'input_right' then puts
+   		the processed data in 'output_left' and 'output_right'.
+   		'input_{left,right}' and 'output_{left,right}' may be the same location
+   		in which case the algorithm will work in place. '{input,output}_left'
+   		and '{input,output}_right' can also point to the same data, in which
+   		case the algorithm works in mono (although if you process a lot of mono
+   		data it will yield more performance if you modify the source to make the
+   		algorithm mono in the first place).
+   		The 'skip' parameter allows for processing of interleaved as well as two
+   		separate contiguous streams. For two separate streams this value should
+   		be 1, for interleaved stereo it should be 2 (but it can also have other
+   		values than that to process specific channels in an interleaved audio
+   		stream, though if you do that it is highly recommended to study the
+   		source first to	check whether it yields the expected behaviour or not).
+   " - Source: http://outsim.co.uk/forum/download/file.php?id=7296
+   ```
+
+</details>

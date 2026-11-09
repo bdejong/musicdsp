@@ -1,6 +1,6 @@
 # Inverted parabolic envelope
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [3 comments](#comments)
 
 - **Author or source:** James McCartney
 - **Type:** envellope generation
@@ -32,23 +32,28 @@ for (i=0; i<dur; ++i) {
 
 ## Comments
 
-**ti.orebil@erognekark** · 2002-04-11 17:20:10
+<details>
+<summary>Read 3 archived comments</summary>
 
-This parabola approximation seems more like a linear than a parab/expo envelope... or i'm mistaking something but i tryed everything and is only linear.
+1. **ti.orebil@erognekark** · *2002-04-11 17:20:10*
 
-**moc.liamtoh@r0x0r0xe** · 2002-04-13 23:51:49
+   This parabola approximation seems more like a linear than a parab/expo envelope... or i'm mistaking something but i tryed everything and is only linear.
 
-slope is linear, but 'slope' is a function of 'curve'. If you imagine you threw a ball upwards, think of 'curve' as the gravity, 'slope' as the vertical velocity, and 'level' as the vertical displacement.
+2. **moc.liamtoh@r0x0r0xe** · *2002-04-13 23:51:49*
 
-**asynth(at)io(dot)com** · 2005-01-17 07:39:28
+   slope is linear, but 'slope' is a function of 'curve'. If you imagine you threw a ball upwards, think of 'curve' as the gravity, 'slope' as the vertical velocity, and 'level' as the vertical displacement.
 
-This is not an approximation of a parabola, it IS a parabola.
-This entry has become corrupted since it was first posted. Should be:
+3. **asynth(at)io(dot)com** · *2005-01-17 07:39:28*
 
-```text
-for (i=0; i<dur; ++i) {
-    out = level;
-    level += slope;
-    slope += curve;
-}
-```
+   This is not an approximation of a parabola, it IS a parabola.
+   This entry has become corrupted since it was first posted. Should be:
+
+   ```text
+   for (i=0; i<dur; ++i) {
+       out = level;
+       level += slope;
+       slope += curve;
+   }
+   ```
+
+</details>

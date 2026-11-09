@@ -1,6 +1,6 @@
 # Type : LPF 24dB/Oct
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [4 comments](#comments)
 
 - **Author or source:** ed.luosfosruoivas@naitsirhC
 - **Type:** Bessel Lowpass
@@ -46,18 +46,23 @@ For high speed substitude A1/A0 with A1' = A1/A0...
 
 ## Comments
 
-**ed.luosfosruoivas@naitsirhC** · 2006-07-28 22:21:29
+<details>
+<summary>Read 4 archived comments</summary>
 
-It turns out, that the filter is only unstable if the coefficient/state precision isn't high enough. Using double instead of single precision already makes it a lot more stable.
+1. **ed.luosfosruoivas@naitsirhC** · *2006-07-28 22:21:29*
 
-**ed.luosfosruoivas@naitsirhC** · 2006-10-16 00:42:11
+   It turns out, that the filter is only unstable if the coefficient/state precision isn't high enough. Using double instead of single precision already makes it a lot more stable.
 
-Just found out, that I forgot to remove the temporary variable 't'. It was used in my code for the speedup. You can simply ignore and delete it.
+2. **ed.luosfosruoivas@naitsirhC** · *2006-10-16 00:42:11*
 
-**kd.oohay@eeffocetarak** · 2009-02-13 14:24:41
+   Just found out, that I forgot to remove the temporary variable 't'. It was used in my code for the speedup. You can simply ignore and delete it.
 
-Changing the frequency also seems to affect the volume quite a lot. That can't be right? Maybe you should re-post this (and remove the "t" this time)?  ;)
+3. **kd.oohay@eeffocetarak** · *2009-02-13 14:24:41*
 
-**ur.sgn@fez\_jd** · 2013-02-13 11:58:19
+   Changing the frequency also seems to affect the volume quite a lot. That can't be right? Maybe you should re-post this (and remove the "t" this time)?  ;)
 
-Your filter does not work! Arise overload in the calculation of coefficients A and B in the cutoff frequency of approximately 10 khz. At low frequencies, the coefficient of the gain increases proportional to the frequency cutoff, which causes congestion. I also noticed that the filter on this basis, the package of ASIO/DSP - DDspBesselFilter.pas does not work, although Butterworth (DDspButterworthFilter.pas) and Chebyshev (DDspChebyshevFilter.pas) work perfectly!
+4. **ur.sgn@fez\_jd** · *2013-02-13 11:58:19*
+
+   Your filter does not work! Arise overload in the calculation of coefficients A and B in the cutoff frequency of approximately 10 khz. At low frequencies, the coefficient of the gain increases proportional to the frequency cutoff, which causes congestion. I also noticed that the filter on this basis, the package of ASIO/DSP - DDspBesselFilter.pas does not work, although Butterworth (DDspButterworthFilter.pas) and Chebyshev (DDspChebyshevFilter.pas) work perfectly!
+
+</details>

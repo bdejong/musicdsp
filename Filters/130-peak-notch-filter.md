@@ -1,6 +1,6 @@
 # Peak/Notch filter
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** ed.bew@raebybot
 - **Type:** peak/notch
@@ -47,96 +47,101 @@ end;
 
 ## Comments
 
-**slo77y (at) yahoo.de** · 2010-03-02 03:19:21
+<details>
+<summary>Read 2 archived comments</summary>
 
-this code sounds bitcrushed like hell translated to c++, any suggestions ?
+1. **slo77y (at) yahoo.de** · *2010-03-02 03:19:21*
 
-```text
-	float pi = 3.141592654;
-	float r = dQFactor*0.99609375;
-	float f = cos(pi*iFreq);
-	float a0 = (1-r) * sqrt ( r * ( r-4 * ( f * f ) + 2 ) + 1 );
-	float b1 = 2 * f * r;
-	float b2 = - ( r * r );
-	float outp = 0.0, outp1 = 0.0, outp2 = 0.0;
+   this code sounds bitcrushed like hell translated to c++, any suggestions ?
 
-	for (i = 0; i < iSamples; i++)
-	{
-		float inp = fInput[i];
+   ```text
+   	float pi = 3.141592654;
+   	float r = dQFactor*0.99609375;
+   	float f = cos(pi*iFreq);
+   	float a0 = (1-r) * sqrt ( r * ( r-4 * ( f * f ) + 2 ) + 1 );
+   	float b1 = 2 * f * r;
+   	float b2 = - ( r * r );
+   	float outp = 0.0, outp1 = 0.0, outp2 = 0.0;
 
-		outp = a0 * inp + b1 * outp1 + b2 * outp2 + p4;
-		outp2 = outp1;
-		outp1 = outp;
+   	for (i = 0; i < iSamples; i++)
+   	{
+   		float inp = fInput[i];
 
-		fOutput[i] = (inp-outp); //notch
-	}
-```
+   		outp = a0 * inp + b1 * outp1 + b2 * outp2 + p4;
+   		outp2 = outp1;
+   		outp1 = outp;
 
-**ten.xoc@53namhsima** · 2012-05-05 08:22:08
+   		fOutput[i] = (inp-outp); //notch
+   	}
+   ```
 
-```text
-After about 3 hours wondering why I was getting back the original un-altered audio, I finally got this version of a keeper filter, which I used with absurdly good success on a power grid comb filter. When the power grid filter was fed with audio from a lamp cord with one 1 Megohm resistor on each prong, all sorts of cool sounds become audio when the output is amplified 40 dB. For wall cord audio, use 60.0 for the cutoff.
----the function is below---
-double keeper_1(double input, double cutoff,double rate,double *magnitude)
-{
-	const double steepness=1.0;
-	const double p4=1.0e-24;
-	static unsigned char first=1;
-	static double nfreq=0.1;
-	static double old_cutoff=0.0;
-	static double the_magnitude=0;
-	static double average=0.0;
-	static int average_count=0;
-	static double a=0.0;
-	static double r=0.0;
-	static double coeff=0.0;
-	static double delay[3]={0.0,0.0,0.0};
-	static double delay1[3]={0.0,0.0,0.0};
-	static double delay2[3]={0.0,0.0,0.0};
-	static double delay3[3]={0.0,0.0,0.0};
-	static double b[3]={0.0,0.0,0.0};
-	if(first==1 || cutoff!=old_cutoff )
-	{
-		r=steepness * 0.99609375;
-		nfreq=(cutoff/(double)rate) * 2.0 ;
-		coeff= cos( M_PI * nfreq);
-		a=(1.0 - r) * sqrt(r * (r - 4 * (coeff * coeff) + 2) +1);
-		b[1]=2 * coeff * r;
-		b[2]=-(r * r);
+2. **ten.xoc@53namhsima** · *2012-05-05 08:22:08*
 
-		first=0;
-	}
+   ```text
+   After about 3 hours wondering why I was getting back the original un-altered audio, I finally got this version of a keeper filter, which I used with absurdly good success on a power grid comb filter. When the power grid filter was fed with audio from a lamp cord with one 1 Megohm resistor on each prong, all sorts of cool sounds become audio when the output is amplified 40 dB. For wall cord audio, use 60.0 for the cutoff.
+   ---the function is below---
+   double keeper_1(double input, double cutoff,double rate,double *magnitude)
+   {
+   	const double steepness=1.0;
+   	const double p4=1.0e-24;
+   	static unsigned char first=1;
+   	static double nfreq=0.1;
+   	static double old_cutoff=0.0;
+   	static double the_magnitude=0;
+   	static double average=0.0;
+   	static int average_count=0;
+   	static double a=0.0;
+   	static double r=0.0;
+   	static double coeff=0.0;
+   	static double delay[3]={0.0,0.0,0.0};
+   	static double delay1[3]={0.0,0.0,0.0};
+   	static double delay2[3]={0.0,0.0,0.0};
+   	static double delay3[3]={0.0,0.0,0.0};
+   	static double b[3]={0.0,0.0,0.0};
+   	if(first==1 || cutoff!=old_cutoff )
+   	{
+   		r=steepness * 0.99609375;
+   		nfreq=(cutoff/(double)rate) * 2.0 ;
+   		coeff= cos( M_PI * nfreq);
+   		a=(1.0 - r) * sqrt(r * (r - 4 * (coeff * coeff) + 2) +1);
+   		b[1]=2 * coeff * r;
+   		b[2]=-(r * r);
 
-	delay3[0] = a * input + b[1] * delay3[1] + b[2] * delay3[2] + p4;
+   		first=0;
+   	}
 
-	delay3[2]=delay3[1];
-	delay3[1]=delay3[0];
+   	delay3[0] = a * input + b[1] * delay3[1] + b[2] * delay3[2] + p4;
 
-	delay2[0] = a * delay3[0] + b[1] * delay2[1] + b[2] * delay2[2] + p4;
+   	delay3[2]=delay3[1];
+   	delay3[1]=delay3[0];
 
-	delay2[2]=delay2[1];
-	delay2[1]=delay2[0];
+   	delay2[0] = a * delay3[0] + b[1] * delay2[1] + b[2] * delay2[2] + p4;
 
-	delay1[0] = a * delay2[0] + b[1] * delay1[1] + b[2] * delay1[2] + p4;
+   	delay2[2]=delay2[1];
+   	delay2[1]=delay2[0];
 
-	delay1[2]=delay1[1];
-	delay1[1]=delay1[0];
+   	delay1[0] = a * delay2[0] + b[1] * delay1[1] + b[2] * delay1[2] + p4;
 
-	delay[0] = a * delay1[0] + b[1] * delay[1] + b[2] * delay[2] + p4;
+   	delay1[2]=delay1[1];
+   	delay1[1]=delay1[0];
 
-	delay[2]=delay[1];
-	delay[1]=delay[0];
-	average+=delay[0];
-	average_count++;
-	if(average_count>dft_size-1)
-	{
-		double aver=average/(double)dft_size;
-		the_magnitude=sqrt(aver * aver); /* we're only interested in the root mean square */
-		average=0.0;
-		average_count=0;
-	}
-	magnitude[0]=the_magnitude;
-	old_cutoff=cutoff;
-	return delay[0];
-}
-```
+   	delay[0] = a * delay1[0] + b[1] * delay[1] + b[2] * delay[2] + p4;
+
+   	delay[2]=delay[1];
+   	delay[1]=delay[0];
+   	average+=delay[0];
+   	average_count++;
+   	if(average_count>dft_size-1)
+   	{
+   		double aver=average/(double)dft_size;
+   		the_magnitude=sqrt(aver * aver); /* we're only interested in the root mean square */
+   		average=0.0;
+   		average_count=0;
+   	}
+   	magnitude[0]=the_magnitude;
+   	old_cutoff=cutoff;
+   	return delay[0];
+   }
+   ```
+
+</details>

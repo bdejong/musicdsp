@@ -1,6 +1,6 @@
 # Simple biquad filter from apple.com
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** moc.liamg@321tiloen
 - **Type:** LP
@@ -52,60 +52,65 @@ mY1 = output;
 
 ## Comments
 
-**moc.liamg@321tiloen** · 2009-03-05 13:44:24
+<details>
+<summary>Read 2 archived comments</summary>
 
-here are coefficients for the hp version.
-the br,bp \& peak are also easy to calculate:
+1. **moc.liamg@321tiloen** · *2009-03-05 13:44:24*
 
-```text
-k = 0.5*res*sin(pi*cutoff);
-c1 = 0.5*(1-k)/(1+k);
-c2 = (0.5+c1)*cos(pi*cutoff);
-c3 = (0.5+c1+c2)*0.25;
+   here are coefficients for the hp version.
+   the br,bp \& peak are also easy to calculate:
 
-a0 = 2*c3;
-a1 = -4*c3;
-a2 = 2*c3;
-b1 = -2*c2;
-b2 = 2*c1;
-```
+   ```text
+   k = 0.5*res*sin(pi*cutoff);
+   c1 = 0.5*(1-k)/(1+k);
+   c2 = (0.5+c1)*cos(pi*cutoff);
+   c3 = (0.5+c1+c2)*0.25;
 
-if you wish to create a cascade, use the this:
+   a0 = 2*c3;
+   a1 = -4*c3;
+   a2 = 2*c3;
+   b1 = -2*c2;
+   b2 = 2*c1;
+   ```
 
-```text
-//----sample loop
+   if you wish to create a cascade, use the this:
 
-//mem: buffer array
-//N: number of biquads, n=4 -> 48dB/oct
+   ```text
+   //----sample loop
 
-//set input here
+   //mem: buffer array
+   //N: number of biquads, n=4 -> 48dB/oct
 
-for (i=0;i<N;i++) {
-output = a0 * input + a1 * mem[4*i+1] + a2 * mem[4*i+2] - b1 * mem[4*i+3] - b2 * mem[4*i+4];
-mem[4*i+2] = mem[4*i+1];
-mem[4*i+1] = input;
-mem[4*i+4] = mem[4*i+3];
-mem[4*i+3] = output;
-);
+   //set input here
 
-//----sample loop
-```
+   for (i=0;i<N;i++) {
+   output = a0 * input + a1 * mem[4*i+1] + a2 * mem[4*i+2] - b1 * mem[4*i+3] - b2 * mem[4*i+4];
+   mem[4*i+2] = mem[4*i+1];
+   mem[4*i+1] = input;
+   mem[4*i+4] = mem[4*i+3];
+   mem[4*i+3] = output;
+   );
 
-**moc.liamg@321tiloen** · 2009-04-20 11:44:26
+   //----sample loop
+   ```
 
-i've missed a line:
+2. **moc.liamg@321tiloen** · *2009-04-20 11:44:26*
 
-```text
-===========================
-mem[4*i+3] = output;
+   i've missed a line:
 
-//>>> insert here
-input = output;
-//>>> insert here
+   ```text
+   ===========================
+   mem[4*i+3] = output;
 
-);
-//----sample loop
-===========================
-```
+   //>>> insert here
+   input = output;
+   //>>> insert here
 
-lubomir
+   );
+   //----sample loop
+   ===========================
+   ```
+
+   lubomir
+
+</details>

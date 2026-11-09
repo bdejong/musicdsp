@@ -1,6 +1,6 @@
 # Direct Form II biquad
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** es.tuanopx@kileib.trebor
 - **Created:** 2009-11-16 08:46:12
@@ -54,10 +54,15 @@ void processBiquadStereo(const float* inL,
 
 ## Comments
 
-**moc.suomyn@ona** · 2010-01-13 13:44:09
+<details>
+<summary>Read 2 archived comments</summary>
 
-true, this structure is faster. but it is also (even) more sensitive to coefficients changes, so it becomes unstable quite fast compaerd to the DF I form. I'd really like to know if there's a way to change coefficients and at the same time time changing the history of the filter for avoiding unstability.
+1. **moc.suomyn@ona** · *2010-01-13 13:44:09*
 
-**earlevel** · 2012-01-31 20:43:12
+   true, this structure is faster. but it is also (even) more sensitive to coefficients changes, so it becomes unstable quite fast compaerd to the DF I form. I'd really like to know if there's a way to change coefficients and at the same time time changing the history of the filter for avoiding unstability.
 
-Use direct form I (single accumulation point) when using fixed-point processors. For floating point, use direct form II transposed, which has superior numerical characteristics to direct form II (non-transposed).
+2. **earlevel** · *2012-01-31 20:43:12*
+
+   Use direct form I (single accumulation point) when using fixed-point processors. For floating point, use direct form II transposed, which has superior numerical characteristics to direct form II (non-transposed).
+
+</details>

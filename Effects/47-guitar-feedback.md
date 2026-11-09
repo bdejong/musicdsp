@@ -1,6 +1,6 @@
 # Guitar feedback
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [1 comment](#comments)
 
 - **Author or source:** Sean Costello
 - **Created:** 2002-02-10 20:01:07
@@ -27,85 +27,90 @@ and pitch of the feedback note.
 
 ## Comments
 
-**moc.liamg@1a7102egroj** · 2016-06-10 19:59:36
+<details>
+<summary>Read 1 archived comment</summary>
 
-```vbnet
-'NO esta completo falta algo, no se, si es el filtro biquad
+1. **moc.liamg@1a7102egroj** · *2016-06-10 19:59:36*
 
-Public Function karplustrong_b1(PNumSamples As Long) As Integer()
-Dim x() As Single
-Dim y() As Single
-Dim n As Long
-Dim Num As Long
-Dim ArrResp() As Integer
-Dim C As Single
-Dim Fs As Long
-Dim fP As Single
-Dim amplitud As Long
-Dim i As Long
-Dim valor As Single
-Dim Ind1 As Long
-Dim Ind2 As Long
-Dim suma As Single
-Dim media As Single
-Dim valorsigno As Single
+   ```vbnet
+   'NO esta completo falta algo, no se, si es el filtro biquad
 
-
-    Fs = 44100
-    fP = 400 '400hz pitch frequency
-
-    'Num = (Fs / Fp)
+   Public Function karplustrong_b1(PNumSamples As Long) As Integer()
+   Dim x() As Single
+   Dim y() As Single
+   Dim n As Long
+   Dim Num As Long
+   Dim ArrResp() As Integer
+   Dim C As Single
+   Dim Fs As Long
+   Dim fP As Single
+   Dim amplitud As Long
+   Dim i As Long
+   Dim valor As Single
+   Dim Ind1 As Long
+   Dim Ind2 As Long
+   Dim suma As Single
+   Dim media As Single
+   Dim valorsigno As Single
 
 
-    ReDim x(PNumSamples)
-    ReDim y(PNumSamples)
+       Fs = 44100
+       fP = 400 '400hz pitch frequency
+
+       'Num = (Fs / Fp)
 
 
-
-
-    'generar numeros aleatorios rango 0 a 1
-    'iniciar numeros aleatorios
-    Randomize
-    suma = 0
-    For i = 0 To PNumSamples
-        valor = Rnd * 1 - 0.5
-
-        'valorsigno = Rnd * 1
-        'If valorsigno > 0.5 Then valor = -valor
-
-        x(i) = valor
-        suma = suma + valor
-    Next
-
-    media = suma / PNumSamples
-    'media = 1
-
-    'calcular la media y dividir
-    For i = 0 To PNumSamples
-        valor = x(i)
-        x(i) = valor / media
-    Next
+       ReDim x(PNumSamples)
+       ReDim y(PNumSamples)
 
 
 
-    Num = PNumSamples - 1
-    C = 0.5
 
-    For n = 0 To PNumSamples - 1
-        'Ind1 = Abs(n - Num)
-        'Ind2 = Abs(n - (Num + 1))
-        Ind2 = Abs((n))
-        Ind2 = Abs((n + 1) Mod Num) / 2
-        y(n) = x(n) + C * (y(Ind1) + y(Ind2))
-    Next
+       'generar numeros aleatorios rango 0 a 1
+       'iniciar numeros aleatorios
+       Randomize
+       suma = 0
+       For i = 0 To PNumSamples
+           valor = Rnd * 1 - 0.5
+
+           'valorsigno = Rnd * 1
+           'If valorsigno > 0.5 Then valor = -valor
+
+           x(i) = valor
+           suma = suma + valor
+       Next
+
+       media = suma / PNumSamples
+       'media = 1
+
+       'calcular la media y dividir
+       For i = 0 To PNumSamples
+           valor = x(i)
+           x(i) = valor / media
+       Next
 
 
-    ReDim ArrResp(PNumSamples)
-    amplitud = 1000
-    For i = 0 To Num
-        ArrResp(i) = RangoInteger(y(i) * amplitud)
-    Next
 
-    karplustrong_b1 = ArrResp
-End Function
-```
+       Num = PNumSamples - 1
+       C = 0.5
+
+       For n = 0 To PNumSamples - 1
+           'Ind1 = Abs(n - Num)
+           'Ind2 = Abs(n - (Num + 1))
+           Ind2 = Abs((n))
+           Ind2 = Abs((n + 1) Mod Num) / 2
+           y(n) = x(n) + C * (y(Ind1) + y(Ind2))
+       Next
+
+
+       ReDim ArrResp(PNumSamples)
+       amplitud = 1000
+       For i = 0 To Num
+           ArrResp(i) = RangoInteger(y(i) * amplitud)
+       Next
+
+       karplustrong_b1 = ArrResp
+   End Function
+   ```
+
+</details>

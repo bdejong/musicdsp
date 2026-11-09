@@ -1,6 +1,6 @@
 # Fast abs/neg/sign for 32bit floats
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [6 comments](#comments)
 
 - **Author or source:** ed.bew@raebybot
 - **Type:** floating point functions
@@ -48,53 +48,58 @@ begin result:=1+((longint((@f)^) shr 31)shl 1) end;
 
 ## Comments
 
-**ed.bew@raebybot** · 2003-01-05 05:01:59
+<details>
+<summary>Read 6 archived comments</summary>
 
-Matthias (bekkah\[AT\]web\[DOT\]de) wrote me a mail with the following further improvements for the C++ parts of the code:
+1. **ed.bew@raebybot** · *2003-01-05 05:01:59*
 
-```text
-// C++ code:
-inline float fastabs(const float f)
-{int i=((*(int*)&f)&0x7fffffff);return (*(float*)&i);}
+   Matthias (bekkah\[AT\]web\[DOT\]de) wrote me a mail with the following further improvements for the C++ parts of the code:
 
-inline float fastneg(const float f)
-{int i=((*(int*)&f)^0x80000000);return (*(float*)&i);}
+   ```text
+   // C++ code:
+   inline float fastabs(const float f)
+   {int i=((*(int*)&f)&0x7fffffff);return (*(float*)&i);}
 
-inline int fastsgn(const float f)
-{return 1+(((*(int*)&f)>>31)<<1);}
-```
+   inline float fastneg(const float f)
+   {int i=((*(int*)&f)^0x80000000);return (*(float*)&i);}
 
-Thanks!
+   inline int fastsgn(const float f)
+   {return 1+(((*(int*)&f)>>31)<<1);}
+   ```
 
-**ur.liam@redocip** · 2003-01-11 15:53:56
+   Thanks!
 
-Too bad these 'tricks' need two additional FWAITs to work in a raw FPU code. Maybe standard fabs and fneg are better? Although, that fastsgn() could be useful since there's no FPU equivalent for it.
+2. **ur.liam@redocip** · *2003-01-11 15:53:56*
 
-Cheers,
-Aleksey.
+   Too bad these 'tricks' need two additional FWAITs to work in a raw FPU code. Maybe standard fabs and fneg are better? Although, that fastsgn() could be useful since there's no FPU equivalent for it.
 
-**ur.liam@redocip** · 2003-01-11 15:55:35
+   Cheers,
+   Aleksey.
 
-I meant 'fchs' in place of 'fneg'.
+3. **ur.liam@redocip** · *2003-01-11 15:55:35*
 
-**ten.llavnnarb@divad** · 2003-05-05 20:49:34
+   I meant 'fchs' in place of 'fneg'.
 
-I don't know if this is any faster, but atleast you can avoid some typecasting.
+4. **ten.llavnnarb@divad** · *2003-05-05 20:49:34*
 
-```text
-function fastabs(f: Single): Single; var i: Integer absolute f;
-begin i := i and $7fffffff; Result := f; end;
-```
+   I don't know if this is any faster, but atleast you can avoid some typecasting.
 
-**moc.oidua-m@sirhc** · 2003-07-29 04:55:55
+   ```text
+   function fastabs(f: Single): Single; var i: Integer absolute f;
+   begin i := i and $7fffffff; Result := f; end;
+   ```
 
-Note that a reasonable compiler should be able to perform these optimizations for you. I seem to recall that GCC in particular has the capability to replace calls to \[f\]abs() with instructions optimized for the platform.
+5. **moc.oidua-m@sirhc** · *2003-07-29 04:55:55*
 
-**moc.noicratse@ajelak** · 2005-05-25 20:22:59
+   Note that a reasonable compiler should be able to perform these optimizations for you. I seem to recall that GCC in particular has the capability to replace calls to \[f\]abs() with instructions optimized for the platform.
 
-```text
-On MS compilers for x86, just do:
-#pragma intrinsic(fabs)
-```
+6. **moc.noicratse@ajelak** · *2005-05-25 20:22:59*
 
-...and then use fabs() for doubles, fabsf() for floats. The compiler will generate the FABS instruction, which is generally 1 cycle on modern x86 FPUs. (Internally, the FPU just masks the bit.)
+   ```text
+   On MS compilers for x86, just do:
+   #pragma intrinsic(fabs)
+   ```
+
+   ...and then use fabs() for doubles, fabsf() for floats. The compiler will generate the FABS instruction, which is generally 1 cycle on modern x86 FPUs. (Internally, the FPU just masks the bit.)
+
+</details>

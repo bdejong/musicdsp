@@ -1,6 +1,6 @@
 # Chebyshev waveshaper (using their recursive definition)
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [3 comments](#comments)
 
 - **Author or source:** mdsp
 - **Type:** chebyshev
@@ -46,26 +46,31 @@ float chebyshev(float x, float A[], int order)
 
 ## Comments
 
-**mdsp** · 2005-01-10 18:10:12
+<details>
+<summary>Read 3 archived comments</summary>
 
-BTW you can achieve an interresting effect by feeding back the ouput in the input. it adds a kind of interresting pitched noise to the signal.
+1. **mdsp** · *2005-01-10 18:10:12*
 
-I think VirSyn is using something similar in microTERA.
+   BTW you can achieve an interresting effect by feeding back the ouput in the input. it adds a kind of interresting pitched noise to the signal.
 
-**ku.oc.oodanaw.eiretcab@nad** · 2005-01-11 19:33:03
+   I think VirSyn is using something similar in microTERA.
 
-Hi, it was me that asked about this on KvR. It seems that it is possible to use such a waveshaper on a non-sinusoidal input without oversampling; split the input signal into bands, and use the highest frequency in each band to determine which order polynomials to send each band to. The idea about feeding back the output to the input occured to me as well, good to know that such an effect might be interesting... If I come across any other points of interest while coding this plugin, I'll be glad to mention them on here.
+2. **ku.oc.oodanaw.eiretcab@nad** · *2005-01-11 19:33:03*
 
-Dan
+   Hi, it was me that asked about this on KvR. It seems that it is possible to use such a waveshaper on a non-sinusoidal input without oversampling; split the input signal into bands, and use the highest frequency in each band to determine which order polynomials to send each band to. The idea about feeding back the output to the input occured to me as well, good to know that such an effect might be interesting... If I come across any other points of interest while coding this plugin, I'll be glad to mention them on here.
 
-**mdsp** · 2005-01-12 11:48:00
+   Dan
 
-of course you can use it on non sinusoidal input, but you won't achieve the same result.
+3. **mdsp** · *2005-01-12 11:48:00*
 
-if you express your input as a sum of sinusoids of frequencies \[f0 f1 f2 ...\] and use the chebyshev polynom of order 2 you won't have 2\*\[f0 f1 f2...\] as the resulting frequencies.
-As it's a nonlinear function you can't use the superposition theorem anymore.
+   of course you can use it on non sinusoidal input, but you won't achieve the same result.
 
-beware that chebyshev polynoms are sensitive to
-the range of your input. Your sinusoid has to have a gain exaclty equal to 1 in order to work as expected.
+   if you express your input as a sum of sinusoids of frequencies \[f0 f1 f2 ...\] and use the chebyshev polynom of order 2 you won't have 2\*\[f0 f1 f2...\] as the resulting frequencies.
+   As it's a nonlinear function you can't use the superposition theorem anymore.
 
-that's a nice trick but it has it's limits.
+   beware that chebyshev polynoms are sensitive to
+   the range of your input. Your sinusoid has to have a gain exaclty equal to 1 in order to work as expected.
+
+   that's a nice trick but it has it's limits.
+
+</details>

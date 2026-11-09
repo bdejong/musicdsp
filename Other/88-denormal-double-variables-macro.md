@@ -1,6 +1,6 @@
 # Denormal DOUBLE variables, macro
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [1 comment](#comments)
 
 - **Author or source:** Jon Watte
 - **Created:** 2002-03-17 15:44:31
@@ -26,6 +26,11 @@ inline bool is_denormal( double const & d ) {
 
 ## Comments
 
-**dont-email-me** · 2005-05-14 17:19:48
+<details>
+<summary>Read 1 archived comment</summary>
 
-put the #if inside the function itself
+1. **dont-email-me** · *2005-05-14 17:19:48*
+
+   put the #if inside the function itself
+
+</details>

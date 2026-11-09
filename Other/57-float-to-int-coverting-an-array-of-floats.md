@@ -1,6 +1,6 @@
 # Float-to-int, coverting an array of floats
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [1 comment](#comments)
 
 - **Author or source:** Stefan Stenzel
 - **Created:** 2002-01-17 03:10:32
@@ -77,17 +77,22 @@ startf2slp:
 
 ## Comments
 
-**moc.xinortceletrams@sungam** · 2003-01-22 20:20:20
+<details>
+<summary>Read 1 archived comment</summary>
 
-```text
-_asm {
-mov ebx,n
-mov esi,fptr
-mov edi,iptr
-lea ebx,[esi+ebx*4] ; ptr after last
-mov edx,0x80008000 ; damn endianess confuses...
-mov ecx,0x4b004b00 ; damn endianess confuses...
-mov eax,[ebx] ; get last value
-```
+1. **moc.xinortceletrams@sungam** · *2003-01-22 20:20:20*
 
-I think the last line here reads outside the buffer.
+   ```text
+   _asm {
+   mov ebx,n
+   mov esi,fptr
+   mov edi,iptr
+   lea ebx,[esi+ebx*4] ; ptr after last
+   mov edx,0x80008000 ; damn endianess confuses...
+   mov ecx,0x4b004b00 ; damn endianess confuses...
+   mov eax,[ebx] ; get last value
+   ```
+
+   I think the last line here reads outside the buffer.
+
+</details>

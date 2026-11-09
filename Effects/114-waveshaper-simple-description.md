@@ -1,6 +1,6 @@
 # Waveshaper (simple description)
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [1 comment](#comments)
 
 - **Author or source:** Jon Watte
 - **Type:** Polynomial; Distortion
@@ -39,7 +39,12 @@ float waveshape_distort( float in ) {
 
 ## Comments
 
-**ed.luosfosruoivas@naitsirhC** · 2005-06-30 09:41:07
+<details>
+<summary>Read 1 archived comment</summary>
 
-Yes! It's one of the most simple waveshaper and you know the amount of oversampling!
-Works very nice (and fast).
+1. **ed.luosfosruoivas@naitsirhC** · *2005-06-30 09:41:07*
+
+   Yes! It's one of the most simple waveshaper and you know the amount of oversampling!
+   Works very nice (and fast).
+
+</details>

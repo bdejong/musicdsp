@@ -1,6 +1,6 @@
 # FFT
 
-[MusicDSP](../README.md) / [Analysis](README.md)
+[MusicDSP](../README.md) / [Analysis](README.md) · [1 comment](#comments)
 
 - **Author or source:** Toth Laszlo
 - **Created:** 2002-02-11 17:43:15
@@ -17,8 +17,13 @@ if you believe my results)."
 
 ## Comments
 
-**moc.oohay@ygobatem** · 2011-01-22 20:56:46
+<details>
+<summary>Read 1 archived comment</summary>
 
-Thank you very much, this was useful, and it worked right out of the box,
-so to speak. It's very efficient, and the algorithm is readable. It also includes some
-very useful functions.
+1. **moc.oohay@ygobatem** · *2011-01-22 20:56:46*
+
+   Thank you very much, this was useful, and it worked right out of the box,
+   so to speak. It's very efficient, and the algorithm is readable. It also includes some
+   very useful functions.
+
+</details>

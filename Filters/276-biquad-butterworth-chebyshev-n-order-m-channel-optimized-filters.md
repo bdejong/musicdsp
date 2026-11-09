@@ -1,6 +1,6 @@
 # Biquad, Butterworth, Chebyshev N-order, M-channel  optimized filters
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [3 comments](#comments)
 
 - **Author or source:** moc.oohay@nniveht
 - **Type:** LP, HP, BP, BS, Shelf, Notch, Boost
@@ -2519,17 +2519,22 @@ namespace Dsp
 
 ## Comments
 
-**ten.nozirev@nuSL** · 2010-06-18 10:53:04
+<details>
+<summary>Read 3 archived comments</summary>
 
-These codes are just what I am looking for.  Too bad they are incomplete as posted here.  Could someone direct me to a complete version?
+1. **ten.nozirev@nuSL** · *2010-06-18 10:53:04*
 
-**moc.tenalpderyrgna@nrobkcah** · 2011-02-03 16:37:34
+   These codes are just what I am looking for.  Too bad they are incomplete as posted here.  Could someone direct me to a complete version?
 
-I \*think\* this is the project homepage:
-<http://code.google.com/p/dspfilterscpp/>
-although I haven't downloaded anything to verify it is and that the code is complete.
+2. **moc.tenalpderyrgna@nrobkcah** · *2011-02-03 16:37:34*
 
-**moc.liamg@oclaf.einniv** · 2012-05-06 01:26:08
+   I \*think\* this is the project homepage:
+   <http://code.google.com/p/dspfilterscpp/>
+   although I haven't downloaded anything to verify it is and that the code is complete.
 
-The project is here:
-<https://github.com/vinniefalco/DSPFilters.git>
+3. **moc.liamg@oclaf.einniv** · *2012-05-06 01:26:08*
+
+   The project is here:
+   <https://github.com/vinniefalco/DSPFilters.git>
+
+</details>

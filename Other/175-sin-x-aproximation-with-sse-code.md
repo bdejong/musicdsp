@@ -1,6 +1,6 @@
 # Sin(x) Aproximation (with SSE code)
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [2 comments](#comments)
 
 - **Author or source:** moc.kisuw@kmailliw
 - **Created:** 2004-07-14 10:13:26
@@ -31,13 +31,18 @@ addss	xmm0,	xmm1
 
 ## Comments
 
-**moc.noicratse@ajelak** · 2004-10-06 22:47:58
+<details>
+<summary>Read 2 archived comments</summary>
 
-Divides hurt. Change your constant 6 to a constant (1.0/6.0) and change divss to mulss.
+1. **moc.noicratse@ajelak** · *2004-10-06 22:47:58*
 
-**little%moc.loa@ykee02** · 2005-05-31 05:04:05
+   Divides hurt. Change your constant 6 to a constant (1.0/6.0) and change divss to mulss.
 
-error about 7.5% by +/- pi/2
-you can improve this considerably by
-fitting cubic at points -pi/2, 0, pi/2 i.e:
-sin(x) = x - x^3 / 6.7901358
+2. **little%moc.loa@ykee02** · *2005-05-31 05:04:05*
+
+   error about 7.5% by +/- pi/2
+   you can improve this considerably by
+   fitting cubic at points -pi/2, 0, pi/2 i.e:
+   sin(x) = x - x^3 / 6.7901358
+
+</details>

@@ -10,7 +10,10 @@ MusicDSP is an archive of algorithms, code snippets, and notes for audio signal 
 - [Effects](Effects/README.md)
 - [Other](Other/README.md)
 
-Each category lists its articles by title. Articles include their original author credits, code, and discussion. You can also browse the [archive files](files/).
+Each category lists its articles by title. You can also browse the [archive files](files/).
+
+> [!NOTE]
+> Comments come from the original MusicDSP archive. On articles with a discussion, select the comment count to jump to it, then expand the thread to read the replies.
 
 ## Contribute
 

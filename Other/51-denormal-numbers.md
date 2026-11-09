@@ -1,6 +1,6 @@
 # Denormal numbers
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [1 comment](#comments)
 
 - **Author or source:** Compiled by Merlijn Blaauw
 - **Created:** 2002-01-17 03:06:39
@@ -15,22 +15,27 @@ FPU's go mad processing very small numbers
 
 ## Comments
 
-**moc.dh2a@ydna** · 2004-01-31 05:20:38
+<details>
+<summary>Read 1 archived comment</summary>
 
-See also the entry about 'branchless min, max and clip' by Laurent Soras in this section,
+1. **moc.dh2a@ydna** · *2004-01-31 05:20:38*
 
-Using the following function,
+   See also the entry about 'branchless min, max and clip' by Laurent Soras in this section,
 
-```text
-float clip (float x, float a, float b)
-{
-   x1 = fabs (x-a);
-   x2 = fabs (x-b);
-   x = x1 + (a+b);
-   x -= x2;
-   x *= 0.5;
-   return (x);
-}
-```
+   Using the following function,
 
-If you apply clipping from -1.0 to 1.0 will have a side effect of squashing denormal numbers to zero due to loss of precision on the order of \~1.0.e-20.  The upside is that it is branchless, but possibly more expensive than adding noise and certainly more so than adding a DC offset.
+   ```text
+   float clip (float x, float a, float b)
+   {
+      x1 = fabs (x-a);
+      x2 = fabs (x-b);
+      x = x1 + (a+b);
+      x -= x2;
+      x *= 0.5;
+      return (x);
+   }
+   ```
+
+   If you apply clipping from -1.0 to 1.0 will have a side effect of squashing denormal numbers to zero due to loss of precision on the order of \~1.0.e-20.  The upside is that it is branchless, but possibly more expensive than adding noise and certainly more so than adding a DC offset.
+
+</details>

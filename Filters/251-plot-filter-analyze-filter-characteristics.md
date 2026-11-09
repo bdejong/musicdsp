@@ -1,6 +1,6 @@
 # Plot Filter (Analyze filter characteristics)
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [1 comment](#comments)
 
 - **Author or source:** ku.oc.oohay@895rennacs
 - **Type:** Test
@@ -137,17 +137,22 @@ main(void)
 
 ## Comments
 
-**niels m.** · 2008-01-01 20:45:13
+<details>
+<summary>Read 1 archived comment</summary>
 
-You need to change the log() to log10() to get the correct answer in dB's.
+1. **niels m.** · *2008-01-01 20:45:13*
 
-You can also replace the if(sIn \>0) .. -= sOut; by:
+   You need to change the log() to log10() to get the correct answer in dB's.
 
-```text
-tIn += sIn*sIn;
-tOut += sOut*sOut;
-```
+   You can also replace the if(sIn \>0) .. -= sOut; by:
 
-this will measure signal power instead of amplitude. If you do this, you also need to change 20\*log10() to 10\*log10().
+   ```text
+   tIn += sIn*sIn;
+   tOut += sOut*sOut;
+   ```
 
-Nice and useful tool for exploring filters. Thanks!
+   this will measure signal power instead of amplitude. If you do this, you also need to change 20\*log10() to 10\*log10().
+
+   Nice and useful tool for exploring filters. Thanks!
+
+</details>

@@ -1,6 +1,6 @@
 # Dynamic convolution
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [2 comments](#comments)
 
 - **Author or source:** Risto Holopainen
 - **Type:** a naive implementation in C++
@@ -106,43 +106,48 @@ double dynaconv::conv(double *x, int d)
 
 ## Comments
 
-**ed.luosfosruoivas@naitsirhC** · 2005-06-06 08:26:12
+<details>
+<summary>Read 2 archived comments</summary>
 
-You can speed things up by:
+1. **ed.luosfosruoivas@naitsirhC** · *2005-06-06 08:26:12*
 
-a) rewriting the "double dynaconv::conv(double \*x, int d)" function using Assembler, SSE and 3DNow
-routines.
+   You can speed things up by:
 
-b) instead of this
+   a) rewriting the "double dynaconv::conv(double \*x, int d)" function using Assembler, SSE and 3DNow
+   routines.
 
-```text
-"else if(sel > 0)
-{
-a = conv(x, 0);
-b = conv(x, 1);
-w = dv*A - sel;
-y = w*a + (1-w)*b;
-}"
-```
+   b) instead of this
 
-you can create a temp IR by fading the two impulse responses before convolution. Then you'll only
-need ONE CPU-expensive-convolution.
+   ```text
+   "else if(sel > 0)
+   {
+   a = conv(x, 0);
+   b = conv(x, 1);
+   w = dv*A - sel;
+   y = w*a + (1-w)*b;
+   }"
+   ```
 
-c) this one only works with the upper half wave!
+   you can create a temp IR by fading the two impulse responses before convolution. Then you'll only
+   need ONE CPU-expensive-convolution.
 
-d) only nonlinear components can be modeled. For time-variant modeling (compressor/limiter) you'll
-need more than this.
+   c) this one only works with the upper half wave!
 
-e) the algo is proteced by a patent. But it's easy to find more efficient ways, which aren't
-protected by the patent.
+   d) only nonlinear components can be modeled. For time-variant modeling (compressor/limiter) you'll
+   need more than this.
 
-With my implementation i can fold up to 4000 Samples (IR) in realtime on my machine.
+   e) the algo is proteced by a patent. But it's easy to find more efficient ways, which aren't
+   protected by the patent.
 
-**d.tniop@noitcerroc** · 2005-07-20 13:52:49
+   With my implementation i can fold up to 4000 Samples (IR) in realtime on my machine.
 
-Correction to d:
+2. **d.tniop@noitcerroc** · *2005-07-20 13:52:49*
 
-d) only time invariant nonlinear components can be modeled; and then adequate memory must be used.
-Compressors/Limiters can be modelled, but the memory requirements will be somewhat frightening.
-Time-variant systems, such as flangers, phasors, and sub-harmonic generators (i.e. anything
-with an internal clock) will need more than this.
+   Correction to d:
+
+   d) only time invariant nonlinear components can be modeled; and then adequate memory must be used.
+   Compressors/Limiters can be modelled, but the memory requirements will be somewhat frightening.
+   Time-variant systems, such as flangers, phasors, and sub-harmonic generators (i.e. anything
+   with an internal clock) will need more than this.
+
+</details>

@@ -1,6 +1,6 @@
 # Bandlimited sawtooth synthesis
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [2 comments](#comments)
 
 - **Author or source:** moc.ailet@mlohednal.leuname
 - **Type:** DSF BLIT
@@ -29,16 +29,21 @@ Have fun!
 
 ## Comments
 
-**moc.liamtoh@hsats\_wobniar** · 2003-02-26 00:58:41
+<details>
+<summary>Read 2 archived comments</summary>
 
-```text
-there is no need to use a butterworth design for a simple leaky integrator, in this case actually the
-variable curcps can be used directly in a simple: leak += curcps * (blit - leak);
-```
+1. **moc.liamtoh@hsats\_wobniar** · *2003-02-26 00:58:41*
 
-this produces a nearly perfect saw shape in almost all cases
+   ```text
+   there is no need to use a butterworth design for a simple leaky integrator, in this case actually the
+   variable curcps can be used directly in a simple: leak += curcps * (blit - leak);
+   ```
 
-**pj.oc.liamtoh@evawtuah** · 2011-05-31 05:25:01
+   this produces a nearly perfect saw shape in almost all cases
 
-The square wave type will be able to be generated from this source.
-Please teach if it is possible.
+2. **pj.oc.liamtoh@evawtuah** · *2011-05-31 05:25:01*
+
+   The square wave type will be able to be generated from this source.
+   Please teach if it is possible.
+
+</details>

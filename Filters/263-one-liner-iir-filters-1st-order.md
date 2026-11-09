@@ -1,6 +1,6 @@
 # One-Liner IIR Filters (1st order)
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [1 comment](#comments)
 
 - **Author or source:** moc.edocseira@sirhc
 - **Type:** IIR 1-pole
@@ -95,8 +95,13 @@ between interations is s.
 
 ## Comments
 
-**moc.liamg@1ydarbfmot** · 2016-03-31 14:21:04
+<details>
+<summary>Read 1 archived comment</summary>
 
-Great help, although could you advise as to where the parameters a0, a1 and b1 are used for the high pass filter 105?
+1. **moc.liamg@1ydarbfmot** · *2016-03-31 14:21:04*
 
-Thanks
+   Great help, although could you advise as to where the parameters a0, a1 and b1 are used for the high pass filter 105?
+
+   Thanks
+
+</details>

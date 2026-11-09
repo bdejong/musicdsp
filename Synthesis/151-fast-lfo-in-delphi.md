@@ -1,6 +1,6 @@
 # Fast LFO in Delphi...
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [2 comments](#comments)
 
 - **Author or source:** Dambrin Didier ( moc.tcerideciffo-e@log )
 - **Created:** 2003-07-15 09:01:18
@@ -106,174 +106,179 @@ end.
 
 ## Comments
 
-**ed.luosfosruoivas@naitsirhC** · 2004-04-29 09:18:58
+<details>
+<summary>Read 2 archived comments</summary>
 
-LFO Class...
+1. **ed.luosfosruoivas@naitsirhC** · *2004-04-29 09:18:58*
 
-```text
-unit Unit1;
-```
+   LFO Class...
 
-interface
+   ```text
+   unit Unit1;
+   ```
 
-```text
-uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, ComCtrls;
+   interface
 
-type
-  TLFOType = (lfoTriangle,lfoSine);
-  TLFO = class(TObject)
-  private
-    iSpeed     : Integer;
-    fSpeed     : Single;
-    fMax, fMin : Single;
-    fValue     : Single;
-    fPos       : Integer;
-    fType      : TLFOType;
-    fScale     : Single;
-    fPosMul    : Single;
-    fHalfScale : Single;
-    function GetValue:Single;
-    procedure SetType(tt: TLFOType);
-    procedure SetMin(v:Single);
-    procedure SetMax(v:Single);
-  public
-    { Public declarations }
-    constructor Create;
-  published
-    property Value:Single read GetValue;
-    property Speed:Single read FSpeed Write FSpeed;
-    property Min:Single read FMin write SetMin;
-    property Max:Single read FMax Write SetMax;
-    property LFO:TLFOType read fType Write SetType;
-  end;
+   ```text
+   uses
+     Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+     StdCtrls, ExtCtrls, ComCtrls;
 
-  TForm1 = class(TForm)
-    Bevel1: TBevel;
-    PaintBox1: TPaintBox;
-    procedure PaintBox1Paint(Sender: TObject);
-  private
-    { Private declarations }
-  public
-    { Public declarations }
-  end;
+   type
+     TLFOType = (lfoTriangle,lfoSine);
+     TLFO = class(TObject)
+     private
+       iSpeed     : Integer;
+       fSpeed     : Single;
+       fMax, fMin : Single;
+       fValue     : Single;
+       fPos       : Integer;
+       fType      : TLFOType;
+       fScale     : Single;
+       fPosMul    : Single;
+       fHalfScale : Single;
+       function GetValue:Single;
+       procedure SetType(tt: TLFOType);
+       procedure SetMin(v:Single);
+       procedure SetMax(v:Single);
+     public
+       { Public declarations }
+       constructor Create;
+     published
+       property Value:Single read GetValue;
+       property Speed:Single read FSpeed Write FSpeed;
+       property Min:Single read FMin write SetMin;
+       property Max:Single read FMax Write SetMax;
+       property LFO:TLFOType read fType Write SetType;
+     end;
 
-var
-  Form1: TForm1;
-```
+     TForm1 = class(TForm)
+       Bevel1: TBevel;
+       PaintBox1: TPaintBox;
+       procedure PaintBox1Paint(Sender: TObject);
+     private
+       { Private declarations }
+     public
+       { Public declarations }
+     end;
 
-implementation
+   var
+     Form1: TForm1;
+   ```
 
-```text
-{$R *.DFM}
+   implementation
 
-constructor TLFO.Create;
-begin
- fSpeed:=100;
- fMax:=1;
- fMin:=0;
- fValue:=0;
- fPos:=0;
- iSpeed:=Round($100000000/fSpeed);
- fType:=lfoTriangle;
- fScale:=fMax-((fMin+fMax)/2);
-end;
+   ```text
+   {$R *.DFM}
 
-procedure TLFO.SetType(tt: TLFOType);
-begin
- fType:=tt;
- if fType = lfoSine then
-  begin
-   fPosMul:=(Sqrt(fScale*2))/$80000000;
-   fHalfScale:=(Sqrt(fScale*2))/2;
-  end
- else
-  begin
-   fPosMul:=fScale/$80000000;
-  end;
-end;
+   constructor TLFO.Create;
+   begin
+    fSpeed:=100;
+    fMax:=1;
+    fMin:=0;
+    fValue:=0;
+    fPos:=0;
+    iSpeed:=Round($100000000/fSpeed);
+    fType:=lfoTriangle;
+    fScale:=fMax-((fMin+fMax)/2);
+   end;
 
-procedure TLFO.SetMin(v: Single);
-begin
- fMin:=v;
- fScale:=fMax-((fMin+fMax)/2);
-end;
+   procedure TLFO.SetType(tt: TLFOType);
+   begin
+    fType:=tt;
+    if fType = lfoSine then
+     begin
+      fPosMul:=(Sqrt(fScale*2))/$80000000;
+      fHalfScale:=(Sqrt(fScale*2))/2;
+     end
+    else
+     begin
+      fPosMul:=fScale/$80000000;
+     end;
+   end;
 
-procedure TLFO.SetMax(v: Single);
-begin
- fMax:=v;
- fScale:=fMax-((fMin+fMax)/2);
-end;
+   procedure TLFO.SetMin(v: Single);
+   begin
+    fMin:=v;
+    fScale:=fMax-((fMin+fMax)/2);
+   end;
 
-function TLFO.GetValue:Single;
-begin
- if fType = lfoSine then
-  begin
-   Result:=Abs(fPos*fPosMul)-fHalfScale;
-   Result:=Result*(fHalfScale*2-Abs(Result))*2;
-   Result:=Result+((fMin+fMax)/2);
-  end
- else
-  begin
-    Result:=Abs(fPos*(2*fPosMul))+fMin;
-  end;
- fPos:=fPos+iSpeed;
-end;
+   procedure TLFO.SetMax(v: Single);
+   begin
+    fMax:=v;
+    fScale:=fMax-((fMin+fMax)/2);
+   end;
 
-procedure TForm1.PaintBox1Paint(Sender: TObject);
-var n    : Integer;
-    LFO1 : TLFO;
-begin
+   function TLFO.GetValue:Single;
+   begin
+    if fType = lfoSine then
+     begin
+      Result:=Abs(fPos*fPosMul)-fHalfScale;
+      Result:=Result*(fHalfScale*2-Abs(Result))*2;
+      Result:=Result+((fMin+fMax)/2);
+     end
+    else
+     begin
+       Result:=Abs(fPos*(2*fPosMul))+fMin;
+     end;
+    fPos:=fPos+iSpeed;
+   end;
 
-LFO1:=TLFO.Create;
-LFO1.Min:=-100;
-LFO1.Max:=100;
-LFO1.Speed:=100;
-LFO1.LFO:=lfoTriangle;
+   procedure TForm1.PaintBox1Paint(Sender: TObject);
+   var n    : Integer;
+       LFO1 : TLFO;
+   begin
 
-// --- triangle LFO ---
-for n:=0 to 299 do Paintbox1.Canvas.Pixels[n,Round(100+LFO1.Value)]:=clRed;
+   LFO1:=TLFO.Create;
+   LFO1.Min:=-100;
+   LFO1.Max:=100;
+   LFO1.Speed:=100;
+   LFO1.LFO:=lfoTriangle;
 
-LFO1.LFO:=lfoSine;
-// --- sine-like LFO ---
-for n:=0 to 299 do Paintbox1.Canvas.Pixels[n,Round(100+LFO1.Value)]:=clBlue;
-end;
-```
+   // --- triangle LFO ---
+   for n:=0 to 299 do Paintbox1.Canvas.Pixels[n,Round(100+LFO1.Value)]:=clRed;
 
-end.
+   LFO1.LFO:=lfoSine;
+   // --- sine-like LFO ---
+   for n:=0 to 299 do Paintbox1.Canvas.Pixels[n,Round(100+LFO1.Value)]:=clBlue;
+   end;
+   ```
 
-**ed.luosfosruoivas@naitsirhC** · 2005-06-01 23:36:15
+   end.
 
-Ups, i forgot something:
+2. **ed.luosfosruoivas@naitsirhC** · *2005-06-01 23:36:15*
 
-```text
-  TLFO = class(TObject)
-  private
+   Ups, i forgot something:
+
+   ```text
+     TLFO = class(TObject)
+     private
+       ...
+       procedure SetSpeed(v:Single);
+     public
+       ...
+     published
+       ...
+       property Speed:Single read FSpeed Write SetSpeed;
+       ...
+     end;
+
+   ...
+
+   constructor TLFO.Create;
+   begin
     ...
-    procedure SetSpeed(v:Single);
-  public
+    Speed:=100;
     ...
-  published
-    ...
-    property Speed:Single read FSpeed Write SetSpeed;
-    ...
-  end;
+   end;
 
-...
+   procedure TLFO.SetSpeed(v:Single);
+   begin
+    fSpeed:=v;
+    iSpeed:=Round($100000000/fSpeed);
+   end;
 
-constructor TLFO.Create;
-begin
- ...
- Speed:=100;
- ...
-end;
+   ...
+   ```
 
-procedure TLFO.SetSpeed(v:Single);
-begin
- fSpeed:=v;
- iSpeed:=Round($100000000/fSpeed);
-end;
-
-...
-```
+</details>

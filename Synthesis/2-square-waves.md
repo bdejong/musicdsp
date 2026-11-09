@@ -1,6 +1,6 @@
 # Square Waves
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [2 comments](#comments)
 
 - **Author or source:** Sean Costello
 - **Type:** waveform generation
@@ -27,13 +27,18 @@ different than the processing of a waveform that has a similar shape to a square
 
 ## Comments
 
-**dfl@stanford. edu** · 2003-04-01 01:28:28
+<details>
+<summary>Read 2 archived comments</summary>
 
-Actually, I don't think this would work...
-The proper way to do it is subtract a phase shifted buzz (aka BLIT) at the same frequency. This is equivalent to comb filtering, which will notch out the even harmonics.
+1. **dfl@stanford. edu** · *2003-04-01 01:28:28*
 
-**moc.psdallahlav@naes** · 2008-11-08 16:24:18
+   Actually, I don't think this would work...
+   The proper way to do it is subtract a phase shifted buzz (aka BLIT) at the same frequency. This is equivalent to comb filtering, which will notch out the even harmonics.
 
-The above comment is correct, and my concept is inaccurate. My technique may have produced a signal with the proper harmonic structure, but it has been nearly 10 years since I wrote the post, so I can't remember what I was working with.
+2. **moc.psdallahlav@naes** · *2008-11-08 16:24:18*
 
-DFL's technique can be implemented with two buzz generators, or with a single buzz generator in conjunction with a fractional delay, where the delay controls the amount of phase shift.
+   The above comment is correct, and my concept is inaccurate. My technique may have produced a signal with the proper harmonic structure, but it has been nearly 10 years since I wrote the post, so I can't remember what I was working with.
+
+   DFL's technique can be implemented with two buzz generators, or with a single buzz generator in conjunction with a fractional delay, where the delay controls the amount of phase shift.
+
+</details>

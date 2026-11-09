@@ -1,6 +1,6 @@
 # Fast Float Random Numbers
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [3 comments](#comments)
 
 - **Author or source:** moc.liamg@seir.kinimod
 - **Created:** 2009-10-29 13:39:29
@@ -49,26 +49,31 @@ float Fast_RandFloat()
 
 ## Comments
 
-**judahmenter@gee mail.com** · 2009-11-20 23:40:37
+<details>
+<summary>Read 3 archived comments</summary>
 
-There is no doubt that implementation 3 is fast, but the problem I had with it is that there's no obvious way to limit the amplitude of the generated signal.
+1. **judahmenter@gee mail.com** · *2009-11-20 23:40:37*
 
-So instead I tried implementation 2 and ran into a different problem. The code is written such that it assumes that RAND\_MAX is equal to 0x7FFF, which was not true on my system (it was 0x7FFFFFFF). Fortunately, this was easy to fix. I simply removed the \>\> 16 and worked fine for me. My final implementation was:
+   There is no doubt that implementation 3 is fast, but the problem I had with it is that there's no obvious way to limit the amplitude of the generated signal.
 
-```text
-return (float)(RandSeed = RandSeed * 214013L + 2531011L) / 0x7FFFFFFF * 2.0f * amp - amp;
-```
+   So instead I tried implementation 2 and ran into a different problem. The code is written such that it assumes that RAND\_MAX is equal to 0x7FFF, which was not true on my system (it was 0x7FFFFFFF). Fortunately, this was easy to fix. I simply removed the \>\> 16 and worked fine for me. My final implementation was:
 
-where "amp" is the desired amplitude.
+   ```text
+   return (float)(RandSeed = RandSeed * 214013L + 2531011L) / 0x7FFFFFFF * 2.0f * amp - amp;
+   ```
 
-**earlevel \[\] earlevel \[\] com** · 2009-12-29 22:53:23
+   where "amp" is the desired amplitude.
 
-It should be noted in the code that for method #3, you must initialize the seed to non-zero before using it.
+2. **earlevel \[\] earlevel \[\] com** · *2009-12-29 22:53:23*
 
-**moc.boohay@bob** · 2010-01-24 16:36:03
+   It should be noted in the code that for method #3, you must initialize the seed to non-zero before using it.
 
-```text
-I don't understand Judahmenter's comment about 3 not limiting the amplitude. As it stands it returns a value -1 to 1, so just multiply by your 'amp' value.
-This turns into a handy 0-1 random number if you take off the sign bit:
-(float)(RandSeed & 0x7FFFFFFF) * 4.6566129e-010f;
-```
+3. **moc.boohay@bob** · *2010-01-24 16:36:03*
+
+   ```text
+   I don't understand Judahmenter's comment about 3 not limiting the amplitude. As it stands it returns a value -1 to 1, so just multiply by your 'amp' value.
+   This turns into a handy 0-1 random number if you take off the sign bit:
+   (float)(RandSeed & 0x7FFFFFFF) * 4.6566129e-010f;
+   ```
+
+</details>

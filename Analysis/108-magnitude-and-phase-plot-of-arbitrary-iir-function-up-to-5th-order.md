@@ -1,6 +1,6 @@
 # Magnitude and phase plot of arbitrary IIR function, up to 5th order
 
-[MusicDSP](../README.md) / [Analysis](README.md)
+[MusicDSP](../README.md) / [Analysis](README.md) · [4 comments](#comments)
 
 - **Author or source:** George Yohng
 - **Type:** magnitude and phase at any frequency
@@ -129,141 +129,146 @@ double cf_lin2db(double lin)
 
 ## Comments
 
-**Rob** · 2004-01-02 08:46:35
+<details>
+<summary>Read 4 archived comments</summary>
 
-```matlab
-% Actually it is simpler to simply take the zero-padded b and a coefficients and do real->complex
-% FFT like this (matlab code):
+1. **Rob** · *2004-01-02 08:46:35*
 
-H_complex=fft(b,N)./fft(a,N);
-phase=angle(H_complex);
-Magn=abs(H_complex);
+   ```matlab
+   % Actually it is simpler to simply take the zero-padded b and a coefficients and do real->complex
+   % FFT like this (matlab code):
 
-% This will give you N/2 points from 0 to pi angle freq (or 0 to nyquist freq).
-% /Rob
-```
+   H_complex=fft(b,N)./fft(a,N);
+   phase=angle(H_complex);
+   Magn=abs(H_complex);
 
-**ed.luosfosruoivas@naitsirhC** · 2004-10-01 00:55:09
+   % This will give you N/2 points from 0 to pi angle freq (or 0 to nyquist freq).
+   % /Rob
+   ```
 
-```cpp
-// Here are the formulas if you only have a biquad. But i am not sure, if maybe the
-// phase is shifted with pi/2...
+2. **ed.luosfosruoivas@naitsirhC** · *2004-10-01 00:55:09*
 
-20*Log10(
-         sqrt(
-              (a0*a0+a1*a1+a2*a2+
-               2*(a0*a1+a1*a2)*cos(w)+
-               2*(a0*a2)* cos(2*w)
-              )
-              /
-              (
-               1 + b1*b1 + b2*b2 +
-               2*(b1 + b1*b2)*cos(w)+
-               2*b2*cos(2*w)
-              )
+   ```cpp
+   // Here are the formulas if you only have a biquad. But i am not sure, if maybe the
+   // phase is shifted with pi/2...
+
+   20*Log10(
+            sqrt(
+                 (a0*a0+a1*a1+a2*a2+
+                  2*(a0*a1+a1*a2)*cos(w)+
+                  2*(a0*a2)* cos(2*w)
+                 )
+                 /
+                 (
+                  1 + b1*b1 + b2*b2 +
+                  2*(b1 + b1*b2)*cos(w)+
+                  2*b2*cos(2*w)
+                 )
+                )
+           )
+
+
+   ArcTan2(
+           (
+             a0+a1*b1+a2*b2+
+            (a0*b1+a1*(1+b2)+a2*b1)*cos(w)+
+            (a0*b2+a2)*cos(2*w)
+           )
+           /
+           (
+             1+b1*b1+b2*b2+
+             2*
+             (
+              (b1+b1*b2)*cos(w)+ b2*cos(2*w)
              )
-        )
-
-
-ArcTan2(
-        (
-          a0+a1*b1+a2*b2+
-         (a0*b1+a1*(1+b2)+a2*b1)*cos(w)+
-         (a0*b2+a2)*cos(2*w)
-        )
-        /
-        (
-          1+b1*b1+b2*b2+
-          2*
-          (
-           (b1+b1*b2)*cos(w)+ b2*cos(2*w)
+           )
+           ,
+           (
+            (
+              a1-a0*b1+a2*b1-a1*b2+
+              2*(-a0*b2+a2)*cos(w)
+            )*sin(w)
+            /
+            (
+              1+b1*b1+b2*b2+
+              2*(b1 + b1*b2)*cos(w)+
+              2*b2*cos(2*w)
+            )
+           )
           )
-        )
-        ,
-        (
-         (
-           a1-a0*b1+a2*b1-a1*b2+
-           2*(-a0*b2+a2)*cos(w)
-         )*sin(w)
-         /
-         (
-           1+b1*b1+b2*b2+
-           2*(b1 + b1*b2)*cos(w)+
-           2*b2*cos(2*w)
-         )
-        )
-       )
-```
+   ```
 
-**ed.luosfosruoivas@naitsirhC** · 2005-03-28 22:43:17
+3. **ed.luosfosruoivas@naitsirhC** · *2005-03-28 22:43:17*
 
-```pascal
-// Recursive Delphi Code with arbitrary order:
+   ```pascal
+   // Recursive Delphi Code with arbitrary order:
 
-unit Plot;
+   unit Plot;
 
-interface
+   interface
 
-type TArrayOfDouble = Array of Double;
+   type TArrayOfDouble = Array of Double;
 
-function MagnitudeCalc(f,rate : Double; a,b : TArrayOfDouble): Double;
+   function MagnitudeCalc(f,rate : Double; a,b : TArrayOfDouble): Double;
 
-implementation
+   implementation
 
-uses Math;
+   uses Math;
 
-function MulVectCalc(const v: TArrayOfDouble; const Z, N : Integer) : Double;
-begin
- if N=0
-  then result:=0
-  else result:=(v[N-1]*v[N-1+Z])+MulVectCalc(v,Z,N-1);
-end;
+   function MulVectCalc(const v: TArrayOfDouble; const Z, N : Integer) : Double;
+   begin
+    if N=0
+     then result:=0
+     else result:=(v[N-1]*v[N-1+Z])+MulVectCalc(v,Z,N-1);
+   end;
 
-function MagCascadeCalc(const v: TArrayOfDouble; const w : double; N, Order : Integer ): Double;
-begin
- if N=1
-  then result:=(MulVectCalc(v,0,Order))
-  else result:=((MulVectCalc(v,N-1,1+Order-N)*(2*cos((N-1)*w))+MagCascadeCalc(v, w, N-1, Order )));
-end;
+   function MagCascadeCalc(const v: TArrayOfDouble; const w : double; N, Order : Integer ): Double;
+   begin
+    if N=1
+     then result:=(MulVectCalc(v,0,Order))
+     else result:=((MulVectCalc(v,N-1,1+Order-N)*(2*cos((N-1)*w))+MagCascadeCalc(v, w, N-1, Order )));
+   end;
 
-function MagnitudeCalc(f,rate : Double; a,b : TArrayOfDouble): Double;
-var w : Double;
-begin
- w:=(2*f*pi)/rate;
- result:=sqrt(MagCascadeCalc(a, w, Length(a),Length(a))/MagCascadeCalc(b, w, Length(b),Length(b)));
-end;
+   function MagnitudeCalc(f,rate : Double; a,b : TArrayOfDouble): Double;
+   var w : Double;
+   begin
+    w:=(2*f*pi)/rate;
+    result:=sqrt(MagCascadeCalc(a, w, Length(a),Length(a))/MagCascadeCalc(b, w, Length(b),Length(b)));
+   end;
 
-end.
-```
+   end.
+   ```
 
-**ed.luosfosruoivas@naitsirhC** · 2005-07-27 12:39:52
+4. **ed.luosfosruoivas@naitsirhC** · *2005-07-27 12:39:52*
 
-```pascal
-function CalcMagPart(w: Double; C : TDoubleArray):Double;
-var i,j,l : Integer;
-    temp  : Double;
-begin
- l:=Length(C);
- temp:=0;
- for j:=0 to l-1
-  do temp:=temp+C[j]*C[j];
- result:=temp;
- for i:=1 to l-1 do
-  begin
-   temp:=0;
-   for j:=0 to l-i-1
-    do temp:=temp+C[j]*C[j+i];
-   result:=Result+2*temp*cos(i*w);
-  end;
-end;
+   ```pascal
+   function CalcMagPart(w: Double; C : TDoubleArray):Double;
+   var i,j,l : Integer;
+       temp  : Double;
+   begin
+    l:=Length(C);
+    temp:=0;
+    for j:=0 to l-1
+     do temp:=temp+C[j]*C[j];
+    result:=temp;
+    for i:=1 to l-1 do
+     begin
+      temp:=0;
+      for j:=0 to l-i-1
+       do temp:=temp+C[j]*C[j+i];
+      result:=Result+2*temp*cos(i*w);
+     end;
+   end;
 
-function CalcMagnitude_dB(const f,rate: Double; const A,B: TDoubleArray): Double;
-var w : Double;
-begin
- w:=(2*f*pi)/rate;
- result:=10*log10(CalcMagPart(w,A)/CalcMagPart(w,B));
-end;
+   function CalcMagnitude_dB(const f,rate: Double; const A,B: TDoubleArray): Double;
+   var w : Double;
+   begin
+    w:=(2*f*pi)/rate;
+    result:=10*log10(CalcMagPart(w,A)/CalcMagPart(w,B));
+   end;
 
-// Here's a really fast function for an arbitrary IIR with high order without stack overflows
-// or recursion. And specially for John without sqrt.
-```
+   // Here's a really fast function for an arbitrary IIR with high order without stack overflows
+   // or recursion. And specially for John without sqrt.
+   ```
+
+</details>

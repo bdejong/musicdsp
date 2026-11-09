@@ -1,6 +1,6 @@
 # Simple Tilt equalizer
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** moc.liamg@321tiloen
 - **Type:** Tilt
@@ -71,12 +71,17 @@ out = in + lgain*lp_out + hgain*(in - lp_out);
 
 ## Comments
 
-**moc.liamg@321tiloen** · 2009-05-29 19:16:18
+<details>
+<summary>Read 2 archived comments</summary>
 
-correction:
+1. **moc.liamg@321tiloen** · *2009-05-29 19:16:18*
 
-(ex: +6db -\> hp; -6db -\> lp)
+   correction:
 
-**moc.liamg@59hsielgladsemaj** · 2017-04-01 09:05:48
+   (ex: +6db -\> hp; -6db -\> lp)
 
-Where is the denorm value meant to be used in the code? The code works regardless by noise is created when the gain control being used, it may be a result of the denorm value not being used?
+2. **moc.liamg@59hsielgladsemaj** · *2017-04-01 09:05:48*
+
+   Where is the denorm value meant to be used in the code? The code works regardless by noise is created when the gain control being used, it may be a result of the denorm value not being used?
+
+</details>

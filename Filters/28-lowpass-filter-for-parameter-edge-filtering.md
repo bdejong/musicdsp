@@ -1,6 +1,6 @@
 # Lowpass filter for parameter edge filtering
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** Olli Niemitalo
 - **Created:** 2002-01-17 02:06:29
@@ -81,22 +81,27 @@ use this filter to smooth sudden parameter changes
 
 ## Comments
 
-**uh.etle.fni@yfoocs** · 2007-01-06 04:19:27
+<details>
+<summary>Read 2 archived comments</summary>
 
-Wouldn't just one pole with a low cutoff suit this purpose? At least that's what I usually do for smoothing parameter changes, and it works fine.
+1. **uh.etle.fni@yfoocs** · *2007-01-06 04:19:27*
 
-**moc.liamg@uttrep.imas** · 2014-07-14 22:02:46
+   Wouldn't just one pole with a low cutoff suit this purpose? At least that's what I usually do for smoothing parameter changes, and it works fine.
 
-Works nicely, thanks. The gain calculations can be simplified quite a bit, to just one gain parameter.
+2. **moc.liamg@uttrep.imas** · *2014-07-14 22:02:46*
 
-```text
-gain = 1.0 / (-1.0 / log(a) + 2.0 / log(a * b) - 1.0 / log(a * b * b))
-```
+   Works nicely, thanks. The gain calculations can be simplified quite a bit, to just one gain parameter.
 
-Then,
+   ```text
+   gain = 1.0 / (-1.0 / log(a) + 2.0 / log(a * b) - 1.0 / log(a * b * b))
+   ```
 
-```text
-again = gain,
-bgain = -2.0 * gain, and
-cgain = gain.
-```
+   Then,
+
+   ```text
+   again = gain,
+   bgain = -2.0 * gain, and
+   cgain = gain.
+   ```
+
+</details>

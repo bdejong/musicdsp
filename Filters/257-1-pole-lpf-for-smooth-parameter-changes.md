@@ -1,6 +1,6 @@
 # 1 pole LPF for smooth parameter changes
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [3 comments](#comments)
 
 - **Author or source:** moc.liamg@odiugoiz
 - **Type:** 1-pole LPF class
@@ -32,59 +32,64 @@ private:
 
 ## Comments
 
-**moc.oohay@ygobatem** · 2011-09-30 15:46:04
+<details>
+<summary>Read 3 archived comments</summary>
 
-I've used this a lot, but here's an important thing: it won't work the same for multiple sample rates, so if you set a to 0.9995 for example, this will be lower if the sample rate is higher than you intended. I fix it by doing this:
+1. **moc.oohay@ygobatem** · *2011-09-30 15:46:04*
 
-```text
-/*must compensate this factor for sample rate change*/
+   I've used this a lot, but here's an important thing: it won't work the same for multiple sample rates, so if you set a to 0.9995 for example, this will be lower if the sample rate is higher than you intended. I fix it by doing this:
 
-float srCompensate;
-srCompensate = sr/44100.0f;
-float compensated_a;
-compensated_a = powf(a, (1.0f/srCompensate));
-		b = 1.0f-compensated_a;
-```
+   ```text
+   /*must compensate this factor for sample rate change*/
 
-Then if you start with a built in value (or range) designed for 44100hz, it will scale up with the sample rate so you will get the same amount of smoothing. I'm not sure if this is mathematically correct, but I came up with it very quickly and it works a charm for me.
+   float srCompensate;
+   srCompensate = sr/44100.0f;
+   float compensated_a;
+   compensated_a = powf(a, (1.0f/srCompensate));
+   		b = 1.0f-compensated_a;
+   ```
 
-Good work, very useful and easy to use filter.
+   Then if you start with a built in value (or range) designed for 44100hz, it will scale up with the sample rate so you will get the same amount of smoothing. I'm not sure if this is mathematically correct, but I came up with it very quickly and it works a charm for me.
 
-**moc.oohay@ygobatem** · 2011-09-30 15:47:29
+   Good work, very useful and easy to use filter.
 
-\*edit, a won't be LOWER if the sample rate changes, but it won't have the same effect.
+2. **moc.oohay@ygobatem** · *2011-09-30 15:47:29*
 
-**moc.liamg@earixela** · 2014-12-16 12:14:59
+   \*edit, a won't be LOWER if the sample rate changes, but it won't have the same effect.
 
-New version, now you can specify the speed response of the parameter in ms. and sampling rate:
+3. **moc.liamg@earixela** · *2014-12-16 12:14:59*
 
-```text
-class CParamSmooth
-{
-public:
-    CParamSmooth(float smoothingTimeInMs, float samplingRate)
-    {
-        const float c_twoPi = 6.283185307179586476925286766559f;
+   New version, now you can specify the speed response of the parameter in ms. and sampling rate:
 
-        a = exp(-c_twoPi / (smoothingTimeInMs * 0.001f * samplingRate));
-        b = 1.0f - a;
-        z = 0.0f;
-    }
+   ```text
+   class CParamSmooth
+   {
+   public:
+       CParamSmooth(float smoothingTimeInMs, float samplingRate)
+       {
+           const float c_twoPi = 6.283185307179586476925286766559f;
 
-    ~CParamSmooth()
-    {
+           a = exp(-c_twoPi / (smoothingTimeInMs * 0.001f * samplingRate));
+           b = 1.0f - a;
+           z = 0.0f;
+       }
 
-    }
+       ~CParamSmooth()
+       {
 
-    inline float process(float in)
-    {
-        z = (in * b) + (z * a);
-        return z;
-    }
+       }
 
-private:
-    float a;
-    float b;
-    float z;
-};
-```
+       inline float process(float in)
+       {
+           z = (in * b) + (z * a);
+           return z;
+       }
+
+   private:
+       float a;
+       float b;
+       float z;
+   };
+   ```
+
+</details>

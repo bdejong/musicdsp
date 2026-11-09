@@ -1,6 +1,6 @@
 # RBJ Audio-EQ-Cookbook
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [3 comments](#comments)
 
 - **Author or source:** Robert Bristow-Johnson
 - **Type:** EQ filter kookbook
@@ -14,48 +14,53 @@ see linked file
 
 ## Comments
 
-**ude.odu@grebnesie.nitram** · 2006-08-30 22:14:22
+<details>
+<summary>Read 3 archived comments</summary>
 
-rbj writes with regard to shelving filters:
+1. **ude.odu@grebnesie.nitram** · *2006-08-30 22:14:22*
 
-\> \_or\_ S, a "shelf slope" parameter (for shelving EQ only).  When S = 1,
-\> the shelf slope is as steep as it can be and remain monotonically
-\> increasing or decreasing gain with frequency.  The shelf slope, in
-\> dB/octave, remains proportional to S for all other values for a
-\> fixed f0/Fs and dBgain.
+   rbj writes with regard to shelving filters:
 
-The precise relation for both low and high shelf filters is
+   > \_or\_ S, a "shelf slope" parameter (for shelving EQ only).  When S = 1,
+   > the shelf slope is as steep as it can be and remain monotonically
+   > increasing or decreasing gain with frequency.  The shelf slope, in
+   > dB/octave, remains proportional to S for all other values for a
+   > fixed f0/Fs and dBgain.
 
-```text
-  S = -s * log_2(10)/40 * sin(w0)/w0 * (A^2+1)/(A^2-1)
-```
+   The precise relation for both low and high shelf filters is
 
-where s is the true shelf midpoint slope in dB/oct and w0, A are defined in
-the Cookbook just below the quoted paragraph. It's your responsibility to keep
-the overshoots in check by using sensible s values. Also make sure that s has
-the right sign -- negative for low boost or high cut, positive otherwise.
+   ```text
+     S = -s * log_2(10)/40 * sin(w0)/w0 * (A^2+1)/(A^2-1)
+   ```
 
-To find the relation I first differentiated the dB magnitude response of the
-general transfer function in eq. 1 with regard to log frequency, inserted the
-low shelf coefficient expressions, and evaluated at w0. Second, I equated this
-derivative to s and solved for alpha. Third, I equated the result to rbj's
-expression for alpha and solved for S yielding the above formula. Finally
-I checked it with the high shelf filter.
+   where s is the true shelf midpoint slope in dB/oct and w0, A are defined in
+   the Cookbook just below the quoted paragraph. It's your responsibility to keep
+   the overshoots in check by using sensible s values. Also make sure that s has
+   the right sign -- negative for low boost or high cut, positive otherwise.
 
-**ude.odu@grebnesie.nitram** · 2006-08-31 17:08:27
+   To find the relation I first differentiated the dB magnitude response of the
+   general transfer function in eq. 1 with regard to log frequency, inserted the
+   low shelf coefficient expressions, and evaluated at w0. Second, I equated this
+   derivative to s and solved for alpha. Third, I equated the result to rbj's
+   expression for alpha and solved for S yielding the above formula. Finally
+   I checked it with the high shelf filter.
 
-Sorry, a slight correction: rewrite the formula as
+2. **ude.odu@grebnesie.nitram** · *2006-08-31 17:08:27*
 
-```text
-  S = s * log_2(10)/40 * sin(w0)/w0 * (A^2+1)/abs(A^2-1)
-```
+   Sorry, a slight correction: rewrite the formula as
 
-nad make s always positive.
+   ```text
+     S = s * log_2(10)/40 * sin(w0)/w0 * (A^2+1)/abs(A^2-1)
+   ```
 
-**moc.liamg@56rekojbm** · 2013-10-05 18:06:20
+   nad make s always positive.
 
-This is a very famous article. I saw many are asking what is the relationship between "Q" and the resonance in low-pass and hi-pass filters.
+3. **moc.liamg@56rekojbm** · *2013-10-05 18:06:20*
 
-By experimenting, I found that Q should always be \>= 1/2. Value \< 1/2 seems to alter f0 "wherever it's happenin', man", cutting off frequencies not where it was planned. In fact Q = 1/2 is the value for which H(s) = 1 / (s^2 + s/Q + 1) gets two poles, real and coincident. In other words the filter becomes like two 1st order filters in cascade, with no resonance at all.
+   This is a very famous article. I saw many are asking what is the relationship between "Q" and the resonance in low-pass and hi-pass filters.
 
-When Q tends to infinite the poles get close to the unit circle, the gain around the cutoff frequency increases, creating resonance.
+   By experimenting, I found that Q should always be \>= 1/2. Value \< 1/2 seems to alter f0 "wherever it's happenin', man", cutting off frequencies not where it was planned. In fact Q = 1/2 is the value for which H(s) = 1 / (s^2 + s/Q + 1) gets two poles, real and coincident. In other words the filter becomes like two 1st order filters in cascade, with no resonance at all.
+
+   When Q tends to infinite the poles get close to the unit circle, the gain around the cutoff frequency increases, creating resonance.
+
+</details>

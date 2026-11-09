@@ -1,6 +1,6 @@
 # Bit-Reversed Counting
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [3 comments](#comments)
 
 - **Author or source:** moc.oohay@ljbliam
 - **Created:** 2004-06-19 10:10:39
@@ -29,25 +29,30 @@ while (r < N2);
 
 ## Comments
 
-**moc.oohay@r\_adihaw** · 2005-08-10 07:20:50
+<details>
+<summary>Read 3 archived comments</summary>
 
-This will give the bit reversal of N number of elements(where N is a power of 2). If we want reversal of a particular number out of N,is there any optimised way other than doing bit wise operations
+1. **moc.oohay@r\_adihaw** · *2005-08-10 07:20:50*
 
-**moc.oohay@ljbliam** · 2006-03-30 23:17:55
+   This will give the bit reversal of N number of elements(where N is a power of 2). If we want reversal of a particular number out of N,is there any optimised way other than doing bit wise operations
 
-There's a better way that doesn't require counting, branching, or division.  It's probably the fastest way of doing bit reversal without a special instruction.  I got this from Jörg's FXT book:
+2. **moc.oohay@ljbliam** · *2006-03-30 23:17:55*
 
-unsigned r; // value to be bit-reversed
+   There's a better way that doesn't require counting, branching, or division.  It's probably the fastest way of doing bit reversal without a special instruction.  I got this from Jörg's FXT book:
 
-```text
-// Assume r is 32 bits
-r = ((r & 0x55555555) << 1) | ((r & 0xaaaaaaaa) >> 1);
-r = ((r & 0x33333333) << 2) | ((r & 0xcccccccc) >> 2);
-r = ((r & 0x0f0f0f0f) << 4) | ((r & 0xf0f0f0f0) >> 4);
-r = ((r & 0x00ff00ff) << 8) | ((r & 0xff00ff00) >> 8);
-r = ((r & 0x0000ffff) << 16) | ((r & 0xffff0000) >> 16);
-```
+   unsigned r; // value to be bit-reversed
 
-**ed.bew@mfyknarf** · 2010-09-20 15:22:09
+   ```text
+   // Assume r is 32 bits
+   r = ((r & 0x55555555) << 1) | ((r & 0xaaaaaaaa) >> 1);
+   r = ((r & 0x33333333) << 2) | ((r & 0xcccccccc) >> 2);
+   r = ((r & 0x0f0f0f0f) << 4) | ((r & 0xf0f0f0f0) >> 4);
+   r = ((r & 0x00ff00ff) << 8) | ((r & 0xff00ff00) >> 8);
+   r = ((r & 0x0000ffff) << 16) | ((r & 0xffff0000) >> 16);
+   ```
 
-The way mentioned in the comment might be faster but is fixed to 32 bits. If you do a FFT with 1024 points you need 10 bits bit-reversal. Thus the originally mentioned algorithm is more flexible because it works for any bit width. If you use it for FFT (that's actually the only case you normally use bit-reversal) you either need to calculate the bit-reversal for each array index, so counting upwards in bit-reversal order is not such a bad way. I'm not sure whether the second algorithm is really faster than the counter if you consider the whole array. (There are 5 instructions per line making 25 instructions in sum for each calculated index with the second algorithm compared to 7 instructions in the counting algorithm)
+3. **ed.bew@mfyknarf** · *2010-09-20 15:22:09*
+
+   The way mentioned in the comment might be faster but is fixed to 32 bits. If you do a FFT with 1024 points you need 10 bits bit-reversal. Thus the originally mentioned algorithm is more flexible because it works for any bit width. If you use it for FFT (that's actually the only case you normally use bit-reversal) you either need to calculate the bit-reversal for each array index, so counting upwards in bit-reversal order is not such a bad way. I'm not sure whether the second algorithm is really faster than the counter if you consider the whole array. (There are 5 instructions per line making 25 instructions in sum for each calculated index with the second algorithm compared to 7 instructions in the counting algorithm)
+
+</details>

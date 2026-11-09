@@ -1,6 +1,6 @@
 # Hermite interpollation
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [9 comments](#comments)
 
 - **Author or source:** various
 - **Created:** 2002-04-09 16:55:35
@@ -65,74 +65,79 @@ inline float hermite4(float frac_pos, float xm1, float x0, float x1, float x2)
 
 ## Comments
 
-**theguylle** · 2002-05-25 13:37:32
+<details>
+<summary>Read 9 archived comments</summary>
 
-```text
-              great sources but what is Hermite ?
-if you don't describe what is your code made for, you will made a great sources but I don't know why?
-```
+1. **theguylle** · *2002-05-25 13:37:32*
 
-cheers Paul
+   ```text
+                 great sources but what is Hermite ?
+   if you don't describe what is your code made for, you will made a great sources but I don't know why?
+   ```
 
-**gro.psdcisum@marb** · 2002-08-15 00:48:25
+   cheers Paul
 
-hermite is interpollation.
-have a look around the archive, you'll see that the word 'hermite' is in more than one item ;-)
+2. **gro.psdcisum@marb** · *2002-08-15 00:48:25*
 
-```text
-  -bram
-```
+   hermite is interpollation.
+   have a look around the archive, you'll see that the word 'hermite' is in more than one item ;-)
 
-**rb.moc.rapenas@fwodlanor** · 2003-07-29 10:46:40
+   ```text
+     -bram
+   ```
 
-Please, would like to know of hermite code it exists in delphi.
+3. **rb.moc.rapenas@fwodlanor** · *2003-07-29 10:46:40*
 
-thankful
+   Please, would like to know of hermite code it exists in delphi.
 
-Ronaldo
-Cascavel/Paraná/Brasil
+   thankful
 
-**moc.rotces-dabMAPSON@inirgam.m** · 2003-10-10 08:36:06
+   Ronaldo
+   Cascavel/Paraná/Brasil
 
-Please,
-add, at least, the meaning of each parameter (I mean x, y0,  y1,y2,  y3)....
-m.
+4. **moc.rotces-dabMAPSON@inirgam.m** · *2003-10-10 08:36:06*
 
-**musicdsp@\[remove this\]dsparsons.co.uk** · 2003-11-28 10:48:17
+   Please,
+   add, at least, the meaning of each parameter (I mean x, y0,  y1,y2,  y3)....
+   m.
 
-Ronaldo, it doesn't take much to translate these to Delphi - for float, either use single or double to your preference!
+5. **musicdsp@\[remove this\]dsparsons.co.uk** · *2003-11-28 10:48:17*
 
-Looking at the codes, it seems quite clear that the parameters follow a pattern of: Sample Position between middle two samples, then the sample before current, current sample, curernt sample +1, current sample +2.
+   Ronaldo, it doesn't take much to translate these to Delphi - for float, either use single or double to your preference!
 
-HTH
-DSP
+   Looking at the codes, it seems quite clear that the parameters follow a pattern of: Sample Position between middle two samples, then the sample before current, current sample, curernt sample +1, current sample +2.
 
-**moc.liamtoh@sisehtnysorpitna** · 2004-03-28 20:51:59
+   HTH
+   DSP
 
-What are all these variables standing for? Not very clear :\|
+6. **moc.liamtoh@sisehtnysorpitna** · *2004-03-28 20:51:59*
 
-**George** · 2004-04-20 00:25:29
+   What are all these variables standing for? Not very clear :\|
 
-parameters are allright.
+7. **George** · *2004-04-20 00:25:29*
 
-xm1 ---\> x\[n-1\]
-x0  ---\> x\[n\]
-x1  ---\> x\[n+1\]
-x2  ---\> x\[n+2\]
+   parameters are allright.
 
-fractional position stands for a fraction between 0 and 1 to interpolate
+   xm1 ---\> x\[n-1\]
+   x0  ---\> x\[n\]
+   x1  ---\> x\[n+1\]
+   x2  ---\> x\[n+2\]
 
-**snehpyhehttuoekatdnatahwwonkuoy.liamg@rood-nosiop-saionarap** · 2004-10-17 01:16:50
+   fractional position stands for a fraction between 0 and 1 to interpolate
 
-Couldn't #2 be sped up a hair by commenting out
+8. **snehpyhehttuoekatdnatahwwonkuoy.liamg@rood-nosiop-saionarap** · *2004-10-17 01:16:50*
 
-```text
-float c0 = y1;
-```
+   Couldn't #2 be sped up a hair by commenting out
 
-and then replacing c0 with y1 in the return line?  Or do the compilers do that kind of thing automatically when they optimize?
+   ```text
+   float c0 = y1;
+   ```
 
-**moc.oi@htnysa** · 2007-07-13 01:52:27
+   and then replacing c0 with y1 in the return line?  Or do the compilers do that kind of thing automatically when they optimize?
 
-"Couldn't #2 be sped up a hair"
-It gets optimized out.
+9. **moc.oi@htnysa** · *2007-07-13 01:52:27*
+
+   "Couldn't #2 be sped up a hair"
+   It gets optimized out.
+
+</details>

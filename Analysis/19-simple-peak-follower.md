@@ -1,6 +1,6 @@
 # Simple peak follower
 
-[MusicDSP](../README.md) / [Analysis](README.md)
+[MusicDSP](../README.md) / [Analysis](README.md) · [1 comment](#comments)
 
 - **Author or source:** Phil Burk
 - **Type:** amplitude analysis
@@ -44,10 +44,15 @@ else
 
 ## Comments
 
-**moc.liamg@osoromaerfac** · 2013-01-26 09:48:15
+<details>
+<summary>Read 1 archived comment</summary>
 
-```cpp
-#ifndef VERY_SMALL_FLOAT
-#define VERY_SMALL_FLOAT 1.0e-30F
-#endif
-```
+1. **moc.liamg@osoromaerfac** · *2013-01-26 09:48:15*
+
+   ```cpp
+   #ifndef VERY_SMALL_FLOAT
+   #define VERY_SMALL_FLOAT 1.0e-30F
+   #endif
+   ```
+
+</details>

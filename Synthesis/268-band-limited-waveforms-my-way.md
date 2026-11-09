@@ -1,6 +1,6 @@
 # Band Limited waveforms my way
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [3 comments](#comments)
 
 - **Author or source:** Anton Savov (gb.liam@ottna)
 - **Type:** classic Sawtooth example
@@ -60,22 +60,27 @@ any bugs/improvements?
 
 ## Comments
 
-**gb.liam@ottna** · 2009-06-22 18:37:34
+<details>
+<summary>Read 3 archived comments</summary>
 
-excuse me, there is a typo
+1. **gb.liam@ottna** · *2009-06-22 18:37:34*
 
-```text
-amp = scale / h;
-```
+   excuse me, there is a typo
 
-**antto mail bg** · 2009-09-20 10:34:18
+   ```text
+   amp = scale / h;
+   ```
 
-```text
-for even smoother edges:
-dd = cos(sin(omega * h * pi) * 0.5 * pi);
-no visual ringing, smooth waveform
-```
+2. **antto mail bg** · *2009-09-20 10:34:18*
 
-**antto mail bg** · 2009-09-25 04:15:31
+   ```text
+   for even smoother edges:
+   dd = cos(sin(omega * h * pi) * 0.5 * pi);
+   no visual ringing, smooth waveform
+   ```
 
-to get +/- 1.0 amplitude: scale = 1.25
+3. **antto mail bg** · *2009-09-25 04:15:31*
+
+   to get +/- 1.0 amplitude: scale = 1.25
+
+</details>

@@ -1,6 +1,6 @@
 # Exponential curve for
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [3 comments](#comments)
 
 - **Author or source:** moc.liamg@321tiloen
 - **Type:** Exponential curve
@@ -32,45 +32,50 @@ F = 19+floor(pow(4,x/14.15005))+x*20;
 
 ## Comments
 
-**moc.liamg@321tiloen** · 2008-10-30 13:47:16
+<details>
+<summary>Read 3 archived comments</summary>
 
-same function with the more friendly exp(x)
+1. **moc.liamg@321tiloen** · *2008-10-30 13:47:16*
 
-```text
-y = 19+floor(exp(x/10.2071))+x*20;
-```
+   same function with the more friendly exp(x)
 
-middle point (x=50) is still at 1135hz
+   ```text
+   y = 19+floor(exp(x/10.2071))+x*20;
+   ```
 
-**moc.liamg@321tiloen** · 2008-10-31 01:14:13
+   middle point (x=50) is still at 1135hz
 
-Here is another function:
-This one is much more expensive but should sound more linear.
+2. **moc.liamg@321tiloen** · *2008-10-31 01:14:13*
 
-```text
-//t - offset
-//x - 0-100%
-//y - 20-20000hz
+   Here is another function:
+   This one is much more expensive but should sound more linear.
 
-t = 64.925;
-y = floor(exp(x*log(1.059))*t - t/1.45);
-```
+   ```text
+   //t - offset
+   //x - 0-100%
+   //y - 20-20000hz
 
-Comparison between the two:
-\[IMG\]<http://img528.imageshack.us/img528/641/plot1nu1.jpg[/IMG]>
+   t = 64.925;
+   y = floor(exp(x*log(1.059))*t - t/1.45);
+   ```
 
-**moc.liamg@321tiloen** · 2008-11-01 14:58:20
+   Comparison between the two:
+   \[IMG\]<http://img528.imageshack.us/img528/641/plot1nu1.jpg[/IMG]>
 
-Yet another one! :)
-This is one should be the most linear one out of the 3. The 50% appears to be exactly the same as Voxengo span midpoint.
+3. **moc.liamg@321tiloen** · *2008-11-01 14:58:20*
 
-```text
-//x - 0-100%
-//y - 20-20k
+   Yet another one! :)
+   This is one should be the most linear one out of the 3. The 50% appears to be exactly the same as Voxengo span midpoint.
 
-y = floor(exp((16+x*1.20103)*log(1.059))*8.17742);
+   ```text
+   //x - 0-100%
+   //y - 20-20k
 
-//x=0, y=20
-//x=50, y=639
-//x=100, y=20000
-```
+   y = floor(exp((16+x*1.20103)*log(1.059))*8.17742);
+
+   //x=0, y=20
+   //x=50, y=639
+   //x=100, y=20000
+   ```
+
+</details>

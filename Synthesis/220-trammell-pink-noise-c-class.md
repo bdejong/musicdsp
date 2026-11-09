@@ -1,6 +1,6 @@
 # Trammell Pink Noise (C++ class)
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [1 comment](#comments)
 
 - **Author or source:** ude.drofnats.amrcc@lfd
 - **Type:** pink noise generator
@@ -61,6 +61,11 @@ const float PinkNoise::P[] = { 0.3190,  0.7756,  0.9613  };
 
 ## Comments
 
-**ten.knilhtrae@6741emmartl** · 2007-02-09 06:15:59
+<details>
+<summary>Read 1 archived comment</summary>
 
-Many thanks to David Lowenfels for posting this implementation of the early experimental version. I recommend switching to the new algorithm form described in 'newpink.htm' -- better range to 9+ octaves, better accuracy to +-0.25 dB, and leveled computational loading.  So where is MY submission to the archive? Um...  well, it's coming... if he doesn't beat me to the punch again and post his code first! -- Larry Trammell (the RidgeRat)
+1. **ten.knilhtrae@6741emmartl** · *2007-02-09 06:15:59*
+
+   Many thanks to David Lowenfels for posting this implementation of the early experimental version. I recommend switching to the new algorithm form described in 'newpink.htm' -- better range to 9+ octaves, better accuracy to +-0.25 dB, and leveled computational loading.  So where is MY submission to the archive? Um...  well, it's coming... if he doesn't beat me to the punch again and post his code first! -- Larry Trammell (the RidgeRat)
+
+</details>

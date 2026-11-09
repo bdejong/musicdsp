@@ -1,6 +1,6 @@
 # Block/Loop Benchmarking
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [2 comments](#comments)
 
 - **Author or source:** moc.xinortceletrams@urugra
 - **Type:** Benchmarking Tool
@@ -46,26 +46,31 @@ UINT bpb_finish(UINT const num_samples)
 
 ## Comments
 
-**moc.sulp.52retsinnab@etep** · 2004-05-16 18:20:13
+<details>
+<summary>Read 2 archived comments</summary>
 
-If running windows on a mutliprocessor system, apparently it is worth calling:
+1. **moc.sulp.52retsinnab@etep** · *2004-05-16 18:20:13*
 
-```text
-SetThreadAffinityMask(GetCurrentThread(), 1);
-```
+   If running windows on a mutliprocessor system, apparently it is worth calling:
 
-to reduce artefacts.
+   ```text
+   SetThreadAffinityMask(GetCurrentThread(), 1);
+   ```
 
-(see <http://msdn.microsoft.com/visualc/vctoolkit2003/default.aspx?pull=/library/en-us/dv_vstechart/html/optimization.asp>)
+   to reduce artefacts.
 
-**rf.eerf@uerum.emualliug** · 2004-08-26 00:33:18
+   (see <http://msdn.microsoft.com/visualc/vctoolkit2003/default.aspx?pull=/library/en-us/dv_vstechart/html/optimization.asp>)
 
-```text
-__asm sub eax,time_low;
-__asm sub edx,time_high;
-```
+2. **rf.eerf@uerum.emualliug** · *2004-08-26 00:33:18*
 
-should be
+   ```text
+   __asm sub eax,time_low;
+   __asm sub edx,time_high;
+   ```
 
-\_\_asm sub eax,time\_low
-\_\_asm SBB edx,time\_high // substract with borrow
+   should be
+
+   \_\_asm sub eax,time\_low
+   \_\_asm SBB edx,time\_high // substract with borrow
+
+</details>

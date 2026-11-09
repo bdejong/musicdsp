@@ -1,6 +1,6 @@
 # Drift generator
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [1 comment](#comments)
 
 - **Author or source:** ti.oohay@odrasotniuq
 - **Type:** Random
@@ -45,7 +45,12 @@ fDrift = fLimit * fSinTable[(long) (fWhere * kSamples)]
 
 ## Comments
 
-**ti.oohay@odrasotniuq** · 2004-09-24 17:37:38
+<details>
+<summary>Read 1 archived comment</summary>
 
-...sorry...
-random() must be in \[-1..+1\] !!!
+1. **ti.oohay@odrasotniuq** · *2004-09-24 17:37:38*
+
+   ...sorry...
+   random() must be in \[-1..+1\] !!!
+
+</details>

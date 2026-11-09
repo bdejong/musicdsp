@@ -1,6 +1,6 @@
 # Gaussian White noise
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [4 comments](#comments)
 
 - **Author or source:** Alexey Menshikov
 - **Created:** 2002-08-01 01:13:47
@@ -46,23 +46,28 @@ float ranfGauss (int m, float s)
 
 ## Comments
 
-**davidchristenATgmxDOTnet** · 2004-01-29 15:41:35
+<details>
+<summary>Read 4 archived comments</summary>
 
-White Noise does !not! consist of uniformly distributed values. Because in white noise, the power of the frequencies are uniformly distributed. The values must be normal (or gaussian) distributed. This is achieved by the Box-Muller Transformation. This function is the polar form of the Box-Muller Transformation. It is faster and numeriacally more stable than the basic form. The basic form is coded in the other (second) post.
-Detailed information on this topic:
-<http://www.taygeta.com/random/gaussian.html>
-<http://www.eece.unm.edu/faculty/bsanthan/EECE-541/white2.pdf>
+1. **davidchristenATgmxDOTnet** · *2004-01-29 15:41:35*
 
-Cheers David
+   White Noise does !not! consist of uniformly distributed values. Because in white noise, the power of the frequencies are uniformly distributed. The values must be normal (or gaussian) distributed. This is achieved by the Box-Muller Transformation. This function is the polar form of the Box-Muller Transformation. It is faster and numeriacally more stable than the basic form. The basic form is coded in the other (second) post.
+   Detailed information on this topic:
+   <http://www.taygeta.com/random/gaussian.html>
+   <http://www.eece.unm.edu/faculty/bsanthan/EECE-541/white2.pdf>
 
-**moc.dlrownepotb@wahs.a.kcin** · 2007-09-06 04:09:52
+   Cheers David
 
-I'm trying to implement this in C#, but y2 isn't initialized. Is this a typo?
+2. **moc.dlrownepotb@wahs.a.kcin** · *2007-09-06 04:09:52*
 
-**ed.rab@oof** · 2010-07-17 20:35:18
+   I'm trying to implement this in C#, but y2 isn't initialized. Is this a typo?
 
-@nick: Way to late, but y2 will always be initialized as in the first run "pass" is 0 (i.e. false). The C# compiler just can't prove it.
+3. **ed.rab@oof** · *2010-07-17 20:35:18*
 
-**moc.liamg@htnysa** · 2011-09-03 20:43:59
+   @nick: Way to late, but y2 will always be initialized as in the first run "pass" is 0 (i.e. false). The C# compiler just can't prove it.
 
-David is wrong. The distribution of the sample values is irrelevant. 'white' simply describes the spectrum. Any series of sequentially independent random values -- whatever their distribution -- will have a white spectrum.
+4. **moc.liamg@htnysa** · *2011-09-03 20:43:59*
+
+   David is wrong. The distribution of the sample values is irrelevant. 'white' simply describes the spectrum. Any series of sequentially independent random values -- whatever their distribution -- will have a white spectrum.
+
+</details>

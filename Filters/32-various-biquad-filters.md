@@ -1,6 +1,6 @@
 # Various Biquad filters
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** JAES, Vol. 31, No. 11, 1983 November
 - **Created:** 2002-01-17 02:08:47
@@ -18,62 +18,67 @@ peaknotch2
 
 ## Comments
 
-**moc.liamg@321tiloen** · 2008-10-19 23:02:44
+<details>
+<summary>Read 2 archived comments</summary>
 
-I'm kinda stuck trying to figure out the 'pointer' 'structure pointer' loop in the presence EQ.
+1. **moc.liamg@321tiloen** · *2008-10-19 23:02:44*
 
-Can someone explain:
+   I'm kinda stuck trying to figure out the 'pointer' 'structure pointer' loop in the presence EQ.
 
-```text
-...
+   Can someone explain:
 
-  *a0 = a2plus1 + alphan*ma2plus1;
-  *a1 = 4.0*a;
-  *a2 = a2plus1 - alphan*ma2plus1;
+   ```text
+   ...
 
-  b0 = a2plus1 + alphad*ma2plus1;
-  *b2 = a2plus1 - alphad*ma2plus1;
+     *a0 = a2plus1 + alphan*ma2plus1;
+     *a1 = 4.0*a;
+     *a2 = a2plus1 - alphan*ma2plus1;
 
-  recipb0 = 1.0/b0;
-  *a0 *= recipb0;
-  *a1 *= recipb0;
-  *a2 *= recipb0;
-  *b1 = *a1;
-  *b2 *= recipb0;
+     b0 = a2plus1 + alphad*ma2plus1;
+     *b2 = a2plus1 - alphad*ma2plus1;
 
-....
+     recipb0 = 1.0/b0;
+     *a0 *= recipb0;
+     *a1 *= recipb0;
+     *a2 *= recipb0;
+     *b1 = *a1;
+     *b2 *= recipb0;
 
-void setfilter_presence(f,freq,boost,bw)
-filter *f;
-double freq,boost,bw;
-{
-  presence(freq/(double)SR,boost,bw/(double)SR,
-           &f->cx,&f->cx1,&f->cx2,&f->cy1,&f->cy2);
-  f->cy1 = -f->cy1;
-  f->cy2 = -f->cy2;
-}
-```
+   ....
 
-How can this be translated into something more easy to understand.
+   void setfilter_presence(f,freq,boost,bw)
+   filter *f;
+   double freq,boost,bw;
+   {
+     presence(freq/(double)SR,boost,bw/(double)SR,
+              &f->cx,&f->cx1,&f->cx2,&f->cy1,&f->cy2);
+     f->cy1 = -f->cy1;
+     f->cy2 = -f->cy2;
+   }
+   ```
 
-```text
-Input = ...
-Output = ...
-```
+   How can this be translated into something more easy to understand.
 
-**moc.liamg@321tiloen** · 2008-10-28 12:15:21
+   ```text
+   Input = ...
+   Output = ...
+   ```
 
-Managed to port the presence eq properly. And its sounds great!
+2. **moc.liamg@321tiloen** · *2008-10-28 12:15:21*
 
-Altho I did some changes to some of the code.
+   Managed to port the presence eq properly. And its sounds great!
 
-changed "d /= mag" to "d = mag"
-"bw/srate" to "bw"
+   Altho I did some changes to some of the code.
 
-There results I got are stable within there parameters:
+   changed "d /= mag" to "d = mag"
+   "bw/srate" to "bw"
 
-freq: 3100-18500hz
-boost: 0-15db
-bw: 0.07-0.40
+   There results I got are stable within there parameters:
 
-Really good sound from this filter!
+   freq: 3100-18500hz
+   boost: 0-15db
+   bw: 0.07-0.40
+
+   Really good sound from this filter!
+
+</details>

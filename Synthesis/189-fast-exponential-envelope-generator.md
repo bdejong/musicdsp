@@ -1,6 +1,6 @@
 # Fast Exponential Envelope Generator
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [14 comments](#comments)
 
 - **Author or source:** Christian Schoenebeck
 - **Created:** 2005-03-03 14:44:11
@@ -41,189 +41,194 @@ inline void calculateEnvelope(int samplePoints) {
 
 ## Comments
 
-**moc.erawknuhc@knuhcnezitic** · 2005-03-03 21:16:41
+<details>
+<summary>Read 14 archived comments</summary>
 
-is there a typo in the runtime equation? or am i missing something in the implementation?
+1. **moc.erawknuhc@knuhcnezitic** · *2005-03-03 21:16:41*
 
-**schoenebeck (@) software ( minus ) engineering.org** · 2005-03-04 15:13:56
+   is there a typo in the runtime equation? or am i missing something in the implementation?
 
-Why should there be a typo?
+2. **schoenebeck (@) software ( minus ) engineering.org** · *2005-03-04 15:13:56*
 
-Here is my benchmark code btw:
-<http://stud.fh-heilbronn.de/~cschoene/studienarbeit/benchmarks/exp.cpp>
+   Why should there be a typo?
 
-**moc.erawknuhc@knuhcnezitic** · 2005-03-04 16:20:41
+   Here is my benchmark code btw:
+   <http://stud.fh-heilbronn.de/~cschoene/studienarbeit/benchmarks/exp.cpp>
 
-ok, i think i get it. this can only work on blocks of samples, right? not per-sample calc?
+3. **moc.erawknuhc@knuhcnezitic** · *2005-03-04 16:20:41*
 
-i was confused because i could not find the input sample(s) in the runtime code. but now i see that the equation does not take an input; it merely generates a defined envelope accross the number of samples. my bad.
+   ok, i think i get it. this can only work on blocks of samples, right? not per-sample calc?
 
-**schoenebeck (@) software ( minus ) engineering.org** · 2005-03-04 19:16:29
+   i was confused because i could not find the input sample(s) in the runtime code. but now i see that the equation does not take an input; it merely generates a defined envelope accross the number of samples. my bad.
 
-Well, the code above is only meant to show the principle. Of course you
-would adjust it for your application. The question if you are calculating
-on a per-sample basis or applying the envelope to a block of samples
-within a tight loop doesn't really matter; it would just mean an
-adjustment of the interface of the execution code, which is trivial.
+4. **schoenebeck (@) software ( minus ) engineering.org** · *2005-03-04 19:16:29*
 
-**ten.ooleem@ooleem** · 2005-03-05 10:26:44
+   Well, the code above is only meant to show the principle. Of course you
+   would adjust it for your application. The question if you are calculating
+   on a per-sample basis or applying the envelope to a block of samples
+   within a tight loop doesn't really matter; it would just mean an
+   adjustment of the interface of the execution code, which is trivial.
 
-This is not working for long envelopes because of numerical accury problems. Try calculating is over 10 seconds @ 192KHz to see what I mean: it drifts.
-I have an equivalent system that permits to have linear to log and to exp curves with a simple parameter. I may submit it one of these days...
+5. **ten.ooleem@ooleem** · *2005-03-05 10:26:44*
 
-Sebastien Metrot
-\--
-<http://www.usbsounds.com>
+   This is not working for long envelopes because of numerical accury problems. Try calculating is over 10 seconds @ 192KHz to see what I mean: it drifts.
+   I have an equivalent system that permits to have linear to log and to exp curves with a simple parameter. I may submit it one of these days...
 
-**schoenebeck (@) software ( minus ) engineering.org** · 2005-03-05 13:48:12
+   Sebastien Metrot
+   \--
+   <http://www.usbsounds.com>
 
-No, here is a test app which shows the introduced drift:
-<http://stud.fh-heilbronn.de/~cschoene/studienarbeit/benchmarks/expaccuracy.cpp>
+6. **schoenebeck (@) software ( minus ) engineering.org** · *2005-03-05 13:48:12*
 
-Even with an envelope duration of 30s, which is really quite long, a sample
-rate of 192kHz and single-precision floating point calculation I get this
-result:
+   No, here is a test app which shows the introduced drift:
+   <http://stud.fh-heilbronn.de/~cschoene/studienarbeit/benchmarks/expaccuracy.cpp>
 
-Calculated sample points: 5764846
-Demanded duration: 30.000000 s
-Actual duration: 30.025240 s
+   Even with an envelope duration of 30s, which is really quite long, a sample
+   rate of 192kHz and single-precision floating point calculation I get this
+   result:
 
-So the envelope just drifts about 25ms for that long envelope!
+   Calculated sample points: 5764846
+   Demanded duration: 30.000000 s
+   Actual duration: 30.025240 s
 
-**ten.ooleem@ooleem** · 2005-03-09 11:44:31
+   So the envelope just drifts about 25ms for that long envelope!
 
-```text
-I believe you are seeing unrealistic results with this test because on x86 the fpu's internal format is 80bits and your compiler probably optimises this cases quite easily. Try doing the same test, calculating the same envelope, but by breaking the calculation in blocks of 256 or 512 samples at a time and then storing in memory the temp values for the next block. In this case you may see diferent results and a much bigger drift (that's my experience with the same algo).
-Anyway my algo is a bit diferent as it permits to change the curent type with a parameter, this makes the formula looks like
-value = value * coef + contant;
-May be this leads to more calculation errors :).
-```
+7. **ten.ooleem@ooleem** · *2005-03-09 11:44:31*
 
-**schoenebeck (@) software ( minus ) engineering.org** · 2005-03-09 13:33:43
+   ```text
+   I believe you are seeing unrealistic results with this test because on x86 the fpu's internal format is 80bits and your compiler probably optimises this cases quite easily. Try doing the same test, calculating the same envelope, but by breaking the calculation in blocks of 256 or 512 samples at a time and then storing in memory the temp values for the next block. In this case you may see diferent results and a much bigger drift (that's my experience with the same algo).
+   Anyway my algo is a bit diferent as it permits to change the curent type with a parameter, this makes the formula looks like
+   value = value * coef + contant;
+   May be this leads to more calculation errors :).
+   ```
 
-And again... no! :)
+8. **schoenebeck (@) software ( minus ) engineering.org** · *2005-03-09 13:33:43*
 
-Replace the C equation by:
+   And again... no! :)
 
-```text
-    asm volatile (
-        "movss %1,%%xmm0      # load coeff\n\t"
-        "movss %2,%%xmm1      # load currentLevel\n\t"
-        "mulss %%xmm1,%%xmm0  # coeff *= currentLevel\n\t"
-        "addss %%xmm0,%%xmm1  # currentLevel += coeff * currentLevel\n\t"
-        "movss %%xmm1,%0      # store currentLevel\n\t"
-        : "=m" (currentLevel) /* %0 */
-        : "m" (coeff),        /* %1 */
-          "m" (currentLevel)  /* %2 */
-    );
-```
+   Replace the C equation by:
 
-This is a SSE1 assembly implementation. The SSE registers are only 32 bit
-large by guarantee. And this is the result I get:
+   ```text
+       asm volatile (
+           "movss %1,%%xmm0      # load coeff\n\t"
+           "movss %2,%%xmm1      # load currentLevel\n\t"
+           "mulss %%xmm1,%%xmm0  # coeff *= currentLevel\n\t"
+           "addss %%xmm0,%%xmm1  # currentLevel += coeff * currentLevel\n\t"
+           "movss %%xmm1,%0      # store currentLevel\n\t"
+           : "=m" (currentLevel) /* %0 */
+           : "m" (coeff),        /* %1 */
+             "m" (currentLevel)  /* %2 */
+       );
+   ```
 
-Calculated sample points: 5764845
-Demanded duration: 30.000000 s
-Actual duration: 30.025234 s
+   This is a SSE1 assembly implementation. The SSE registers are only 32 bit
+   large by guarantee. And this is the result I get:
 
-So this result differs just 1 sample point from the x86 FPU solution! So
-believe me, this numerical solution is safe!
+   Calculated sample points: 5764845
+   Demanded duration: 30.000000 s
+   Actual duration: 30.025234 s
 
-(Of course the assembly code above is NOT meant as optimization, it's just
-to demonstrate the accuracy even for 32 bit / single precision FP
-calculation)
+   So this result differs just 1 sample point from the x86 FPU solution! So
+   believe me, this numerical solution is safe!
 
-**m (at) mindplay (dot) dk** · 2005-03-23 22:42:06
+   (Of course the assembly code above is NOT meant as optimization, it's just
+   to demonstrate the accuracy even for 32 bit / single precision FP
+   calculation)
 
-in my tests, the following code produced the exact same results, and saves one operation (the addition) per sample - so it should be faster:
+9. **m (at) mindplay (dot) dk** · *2005-03-23 22:42:06*
 
-```text
-const float sampleRate = 44100;
-float coeff;
-float currentLevel;
+   in my tests, the following code produced the exact same results, and saves one operation (the addition) per sample - so it should be faster:
 
-void init(float levelBegin, float levelEnd, float releaseTime) {
-    currentLevel = levelBegin;
-    coeff = exp(log(levelEnd)) /
-            (releaseTime * sampleRate);
-}
+   ```text
+   const float sampleRate = 44100;
+   float coeff;
+   float currentLevel;
 
-inline void calculateEnvelope(int samplePoints) {
-    for (int i = 0; i < samplePoints; i++) {
-        currentLevel *= coeff;
-        // do something with 'currentLevel' here
-        ...
+   void init(float levelBegin, float levelEnd, float releaseTime) {
+       currentLevel = levelBegin;
+       coeff = exp(log(levelEnd)) /
+               (releaseTime * sampleRate);
+   }
+
+   inline void calculateEnvelope(int samplePoints) {
+       for (int i = 0; i < samplePoints; i++) {
+           currentLevel *= coeff;
+           // do something with 'currentLevel' here
+           ...
+       }
+   }
+
+   ...
+   ```
+
+   Also, assuming that your startLevel is 1.0, to calculate an appropriate endLevel, you can use something like:
+
+   ```text
+   endLevel = 10 ^ dB/20;
+   ```
+
+   where dB is your endLevel in decibels (and must be a negative value of course) - for amplitude envelopes, -90 dB should be a suitable level for "near inaudible"...
+
+10. **schoenebeck (@) software ( minus ) engineering.org** · *2005-03-31 14:45:51*
+
+    ```text
+                  Sorry, you are right of course; that simplification of the execution
+    equation works here because we are calculating all points with linear
+    discretization. But you will agree that your init() function is not good,
+    because exp(log(x)) == x and it's not generalized at all. Usually you might
+    have more than one exp segment in your EG and maybe even have an exp attack
+    segment. So we arrive at the following solution:
+
+    const float sampleRate = 44100;
+    float coeff;
+    float currentLevel;
+
+    void init(float levelBegin, float levelEnd, float releaseTime) {
+        currentLevel = levelBegin;
+        coeff = 1.0f + (log(levelEnd) - log(levelBegin)) /
+                       (releaseTime * sampleRate);
     }
-}
 
-...
-```
+    inline void calculateEnvelope(int samplePoints) {
+        for (int i = 0; i < samplePoints; i++) {
+            currentLevel *= coeff;
+            // do something with 'currentLevel' here
+            ...
+        }
+    }
+    ```
 
-Also, assuming that your startLevel is 1.0, to calculate an appropriate endLevel, you can use something like:
+    You can use a dB conversion for both startLevel and endLevel of course.
 
-```text
-endLevel = 10 ^ dB/20;
-```
+11. **na** · *2006-03-10 01:53:44*
 
-where dB is your endLevel in decibels (and must be a negative value of course) - for amplitude envelopes, -90 dB should be a suitable level for "near inaudible"...
+    ```text
+    i would say that calculation of coeff is still wrong. It should be :
+    coeff = pow( levelEnd / levelBegin, 1 / N );
+    ```
 
-**schoenebeck (@) software ( minus ) engineering.org** · 2005-03-31 14:45:51
+12. **na\[ eldar # starman # ee\]** · *2006-03-10 02:23:29*
 
-```text
-              Sorry, you are right of course; that simplification of the execution
-equation works here because we are calculating all points with linear
-discretization. But you will agree that your init() function is not good,
-because exp(log(x)) == x and it's not generalized at all. Usually you might
-have more than one exp segment in your EG and maybe even have an exp attack
-segment. So we arrive at the following solution:
+    ```text
+    or coeff = exp(log(levelEnd/levelBegin) /
+                (releaseTime * sampleRate) );
+    not sure but it looks computationally more expensive
+    ```
 
-const float sampleRate = 44100;
-float coeff;
-float currentLevel;
+13. **hc.xmg@.i.l.e** · *2006-11-26 15:44:04*
 
-void init(float levelBegin, float levelEnd, float releaseTime) {
-    currentLevel = levelBegin;
+    ```text
+    what's about?
     coeff = 1.0f + (log(levelEnd) - log(levelBegin)) /
-                   (releaseTime * sampleRate);
-}
+                       (releaseTime * sampleRate - 1);
+    ```
 
-inline void calculateEnvelope(int samplePoints) {
-    for (int i = 0; i < samplePoints; i++) {
-        currentLevel *= coeff;
-        // do something with 'currentLevel' here
-        ...
-    }
-}
-```
+14. **hc.xmg@.i.l.e** · *2006-11-26 15:55:12*
 
-You can use a dB conversion for both startLevel and endLevel of course.
+    ```text
+    sorry for the double post. and i'm now almost sure, that it should be:
+    coeff = 1.0f + (log(levelEnd) - log(levelBegin)) /
+                       (releaseTime * sampleRate + 1);
+    ```
 
-**na** · 2006-03-10 01:53:44
-
-```text
-i would say that calculation of coeff is still wrong. It should be :
-coeff = pow( levelEnd / levelBegin, 1 / N );
-```
-
-**na\[ eldar # starman # ee\]** · 2006-03-10 02:23:29
-
-```text
-or coeff = exp(log(levelEnd/levelBegin) /
-            (releaseTime * sampleRate) );
-not sure but it looks computationally more expensive
-```
-
-**hc.xmg@.i.l.e** · 2006-11-26 15:44:04
-
-```text
-what's about?
-coeff = 1.0f + (log(levelEnd) - log(levelBegin)) /
-                   (releaseTime * sampleRate - 1);
-```
-
-**hc.xmg@.i.l.e** · 2006-11-26 15:55:12
-
-```text
-sorry for the double post. and i'm now almost sure, that it should be:
-coeff = 1.0f + (log(levelEnd) - log(levelBegin)) /
-                   (releaseTime * sampleRate + 1);
-```
+</details>

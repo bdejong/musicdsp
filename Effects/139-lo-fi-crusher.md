@@ -1,6 +1,6 @@
 # Lo-Fi Crusher
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [3 comments](#comments)
 
 - **Author or source:** David Lowenfels
 - **Type:** Quantizer / Decimator with smooth control
@@ -37,15 +37,20 @@ end
 
 ## Comments
 
-**moc.liamtoh@132197kk** · 2004-06-16 21:10:39
+<details>
+<summary>Read 3 archived comments</summary>
 
-what's the "bits" here? I tried to run the code, it seems it's a dead loop here, can not
-figure out why
+1. **moc.liamtoh@132197kk** · *2004-06-16 21:10:39*
 
-**dfl** · 2005-10-26 23:25:13
+   what's the "bits" here? I tried to run the code, it seems it's a dead loop here, can not
+   figure out why
 
-bits goes from 1 to 16
+2. **dfl** · *2005-10-26 23:25:13*
 
-**moc.liamg@tnemniatretnEesneS2** · 2016-03-19 02:47:47
+   bits goes from 1 to 16
 
-I'm having trouble with the code as well. Is there something I'm missing?
+3. **moc.liamg@tnemniatretnEesneS2** · *2016-03-19 02:47:47*
+
+   I'm having trouble with the code as well. Is there something I'm missing?
+
+</details>

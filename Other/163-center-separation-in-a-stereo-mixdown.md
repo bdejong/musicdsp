@@ -1,6 +1,6 @@
 # Center separation in a stereo mixdown
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [1 comment](#comments)
 
 - **Author or source:** Thiburce BELAVENTURE
 - **Created:** 2004-02-11 14:00:08
@@ -100,41 +100,46 @@ void processTBIsolator(float *pIns[2], float *pOuts[2], long nFFTSize, float fAm
 
 ## Comments
 
-**moc.ecrubiht@cehcnamf** · 2004-02-11 18:40:30
+<details>
+<summary>Read 1 archived comment</summary>
 
-I am sorry, my source code is not totally correct.
+1. **moc.ecrubiht@cehcnamf** · *2004-02-11 18:40:30*
 
-1 - the for is:
+   I am sorry, my source code is not totally correct.
 
-```text
-for ( long i = 0, j = nFFTSize / 2; i < nFFTSize / 2; i++, j++ )
-```
+   1 - the for is:
 
-2 - the correct min is:
+   ```text
+   for ( long i = 0, j = nFFTSize / 2; i < nFFTSize / 2; i++, j++ )
+   ```
 
-```text
-if ( fModL > fModR )
-{
-    fRealC = pIns[1][i];
-    fImagC = pIns[1][j];
-}
-else
-{
-    fRealC = pIns[0][i];
-    fImagC = pIns[0][j];
-}
-```
+   2 - the correct min is:
 
-3 - in the phase correction:
+   ```text
+   if ( fModL > fModR )
+   {
+       fRealC = pIns[1][i];
+       fImagC = pIns[1][j];
+   }
+   else
+   {
+       fRealC = pIns[0][i];
+       fImagC = pIns[0][j];
+   }
+   ```
 
-```text
-if ( u >= 1 ) u -= 1.;
-```
+   3 - in the phase correction:
 
-must be replaced by:
+   ```text
+   if ( u >= 1 ) u -= 1.;
+   ```
 
-```text
-if ( u >= 1 ) u = 2 - u;
-```
+   must be replaced by:
 
-Thiburce 'TB' BELAVENTURE
+   ```text
+   if ( u >= 1 ) u = 2 - u;
+   ```
+
+   Thiburce 'TB' BELAVENTURE
+
+</details>

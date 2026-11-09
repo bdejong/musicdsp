@@ -1,6 +1,6 @@
 # Quick \& Dirty Sine
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [4 comments](#comments)
 
 - **Author or source:** MisterToast
 - **Type:** Sine Wave Synthesis
@@ -64,76 +64,81 @@ float xSin(double x)
 
 ## Comments
 
-**moc.dniftnacuoyerehwemos@tsaot** · 2007-01-08 18:39:26
+<details>
+<summary>Read 4 archived comments</summary>
 
-Improved version:
+1. **moc.dniftnacuoyerehwemos@tsaot** · *2007-01-08 18:39:26*
 
-```text
-float xSin(double x)
-{
-	//x is scaled 0<=x<4096
-	const double A=-0.40319426317E-08;
-	const double B=0.21683205691E+03;
-	const double C=0.28463350538E-04;
-	const double D=-0.30774648337E-02;
-	double y;
+   Improved version:
 
-	bool negate=false;
-	if (x>2048)
-	{
-		negate=true;
-		x-=2048;
-	}
-	if (x>1024)
-		x=2048-x;
-	y=(A+x)/(B+C*x*x)+D*x;
-	if (negate)
-		return (float)(-y);
-	else
-		return (float)y;
-}
-```
+   ```text
+   float xSin(double x)
+   {
+   	//x is scaled 0<=x<4096
+   	const double A=-0.40319426317E-08;
+   	const double B=0.21683205691E+03;
+   	const double C=0.28463350538E-04;
+   	const double D=-0.30774648337E-02;
+   	double y;
 
-**ten.zo@1otniped** · 2007-04-15 23:54:56
+   	bool negate=false;
+   	if (x>2048)
+   	{
+   		negate=true;
+   		x-=2048;
+   	}
+   	if (x>1024)
+   		x=2048-x;
+   	y=(A+x)/(B+C*x*x)+D*x;
+   	if (negate)
+   		return (float)(-y);
+   	else
+   		return (float)y;
+   }
+   ```
 
-%This is Matlab code. you can convert it to C
-%All it take to make a high quality sine
-%wave is 1 multiply and one subtract.
-%You first have to initialize the 2 unit delays
-% and the coefficient
+2. **ten.zo@1otniped** · *2007-04-15 23:54:56*
 
-```text
-Fs = 48000;      %Sample rate
-oscfreq = 1000.0; %Oscillator frequency in Hz
-c1 = 2 * cos(2 * pi * oscfreq / Fs);
-%Initialize the unit delays
-d1 = sin(2 * pi * oscfreq / Fs);
-d2 = 0;
-%Initialization done here is the oscillator loop
-% which generates a sinewave
-for j=1:100
-   output = d1;        %This is the sine value
-   fprintf(1, '%f\n', output);
-   %one multiply and one subtract is all it takes
-   d0 = d1 * c1 - d2;
-   d2 = d1;   %Shift the unit delays
-   d1 = d0;
-end
-```
+   %This is Matlab code. you can convert it to C
+   %All it take to make a high quality sine
+   %wave is 1 multiply and one subtract.
+   %You first have to initialize the 2 unit delays
+   % and the coefficient
 
-**moc.liamg@iratuusala.osuuj** · 2008-02-09 20:54:10
+   ```text
+   Fs = 48000;      %Sample rate
+   oscfreq = 1000.0; %Oscillator frequency in Hz
+   c1 = 2 * cos(2 * pi * oscfreq / Fs);
+   %Initialize the unit delays
+   d1 = sin(2 * pi * oscfreq / Fs);
+   d2 = 0;
+   %Initialization done here is the oscillator loop
+   % which generates a sinewave
+   for j=1:100
+      output = d1;        %This is the sine value
+      fprintf(1, '%f\n', output);
+      %one multiply and one subtract is all it takes
+      d0 = d1 * c1 - d2;
+      d2 = d1;   %Shift the unit delays
+      d1 = d0;
+   end
+   ```
 
-Hi,
+3. **moc.liamg@iratuusala.osuuj** · *2008-02-09 20:54:10*
 
-Can I use this code in a GPL2 or GPL3 licensed program (a soft synth project called Snarl)? In other words, will you grant permission for me to re-license your code? And what name should I write down as copyright holder in the headers?
+   Hi,
 
-Thanks,
-Juuso Alasuutari
+   Can I use this code in a GPL2 or GPL3 licensed program (a soft synth project called Snarl)? In other words, will you grant permission for me to re-license your code? And what name should I write down as copyright holder in the headers?
 
-**by moc.dniftnacuoyerehwemos@tsaot** · 2009-06-23 03:12:13
+   Thanks,
+   Juuso Alasuutari
 
-Juuso,
+4. **by moc.dniftnacuoyerehwemos@tsaot** · *2009-06-23 03:12:13*
 
-Absolutely!
+   Juuso,
 
-Toast
+   Absolutely!
+
+   Toast
+
+</details>

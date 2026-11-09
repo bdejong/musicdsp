@@ -1,6 +1,6 @@
 # AM Formantic Synthesis
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [3 comments](#comments)
 
 - **Author or source:** Paul Sernine
 - **Created:** 2006-07-05 20:14:14
@@ -168,14 +168,19 @@ int main()
 
 ## Comments
 
-**Baltazar** · 2007-04-24 12:04:12
+<details>
+<summary>Read 3 archived comments</summary>
 
-Quite interesting and efficient for an algo that does not use any filter ;-)
+1. **Baltazar** · *2007-04-24 12:04:12*
 
-**phoenix-69** · 2007-08-14 11:30:14
+   Quite interesting and efficient for an algo that does not use any filter ;-)
 
-Very funny sound !
+2. **phoenix-69** · *2007-08-14 11:30:14*
 
-**Wait.** · 2008-08-19 20:51:30
+   Very funny sound !
 
-What header files are you including?
+3. **Wait.** · *2008-08-19 20:51:30*
+
+   What header files are you including?
+
+</details>

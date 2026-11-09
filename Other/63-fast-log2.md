@@ -1,6 +1,6 @@
 # Fast log2
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [6 comments](#comments)
 
 - **Author or source:** Laurent de Soras
 - **Created:** 2002-02-10 12:31:20
@@ -25,90 +25,95 @@ inline float fast_log2 (float val)
 
 ## Comments
 
-**ed.bew@raebybot** · 2002-12-18 20:13:06
+<details>
+<summary>Read 6 archived comments</summary>
 
-And here is some native Delphi/Pascal code that
-does the same thing:
+1. **ed.bew@raebybot** · *2002-12-18 20:13:06*
 
-```text
-function fast_log2(val:single):single;
-var log2,x:longint;
-begin
- x:=longint((@val)^);
- log2:=((x shr 23) and 255)-128;
- x:=x and (not(255 shl 23));
- x:=x+127 shl 23;
- result:=single((@x)^)+log2;
-end;
-```
+   And here is some native Delphi/Pascal code that
+   does the same thing:
 
-Cheers
+   ```text
+   function fast_log2(val:single):single;
+   var log2,x:longint;
+   begin
+    x:=longint((@val)^);
+    log2:=((x shr 23) and 255)-128;
+    x:=x and (not(255 shl 23));
+    x:=x+127 shl 23;
+    result:=single((@x)^)+log2;
+   end;
+   ```
 
-Toby
+   Cheers
 
-www.tobybear.de
+   Toby
 
-**ed.sulydroc@yrneh** · 2003-02-07 23:54:32
+   www.tobybear.de
 
-instead of using this pointer casting expressions one can also use a enum like this:
+2. **ed.sulydroc@yrneh** · *2003-02-07 23:54:32*
 
-```text
-enum FloatInt
-{
-float f;
-```
+   instead of using this pointer casting expressions one can also use a enum like this:
 
-**ed.sulydroc@yrneh** · 2003-02-07 23:55:27
+   ```text
+   enum FloatInt
+   {
+   float f;
+   ```
 
-instead of using this pointer casting expressions one can also use a enum like this:
+3. **ed.sulydroc@yrneh** · *2003-02-07 23:55:27*
 
-```text
-enum FloatInt
-{
-float f;
-int l;
-} p;
-```
+   instead of using this pointer casting expressions one can also use a enum like this:
 
-and then access the data with:
+   ```text
+   enum FloatInt
+   {
+   float f;
+   int l;
+   } p;
+   ```
 
-```text
-p.f = x;
-p.l >>= 23;
-```
+   and then access the data with:
 
-Greetings, Henry
+   ```text
+   p.f = x;
+   p.l >>= 23;
+   ```
 
-**ed.sulydroc@yrneh** · 2003-02-07 23:56:11
+   Greetings, Henry
 
-Sorry :
+4. **ed.sulydroc@yrneh** · *2003-02-07 23:56:11*
 
-didnt mean enum, ment UNION !!!
+   Sorry :
 
-**Laurent de Soras** · 2005-10-18 10:03:47
+   didnt mean enum, ment UNION !!!
 
-More precision can be obtained by adding the following line just before the return() :
+5. **Laurent de Soras** · *2005-10-18 10:03:47*
 
-```text
-val = map_lin_2_exp (val, 1.0f / 2);
-```
+   More precision can be obtained by adding the following line just before the return() :
 
-Below is the function (everything is constant, so most operations should be done at compile time) :
+   ```text
+   val = map_lin_2_exp (val, 1.0f / 2);
+   ```
 
-```text
-inline float map_lin_2_exp (float val, float k)
-{
-   const float a = (k - 1) / (k + 1);
-   const float b = (4 - 2*k) / (k + 1);	// 1 - 3*a
-   const float c = 2*a;
-   val = (a * val + b) * val + c;
+   Below is the function (everything is constant, so most operations should be done at compile time) :
 
-   return (val);
-}
-```
+   ```text
+   inline float map_lin_2_exp (float val, float k)
+   {
+      const float a = (k - 1) / (k + 1);
+      const float b = (4 - 2*k) / (k + 1);	// 1 - 3*a
+      const float c = 2*a;
+      val = (a * val + b) * val + c;
 
-You can do the mapping you want for the range \[1;2\] -\> \[1;2\] to approximate the function log(x)/log(2).
+      return (val);
+   }
+   ```
 
-**Laurent de Soras** · 2005-10-18 10:05:48
+   You can do the mapping you want for the range \[1;2\] -\> \[1;2\] to approximate the function log(x)/log(2).
 
-Sorry I meant log(x)/log(2) + 1
+6. **Laurent de Soras** · *2005-10-18 10:05:48*
+
+   Sorry I meant log(x)/log(2) + 1
+
+</details>

@@ -1,6 +1,6 @@
 # Resampling
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [4 comments](#comments)
 
 - **Author or source:** ed.corm@liam
 - **Type:** linear interpolated aliased resampling of a wave file
@@ -45,35 +45,40 @@ for( float *pt=pDest;pt<pDestStop;++pt )
 
 ## Comments
 
-**Gog** · 2004-02-15 12:01:50
+<details>
+<summary>Read 4 archived comments</summary>
 
-Linear interpolation normally introduces a lot of artefacts. An easy way to improve upon this is to use the hermite interpolator instead. The improvement is \_dramatic\_!
+1. **Gog** · *2004-02-15 12:01:50*
 
-**moc.sulp.52retsinnab@etep** · 2004-05-04 16:57:06
+   Linear interpolation normally introduces a lot of artefacts. An easy way to improve upon this is to use the hermite interpolator instead. The improvement is \_dramatic\_!
 
-```text
-i1 = (unsigned int)playpos;
-i2 = i1 + 1;
-```
+2. **moc.sulp.52retsinnab@etep** · *2004-05-04 16:57:06*
 
-would this be better as:
+   ```text
+   i1 = (unsigned int)playpos;
+   i2 = i1 + 1;
+   ```
 
-```text
-i1 = (unsigned int) floor(playpos);
-i2 = (unsigned int) ceil(i1 + playposIncrement);
-```
+   would this be better as:
 
-?
+   ```text
+   i1 = (unsigned int) floor(playpos);
+   i2 = (unsigned int) ceil(i1 + playposIncrement);
+   ```
 
-if you are actually decimating rather than interpolating (which is what would give aliasing), then the second interpolation point in the input could potentially be more than i1 + 1.
+   ?
 
-**moc.sulp.52retsinnab@etep** · 2004-05-05 11:26:57
+   if you are actually decimating rather than interpolating (which is what would give aliasing), then the second interpolation point in the input could potentially be more than i1 + 1.
 
-no, sorry it wouldn't :%\|
+3. **moc.sulp.52retsinnab@etep** · *2004-05-05 11:26:57*
 
-**ed.corm@liam** · 2004-08-13 23:45:16
+   no, sorry it wouldn't :%\|
 
-yes, a more sophisticated interpolation would
-improve the sound and prefiltering would
-terminate the aliasing. but everything with
-hi runtime overhead.
+4. **ed.corm@liam** · *2004-08-13 23:45:16*
+
+   yes, a more sophisticated interpolation would
+   improve the sound and prefiltering would
+   terminate the aliasing. but everything with
+   hi runtime overhead.
+
+</details>

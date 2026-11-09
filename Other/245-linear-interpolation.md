@@ -1,6 +1,6 @@
 # Linear interpolation
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [2 comments](#comments)
 
 - **Author or source:** uh.etle.fni@yfoocs
 - **Type:** Linear interpolators for oversampled audio
@@ -141,102 +141,107 @@ private:
 
 ## Comments
 
-**moc.liamg@jdcisumff** · 2013-03-31 20:45:21
+<details>
+<summary>Read 2 archived comments</summary>
 
-I incorporated the 32x interpolator with something along this
+1. **moc.liamg@jdcisumff** · *2013-03-31 20:45:21*
 
-```text
-void process32x(float const in_l, float const in_r, float *out_l, float *out_r)
-{
-        float y_l = in_l-f_d1_l;
-        out_l[0] = f_d1_l + (1.0f/32.0f)*y_l;    // interpolate
-        out_l[1] = f_d1_l + (2.0f/32.0f)*y_l;
-        out_l[2] = f_d1_l + (3.0f/32.0f)*y_l;
-        out_l[3] = f_d1_l + (4.0f/32.0f)*y_l;
-        out_l[4] = f_d1_l + (5.0f/32.0f)*y_l;
-        out_l[5] = f_d1_l + (6.0f/32.0f)*y_l;
-        out_l[6] = f_d1_l + (7.0f/32.0f)*y_l;
-        out_l[7] = f_d1_l + (8.0f/32.0f)*y_l;
-        out_l[8] = f_d1_l + (9.0f/32.0f)*y_l;
-        out_l[9] = f_d1_l + (10.0f/32.0f)*y_l;
-        out_l[10] = f_d1_l + (11.0f/32.0f)*y_l;
-        out_l[11] = f_d1_l + (12.0f/32.0f)*y_l;
-        out_l[12] = f_d1_l + (13.0f/32.0f)*y_l;
-        out_l[13] = f_d1_l + (14.0f/32.0f)*y_l;
-        out_l[14] = f_d1_l + (15.0f/32.0f)*y_l;
-        out_l[15] = f_d1_l + (16.0f/32.0f)*y_l;
-        out_l[16] = f_d1_l + (17.0f/32.0f)*y_l;
-        out_l[17] = f_d1_l + (18.0f/32.0f)*y_l;
-        out_l[18] = f_d1_l + (19.0f/32.0f)*y_l;
-        out_l[19] = f_d1_l + (20.0f/32.0f)*y_l;
-        out_l[20] = f_d1_l + (21.0f/32.0f)*y_l;
-        out_l[21] = f_d1_l + (22.0f/32.0f)*y_l;
-        out_l[22] = f_d1_l + (23.0f/32.0f)*y_l;
-        out_l[23] = f_d1_l + (24.0f/32.0f)*y_l;
-        out_l[24] = f_d1_l + (25.0f/32.0f)*y_l;
-        out_l[25] = f_d1_l + (26.0f/32.0f)*y_l;
-        out_l[26] = f_d1_l + (27.0f/32.0f)*y_l;
-        out_l[27] = f_d1_l + (28.0f/32.0f)*y_l;
-        out_l[28] = f_d1_l + (29.0f/32.0f)*y_l;
-        out_l[29] = f_d1_l + (30.0f/32.0f)*y_l;
-        out_l[30] = f_d1_l + (31.0f/32.0f)*y_l;
-        out_l[31] = in_l;
-        f_d1_l = in_l; // store delay_l
+   I incorporated the 32x interpolator with something along this
 
-		float y_r = in_r-f_d1_r;
-        out_r[0] = f_d1_r + (1.0f/32.0f)*y_r;    // inrterpolate
-        out_r[1] = f_d1_r + (2.0f/32.0f)*y_r;
-        out_r[2] = f_d1_r + (3.0f/32.0f)*y_r;
-        out_r[3] = f_d1_r + (4.0f/32.0f)*y_r;
-        out_r[4] = f_d1_r + (5.0f/32.0f)*y_r;
-        out_r[5] = f_d1_r + (6.0f/32.0f)*y_r;
-        out_r[6] = f_d1_r + (7.0f/32.0f)*y_r;
-        out_r[7] = f_d1_r + (8.0f/32.0f)*y_r;
-        out_r[8] = f_d1_r + (9.0f/32.0f)*y_r;
-        out_r[9] = f_d1_r + (10.0f/32.0f)*y_r;
-        out_r[10] = f_d1_r + (11.0f/32.0f)*y_r;
-        out_r[11] = f_d1_r + (12.0f/32.0f)*y_r;
-        out_r[12] = f_d1_r + (13.0f/32.0f)*y_r;
-        out_r[13] = f_d1_r + (14.0f/32.0f)*y_r;
-        out_r[14] = f_d1_r + (15.0f/32.0f)*y_r;
-        out_r[15] = f_d1_r + (16.0f/32.0f)*y_r;
-        out_r[16] = f_d1_r + (17.0f/32.0f)*y_r;
-        out_r[17] = f_d1_r + (18.0f/32.0f)*y_r;
-        out_r[18] = f_d1_r + (19.0f/32.0f)*y_r;
-        out_r[19] = f_d1_r + (20.0f/32.0f)*y_r;
-        out_r[20] = f_d1_r + (21.0f/32.0f)*y_r;
-        out_r[21] = f_d1_r + (22.0f/32.0f)*y_r;
-        out_r[22] = f_d1_r + (23.0f/32.0f)*y_r;
-        out_r[23] = f_d1_r + (24.0f/32.0f)*y_r;
-        out_r[24] = f_d1_r + (25.0f/32.0f)*y_r;
-        out_r[25] = f_d1_r + (26.0f/32.0f)*y_r;
-        out_r[26] = f_d1_r + (27.0f/32.0f)*y_r;
-        out_r[27] = f_d1_r + (28.0f/32.0f)*y_r;
-        out_r[28] = f_d1_r + (29.0f/32.0f)*y_r;
-        out_r[29] = f_d1_r + (30.0f/32.0f)*y_r;
-        out_r[30] = f_d1_r + (31.0f/32.0f)*y_r;
-        out_r[31] = in_r;
-        f_d1_r = in_r; // store delay_r
-}
-```
+   ```text
+   void process32x(float const in_l, float const in_r, float *out_l, float *out_r)
+   {
+           float y_l = in_l-f_d1_l;
+           out_l[0] = f_d1_l + (1.0f/32.0f)*y_l;    // interpolate
+           out_l[1] = f_d1_l + (2.0f/32.0f)*y_l;
+           out_l[2] = f_d1_l + (3.0f/32.0f)*y_l;
+           out_l[3] = f_d1_l + (4.0f/32.0f)*y_l;
+           out_l[4] = f_d1_l + (5.0f/32.0f)*y_l;
+           out_l[5] = f_d1_l + (6.0f/32.0f)*y_l;
+           out_l[6] = f_d1_l + (7.0f/32.0f)*y_l;
+           out_l[7] = f_d1_l + (8.0f/32.0f)*y_l;
+           out_l[8] = f_d1_l + (9.0f/32.0f)*y_l;
+           out_l[9] = f_d1_l + (10.0f/32.0f)*y_l;
+           out_l[10] = f_d1_l + (11.0f/32.0f)*y_l;
+           out_l[11] = f_d1_l + (12.0f/32.0f)*y_l;
+           out_l[12] = f_d1_l + (13.0f/32.0f)*y_l;
+           out_l[13] = f_d1_l + (14.0f/32.0f)*y_l;
+           out_l[14] = f_d1_l + (15.0f/32.0f)*y_l;
+           out_l[15] = f_d1_l + (16.0f/32.0f)*y_l;
+           out_l[16] = f_d1_l + (17.0f/32.0f)*y_l;
+           out_l[17] = f_d1_l + (18.0f/32.0f)*y_l;
+           out_l[18] = f_d1_l + (19.0f/32.0f)*y_l;
+           out_l[19] = f_d1_l + (20.0f/32.0f)*y_l;
+           out_l[20] = f_d1_l + (21.0f/32.0f)*y_l;
+           out_l[21] = f_d1_l + (22.0f/32.0f)*y_l;
+           out_l[22] = f_d1_l + (23.0f/32.0f)*y_l;
+           out_l[23] = f_d1_l + (24.0f/32.0f)*y_l;
+           out_l[24] = f_d1_l + (25.0f/32.0f)*y_l;
+           out_l[25] = f_d1_l + (26.0f/32.0f)*y_l;
+           out_l[26] = f_d1_l + (27.0f/32.0f)*y_l;
+           out_l[27] = f_d1_l + (28.0f/32.0f)*y_l;
+           out_l[28] = f_d1_l + (29.0f/32.0f)*y_l;
+           out_l[29] = f_d1_l + (30.0f/32.0f)*y_l;
+           out_l[30] = f_d1_l + (31.0f/32.0f)*y_l;
+           out_l[31] = in_l;
+           f_d1_l = in_l; // store delay_l
 
-Unfortunately, I am doing something crazy wrong. When I close my plug-in, my DAW freezes. I'm fairly new to programming and am not sure what I'm doing wrong.
+   		float y_r = in_r-f_d1_r;
+           out_r[0] = f_d1_r + (1.0f/32.0f)*y_r;    // inrterpolate
+           out_r[1] = f_d1_r + (2.0f/32.0f)*y_r;
+           out_r[2] = f_d1_r + (3.0f/32.0f)*y_r;
+           out_r[3] = f_d1_r + (4.0f/32.0f)*y_r;
+           out_r[4] = f_d1_r + (5.0f/32.0f)*y_r;
+           out_r[5] = f_d1_r + (6.0f/32.0f)*y_r;
+           out_r[6] = f_d1_r + (7.0f/32.0f)*y_r;
+           out_r[7] = f_d1_r + (8.0f/32.0f)*y_r;
+           out_r[8] = f_d1_r + (9.0f/32.0f)*y_r;
+           out_r[9] = f_d1_r + (10.0f/32.0f)*y_r;
+           out_r[10] = f_d1_r + (11.0f/32.0f)*y_r;
+           out_r[11] = f_d1_r + (12.0f/32.0f)*y_r;
+           out_r[12] = f_d1_r + (13.0f/32.0f)*y_r;
+           out_r[13] = f_d1_r + (14.0f/32.0f)*y_r;
+           out_r[14] = f_d1_r + (15.0f/32.0f)*y_r;
+           out_r[15] = f_d1_r + (16.0f/32.0f)*y_r;
+           out_r[16] = f_d1_r + (17.0f/32.0f)*y_r;
+           out_r[17] = f_d1_r + (18.0f/32.0f)*y_r;
+           out_r[18] = f_d1_r + (19.0f/32.0f)*y_r;
+           out_r[19] = f_d1_r + (20.0f/32.0f)*y_r;
+           out_r[20] = f_d1_r + (21.0f/32.0f)*y_r;
+           out_r[21] = f_d1_r + (22.0f/32.0f)*y_r;
+           out_r[22] = f_d1_r + (23.0f/32.0f)*y_r;
+           out_r[23] = f_d1_r + (24.0f/32.0f)*y_r;
+           out_r[24] = f_d1_r + (25.0f/32.0f)*y_r;
+           out_r[25] = f_d1_r + (26.0f/32.0f)*y_r;
+           out_r[26] = f_d1_r + (27.0f/32.0f)*y_r;
+           out_r[27] = f_d1_r + (28.0f/32.0f)*y_r;
+           out_r[28] = f_d1_r + (29.0f/32.0f)*y_r;
+           out_r[29] = f_d1_r + (30.0f/32.0f)*y_r;
+           out_r[30] = f_d1_r + (31.0f/32.0f)*y_r;
+           out_r[31] = in_r;
+           f_d1_r = in_r; // store delay_r
+   }
+   ```
 
-```text
-I'm using your function to write to an audio buffer which is being set to a delay. This is what the call looks like.
-process32x((fLeftAudioBuffer[i] * decay), (fRightAudioBuffer[i] * decay),
-			&fCircularLeftAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize],
-			&fCircularRightAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize]);
+   Unfortunately, I am doing something crazy wrong. When I close my plug-in, my DAW freezes. I'm fairly new to programming and am not sure what I'm doing wrong.
 
-I would love to use this function because it's one line less than how I usually do it. It works great with no problems.
-fCircularLeftAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize] = fLeftAudioBuffer[jh] * decay;
-fCircularRightAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize] = fRightAudioBuffer[jh] * decay;
-```
+   ```text
+   I'm using your function to write to an audio buffer which is being set to a delay. This is what the call looks like.
+   process32x((fLeftAudioBuffer[i] * decay), (fRightAudioBuffer[i] * decay),
+   			&fCircularLeftAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize],
+   			&fCircularRightAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize]);
 
-Everything seems simple, but I'm puzzled as to what may be wrong. Thanks.
+   I would love to use this function because it's one line less than how I usually do it. It works great with no problems.
+   fCircularLeftAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize] = fLeftAudioBuffer[jh] * decay;
+   fCircularRightAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize] = fRightAudioBuffer[jh] * decay;
+   ```
 
-**moc.liamg@jdcisumff** · 2013-03-31 22:18:36
+   Everything seems simple, but I'm puzzled as to what may be wrong. Thanks.
 
-Never mind. I was calling the function from the wrong place. Works like a charm.
+2. **moc.liamg@jdcisumff** · *2013-03-31 22:18:36*
 
-Thank you.
+   Never mind. I was calling the function from the wrong place. Works like a charm.
+
+   Thank you.
+
+</details>

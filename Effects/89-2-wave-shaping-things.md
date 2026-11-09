@@ -1,6 +1,6 @@
 # 2 Wave shaping things
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [2 comments](#comments)
 
 - **Author or source:** Frederic Petrot
 - **Created:** 2002-03-20 01:12:01
@@ -27,20 +27,25 @@ y2 = max * th(x/max)
 
 ## Comments
 
-**ten.labolgcbs@rohtlabi** · 2006-06-26 01:12:05
+<details>
+<summary>Read 2 archived comments</summary>
 
-Why are you calling decompiled script code?BALTHOR
+1. **ten.labolgcbs@rohtlabi** · *2006-06-26 01:12:05*
 
-**moc.liamtoh@niffumtohrepus** · 2013-01-18 02:20:59
+   Why are you calling decompiled script code?BALTHOR
 
-```text
-Yeah, atan & tanh, and really any sigmoid function, can create decent overdrive sound if
-oversampled and eq'ed properly. I've used them in some of my modelers w/ good results. For
-a more realistic sound, two half-wave soft clippers in series will add duty-cycle modulation
-and a transfer curve similar to 3/2 tube power curve. Something like:
-if(x < 0) y = -A * tanh(B * x); followed immediately by: if(y >= 0) y = -A * tanh(B * y);
-Don't forget to invert each output (-A * tanh). Coefficients A & B are left to the designer.
-I got this technique after reading a paper discussing a hardware implementation of this type
-of circuit used in Carvin amps, here: http://www.trueaudio.com/at_eetjlm.htm (original link at
-www.simulanalog.org)
-```
+2. **moc.liamtoh@niffumtohrepus** · *2013-01-18 02:20:59*
+
+   ```text
+   Yeah, atan & tanh, and really any sigmoid function, can create decent overdrive sound if
+   oversampled and eq'ed properly. I've used them in some of my modelers w/ good results. For
+   a more realistic sound, two half-wave soft clippers in series will add duty-cycle modulation
+   and a transfer curve similar to 3/2 tube power curve. Something like:
+   if(x < 0) y = -A * tanh(B * x); followed immediately by: if(y >= 0) y = -A * tanh(B * y);
+   Don't forget to invert each output (-A * tanh). Coefficients A & B are left to the designer.
+   I got this technique after reading a paper discussing a hardware implementation of this type
+   of circuit used in Carvin amps, here: http://www.trueaudio.com/at_eetjlm.htm (original link at
+   www.simulanalog.org)
+   ```
+
+</details>

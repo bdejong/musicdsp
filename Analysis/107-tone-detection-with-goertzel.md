@@ -1,6 +1,6 @@
 # Tone detection with Goertzel
 
-[MusicDSP](../README.md) / [Analysis](README.md)
+[MusicDSP](../README.md) / [Analysis](README.md) · [1 comment](#comments)
 
 - **Author or source:** on.biu.ii@rnepse
 - **Type:** Goertzel
@@ -130,31 +130,36 @@ int main(int argc, const char* argv) {
 
 ## Comments
 
-**ed.luosfosruoivas@naitsirhC** · 2004-04-12 22:03:56
+<details>
+<summary>Read 1 archived comment</summary>
 
-```pascal
-// yet untested Delphi translation of the algorithm:
+1. **ed.luosfosruoivas@naitsirhC** · *2004-04-12 22:03:56*
 
-function Goertzel(Buffer:array of Single; frequency, samplerate: single):single;
-var Skn, Skn1, Skn2 : Single;
-    i               : Integer;
-    temp1, temp2    : Single;
-begin
- skn:=0;
- skn1:=0;
- skn2:=0;
- temp1:=2*PI*frequency/samplerate;
- temp2:=Cos(temp1);
- for i:=0 to Length(Buffer) do
-  begin
-   Skn2 = Skn1;
-   Skn1 = Skn;
-   Skn = 2*temp2*Skn1 - Skn2 + Buffer[i];
-  end;
- Result:=(Skn - exp(-temp1)*Skn1);
-end;
+   ```pascal
+   // yet untested Delphi translation of the algorithm:
 
-// Maybe someone can use it...
-//
-// Christian
-```
+   function Goertzel(Buffer:array of Single; frequency, samplerate: single):single;
+   var Skn, Skn1, Skn2 : Single;
+       i               : Integer;
+       temp1, temp2    : Single;
+   begin
+    skn:=0;
+    skn1:=0;
+    skn2:=0;
+    temp1:=2*PI*frequency/samplerate;
+    temp2:=Cos(temp1);
+    for i:=0 to Length(Buffer) do
+     begin
+      Skn2 = Skn1;
+      Skn1 = Skn;
+      Skn = 2*temp2*Skn1 - Skn2 + Buffer[i];
+     end;
+    Result:=(Skn - exp(-temp1)*Skn1);
+   end;
+
+   // Maybe someone can use it...
+   //
+   // Christian
+   ```
+
+</details>

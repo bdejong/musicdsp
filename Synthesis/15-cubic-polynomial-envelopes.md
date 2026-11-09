@@ -1,6 +1,6 @@
 # Cubic polynomial envelopes
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [2 comments](#comments)
 
 - **Author or source:** Andy Mucho
 - **Type:** envellope generation
@@ -40,41 +40,46 @@ for(int i=0;i<time;i++)
 
 ## Comments
 
-**ti.otinifni@reiruoceht** · 2004-01-13 12:31:55
+<details>
+<summary>Read 2 archived comments</summary>
 
-I have try this and it works fine, but what hell is bigs?????
+1. **ti.otinifni@reiruoceht** · *2004-01-13 12:31:55*
 
-bye bye
+   I have try this and it works fine, but what hell is bigs?????
 
-```text
-              	float time = (float)pRect.Width();		   //time in sampleframes
-	float startlevel = (float)pRect.Height();  //max h vedi ma 1.0
-	float midlevel = 500.f;
-	float endlevel = 0.f;
+   bye bye
 
-	float k = startlevel + endlevel - (midlevel * 2);
-	float r = startlevel;
-	float s = (endlevel - startlevel - (2 * k)) / time;
-	float t= (2 * k) / (time * time);
+   ```text
+                 	float time = (float)pRect.Width();		   //time in sampleframes
+   	float startlevel = (float)pRect.Height();  //max h vedi ma 1.0
+   	float midlevel = 500.f;
+   	float endlevel = 0.f;
 
-	float bigr = r;
-	float bigs = s + t;
-	float bigt = 2 * t;
+   	float k = startlevel + endlevel - (midlevel * 2);
+   	float r = startlevel;
+   	float s = (endlevel - startlevel - (2 * k)) / time;
+   	float t= (2 * k) / (time * time);
 
-	for(int i=0;i<time;i++)
-	{
-		bigr = bigr + bigs;
-		bigs = bigs + bigt;							//bigs? co'è
-		pDC->SetPixel(i,(int)bigr,RGB (0, 0, 0));
-	}
-```
+   	float bigr = r;
+   	float bigs = s + t;
+   	float bigt = 2 * t;
 
-**if.iki@xemxet** · 2006-10-08 17:50:48
+   	for(int i=0;i<time;i++)
+   	{
+   		bigr = bigr + bigs;
+   		bigs = bigs + bigt;							//bigs? co'è
+   		pDC->SetPixel(i,(int)bigr,RGB (0, 0, 0));
+   	}
+   ```
 
-the method uses a technique called forward differencing, which is based on the fact that a successive values of an polynomial function can be calculated using only additions instead of evaluating the whole polynomial which would require huge amount of multiplications.
+2. **if.iki@xemxet** · *2006-10-08 17:50:48*
 
-Actually the method presented here uses only a quadratic curve, not cubic. The number of the variables in the adder is N+1, where N is the order of the polynomial to be generated. In this example we have only three, thus second order function. For linear we would have two variables: the current value and the constant adder.
+   the method uses a technique called forward differencing, which is based on the fact that a successive values of an polynomial function can be calculated using only additions instead of evaluating the whole polynomial which would require huge amount of multiplications.
 
-The trickiest part is to set up the adder variables...
+   Actually the method presented here uses only a quadratic curve, not cubic. The number of the variables in the adder is N+1, where N is the order of the polynomial to be generated. In this example we have only three, thus second order function. For linear we would have two variables: the current value and the constant adder.
 
-Check out forward difference in mathworld for more info.
+   The trickiest part is to set up the adder variables...
+
+   Check out forward difference in mathworld for more info.
+
+</details>

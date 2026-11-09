@@ -1,6 +1,6 @@
 # Fast square wave generator
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [2 comments](#comments)
 
 - **Author or source:** Wolfgang (ed.tfoxen@redienhcsw)
 - **Type:** NON-bandlimited osc...
@@ -34,12 +34,17 @@ intOver += intIncr;
 
 ## Comments
 
-**moc.jecnal@psdcisum** · 2003-08-03 01:35:08
+<details>
+<summary>Read 2 archived comments</summary>
 
-So, how would I get the output into a float variable like square\_out, for instance?
+1. **moc.jecnal@psdcisum** · *2003-08-03 01:35:08*
 
-**moc.liamtoh@18\_ogag\_leafar** · 2009-04-12 15:33:37
+   So, how would I get the output into a float variable like square\_out, for instance?
 
-In response to lancej, yo can declare a union with a float and a int and operate the floatas as here using the int part of the union.
+2. **moc.liamtoh@18\_ogag\_leafar** · *2009-04-12 15:33:37*
 
-If I remeber correctly the value for -1.f = 0xBF800000 and the value for 1.f = 0x3F800000, note the 0x80000000 difference between them that is the sign.
+   In response to lancej, yo can declare a union with a float and a int and operate the floatas as here using the int part of the union.
+
+   If I remeber correctly the value for -1.f = 0xBF800000 and the value for 1.f = 0x3F800000, note the 0x80000000 difference between them that is the sign.
+
+</details>

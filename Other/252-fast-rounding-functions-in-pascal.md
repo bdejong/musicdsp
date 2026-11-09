@@ -1,6 +1,6 @@
 # Fast rounding functions in pascal
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [1 comment](#comments)
 
 - **Author or source:** moc.liamtoh@abuob
 - **Type:** round/ceil/floor/trunc
@@ -85,6 +85,11 @@ end;
 
 ## Comments
 
-**eb.mapstenykson@didid** · 2008-04-23 11:46:58
+<details>
+<summary>Read 1 archived comment</summary>
 
-the fround doesn't make much sense in Pascal, as in Pascal (well, Delphi \& I'm pretty sure FreePascal too), the default rounding is already a fast rounding. The default being FPU rounding to nearest mode, the compiler doesn't change it back \& forth. \& since it's inlined (well, compiler magic), it's very fast.
+1. **eb.mapstenykson@didid** · *2008-04-23 11:46:58*
+
+   the fround doesn't make much sense in Pascal, as in Pascal (well, Delphi \& I'm pretty sure FreePascal too), the default rounding is already a fast rounding. The default being FPU rounding to nearest mode, the compiler doesn't change it back \& forth. \& since it's inlined (well, compiler magic), it's very fast.
+
+</details>

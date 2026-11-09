@@ -1,6 +1,6 @@
 # Quick and dirty sine generator
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [4 comments](#comments)
 
 - **Author or source:** moc.liamtoh@tsvreiruoc
 - **Type:** sine generator
@@ -45,32 +45,37 @@ PSPsample PSPsin1::doOsc(int numCh)
 
 ## Comments
 
-**moc.sulp.52retsinnab@etep** · 2004-01-08 13:51:26
+<details>
+<summary>Read 4 archived comments</summary>
 
-isn't the sin() function a little bit heavyweight?  Since this is based upon slices of time, would it not be much more processor efficient to use a state variable filter that is self oscillating?
+1. **moc.sulp.52retsinnab@etep** · *2004-01-08 13:51:26*
 
-```text
-The operation:
-t =(double)(((double)m_time[numCh])/(double)m_sampleRate);
-```
+   isn't the sin() function a little bit heavyweight?  Since this is based upon slices of time, would it not be much more processor efficient to use a state variable filter that is self oscillating?
 
-also seems a little bit much, since t could be calculated by adding an interval value, which would eliminate the divide (needs more clocks).  The divide would then only need to be done once.
-An FDIV may take 39 clock cycles minimum(depending on the operands), whilst an FADD is far faster (3 clocks).  An FMUL is comparable to an add, which would be a predominant instruction if using the SVF method.
+   ```text
+   The operation:
+   t =(double)(((double)m_time[numCh])/(double)m_sampleRate);
+   ```
 
-FSIN may take between 16-126 clock cylces.
+   also seems a little bit much, since t could be calculated by adding an interval value, which would eliminate the divide (needs more clocks).  The divide would then only need to be done once.
+   An FDIV may take 39 clock cycles minimum(depending on the operands), whilst an FADD is far faster (3 clocks).  An FMUL is comparable to an add, which would be a predominant instruction if using the SVF method.
 
-(clock cycle info nabbed from: <http://www.singlix.com/trdos/pentium.txt>)
+   FSIN may take between 16-126 clock cylces.
 
-**moc.hclumoidua@bssor** · 2004-01-09 21:19:37
+   (clock cycle info nabbed from: <http://www.singlix.com/trdos/pentium.txt>)
 
-See also the fun with sinusoids page:
-<http://www.audiomulch.com/~rossb/code/sinusoids/>
+2. **moc.hclumoidua@bssor** · *2004-01-09 21:19:37*
 
-**moc.oohay@trawets.tna** · 2014-11-18 07:37:27
+   See also the fun with sinusoids page:
+   <http://www.audiomulch.com/~rossb/code/sinusoids/>
 
-For audio generation, sines are expensive i think, they are so perfect and take up more processing. it's rare to find a synth that sounds nicer with a sine compared to a parabol wave. My favourite parabolic wave is simply triangle wave with x\*x with one of the half periods flipped. x\*x is a very fast!!!
+3. **moc.oohay@trawets.tna** · *2014-11-18 07:37:27*
 
-**ed.xmg@retsneum.ellak** · 2014-12-06 12:06:58
+   For audio generation, sines are expensive i think, they are so perfect and take up more processing. it's rare to find a synth that sounds nicer with a sine compared to a parabol wave. My favourite parabolic wave is simply triangle wave with x\*x with one of the half periods flipped. x\*x is a very fast!!!
 
-hmm... x\*x second half flipped...
-very cool ! i'll give it a try!!
+4. **ed.xmg@retsneum.ellak** · *2014-12-06 12:06:58*
+
+   hmm... x\*x second half flipped...
+   very cool ! i'll give it a try!!
+
+</details>

@@ -1,6 +1,6 @@
 # Resonant filter
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [3 comments](#comments)
 
 - **Author or source:** Paul Kellett
 - **Created:** 2002-01-17 02:07:02
@@ -29,39 +29,44 @@ out = buf1;
 
 ## Comments
 
-**mr.just starting** · 2006-01-18 10:59:55
+<details>
+<summary>Read 3 archived comments</summary>
 
-very nice! how could i turn that into a HPF?
+1. **mr.just starting** · *2006-01-18 10:59:55*
 
-**ku.oc.mapson.snosrapsd@psd** · 2006-01-23 10:53:41
+   very nice! how could i turn that into a HPF?
 
-```text
-The cheats way is to use HPF = sample - out;
-If you do a plot, you'll find that it isn't as good as designing an HPF from scratch, but it's good enuff for most ears.
-This would also mean that you have a quick method for splitting a signal and operating on the (in)discreet parts separately. :) DSP
-```
+2. **ku.oc.mapson.snosrapsd@psd** · *2006-01-23 10:53:41*
 
-**uh.etle.fni@yfoocs** · 2006-09-12 14:42:25
+   ```text
+   The cheats way is to use HPF = sample - out;
+   If you do a plot, you'll find that it isn't as good as designing an HPF from scratch, but it's good enuff for most ears.
+   This would also mean that you have a quick method for splitting a signal and operating on the (in)discreet parts separately. :) DSP
+   ```
 
-This filter calculates bandpass and highpass outputs too during calculation, namely bandpass is buf0 - buf1 and highpass is in - buf0. So, we can rewrite the algorithm:
+3. **uh.etle.fni@yfoocs** · *2006-09-12 14:42:25*
 
-```text
-// f and fb calculation
-f = 2.0*sin(pi*freq/samplerate);
-/* you can approximate this with f = 2.0*pi*freq/samplerate with tuning error towards nyquist */
-fb = q + q/(1.0 - f);
+   This filter calculates bandpass and highpass outputs too during calculation, namely bandpass is buf0 - buf1 and highpass is in - buf0. So, we can rewrite the algorithm:
 
-// loop
-hp = in - buf0;
-bp = buf0 - buf1;
-buf0 = buf0 + f * (hp + fb * bp);
-buf1 = buf1 + f * (buf0 - buf1);
+   ```text
+   // f and fb calculation
+   f = 2.0*sin(pi*freq/samplerate);
+   /* you can approximate this with f = 2.0*pi*freq/samplerate with tuning error towards nyquist */
+   fb = q + q/(1.0 - f);
 
-out = buf1; // lowpass
-out = bp; // bandpass
-out = hp; // highpass
-```
+   // loop
+   hp = in - buf0;
+   bp = buf0 - buf1;
+   buf0 = buf0 + f * (hp + fb * bp);
+   buf1 = buf1 + f * (buf0 - buf1);
 
-The slope of the highpass out is not constant, it varies between 6 and 12 dB/Octave with different f and q settings. I'd be interested if anyone derived a proper highpass output from this algorithm.
+   out = buf1; // lowpass
+   out = bp; // bandpass
+   out = hp; // highpass
+   ```
 
--- peter schoffhauzer
+   The slope of the highpass out is not constant, it varies between 6 and 12 dB/Octave with different f and q settings. I'd be interested if anyone derived a proper highpass output from this algorithm.
+
+   -- peter schoffhauzer
+
+</details>

@@ -1,6 +1,6 @@
 # 1-RC and C filter
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [2 comments](#comments)
 
 - **Author or source:** ac.nortoediv@niarbdam
 - **Type:** Simple 2-pole LP
@@ -30,46 +30,51 @@ raw cutoff and inverted resonance, and have a range from 0 to 1.
 
 ## Comments
 
-**yes** · 2005-01-13 18:25:57
+<details>
+<summary>Read 2 archived comments</summary>
 
-input is not in 0 - 1 range.
+1. **yes** · *2005-01-13 18:25:57*
 
-for cutoff i guess 128.
+   input is not in 0 - 1 range.
 
-for reso the same ?
+   for cutoff i guess 128.
 
-**uh.etle.fni@yfoocs** · 2006-08-31 14:28:33
+   for reso the same ?
 
-Nice. This is very similar to a state variable filter in many ways. Relationship between c and frequency:
+2. **uh.etle.fni@yfoocs** · *2006-08-31 14:28:33*
 
-```text
-c = 2*sin(pi*freq/samplerate)
-```
+   Nice. This is very similar to a state variable filter in many ways. Relationship between c and frequency:
 
-You can approximate this (tuning error towards nyquist):
+   ```text
+   c = 2*sin(pi*freq/samplerate)
+   ```
 
-```text
-c = 2*pi*freq/samplerate
-```
+   You can approximate this (tuning error towards nyquist):
 
-Relationship between r and q factor:
+   ```text
+   c = 2*pi*freq/samplerate
+   ```
 
-```text
-r = 1/q
-```
+   Relationship between r and q factor:
 
-This filter has stability issues for high r values. State variable filter stability limits seem to work fine here. It can also be oversampled for better stability and wider frequency range (use 0.5\*original frequency):
+   ```text
+   r = 1/q
+   ```
 
-```text
-//Loop:
+   This filter has stability issues for high r values. State variable filter stability limits seem to work fine here. It can also be oversampled for better stability and wider frequency range (use 0.5\*original frequency):
 
-v0 = (1-r*c)*v0 - c*v1 + c*input;
-v1 = (1-r*c)*v1 + c*v0;
-tmp = v1;
+   ```text
+   //Loop:
 
-v0 = (1-r*c)*v0 - c*v1 + c*input;
-v1 = (1-r*c)*v1 + c*v0;
-output = (tmp+v1)*0.5;
-```
+   v0 = (1-r*c)*v0 - c*v1 + c*input;
+   v1 = (1-r*c)*v1 + c*v0;
+   tmp = v1;
 
--- peter schoffhauzer
+   v0 = (1-r*c)*v0 - c*v1 + c*input;
+   v1 = (1-r*c)*v1 + c*v0;
+   output = (tmp+v1)*0.5;
+   ```
+
+   -- peter schoffhauzer
+
+</details>

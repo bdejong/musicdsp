@@ -1,6 +1,6 @@
 # Waveform generator using MinBLEPS
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [3 comments](#comments)
 
 - **Author or source:** ku.oc.nomed.nafgpr@ekcol
 - **Created:** 2002-08-05 18:44:50
@@ -23,20 +23,25 @@ The project name is 'hardsync', because it's easy to generate hardsync using Min
 
 ## Comments
 
-**moc.oiduaesionetihw@ofni** · 2004-07-02 22:31:36
+<details>
+<summary>Read 3 archived comments</summary>
 
-<http://www.slack.net/~ant/bl-synth/windowed-impulse/>
+1. **moc.oiduaesionetihw@ofni** · *2004-07-02 22:31:36*
 
-This page also describes a similar algorithm for generating waves. Could the aliasing be due to the fact that the blep only occurs after the discontinuity? On this page the blep also occurs in the opposite direction as well, leading up to the discontinuity.
+   <http://www.slack.net/~ant/bl-synth/windowed-impulse/>
 
-**kernel\[@}audiospillage.com** · 2008-02-11 18:42:15
+   This page also describes a similar algorithm for generating waves. Could the aliasing be due to the fact that the blep only occurs after the discontinuity? On this page the blep also occurs in the opposite direction as well, leading up to the discontinuity.
 
-The sawtooth is a nice oscillator but I can't seem to get the square wave to work properly.  Anyone else had any luck with this?  Also, it's worth noting that the code assumes it is running on a little endian architecture.
+2. **kernel\[@}audiospillage.com** · *2008-02-11 18:42:15*
 
-**moc.enecslatnemirepxe@leinad** · 2009-07-07 04:45:40
+   The sawtooth is a nice oscillator but I can't seem to get the square wave to work properly.  Anyone else had any luck with this?  Also, it's worth noting that the code assumes it is running on a little endian architecture.
 
-I have written GPLv3 C++ source code for a MinBLEP oscillator and also public domain C++ source code for generating the MinBLEP without MatLab.
+3. **moc.enecslatnemirepxe@leinad** · *2009-07-07 04:45:40*
 
-<http://www.experimentalscene.com/articles/minbleps.php> - Article and Code
+   I have written GPLv3 C++ source code for a MinBLEP oscillator and also public domain C++ source code for generating the MinBLEP without MatLab.
 
-<http://www.experimentalscene.com/source.php> - Look in DarkWave / latest version / CoreMachines / VCO.cpp
+   <http://www.experimentalscene.com/articles/minbleps.php> - Article and Code
+
+   <http://www.experimentalscene.com/source.php> - Look in DarkWave / latest version / CoreMachines / VCO.cpp
+
+</details>

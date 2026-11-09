@@ -1,6 +1,6 @@
 # C++ gaussian noise generation
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [3 comments](#comments)
 
 - **Author or source:** ku.oc.latigidpxe@luap
 - **Type:** gaussian noise generation
@@ -45,24 +45,29 @@ for (int i = 0; i < numSamples; i++)
 
 ## Comments
 
-**moc.enon@enon** · 2009-07-10 17:39:39
+<details>
+<summary>Read 3 archived comments</summary>
 
-What's the difference between the much simpler noise generator:
+1. **moc.enon@enon** · *2009-07-10 17:39:39*
 
-```text
-randSeed = (randSeed * 196314165) + 907633515;	out=((int)randSeed)*0.0000000004656612873077392578125f;
-```
+   What's the difference between the much simpler noise generator:
 
-and this one? they both sound the same to my ears...
+   ```text
+   randSeed = (randSeed * 196314165) + 907633515;	out=((int)randSeed)*0.0000000004656612873077392578125f;
+   ```
 
-**moc.nwonknu@nwonknu** · 2011-07-22 11:07:12
+   and this one? they both sound the same to my ears...
 
-How can you change the variance (sigma)?
+2. **moc.nwonknu@nwonknu** · *2011-07-22 11:07:12*
 
-**moc.enon@lubeb** · 2013-06-12 12:30:33
+   How can you change the variance (sigma)?
 
-```text
-This is NOT a good code to generate Gaussian Noice. Look into:
-  (random * c2) + (random * c2) + (random * c2)
-It is all nonsense! The reason of adding three numbers it the Central Limit Theorem to aproximate Gaussian distribution. But the random numbers inside must differ, which is not the case. The code on original link http://www.musicdsp.org/archive.php?classid=0#129 is correct.
-```
+3. **moc.enon@lubeb** · *2013-06-12 12:30:33*
+
+   ```text
+   This is NOT a good code to generate Gaussian Noice. Look into:
+     (random * c2) + (random * c2) + (random * c2)
+   It is all nonsense! The reason of adding three numbers it the Central Limit Theorem to aproximate Gaussian distribution. But the random numbers inside must differ, which is not the case. The code on original link http://www.musicdsp.org/archive.php?classid=0#129 is correct.
+   ```
+
+</details>

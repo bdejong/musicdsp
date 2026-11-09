@@ -1,6 +1,6 @@
 # Frequency warped FIR lattice
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [3 comments](#comments)
 
 - **Author or source:** ten.enegatum@liam
 - **Type:** FIR using allpass chain
@@ -53,33 +53,38 @@ float wfirlattice(float input, float *taps1, float *taps2, float *reflcof, float
 
 ## Comments
 
-**ten.xmg@zlipzzuf** · 2004-08-24 17:26:59
+<details>
+<summary>Read 3 archived comments</summary>
 
-Couldn't you easily do away with newtaps entirely? As in:
+1. **ten.xmg@zlipzzuf** · *2004-08-24 17:26:59*
 
-```text
-for(int i=0;i&lt;P;i++)
-{
-    taps1[i]=lambda*(taps1[i]-topline)+taps2[i];
-    taps2[i]=topline;
-    topline=taps1[i]+forward*reflcof[i];
-    forward+=taps1[i]*reflcof[i];
-}
-```
+   Couldn't you easily do away with newtaps entirely? As in:
 
-I haven't had time to try this in a plugin yet, but if Maple is to be trusted at all, that works.
+   ```text
+   for(int i=0;i&lt;P;i++)
+   {
+       taps1[i]=lambda*(taps1[i]-topline)+taps2[i];
+       taps2[i]=topline;
+       topline=taps1[i]+forward*reflcof[i];
+       forward+=taps1[i]*reflcof[i];
+   }
+   ```
 
-(2WarpDelay is nice, by the way)
+   I haven't had time to try this in a plugin yet, but if Maple is to be trusted at all, that works.
 
-**ten.enegatum@liam** · 2004-08-25 07:32:40
+   (2WarpDelay is nice, by the way)
 
-haha, thanks, that's awesome!  how embarassing ;)
+2. **ten.enegatum@liam** · *2004-08-25 07:32:40*
 
-(glad you like 2warpdelay!  the warped IIR lattice is up on harma's site too, though you might save yourself time if you read the errata: <http://www.acoustics.hut.fi/~aqi/papers/oops.html> :( )
+   haha, thanks, that's awesome!  how embarassing ;)
 
-**moc.toohay@ttevad** · 2008-11-12 01:15:07
+   (glad you like 2warpdelay!  the warped IIR lattice is up on harma's site too, though you might save yourself time if you read the errata: <http://www.acoustics.hut.fi/~aqi/papers/oops.html> :( )
 
-This looks really interesting.
-How do I get the coeffs for it, and how do I invert it to get back to the original signal?
-Thanks,
-DaveT
+3. **moc.toohay@ttevad** · *2008-11-12 01:15:07*
+
+   This looks really interesting.
+   How do I get the coeffs for it, and how do I invert it to get back to the original signal?
+   Thanks,
+   DaveT
+
+</details>

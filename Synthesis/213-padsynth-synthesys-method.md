@@ -1,6 +1,6 @@
 # PADsynth synthesys method
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [3 comments](#comments)
 
 - **Author or source:** moc.oohay@xfbusddanyz
 - **Type:** wavetable generation
@@ -22,16 +22,21 @@ Paul
 
 ## Comments
 
-**moc.yddaht@yddaht** · 2005-11-23 15:49:26
+<details>
+<summary>Read 3 archived comments</summary>
 
-Impressed at first hearing! Well documented.
+1. **moc.yddaht@yddaht** · *2005-11-23 15:49:26*
 
-**moc.yticliam@qe.n** · 2005-11-25 08:18:58
+   Impressed at first hearing! Well documented.
 
-1\. Isn't this plain additive synthesis
-2\. Isn't this the algorithm used by the waldorf microwave synths?
+2. **moc.yticliam@qe.n** · *2005-11-25 08:18:58*
 
-**mok.00hay@em** · 2005-11-30 09:48:02
+   1\. Isn't this plain additive synthesis
+   2\. Isn't this the algorithm used by the waldorf microwave synths?
 
-1\. Nope. This is not a plain additive synthesis. It's a special kind :-P Read the doc again :)
-2\. No way.. this is NOT even close to waldord microwave synths. Google for this :)
+3. **mok.00hay@em** · *2005-11-30 09:48:02*
+
+   1\. Nope. This is not a plain additive synthesis. It's a special kind :-P Read the doc again :)
+   2\. No way.. this is NOT even close to waldord microwave synths. Google for this :)
+
+</details>

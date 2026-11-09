@@ -1,6 +1,6 @@
 # Double to Int
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [2 comments](#comments)
 
 - **Author or source:** many people, implementation by Andy M00cho
 - **Type:** pointer cast (round to zero, or 'trunctate')
@@ -60,28 +60,33 @@ movsx  eax,TEMP+2
 
 ## Comments
 
-**ude.odu@grebnesie.nitram** · 2007-01-28 20:13:49
+<details>
+<summary>Read 2 archived comments</summary>
 
-www.stereopsis.com/FPU.html credits one Sree Kotay for this code.
+1. **ude.odu@grebnesie.nitram** · *2007-01-28 20:13:49*
 
-**kd.sgnik3@sumsar** · 2007-07-11 06:17:12
+   www.stereopsis.com/FPU.html credits one Sree Kotay for this code.
 
-On PC this may be faster/easier:
+2. **kd.sgnik3@sumsar** · *2007-07-11 06:17:12*
 
-```text
-int ftoi(float x)
-{
-  int res;
-  __asm
-  {
-    fld x
-    fistp res
-  }
-  return res;
-}
+   On PC this may be faster/easier:
 
-int dtoi(double x)
-{
-  return ftoi((float)x);
-}
-```
+   ```text
+   int ftoi(float x)
+   {
+     int res;
+     __asm
+     {
+       fld x
+       fistp res
+     }
+     return res;
+   }
+
+   int dtoi(double x)
+   {
+     return ftoi((float)x);
+   }
+   ```
+
+</details>

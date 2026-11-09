@@ -1,6 +1,6 @@
 # Envelope Follower
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [1 comment](#comments)
 
 - **Author or source:** ers
 - **Created:** 2003-03-12 04:08:16
@@ -69,10 +69,15 @@ void vEnvelopeFollower::SetBufferSize(float value)
 
 ## Comments
 
-**gro.akeeb@evets** · 2007-01-17 13:46:04
+<details>
+<summary>Read 1 archived comment</summary>
 
-Nice contribution, but I have a couple of questions...
+1. **gro.akeeb@evets** · *2007-01-17 13:46:04*
 
-Looks like there is a typo on GetControlValue... should return a float. Also, I am not clear on the reason for it taking a pointer to a float.
+   Nice contribution, but I have a couple of questions...
 
-Is there any noticeable speed improvement with the "if (\*b \< 0)" code, as opposed to using fabs? I would hope that a decent compiler library would inline this (but haven't cracked open the disassembler to find out).
+   Looks like there is a typo on GetControlValue... should return a float. Also, I am not clear on the reason for it taking a pointer to a float.
+
+   Is there any noticeable speed improvement with the "if (\*b \< 0)" code, as opposed to using fabs? I would hope that a decent compiler library would inline this (but haven't cracked open the disassembler to find out).
+
+</details>

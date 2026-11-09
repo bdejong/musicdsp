@@ -1,6 +1,6 @@
 # Audiable alias free waveform gen using width sine
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [5 comments](#comments)
 
 - **Author or source:** moc.emagno@mortslhad.mikaoj
 - **Type:** Very simple
@@ -57,41 +57,46 @@ As you can see the saw & pulse wave are very variable.
 
 ## Comments
 
-**es.pp.ecafkrad@sitturd** · 2003-02-05 03:10:00
+<details>
+<summary>Read 5 archived comments</summary>
 
-Um, reading it I can see a big flaw...
+1. **es.pp.ecafkrad@sitturd** · *2003-02-05 03:10:00*
 
-afact(f) = 1 - sin(f\*2PI) is not correct!
+   Um, reading it I can see a big flaw...
 
-should be
+   afact(f) = 1 - sin(f\*2PI) is not correct!
 
-afact(f) = 1 - sqrt(f \* 2 / sr)
+   should be
 
-where sr := samplingrate
-f should be exceed half sr
+   afact(f) = 1 - sqrt(f \* 2 / sr)
 
-**moc.ecrofmho@tnerual** · 2003-02-22 16:49:50
+   where sr := samplingrate
+   f should be exceed half sr
 
-f has already be divided by sr, right ? So it should become :
+2. **moc.ecrofmho@tnerual** · *2003-02-22 16:49:50*
 
-afact (f) = 1 - sqrt (f  \* 2)
+   f has already be divided by sr, right ? So it should become :
 
-And i see a typo (saw forgotten in the second expression) :
+   afact (f) = 1 - sqrt (f  \* 2)
 
-pulse(t,f,ph,fm,fb,pm,pw) = saw(t,f,ph,fm,fb) - saw(t,f,ph+0.5\*pw,fm,fb) \* pm
+   And i see a typo (saw forgotten in the second expression) :
 
-However I haven't checked the formula.
+   pulse(t,f,ph,fm,fb,pm,pw) = saw(t,f,ph,fm,fb) - saw(t,f,ph+0.5\*pw,fm,fb) \* pm
 
-**ed.xmg@909** · 2003-06-25 08:54:21
+   However I haven't checked the formula.
 
-Hi Lauent,
-I'm new to that DSP stuff and can't get the key to
-what'S the meaning of afact? - Can you explain please!? - Thanks in advice!
+3. **ed.xmg@909** · *2003-06-25 08:54:21*
 
-**es.ollehc@sitturd** · 2004-04-16 14:09:26
+   Hi Lauent,
+   I'm new to that DSP stuff and can't get the key to
+   what'S the meaning of afact? - Can you explain please!? - Thanks in advice!
 
-I've been playing around with this for some time. Expect a major update in a while, as soon as I know how to describe it :)
+4. **es.ollehc@sitturd** · *2004-04-16 14:09:26*
 
-**es.ollehc@sitturd** · 2004-04-16 14:14:34
+   I've been playing around with this for some time. Expect a major update in a while, as soon as I know how to describe it :)
 
-afact is used as an amplitude factor for fm or fb depending on the carrier frequency. The higher frequency the lower afact. It's not completely resolving the problem with aliasing but it is a cheap way that dramatically reduces it.
+5. **es.ollehc@sitturd** · *2004-04-16 14:14:34*
+
+   afact is used as an amplitude factor for fm or fb depending on the carrier frequency. The higher frequency the lower afact. It's not completely resolving the problem with aliasing but it is a cheap way that dramatically reduces it.
+
+</details>

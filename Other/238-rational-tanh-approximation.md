@@ -1,6 +1,6 @@
 # Rational tanh approximation
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [5 comments](#comments)
 
 - **Author or source:** cschueler
 - **Type:** saturation
@@ -33,38 +33,43 @@ float rational_tanh(x)
 
 ## Comments
 
-**uh.etle.fni@yfoocs** · 2006-11-24 16:24:54
+<details>
+<summary>Read 5 archived comments</summary>
 
-Works fine. If you want only a little overdrive, you don't even need the clipping, just the last line for faster processing.
+1. **uh.etle.fni@yfoocs** · *2006-11-24 16:24:54*
 
-```text
-float rational_tanh_noclip(x)
-{
-  return x * ( 27 + x * x ) / ( 27 + 9 * x * x );
-}
-```
+   Works fine. If you want only a little overdrive, you don't even need the clipping, just the last line for faster processing.
 
-The maximum error of this function in the -4.5 .. 4.5 range is about 2.6%.
+   ```text
+   float rational_tanh_noclip(x)
+   {
+     return x * ( 27 + x * x ) / ( 27 + 9 * x * x );
+   }
+   ```
 
-**uh.etle.fni@yfoocs** · 2006-11-30 15:59:33
+   The maximum error of this function in the -4.5 .. 4.5 range is about 2.6%.
 
-By the way this is the fastest tanh() approximation in the archive so far.
+2. **uh.etle.fni@yfoocs** · *2006-11-30 15:59:33*
 
-**cschueler** · 2006-12-08 21:21:02
+   By the way this is the fastest tanh() approximation in the archive so far.
 
-Yep, I thought so.
-That's why I thought it would be worth sharing.
+3. **cschueler** · *2006-12-08 21:21:02*
 
-Especially fast when using SSE you can do a 4-way parallel implementation, with MIN/MAX and the RCP instruction.
+   Yep, I thought so.
+   That's why I thought it would be worth sharing.
 
-**mdsp** · 2007-01-26 12:13:50
+   Especially fast when using SSE you can do a 4-way parallel implementation, with MIN/MAX and the RCP instruction.
 
-nice one
+4. **mdsp** · *2007-01-26 12:13:50*
 
-BTW if you google about "pade-approximation" you'll find a nice page with many solutions for common functions.
+   nice one
 
-there's exp, log, sin, cos, tan, gaussian...
+   BTW if you google about "pade-approximation" you'll find a nice page with many solutions for common functions.
 
-**uh.etle.fni@yfoocs** · 2007-02-18 03:35:13
+   there's exp, log, sin, cos, tan, gaussian...
 
-Yep, but the RCP increases the noise floor somewhat, giving a quantized sound, so I'd refrain from using it for high quality audio.
+5. **uh.etle.fni@yfoocs** · *2007-02-18 03:35:13*
+
+   Yep, but the RCP increases the noise floor somewhat, giving a quantized sound, so I'd refrain from using it for high quality audio.
+
+</details>

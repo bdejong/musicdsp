@@ -1,6 +1,6 @@
 # Most simple and smooth feedback delay
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [2 comments](#comments)
 
 - **Author or source:** moc.liamtoh@sisehtnysorpitna
 - **Type:** Feedback delay
@@ -31,37 +31,42 @@ Output = DlyBuffer[ i++ ] = Input + (DlyBuffer[ j ] * fFeedback);
 
 ## Comments
 
-**moc.liamtoh@sisehtnysorpitna** · 2003-09-03 13:25:47
+<details>
+<summary>Read 2 archived comments</summary>
 
-```cpp
-// This algo didn't seem to work on testing again, just change:
-// -------------------------------------------------------------------
-Output = DlyBuffer[ i++ ] = Input + (DlyBuffer[ j ] * fFeedback);
-// -------------------------------------------------------------------
-// to
-// ---------------------------------------------------------------
-Output = DlyBuffer[ i ] = Input + (DlyBuffer[ j ] * fFeedback);
+1. **moc.liamtoh@sisehtnysorpitna** · *2003-09-03 13:25:47*
 
-i++;
-// ---------------------------------------------------------------
-// and it will work fine.
-```
+   ```cpp
+   // This algo didn't seem to work on testing again, just change:
+   // -------------------------------------------------------------------
+   Output = DlyBuffer[ i++ ] = Input + (DlyBuffer[ j ] * fFeedback);
+   // -------------------------------------------------------------------
+   // to
+   // ---------------------------------------------------------------
+   Output = DlyBuffer[ i ] = Input + (DlyBuffer[ j ] * fFeedback);
 
-**moc.liamtoh@sisehtnysorpitna** · 2003-09-08 12:07:22
+   i++;
+   // ---------------------------------------------------------------
+   // and it will work fine.
+   ```
 
-```cpp
-// Here's a more clear source. both BufferSize and MaxDlyTime are amounts of samples. BufferSize
-// should best be 2*MaxDlyTime to have proper sound.
-// -
-if( i >= BufferSize )
-    i = 0;
+2. **moc.liamtoh@sisehtnysorpitna** · *2003-09-08 12:07:22*
 
-j = i - (fDlyTime * MaxDlyTime);
+   ```cpp
+   // Here's a more clear source. both BufferSize and MaxDlyTime are amounts of samples. BufferSize
+   // should best be 2*MaxDlyTime to have proper sound.
+   // -
+   if( i >= BufferSize )
+       i = 0;
 
-if( j < 0 )
-    j += BufferSize;
+   j = i - (fDlyTime * MaxDlyTime);
 
-Output = DlyBuffer[ i ] = Input + (DlyBuffer[ j ] * fFeedback);
+   if( j < 0 )
+       j += BufferSize;
 
-i++;
-```
+   Output = DlyBuffer[ i ] = Input + (DlyBuffer[ j ] * fFeedback);
+
+   i++;
+   ```
+
+</details>

@@ -1,6 +1,6 @@
 # Generator
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [2 comments](#comments)
 
 - **Author or source:** Paul Sernine
 - **Type:** antialiased sawtooth
@@ -67,12 +67,17 @@ main()
 
 ## Comments
 
-**rf.liamtoh@57eninreS\_luaP** · 2006-03-14 09:02:47
+<details>
+<summary>Read 2 archived comments</summary>
 
-More infos and discussions in the KVR thread:
-<http://www.kvraudio.com/forum/viewtopic.php?t=123498>
+1. **rf.liamtoh@57eninreS\_luaP** · *2006-03-14 09:02:47*
 
-**moc.asile@nobnob** · 2006-05-05 17:09:03
+   More infos and discussions in the KVR thread:
+   <http://www.kvraudio.com/forum/viewtopic.php?t=123498>
 
-nice but i prefer the fishy algo, it generates less alias.
-bonaveture rosignol
+2. **moc.asile@nobnob** · *2006-05-05 17:09:03*
+
+   nice but i prefer the fishy algo, it generates less alias.
+   bonaveture rosignol
+
+</details>

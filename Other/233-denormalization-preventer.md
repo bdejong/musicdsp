@@ -1,6 +1,6 @@
 # Denormalization preventer
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [4 comments](#comments)
 
 - **Author or source:** eb.tenyks@didid
 - **Created:** 2006-08-05 16:37:20
@@ -63,46 +63,51 @@ End;
 
 ## Comments
 
-**uh.etle.fni@yfoocs** · 2006-08-14 05:36:29
+<details>
+<summary>Read 4 archived comments</summary>
 
-You can zero out denormals by adding and subtracting a small number.
+1. **uh.etle.fni@yfoocs** · *2006-08-14 05:36:29*
 
-```text
-void kill_denormal_by_quantization(float &val)
-{
-  static const float anti_denormal = 1e-18;
-  val += anti_denormal;
-  val -= anti_denormal;
-}
-```
+   You can zero out denormals by adding and subtracting a small number.
 
-Reference: Laurent de Soras' great article on denormal numbers:
-ldesoras.free.fr/doc/articles/denormal-en.pdf
+   ```text
+   void kill_denormal_by_quantization(float &val)
+   {
+     static const float anti_denormal = 1e-18;
+     val += anti_denormal;
+     val -= anti_denormal;
+   }
+   ```
 
-I tend to add DC because it is faster than quantization. A slight DC offset (0.000000000000000001) won't hurt. That's -360 decibels...
+   Reference: Laurent de Soras' great article on denormal numbers:
+   ldesoras.free.fr/doc/articles/denormal-en.pdf
 
-**gol** · 2006-08-14 09:20:43
+   I tend to add DC because it is faster than quantization. A slight DC offset (0.000000000000000001) won't hurt. That's -360 decibels...
 
-\>\>You can zero out denormals by adding and subtracting a small number
+2. **gol** · *2006-08-14 09:20:43*
 
-But with drawbacks as explained in his paper.
+   > You can zero out denormals by adding and subtracting a small number
 
-As for the speed, not sure which is the faster. Especially since the FPU speed is too manufacturer-dependant (read: it's crap in pentiums), and mine is using integer.
+   But with drawbacks as explained in his paper.
 
-\>\>A slight DC offset (0.000000000000000001) won't hurt
+   As for the speed, not sure which is the faster. Especially since the FPU speed is too manufacturer-dependant (read: it's crap in pentiums), and mine is using integer.
 
-As I wrote, it really does.. hurt the sequencer, that can't detect pure silence and optimize things accordingly. A host can detect near-silence, but it can't know which offset value YOU chose, so may use a lower threshold.
+   > A slight DC offset (0.000000000000000001) won't hurt
 
-**gol** · 2006-08-14 09:33:35
+   As I wrote, it really does.. hurt the sequencer, that can't detect pure silence and optimize things accordingly. A host can detect near-silence, but it can't know which offset value YOU chose, so may use a lower threshold.
 
-Btw, I happen to see I had already posted this code, probably years ago, doh!
+3. **gol** · *2006-08-14 09:33:35*
 
-Anyway this version gives more explanation.
+   Btw, I happen to see I had already posted this code, probably years ago, doh!
 
-And here's more:
-The LEA EBX,\[EAX\*2\] is to get rid of the sign bit.
-And the integer comparison of float values can be done providing both are the same sign (I'm not quite sure it works on denormals, but we don't care, since they're the ones we want to zero out, so our threshold won't be denormalized).
+   Anyway this version gives more explanation.
 
-**moc.liamg@sisehtnysorpitna** · 2010-03-10 13:29:06
+   And here's more:
+   The LEA EBX,\[EAX\*2\] is to get rid of the sign bit.
+   And the integer comparison of float values can be done providing both are the same sign (I'm not quite sure it works on denormals, but we don't care, since they're the ones we want to zero out, so our threshold won't be denormalized).
 
-You could also add input noise and assure output samples are reset to 0 if they're below a certain treshold, slightly higher than your noise volume. That ensures hosts can do proper tail detection and it's cheap.
+4. **moc.liamg@sisehtnysorpitna** · *2010-03-10 13:29:06*
+
+   You could also add input noise and assure output samples are reset to 0 if they're below a certain treshold, slightly higher than your noise volume. That ensures hosts can do proper tail detection and it's cheap.
+
+</details>

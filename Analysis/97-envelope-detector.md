@@ -1,6 +1,6 @@
 # Envelope detector
 
-[MusicDSP](../README.md) / [Analysis](README.md)
+[MusicDSP](../README.md) / [Analysis](README.md) · [1 comment](#comments)
 
 - **Author or source:** Bram
 - **Created:** 2002-04-12 21:37:18
@@ -41,29 +41,34 @@ for(...)
 
 ## Comments
 
-**moc.liamg@sisehtnysorpitna** · 2005-05-17 13:58:11
+<details>
+<summary>Read 1 archived comment</summary>
 
-```cpp
-// Slightly faster version of the envelope follower using one multiply form.
+1. **moc.liamg@sisehtnysorpitna** · *2005-05-17 13:58:11*
 
-// attTime and relTime is in seconds
+   ```cpp
+   // Slightly faster version of the envelope follower using one multiply form.
 
-float ga = exp(-1.0f/(sampleRate*attTime));
-float gr = exp(-1.0f/(sampleRate*relTime));
+   // attTime and relTime is in seconds
 
-float envOut = 0.0f;
+   float ga = exp(-1.0f/(sampleRate*attTime));
+   float gr = exp(-1.0f/(sampleRate*relTime));
 
-for( ... )
-{
-    // get your data into 'input'
+   float envOut = 0.0f;
 
-    envIn = fabs(input);
+   for( ... )
+   {
+       // get your data into 'input'
 
-    if( envOut < envIn )
-        envOut = envIn + ga * (envOut - envIn);
-    else
-        envOut = envIn + gr * (envOut - envIn);
+       envIn = fabs(input);
 
-    // envOut now contains the envelope
-}
-```
+       if( envOut < envIn )
+           envOut = envIn + ga * (envOut - envIn);
+       else
+           envOut = envIn + gr * (envOut - envIn);
+
+       // envOut now contains the envelope
+   }
+   ```
+
+</details>

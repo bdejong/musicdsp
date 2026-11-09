@@ -1,6 +1,6 @@
 # Float to integer conversion
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [1 comment](#comments)
 
 - **Author or source:** Peter Schoffhauzer
 - **Created:** 2007-02-19 10:03:07
@@ -133,15 +133,20 @@ inline long truncateSSE(float x) {
 
 ## Comments
 
-**moc.liamtoh@kcuncorj** · 2007-12-30 02:01:18
+<details>
+<summary>Read 1 archived comment</summary>
 
-I've seen a lot of talk about using the function lrintf() when converting from float to int, regarding bypassing some 'slow' opcodes in what standard compilers put in for something like:
+1. **moc.liamtoh@kcuncorj** · *2007-12-30 02:01:18*
 
-```text
-int myint = (int) myfloat;
+   I've seen a lot of talk about using the function lrintf() when converting from float to int, regarding bypassing some 'slow' opcodes in what standard compilers put in for something like:
 
-in otherwords the following code would be faster:
-int myint = lrintf(myfloat);
-```
+   ```text
+   int myint = (int) myfloat;
 
-this lrintf function is available on GNU C/C++
+   in otherwords the following code would be faster:
+   int myint = lrintf(myfloat);
+   ```
+
+   this lrintf function is available on GNU C/C++
+
+</details>

@@ -1,6 +1,6 @@
 # Band Limited PWM Generator
 
-[MusicDSP](../README.md) / [Effects](README.md)
+[MusicDSP](../README.md) / [Effects](README.md) · [2 comments](#comments)
 
 - **Author or source:** rf.liamtoh@57eninres\_luap
 - **Type:** PWM generator
@@ -111,18 +111,23 @@ int main()
 
 ## Comments
 
-**---** · 2006-05-23 09:31:44
+<details>
+<summary>Read 2 archived comments</summary>
 
-Did anyone try this?
+1. **---** · *2006-05-23 09:31:44*
 
-How is the antialiasing compared to applying phaserror between two oscs in zerocross, one aliasing
-the other not (but pitcherror).
+   Did anyone try this?
 
-Best Regards,
-Arif Ove Karlsen.
+   How is the antialiasing compared to applying phaserror between two oscs in zerocross, one aliasing
+   the other not (but pitcherror).
 
-**ude.notecnirp.inmula@esornep** · 2010-02-04 08:37:45
+   Best Regards,
+   Arif Ove Karlsen.
 
-The implementation certainly produces aliased waveforms -- they are glaring on a spectrogram
-at -60dB and faint at -30dB.  But it is a remarkably efficient algorithm. The aliasing can be
-mitigated somewhat by using a smaller feedback coefficient.
+2. **ude.notecnirp.inmula@esornep** · *2010-02-04 08:37:45*
+
+   The implementation certainly produces aliased waveforms -- they are glaring on a spectrogram
+   at -60dB and faint at -30dB.  But it is a remarkably efficient algorithm. The aliasing can be
+   mitigated somewhat by using a smaller feedback coefficient.
+
+</details>

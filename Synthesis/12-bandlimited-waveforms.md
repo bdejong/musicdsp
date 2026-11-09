@@ -1,6 +1,6 @@
 # Bandlimited waveforms...
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [3 comments](#comments)
 
 - **Author or source:** Paul Kellet
 - **Created:** 2002-01-17 00:56:04
@@ -64,22 +64,27 @@ float saw;         //output
 
 ## Comments
 
-**es.ollehc@evawenis** · 2004-09-23 00:07:02
+<details>
+<summary>Read 3 archived comments</summary>
 
-Hi,
-Has anyone managed to implement this in a VST?
-If anyone could mail me and talk me through it I'd be very grateful.  Yes, I'm a total newbie and yes, I'm after a quick-fix solution...we all have to start somewhere, eh?
+1. **es.ollehc@evawenis** · *2004-09-23 00:07:02*
 
-As it stands, where I should be getting a sawtooth I'm getting a full-on and inaudible signal...!
+   Hi,
+   Has anyone managed to implement this in a VST?
+   If anyone could mail me and talk me through it I'd be very grateful.  Yes, I'm a total newbie and yes, I'm after a quick-fix solution...we all have to start somewhere, eh?
 
-Even a small clue would be nice.
-Cheers,
-A
+   As it stands, where I should be getting a sawtooth I'm getting a full-on and inaudible signal...!
 
-**ku.oc.oohay@ekolbdiurd** · 2012-01-01 23:17:35
+   Even a small clue would be nice.
+   Cheers,
+   A
 
-this sounds quite nice, maybe going to use it an LV 2 plugin
+2. **ku.oc.oohay@ekolbdiurd** · *2012-01-01 23:17:35*
 
-**pvdmeer \[atorsomething\] gmail \[point\] com** · 2016-01-17 13:24:11
+   this sounds quite nice, maybe going to use it an LV 2 plugin
 
-this is really amazing, and easily hacked into a lut-based algo. i'll try windowing it too, but it already looks like aliasing is well within acceptable levels.
+3. **pvdmeer \[atorsomething\] gmail \[point\] com** · *2016-01-17 13:24:11*
+
+   this is really amazing, and easily hacked into a lut-based algo. i'll try windowing it too, but it already looks like aliasing is well within acceptable levels.
+
+</details>

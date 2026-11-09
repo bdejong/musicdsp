@@ -1,6 +1,6 @@
 # Cure for malicious samples
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [4 comments](#comments)
 
 - **Author or source:** moc.eh-u@sru
 - **Type:** Filters Denormals, NaNs, Infinities
@@ -56,27 +56,32 @@ void erase_All_NaNs_Infinities_And_Denormals( float* inSamples, int& inNumberOfS
 
 ## Comments
 
-**dont-email-me** · 2005-05-14 17:18:12
+<details>
+<summary>Read 4 archived comments</summary>
 
-```text
-#include <inttypes.h>
-and use std::uint32_t
-or typedef (not #define)
-```
+1. **dont-email-me** · *2005-05-14 17:18:12*
 
-int const \& inNumberOfSamples
+   ```text
+   #include <inttypes.h>
+   and use std::uint32_t
+   or typedef (not #define)
+   ```
 
-**DevilishHabib** · 2005-10-14 18:36:07
+   int const \& inNumberOfSamples
 
-Isn't it bad to declare variables within for loop?
-If someone has VC++ standard (no optimizer included, thanks Bill :-( ) , the cycles gained by removing denormals, will be eaten by declaring 4 variables per loop cycle, so watch out !
+2. **DevilishHabib** · *2005-10-14 18:36:07*
 
-**if.iki@xemxet** · 2007-05-11 05:51:36
+   Isn't it bad to declare variables within for loop?
+   If someone has VC++ standard (no optimizer included, thanks Bill :-( ) , the cycles gained by removing denormals, will be eaten by declaring 4 variables per loop cycle, so watch out !
 
-DevilishHabib, that's rubbish. It doesn't matter where the declaration is as long as the code works. Declaring outside the loop is the same thing (you can verify this).
+3. **if.iki@xemxet** · *2007-05-11 05:51:36*
 
-Urs, nice code but you don't get rid of branches just like that. Comparision is comparision no matter what. Your code is equal to "int aNaN = exponent \< 0x7F800000 ? 1 : 0;" which is equal to "int aNan = 0; if (exponent \< 0x7F800000) aNan = 1;" If we are talking about x86 asm here, there is no instruction that would do the conditional assignment needed. MMX/SSE has it, though.
+   DevilishHabib, that's rubbish. It doesn't matter where the declaration is as long as the code works. Declaring outside the loop is the same thing (you can verify this).
 
-**none** · 2014-10-18 18:36:44
+   Urs, nice code but you don't get rid of branches just like that. Comparision is comparision no matter what. Your code is equal to "int aNaN = exponent \< 0x7F800000 ? 1 : 0;" which is equal to "int aNan = 0; if (exponent \< 0x7F800000) aNan = 1;" If we are talking about x86 asm here, there is no instruction that would do the conditional assignment needed. MMX/SSE has it, though.
 
-texmex, nope, the result of \< or \> does not create any branches on x86.
+4. **none** · *2014-10-18 18:36:44*
+
+   texmex, nope, the result of \< or \> does not create any branches on x86.
+
+</details>

@@ -1,6 +1,6 @@
 # Constant-time exponent of 2 detector
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [1 comment](#comments)
 
 - **Author or source:** Brent Lehman (moc.oohay@ljbliam)
 - **Created:** 2002-02-10 12:53:15
@@ -25,16 +25,21 @@ if (((~size + 1) ^ size) & size) return;
 
 ## Comments
 
-**moc.oohay@xrotcnuf** · 2002-02-12 03:20:11
+<details>
+<summary>Read 1 archived comment</summary>
 
-I think I prefer:
+1. **moc.oohay@xrotcnuf** · *2002-02-12 03:20:11*
 
-```text
-if (! (size & (size - 1))) return;
-```
+   I think I prefer:
 
-I'm not positive this is fewer instructions than the above, but I think it's easier to see why it works (n and n-1 will share bits unless n is a power of two), and it doesn't require two's-complement.
+   ```text
+   if (! (size & (size - 1))) return;
+   ```
 
-```text
- - Tom 7
-```
+   I'm not positive this is fewer instructions than the above, but I think it's easier to see why it works (n and n-1 will share bits unless n is a power of two), and it doesn't require two's-complement.
+
+   ```text
+    - Tom 7
+   ```
+
+</details>

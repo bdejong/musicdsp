@@ -1,6 +1,6 @@
 # Moog VCF, variation 2
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [11 comments](#comments)
 
 - **Author or source:** CSound source code, Stilson/Smith CCRMA paper., Timo Tossavainen (?) version
 - **Type:** 24db resonant lowpass
@@ -38,105 +38,110 @@ Tdouble MoogVCF::run(double input, double fc, double res)
 
 ## Comments
 
-**rf.oohay@elahwyksa** · 2003-03-29 21:50:47
+<details>
+<summary>Read 11 archived comments</summary>
 
-This one works pretty well, thanks !
+1. **rf.oohay@elahwyksa** · *2003-03-29 21:50:47*
 
-**moc.liamtoh@serpudr** · 2003-11-08 06:14:19
+   This one works pretty well, thanks !
 
-could somebody explain, what means this
+2. **moc.liamtoh@serpudr** · *2003-11-08 06:14:19*
 
-```text
-input -= out4 * fb;
-input *= 0.35013 * (f*f)*(f*f);
-```
+   could somebody explain, what means this
 
-is "input-" and "input \*"  the name of an variable ??
-or is this an Csound specific parameter ??
-I want to translate this piece to Assemblercode
-Robert Dupres
+   ```text
+   input -= out4 * fb;
+   input *= 0.35013 * (f*f)*(f*f);
+   ```
 
-**ten.bjc.fieltednabpop@cnahoj** · 2003-11-11 11:05:42
+   is "input-" and "input \*"  the name of an variable ??
+   or is this an Csound specific parameter ??
+   I want to translate this piece to Assemblercode
+   Robert Dupres
 
-input is name of a variable with type double.
+3. **ten.bjc.fieltednabpop@cnahoj** · *2003-11-11 11:05:42*
 
-```text
-input -= out4 * fb;
-```
+   input is name of a variable with type double.
 
-is just a shorter way for writing:
+   ```text
+   input -= out4 * fb;
+   ```
 
-```text
-input = input - out4 * fb;
-```
+   is just a shorter way for writing:
 
-and the \*= operator is works similar:
+   ```text
+   input = input - out4 * fb;
+   ```
 
-```text
-input *= 0.35013 * (f*f)*(f*f);
-```
+   and the \*= operator is works similar:
 
-is equal to
+   ```text
+   input *= 0.35013 * (f*f)*(f*f);
+   ```
 
-```text
-input = input * 0.35013 * (f*f)*(f*f);
-```
+   is equal to
 
-/ Johan
+   ```text
+   input = input * 0.35013 * (f*f)*(f*f);
+   ```
 
-**ude.drofnats.amrcc@lfd** · 2004-07-12 22:11:20
+   / Johan
 
-I've found this filter is unstable at low frequencies, namely when changing quickly from high to low frequencies...
+4. **ude.drofnats.amrcc@lfd** · *2004-07-12 22:11:20*
 
-**moc.kisuw@kmailliw** · 2004-07-17 13:39:23
+   I've found this filter is unstable at low frequencies, namely when changing quickly from high to low frequencies...
 
-I'm trying to double-sample this filter, like the Variable-State one. But so far no success, any tips?
+5. **moc.kisuw@kmailliw** · *2004-07-17 13:39:23*
 
-Wk
+   I'm trying to double-sample this filter, like the Variable-State one. But so far no success, any tips?
 
-**ten.enegatum@liam** · 2004-08-25 08:51:08
+   Wk
 
-What do you mean no success?  What happens?  Have you tried doing the usual oversampling tricks (sinc/hermite/mix-with-zeros-and-filter), call the moogVCF twice (with fc = fc\*0.5) and then filter and decimate afterwards?
+6. **ten.enegatum@liam** · *2004-08-25 08:51:08*
 
-I'm been trying to find a good waveshaper to put in the feedback path but haven't found a good sounding stable one yet.  I had one version of the filter that tracked the envelope of out4 and used it to control the degree to which values below some threshold (say 0.08) would get squashed towards zero.  That sounded ok (actually quite good for very high inputs), but wasn't entirely stable and was glitching for low frequencies.  Then I tried a \*out4 = (1+d)\* (\*out4)/(1 + d\* (\*out4)) waveshaper, but that just aliased horribly and made the filter sound mushy and noisy.
+   What do you mean no success?  What happens?  Have you tried doing the usual oversampling tricks (sinc/hermite/mix-with-zeros-and-filter), call the moogVCF twice (with fc = fc\*0.5) and then filter and decimate afterwards?
 
-Plain old polynomial (x = x-x\*x\*x) saturation sounds dull.  There must be something better out there, though...  and I'd much prefer not to have to oversample to get it, though I guess that might be unavoidable.
+   I'm been trying to find a good waveshaper to put in the feedback path but haven't found a good sounding stable one yet.  I had one version of the filter that tracked the envelope of out4 and used it to control the degree to which values below some threshold (say 0.08) would get squashed towards zero.  That sounded ok (actually quite good for very high inputs), but wasn't entirely stable and was glitching for low frequencies.  Then I tried a \*out4 = (1+d)\* (\*out4)/(1 + d\* (\*out4)) waveshaper, but that just aliased horribly and made the filter sound mushy and noisy.
 
-**moc.liamg@fIezees** · 2006-01-30 15:52:54
+   Plain old polynomial (x = x-x\*x\*x) saturation sounds dull.  There must be something better out there, though...  and I'd much prefer not to have to oversample to get it, though I guess that might be unavoidable.
 
-Excuse me but just a basic question from a young
-developper
-in line  " input -= out4 \* fb;  "
-i don't understand when and how "out4" is initialised
-is it the "out4" return by the previous execution?
-which initialisation for the first execution?
+7. **moc.liamg@fIezees** · *2006-01-30 15:52:54*
 
-**musicdsp@\[remove this\]dsparsons.co.uk** · 2006-01-31 17:15:24
+   Excuse me but just a basic question from a young
+   developper
+   in line  " input -= out4 \* fb;  "
+   i don't understand when and how "out4" is initialised
+   is it the "out4" return by the previous execution?
+   which initialisation for the first execution?
 
-all the outs should be initialised to zero, so first time around, nothing is subtracted. However, thereafter, the previous output is multiplied and subtracted from the input.
+8. **musicdsp@\[remove this\]dsparsons.co.uk** · *2006-01-31 17:15:24*
 
-HTH
+   all the outs should be initialised to zero, so first time around, nothing is subtracted. However, thereafter, the previous output is multiplied and subtracted from the input.
 
-**moc.liamg@gulcidrab** · 2009-11-10 16:02:55
+   HTH
 
-YAND (Yet Another Newbie Developer) here -
+9. **moc.liamg@gulcidrab** · *2009-11-10 16:02:55*
 
-This filter sounds good, and with the addition of a 2nd harmonic waveshaper in the feedback loop, it sounds VERY good.
+   YAND (Yet Another Newbie Developer) here -
 
-I was hoping I could make it into a HP filter through the normal return in-out4 - but that strategy doesn't work for this method.  I'm afraid I'm at a loss as to what to try next - anyone have a suggestion?
+   This filter sounds good, and with the addition of a 2nd harmonic waveshaper in the feedback loop, it sounds VERY good.
 
---Coz
+   I was hoping I could make it into a HP filter through the normal return in-out4 - but that strategy doesn't work for this method.  I'm afraid I'm at a loss as to what to try next - anyone have a suggestion?
 
-**http://www.myspace.com/paradoxuncreated** · 2010-01-08 19:32:16
+   --Coz
 
-You have to subract each filter, from the input in the cascade.
+10. **http://www.myspace.com/paradoxuncreated** · *2010-01-08 19:32:16*
 
-Check also the Karlsen filters, which I made a few years ago, when going through this stage in DSP.
+    You have to subract each filter, from the input in the cascade.
 
-**moc.llun@ved** · 2012-03-02 12:05:25
+    Check also the Karlsen filters, which I made a few years ago, when going through this stage in DSP.
 
-The best sounding LP i've found here. Any suggestions how to extract HP/BP?
+11. **moc.llun@ved** · *2012-03-02 12:05:25*
 
-in - out4 doesn't work, as stated above, but "You have to subtract each filter, fron the input in the cascade", what does this mean?
+    The best sounding LP i've found here. Any suggestions how to extract HP/BP?
 
-in - out4 - out3 - out2 - out1 doesn't work either
+    in - out4 doesn't work, as stated above, but "You have to subtract each filter, fron the input in the cascade", what does this mean?
+
+    in - out4 - out3 - out2 - out1 doesn't work either
+
+</details>

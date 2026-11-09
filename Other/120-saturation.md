@@ -1,6 +1,6 @@
 # Saturation
 
-[MusicDSP](../README.md) / [Other](README.md)
+[MusicDSP](../README.md) / [Other](README.md) · [3 comments](#comments)
 
 - **Author or source:** Bram
 - **Type:** Waveshaper
@@ -54,60 +54,65 @@ float saturate(float x, float t)
 
 ## Comments
 
-**moc.oohay@yrret** · 2002-10-15 17:22:22
+<details>
+<summary>Read 3 archived comments</summary>
 
-```text
-             But My question is
-BUT HAVE YOU TRIED YOUR CODE!!!!!!!!!!!!!!!!????
-I think no, 'cos give a compiling error.
-the right (for sintax) version is this:
+1. **moc.oohay@yrret** · *2002-10-15 17:22:22*
 
-float sigmoid(float x)
-{
-    if(fabs(x)<1)
-        return x*(1.5f - 0.5f*x*x);
-    else
-        return x > 0.f ? 1.f : -1.f;
-}
+   ```text
+                But My question is
+   BUT HAVE YOU TRIED YOUR CODE!!!!!!!!!!!!!!!!????
+   I think no, 'cos give a compiling error.
+   the right (for sintax) version is this:
 
-float saturate(float x, float t)
-{
-    if(abs(x)<t)
-        return x;
-    else
-    {
-        if(x > 0.f)
-            return t + (1.f-t)*sigmoid((x-t)/((1-t)*1.5f));
-        else
-            return -(t + (1.f-t)*sigmoid((-x-t)/((1-t)*1.5f)));
-    }
-}
-```
+   float sigmoid(float x)
+   {
+       if(fabs(x)<1)
+           return x*(1.5f - 0.5f*x*x);
+       else
+           return x > 0.f ? 1.f : -1.f;
+   }
 
-**moc.liamtoh@tnuhhcaebmi** · 2003-11-18 10:16:14
+   float saturate(float x, float t)
+   {
+       if(abs(x)<t)
+           return x;
+       else
+       {
+           if(x > 0.f)
+               return t + (1.f-t)*sigmoid((x-t)/((1-t)*1.5f));
+           else
+               return -(t + (1.f-t)*sigmoid((-x-t)/((1-t)*1.5f)));
+       }
+   }
+   ```
 
-except for the missing parenthesis of course =)
-the first line of saturate should be either
+2. **moc.liamtoh@tnuhhcaebmi** · *2003-11-18 10:16:14*
 
-```text
-if(fabs(x)) return x;
-```
+   except for the missing parenthesis of course =)
+   the first line of saturate should be either
 
-or
+   ```text
+   if(fabs(x)) return x;
+   ```
 
-```text
-if(abs(x)) return x;
-```
+   or
 
-depending on whether you're looking at the first or second saturate function (in the orig post)
+   ```text
+   if(abs(x)) return x;
+   ```
 
-**DKDiveDude** · 2021-01-01 11:50:14
+   depending on whether you're looking at the first or second saturate function (in the orig post)
 
-The first function seems to be only a unnecessary complicated brick limit function. See below how I implemented the first function's code. Left is a sample between -1 and 1, positiveThreshold and negativeThreshold should be self explanatory.
+3. **DKDiveDude** · *2021-01-01 11:50:14*
 
-```cpp
-if (left > positiveThreshold)
-	left = positiveThreshold + (1 - positiveThreshold) * tanh ((left - positiveThreshold) / (1 - positiveThreshold));
-else if (left < negativeThreshold)
-	left = -(positiveThreshold + (1 - positiveThreshold) * tanh ((-left - positiveThreshold) / (1 - positiveThreshold)));
-```
+   The first function seems to be only a unnecessary complicated brick limit function. See below how I implemented the first function's code. Left is a sample between -1 and 1, positiveThreshold and negativeThreshold should be self explanatory.
+
+   ```cpp
+   if (left > positiveThreshold)
+   	left = positiveThreshold + (1 - positiveThreshold) * tanh ((left - positiveThreshold) / (1 - positiveThreshold));
+   else if (left < negativeThreshold)
+   	left = -(positiveThreshold + (1 - positiveThreshold) * tanh ((-left - positiveThreshold) / (1 - positiveThreshold)));
+   ```
+
+</details>

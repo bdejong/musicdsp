@@ -1,6 +1,6 @@
 # 3 Band Equaliser
 
-[MusicDSP](../README.md) / [Filters](README.md)
+[MusicDSP](../README.md) / [Filters](README.md) · [25 comments](#comments)
 
 - **Author or source:** Neil C
 - **Created:** 2006-08-29 20:34:25
@@ -260,336 +260,341 @@ double do_3band(EQSTATE* es, double sample)
 
 ## Comments
 
-**moc.mot@lx\_iruy** · 2007-03-28 03:33:04
+<details>
+<summary>Read 25 archived comments</summary>
 
-```text
-Great Thanks!
-I have one problem the below:
-  double  f2p0;     // Poles ...
-  double  f2p1;
-  double  f2p2;
-  double  f2p3;
-that I want to know the starting value
-about f2p0,f2p1,...!
-```
+1. **moc.mot@lx\_iruy** · *2007-03-28 03:33:04*
 
-**moc.oohay@knuf\_red\_retavttog\_nuarb\_semaj** · 2007-04-14 12:02:27
+   Great Thanks!
+   I have one problem the below:
 
-yuri:
+   ```cpp
+     double  f2p0;     // Poles ...
+     double  f2p1;
+     double  f2p2;
+     double  f2p3;
+   ```
 
-The invocation of memset() during the initialization method sets all the the members of the struct to zero.
+   that I want to know the starting value
+   about `f2p0`, `f2p1`,...!
 
-**moc.liamtoh@cnamlleh** · 2007-05-22 19:05:47
+2. **moc.oohay@knuf\_red\_retavttog\_nuarb\_semaj** · *2007-04-14 12:02:27*
 
-This is great -- I want to develop a compressor/limiter/expander and have been looking long and hard for bandpass / eq filtering code.  Here it is!
+   yuri:
 
-I am sure we could easily expand this into an x band eq.
+   The invocation of memset() during the initialization method sets all the the members of the struct to zero.
 
-Thanks!
+3. **moc.liamtoh@cnamlleh** · *2007-05-22 19:05:47*
 
-**tom tom** · 2007-07-05 06:49:45
+   This is great -- I want to develop a compressor/limiter/expander and have been looking long and hard for bandpass / eq filtering code.  Here it is!
 
-Hi !
+   I am sure we could easily expand this into an x band eq.
 
-I've just transposed your code under Delphi.
+   Thanks!
 
-```text
-It works well if the gain is under 1, but if i put gain > 1 i get clipping (annoying sound clips), even at 1.1;
-```
+4. **tom tom** · *2007-07-05 06:49:45*
 
-Is it normal ?
+   Hi !
 
-I convert my smallint (44100 16 bits) to double before process, and convert the obtained value back to smallint with clipping (if \< -32768 i set it to -32768, and if \> 32768 i set it to 32768).
+   I've just transposed your code under Delphi.
 
-What did i do wrong ?
+   It works well if the gain is under 1, but if i put gain > 1 i get clipping (annoying sound clips), even at 1.1;
 
-Regards
+   Is it normal ?
 
-Tom
+   I convert my smallint (44100 16 bits) to double before process, and convert the obtained value back to smallint with clipping (if \< -32768 i set it to -32768, and if \> 32768 i set it to 32768).
 
-**ed.xmg@7trebreh** · 2007-07-21 14:24:53
+   What did i do wrong ?
 
-Hi.
+   Regards
 
-Maybe the answer is quite easy. The upper limit is 32767 not 32768.
+   Tom
 
-Regards
+5. **ed.xmg@7trebreh** · *2007-07-21 14:24:53*
 
-Herbert
+   Hi.
 
-**moc.oohay@3617100aggna** · 2007-08-23 02:39:23
+   Maybe the answer is quite easy. The upper limit is 32767 not 32768.
 
-Hi, Can U send me a full source code for this 3 band state eq from start to end ??
-Please !!!!
-I really need it for my study in school.
-I hope you can send me, to my email.
+   Regards
 
-thanks you.
-regard
+   Herbert
 
-angga
+6. **moc.oohay@3617100aggna** · *2007-08-23 02:39:23*
 
-**moc.liamg@2156niahv** · 2009-05-05 16:37:21
+   Hi, Can U send me a full source code for this 3 band state eq from start to end ??
+   Please !!!!
+   I really need it for my study in school.
+   I hope you can send me, to my email.
 
-How can I expand this 3 Band EQ into X Band EQ..?!
+   thanks you.
+   regard
 
-Anybody answer me, or email me..
+   angga
 
-**moc.boohay@bob** · 2009-05-22 13:27:00
+7. **moc.liamg@2156niahv** · *2009-05-05 16:37:21*
 
-For more bands, you could take the low-pass and repeat the process on that.
+   How can I expand this 3 Band EQ into X Band EQ..?!
 
-**moc.yabtsalb@pilihp** · 2009-05-23 18:46:04
+   Anybody answer me, or email me..
 
-This is a great little filter, I am using it in an application but when I first started playing with it I noticed some problems. The mid range didn't seem to be calculated properly, a friend of mine who knows more about dsp than I do took a quick look at it and suggested the following change:
+8. **moc.boohay@bob** · *2009-05-22 13:27:00*
 
-```text
-  m          = es->sdm3 - (h + l);
-```
+   For more bands, you could take the low-pass and repeat the process on that.
 
-Should be:
+9. **moc.yabtsalb@pilihp** · *2009-05-23 18:46:04*
 
-```text
-  m          = sample - (h + l);
-```
+   This is a great little filter, I am using it in an application but when I first started playing with it I noticed some problems. The mid range didn't seem to be calculated properly, a friend of mine who knows more about dsp than I do took a quick look at it and suggested the following change:
 
-I've tested it with this small fix and everything works perfectly now. Just thought I'd bring this to your attention... Thanks for a great code snippet!
+   ```text
+     m          = es->sdm3 - (h + l);
+   ```
 
-**moc.boohay@bob** · 2009-05-24 15:27:11
+   Should be:
 
-What problems were you getting? Doesn't removing the delay cause phase problems?
+   ```text
+     m          = sample - (h + l);
+   ```
 
-**moc.limagy@ec.rahceb** · 2009-06-25 10:34:44
+   I've tested it with this small fix and everything works perfectly now. Just thought I'd bring this to your attention... Thanks for a great code snippet!
 
-Hi Great Stuff,
+10. **moc.boohay@bob** · *2009-05-24 15:27:11*
 
-how to create 6 band equalizer, is any algorithm for 6 band same like 3 band, please help me if any one
+    What problems were you getting? Doesn't removing the delay cause phase problems?
 
-thanks in advance
+11. **moc.limagy@ec.rahceb** · *2009-06-25 10:34:44*
 
-**moc.liamg@anesejiw** · 2010-05-06 20:21:20
+    Hi Great Stuff,
 
-How to extend this to 6 band equalizer?
+    how to create 6 band equalizer, is any algorithm for 6 band same like 3 band, please help me if any one
 
-**moc.liamtoh@aanaibas\_nairam** · 2010-05-27 21:45:44
+    thanks in advance
 
-hello! thanks for your code!!
-i tried to use the code in my project of guitar distortions in real time (in C) and i could'nt, i'm in linux using jack audio server, and it starts to have x-runs everytime i turn on the equalizer. do you any idea of how solving this? (from 5 to 50 milliseconds o x-runs)
-i was thinking of coding it in assembler but i don't know if that would be the solution.
-excuse me for my english, i'm from argentina and it's been a while since i last wrote in this language!
-thanks in advance, hoping to see any answer!
-mariano
+12. **moc.liamg@anesejiw** · *2010-05-06 20:21:20*
 
-**moc.oohay@56\_drow** · 2010-11-03 14:19:25
+    How to extend this to 6 band equalizer?
 
-Dev c++ can not run it? any suggesstions, how to run it?
+13. **moc.liamtoh@aanaibas\_nairam** · *2010-05-27 21:45:44*
 
-**moc.liamg@kniniurb.tnecniv** · 2011-02-23 13:24:53
+    hello! thanks for your code!!
+    i tried to use the code in my project of guitar distortions in real time (in C) and i could'nt, i'm in linux using jack audio server, and it starts to have x-runs everytime i turn on the equalizer. do you any idea of how solving this? (from 5 to 50 milliseconds o x-runs)
+    i was thinking of coding it in assembler but i don't know if that would be the solution.
+    excuse me for my english, i'm from argentina and it's been a while since i last wrote in this language!
+    thanks in advance, hoping to see any answer!
+    mariano
 
-This example is exactly what i've been looking for. This little piece of code executes faster then the one I have been using before.
+14. **moc.oohay@56\_drow** · *2010-11-03 14:19:25*
 
-FYI,
+    Dev c++ can not run it? any suggesstions, how to run it?
 
-I will use the code in a 3 band compressor / limiter / clipper for FM broadcasting.
+15. **moc.liamg@kniniurb.tnecniv** · *2011-02-23 13:24:53*
 
-Thanks for sharing.
+    This example is exactly what i've been looking for. This little piece of code executes faster then the one I have been using before.
 
-Best regards,
+    FYI,
 
-Vincent Bruinink.
+    I will use the code in a 3 band compressor / limiter / clipper for FM broadcasting.
 
-**moc.liamg@liamtsil.mtp** · 2011-03-21 18:03:15
+    Thanks for sharing.
 
-I've got this filtering audio on iOS by running my sample through do\_3band in the render callback. However, I'm getting a fair amount of distortion. Here's an example with my EQ3Band gains all set to 1.0:
+    Best regards,
 
-<http://www.youtube.com/watch?v=W_6JaNUvUjA>
+    Vincent Bruinink.
 
-Here's the code for my implementation:
+16. **moc.liamg@liamtsil.mtp** · *2011-03-21 18:03:15*
 
-<https://github.com/tassock/mixerhost/commit/4b8b87028bfffe352ed67609f747858059a3e89b>
+    I've got this filtering audio on iOS by running my sample through do\_3band in the render callback. However, I'm getting a fair amount of distortion. Here's an example with my EQ3Band gains all set to 1.0:
 
-I assume others using this aren't having this same distortion issue? If so, what sort of audio sample formats are you using (big/little endian, float/integer samples, etc). Thanks!
+    <http://www.youtube.com/watch?v=W_6JaNUvUjA>
 
-**moc.liamg@enohpi.senarab** · 2011-04-30 20:17:58
+    Here's the code for my implementation:
 
-hi,
-I got also distorsion even though my all my gains are set to 1. Please help
+    <https://github.com/tassock/mixerhost/commit/4b8b87028bfffe352ed67609f747858059a3e89b>
 
-Lucie
+    I assume others using this aren't having this same distortion issue? If so, what sort of audio sample formats are you using (big/little endian, float/integer samples, etc). Thanks!
 
-**moc.liamg@solbaidcod** · 2012-06-05 07:19:56
+17. **moc.liamg@enohpi.senarab** · *2011-04-30 20:17:58*
 
-```text
-      I've made an implementation of 3 band Equalizer to read a wave file,apply filtering and then save wave  outputfile.
-With your code I have a lot of distortion,I think the problem maybe coefficient calculation:
+    hi,
+    I got also distorsion even though my all my gains are set to 1. Please help
 
-es->f1p0  += (es->lf * (sample   - es->f1p0))+vsa ;
-  ...
-```
+    Lucie
 
-Can anyone resolve distortion?
+18. **moc.liamg@solbaidcod** · *2012-06-05 07:19:56*
 
-**es.dnargvelk@nahoj** · 2013-01-11 16:43:12
+    ```text
+          I've made an implementation of 3 band Equalizer to read a wave file,apply filtering and then save wave  outputfile.
+    With your code I have a lot of distortion,I think the problem maybe coefficient calculation:
 
-Works fine for me on iOS. Maybe you feed a interleaved stereo signal with the same EQSTATE instance (you'll need one EQSTATE for each channel)?
+    es->f1p0  += (es->lf * (sample   - es->f1p0))+vsa ;
+      ...
+    ```
 
-**ta.erehthgir@liameon** · 2013-04-07 17:50:46
+    Can anyone resolve distortion?
 
-It's all about WHERE you init you EQ.  Try a little :) If you don't find out yourself, I'll help you.
+19. **es.dnargvelk@nahoj** · *2013-01-11 16:43:12*
 
-**moc.laimtoh@inaam\_riamu** · 2013-06-18 14:00:45
+    Works fine for me on iOS. Maybe you feed a interleaved stereo signal with the same EQSTATE instance (you'll need one EQSTATE for each channel)?
 
-I added this code to my xcode project. But where i can pass the values and method. May be its funny question for you guyz but please help me. Its loking good to me but in xcode , i am using avaudio player for play sound and making sound app.
-Thanks
+20. **ta.erehthgir@liameon** · *2013-04-07 17:50:46*
 
-**moc.liamg@iaznabi** · 2013-07-01 23:07:05
+    It's all about WHERE you init you EQ.  Try a little :) If you don't find out yourself, I'll help you.
 
-The distortion will occur of you are trying to adapt this to stereo and do so by simply adding an outer loop per channel. Doing so will cause the filter values to compound and cause distortion. Instead, you will need to duplicate all the filter values and keep them separate from the other channel.
+21. **moc.laimtoh@inaam\_riamu** · *2013-06-18 14:00:45*
 
-**moc.liamg@nurb.luap** · 2013-08-21 14:09:08
+    I added this code to my xcode project. But where i can pass the values and method. May be its funny question for you guyz but please help me. Its loking good to me but in xcode , i am using avaudio player for play sound and making sound app.
+    Thanks
 
-Any good x-band equalizer equivalents for C# that I can use?
+22. **moc.liamg@iaznabi** · *2013-07-01 23:07:05*
 
-**ed.xmg@retsneum.ellak** · 2014-08-05 22:57:07
+    The distortion will occur of you are trying to adapt this to stereo and do so by simply adding an outer loop per channel. Doing so will cause the filter values to compound and cause distortion. Instead, you will need to duplicate all the filter values and keep them separate from the other channel.
 
-s'cool thanks!
-have portet to c#
-works fine!
+23. **moc.liamg@nurb.luap** · *2013-08-21 14:09:08*
 
-**az.oc.sseccadipar@sook** · 2015-09-28 07:53:37
+    Any good x-band equalizer equivalents for C# that I can use?
 
-Converted Neil's C Code 3 band equalizer to Delphi class, for those who are interested.
+24. **ed.xmg@retsneum.ellak** · *2014-08-05 22:57:07*
 
-```text
-1. Create instance of class
-   Public
-     eq:TEQ;
-```
+    s'cool thanks!
+    have portet to c#
+    works fine!
 
-2\. On form create
+25. **az.oc.sseccadipar@sook** · *2015-09-28 07:53:37*
 
-```text
-    eq := TEq.Create;
+    Converted Neil's C Code 3 band equalizer to Delphi class, for those who are interested.
 
-    //Initialize
-    init_3band_state(880,5000,44100,50,-25,0);
+    1\. Create instance of class
 
-    //init_3band_state(lowfreq,highfreq,mixfreq:integer;BassGain,MidGain,HighGain:Double);
-```
+    ```pascal
+       Public
+         eq:TEQ;
+    ```
 
-3\. process: pass Raw 16Bit PCM to eq
+    2\. On form create
 
-```text
-eq.Equalize(const Data: Pointer; DataSize: DWORD);
-```
+    ```pascal
+        eq := TEq.Create;
 
-Works like a charm form me
+        //Initialize
+        init_3band_state(880,5000,44100,50,-25,0);
 
-```text
-***********************************************
-  TEq=Class
-  private
-    lf,f1p0,f1p1,f1p2,f1p3:double;
-    hf,f2p0,f2p1,f2p2,f2p3:double;
-    sdm1,sdm2,sdm3:double;
-    vsa:double;
-    lg,mg,hg:double;
-    Function do_3band(sample:Smallint):Smallint;
-  public
-    constructor create;
-    destructor destroy;override;
-    procedure init_3band_state(lowfreq,highfreq,mixfreq:integer;BassGain,MidGain,HighGain:Double);
-    procedure Equalize(const Data: Pointer; DataSize: DWORD);
-  end;
+        //init_3band_state(lowfreq,highfreq,mixfreq:integer;BassGain,MidGain,HighGain:Double);
+    ```
 
-constructor TEQ.create;
-begin
-  inherited create;
-  vsa := (1.0 / 4294967295.0);
-  lg := 1.0;
-  mg := 1.0;
-  hg := 1.0;
+    3\. process: pass Raw 16Bit PCM to eq
 
-end;
+    ```pascal
+    eq.Equalize(const Data: Pointer; DataSize: DWORD);
+    ```
 
-destructor TEQ.destroy;
-begin
-  inherited destroy;
-end;
+    Works like a charm form me
 
-procedure TEQ.init_3band_state(lowfreq,highfreq,mixfreq:integer;BassGain,MidGain,HighGain:Double);
-begin
+    ```pascal
+      TEq=Class
+      private
+        lf,f1p0,f1p1,f1p2,f1p3:double;
+        hf,f2p0,f2p1,f2p2,f2p3:double;
+        sdm1,sdm2,sdm3:double;
+        vsa:double;
+        lg,mg,hg:double;
+        Function do_3band(sample:Smallint):Smallint;
+      public
+        constructor create;
+        destructor destroy;override;
+        procedure init_3band_state(lowfreq,highfreq,mixfreq:integer;BassGain,MidGain,HighGain:Double);
+        procedure Equalize(const Data: Pointer; DataSize: DWORD);
+      end;
 
- {(880,5000,44100,1.5,0.75,1.0)
- eq.lg = 1.5; // Boost bass by 50%
- eq.mg = 0.75; // Cut mid by 25%
- eq.hg = 1.0; // Leave high band alone }
+    constructor TEQ.create;
+    begin
+      inherited create;
+      vsa := (1.0 / 4294967295.0);
+      lg := 1.0;
+      mg := 1.0;
+      hg := 1.0;
 
- lg := 1+(BassGain/100);
- mg := 1+(MidGain/100);
- hg := 1+(HighGain/100);
+    end;
 
-// Calculate filter cutoff frequencies
+    destructor TEQ.destroy;
+    begin
+      inherited destroy;
+    end;
 
- lf := 2 * sin(PI * (lowfreq / mixfreq));
- hf := 2 * sin(PI * (highfreq / mixfreq));
-end;
+    procedure TEQ.init_3band_state(lowfreq,highfreq,mixfreq:integer;BassGain,MidGain,HighGain:Double);
+    begin
 
-Function TEQ.do_3band(sample:Smallint):Smallint;
-var l,m,h:double;
-    res:integer;
-begin
+     {(880,5000,44100,1.5,0.75,1.0)
+     eq.lg = 1.5; // Boost bass by 50%
+     eq.mg = 0.75; // Cut mid by 25%
+     eq.hg = 1.0; // Leave high band alone }
 
-// Filter #1 (lowpass)
+     lg := 1+(BassGain/100);
+     mg := 1+(MidGain/100);
+     hg := 1+(HighGain/100);
 
-  f1p0 := f1p0 + (lf * (sample - f1p0)) + vsa;
-  f1p1 := f1p1 + (lf * (f1p0 - f1p1));
-  f1p2 := f1p2 + (lf * (f1p1 - f1p2));
-  f1p3 := f1p3 + (lf * (f1p2 - f1p3));
+    // Calculate filter cutoff frequencies
 
-  l := f1p3;
+     lf := 2 * sin(PI * (lowfreq / mixfreq));
+     hf := 2 * sin(PI * (highfreq / mixfreq));
+    end;
 
-// Filter #2 (highpass)
+    Function TEQ.do_3band(sample:Smallint):Smallint;
+    var l,m,h:double;
+        res:integer;
+    begin
 
-  f2p0 := f2p0 + (hf * (sample - f2p0)) + vsa;
-  f2p1 := f2p1 + (hf * (f2p0 - f2p1));
-  f2p2 := f2p2 + (hf * (f2p1 - f2p2));
-  f2p3 := f2p3 + (hf * (f2p2 - f2p3));
+    // Filter #1 (lowpass)
 
-  h := sdm3 - f2p3;
+      f1p0 := f1p0 + (lf * (sample - f1p0)) + vsa;
+      f1p1 := f1p1 + (lf * (f1p0 - f1p1));
+      f1p2 := f1p2 + (lf * (f1p1 - f1p2));
+      f1p3 := f1p3 + (lf * (f1p2 - f1p3));
 
-// Calculate midrange (signal - (low + high))
+      l := f1p3;
 
-  m := sdm3 - (h + l);
+    // Filter #2 (highpass)
 
-// Scale, Combine and store
+      f2p0 := f2p0 + (hf * (sample - f2p0)) + vsa;
+      f2p1 := f2p1 + (hf * (f2p0 - f2p1));
+      f2p2 := f2p2 + (hf * (f2p1 - f2p2));
+      f2p3 := f2p3 + (hf * (f2p2 - f2p3));
 
-  l := l * lg;
-  m := m * mg;
-  h := h * hg;
+      h := sdm3 - f2p3;
 
-// Shuffle history buffer
+    // Calculate midrange (signal - (low + high))
 
-  sdm3 := sdm2;
-  sdm2 := sdm1;
-  sdm1 := sample;
+      m := sdm3 - (h + l);
 
-// Return result
-  res := trunc(l+m+h);
-  if res > 32767 then res := 32767 else if res < -32768 then res := -32768;
+    // Scale, Combine and store
 
-  result := res;
-end;
+      l := l * lg;
+      m := m * mg;
+      h := h * hg;
 
-procedure TEQ.Equalize(const Data: Pointer; DataSize: DWORD);
-var pSample: PSmallInt;
-begin
-  pSample := Data;
-  while DataSize > 0 do
-  begin
-    pSample^ := do_3band(pSample^);
-    Inc(pSample);
-    Dec(DataSize, 2);
-  end;
-end;
-```
+    // Shuffle history buffer
+
+      sdm3 := sdm2;
+      sdm2 := sdm1;
+      sdm1 := sample;
+
+    // Return result
+      res := trunc(l+m+h);
+      if res > 32767 then res := 32767 else if res < -32768 then res := -32768;
+
+      result := res;
+    end;
+
+    procedure TEQ.Equalize(const Data: Pointer; DataSize: DWORD);
+    var pSample: PSmallInt;
+    begin
+      pSample := Data;
+      while DataSize > 0 do
+      begin
+        pSample^ := do_3band(pSample^);
+        Inc(pSample);
+        Dec(DataSize, 2);
+      end;
+    end;
+    ```
+
+</details>

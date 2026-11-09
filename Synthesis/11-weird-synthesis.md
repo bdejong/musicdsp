@@ -1,6 +1,6 @@
 # Weird synthesis
 
-[MusicDSP](../README.md) / [Synthesis](README.md)
+[MusicDSP](../README.md) / [Synthesis](README.md) · [2 comments](#comments)
 
 - **Author or source:** Andy M00cho
 - **Created:** 2002-01-17 00:55:09
@@ -28,13 +28,18 @@ funkiness...
 
 ## Comments
 
-**moc.loa@attongamlihp** · 2002-07-18 18:57:00
+<details>
+<summary>Read 2 archived comments</summary>
 
-Andy:
-I'm curious about your delay line. It's length is
-4.8 m.sec.fixed. What are the variables in the two controllable taps and is the 6dB filter variable frequency wise?
-Phil
+1. **moc.loa@attongamlihp** · *2002-07-18 18:57:00*
 
-**moc.oohay@poportcele** · 2003-01-03 20:01:34
+   Andy:
+   I'm curious about your delay line. It's length is
+   4.8 m.sec.fixed. What are the variables in the two controllable taps and is the 6dB filter variable frequency wise?
+   Phil
 
-What you have there is the core of a physical modelling algorithm.  I have done virtually the same thing to model plucked string instruments in Reaktor.  It's amazingly realistic.  See <http://joeorgren.com>
+2. **moc.oohay@poportcele** · *2003-01-03 20:01:34*
+
+   What you have there is the core of a physical modelling algorithm.  I have done virtually the same thing to model plucked string instruments in Reaktor.  It's amazingly realistic.  See <http://joeorgren.com>
+
+</details>
