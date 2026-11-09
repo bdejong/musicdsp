@@ -134,10 +134,16 @@ class compressor
 
 1. **moc.oohay@xofirgomsnart** · *2010-08-30 21:04:37*
 
-   ```text
+   ```cpp
    env = det >= env ? det : det+envelope_decay*(env-det);
 
+   ```
+
+   ```text
    I have found it is good to add either a timed peak hold-before-release or something like a "peak magnetism" with an attack/release time that is within a cycle of the lowest expected frequency in the side chain...often ~80Hz is a good reference point... for example here is a snippet to illustrate the idea...please keep in mind this will not work as show because of some obvious things needing to be added...
+   ```
+
+   ```cpp
    //add these variables to your compressor object...
    class compressor {
    float patk;  //"seek" slope

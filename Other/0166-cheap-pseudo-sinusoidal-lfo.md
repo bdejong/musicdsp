@@ -41,7 +41,7 @@ double pseudo_sine(double x)
 
    You forgot a
 
-   ```text
+   ```cpp
    return x;
    ```
 

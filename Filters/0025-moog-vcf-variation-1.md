@@ -20,7 +20,7 @@ They are only 6dB/oct, but still seem musically useful - the 'fruity' sound of t
 
 ## Code
 
-```cpp
+```c
 // Moog 24 dB/oct resonant lowpass VCF
 // References: CSound source code, Stilson/Smith CCRMA paper.
 // Modified by paul.kellett@maxim.abel.co.uk July 2000
@@ -106,7 +106,7 @@ They are only 6dB/oct, but still seem musically useful - the 'fruity' sound of t
 
    then
 
-   ```text
+   ```cpp
    frequency = freqinhz * (1.f/(samplerate/2.0f));
    ```
 

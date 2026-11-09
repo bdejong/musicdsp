@@ -13,7 +13,7 @@ and Steffan Diedrichsen for the correct notch output.
 
 ## Code
 
-```cpp
+```text
 input  = input buffer;
 output = output buffer;
 fs     = sampling frequency;

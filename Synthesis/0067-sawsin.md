@@ -8,7 +8,7 @@
 
 ## Code
 
-```cpp
+```c
 double sawsin(double x)
 {
    double t = fmod(x/(2*M_PI),(double)1.0);

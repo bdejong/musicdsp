@@ -17,7 +17,7 @@
 
 1. **ed.luosfosruoivas@naitsirhC** · *2005-06-01 22:48:17*
 
-   ```pascal
+   ```delphi
    // Delphi / Object Pascal Translation:
    // -----------------------------------
 
@@ -194,7 +194,7 @@
 
 3. **moc.yddaht@yddaht** · *2005-06-05 21:40:35*
 
-   ```pascal
+   ```delphi
    // I thought I already posted this but here's my interpretation for Delphi and KOL.
    // The reason I repost this, is that it is rather efficient and has no denormal problems.
 
@@ -352,7 +352,7 @@
 
 4. **moc.yddaht@yddaht** · *2005-06-05 21:44:47*
 
-   ```pascal
+   ```delphi
    // And here the allpass:
    unit SimpleAllpass;
    {
@@ -407,7 +407,7 @@
 
 5. **ed.luosfosruoivas@naitsirhC** · *2005-06-06 08:15:37*
 
-   ```text
+   ```delphi
    // You'll get a good performance boost by combining the 6 allpasses to one and rewriting
    // that one to FPU code. Heavy speed increase AND you can make the number of allpasses
    // variable as well.

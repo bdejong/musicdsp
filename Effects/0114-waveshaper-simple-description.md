@@ -31,7 +31,7 @@ table as an N-point polynomial :-)
 
 ## Code
 
-```cpp
+```c
 float waveshape_distort( float in ) {
   return 1.5f * in - 0.5f * in *in * in;
 }

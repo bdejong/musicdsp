@@ -8,7 +8,7 @@
 
 ## Code
 
-```cpp
+```text
 double ftod(float x) { return (double)x;
 00000000: 4E800020  blr
     // blr == return from subroutine, i.e. this function is a noop

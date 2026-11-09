@@ -23,7 +23,7 @@ NOTES:
 
 ## Code
 
-```cpp
+```matlab
 function [h]=rir(fs, mic, n, r, rm, src);
 %RIR   Room Impulse Response.
 %   [h] = RIR(FS, MIC, N, R, RM, SRC) performs a room impulse

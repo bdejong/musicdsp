@@ -63,7 +63,7 @@ raw cutoff and inverted resonance, and have a range from 0 to 1.
 
    This filter has stability issues for high r values. State variable filter stability limits seem to work fine here. It can also be oversampled for better stability and wider frequency range (use 0.5\*original frequency):
 
-   ```text
+   ```cpp
    //Loop:
 
    v0 = (1-r*c)*v0 - c*v1 + c*input;

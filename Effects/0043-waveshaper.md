@@ -25,7 +25,7 @@ get rid of the somewhat-expensive sin() function.
 
 ## Code
 
-```cpp
+```text
 (input: a == "overdrive amount")
 
 z = M_PI * a;

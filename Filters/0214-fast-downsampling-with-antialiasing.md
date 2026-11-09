@@ -13,7 +13,7 @@ downsampling.
 
 ## Code
 
-```cpp
+```c
 int filter_state;
 
 /* input_buf can be equal to output_buf */
@@ -51,6 +51,9 @@ void downsample( int *input_buf, int *output_buf, int output_count ) {
    ```text
    For my purposes(modelling a first-order-hold dac) it was fine. The counterpart to it I suppose is this one - a classic exponential decay, which gives a lovely warm sound. Each sample is convolved with { 0.5, 0.25, 0.125, ...etc }
 
+   ```
+
+   ```c
    int filter_state;
 
    void downsample( int *input_buf, int *output_buf, int output_count ) {

@@ -8,7 +8,7 @@
 
 ## Code
 
-```cpp
+```text
 First calculate the prewarped digital frequency:
 
 K = tan(Pi * Frequency / Samplerate);
@@ -69,7 +69,7 @@ State3 = B5*Stage1 + A5/A3*Output;
 
    Calculate the first biquad:
 
-   ```text
+   ```cpp
    //A0 =   (Coeff[1]+K+Coeff[0]);
    t  = 1/(Coeff[1]+K+Coeff[0]);
    A1 = 2*(Coeff[0]-K)*t;
@@ -81,7 +81,7 @@ State3 = B5*Stage1 + A5/A3*Output;
 
    Calculate the second biquad:
 
-   ```text
+   ```cpp
    //A3 =   (Coeff[3]+K+Coeff[2]);
    t  = 1/(Coeff[3]+K+Coeff[2]);
    A4 = 2*(Coeff[2]-K)*t;
@@ -93,7 +93,7 @@ State3 = B5*Stage1 + A5/A3*Output;
 
    Then calculate the output as follows:
 
-   ```text
+   ```cpp
    Stage1 = B0*Input + State0;
    State0 = B1*Input + A1*Stage1 + State1;
    State1 = B2*Input + A2*Stage1;

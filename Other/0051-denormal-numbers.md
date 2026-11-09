@@ -24,7 +24,7 @@ FPU's go mad processing very small numbers
 
    Using the following function,
 
-   ```text
+   ```c
    float clip (float x, float a, float b)
    {
       x1 = fabs (x-a);

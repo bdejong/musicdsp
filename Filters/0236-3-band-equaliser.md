@@ -16,15 +16,18 @@ How to use ...
 
 1\. First you need to declare a state for your eq
 
-```text
+```c
   EQSTATE eq;
 ```
 
 2\. Now initialise the state (we'll assume your output frequency is 48Khz)
 
-```text
+```c
   set_3band_state(eq,880,5000,480000);
 
+```
+
+```text
   Your EQ bands are now as follows (approximatley!)
 
   low  band = 0Hz to 880Hz
@@ -34,7 +37,7 @@ How to use ...
 
 3\. Set the gains to some values ...
 
-```text
+```c
   eq.lg = 1.5;  // Boost bass by 50%
   eq.mg = 0.75; // Cut mid by 25%
   eq.hg = 1.0;  // Leave high band alone
@@ -42,7 +45,7 @@ How to use ...
 
 4\. You can now EQ some samples
 
-```text
+```c
    out_sample = do_3band(eq,in_sample)
 ```
 
@@ -52,7 +55,7 @@ Neil C / Etanza Systems, 2006 :)
 
 ## Code
 
-```cpp
+```c
 First the header file ....
 //---------------------------------------------------------------------------
 //
@@ -268,7 +271,7 @@ double do_3band(EQSTATE* es, double sample)
    Great Thanks!
    I have one problem the below:
 
-   ```cpp
+   ```c
      double  f2p0;     // Poles ...
      double  f2p1;
      double  f2p2;
@@ -346,13 +349,13 @@ double do_3band(EQSTATE* es, double sample)
 
    This is a great little filter, I am using it in an application but when I first started playing with it I noticed some problems. The mid range didn't seem to be calculated properly, a friend of mine who knows more about dsp than I do took a quick look at it and suggested the following change:
 
-   ```text
+   ```c
      m          = es->sdm3 - (h + l);
    ```
 
    Should be:
 
-   ```text
+   ```c
      m          = sample - (h + l);
    ```
 
@@ -426,6 +429,9 @@ double do_3band(EQSTATE* es, double sample)
           I've made an implementation of 3 band Equalizer to read a wave file,apply filtering and then save wave  outputfile.
     With your code I have a lot of distortion,I think the problem maybe coefficient calculation:
 
+    ```
+
+    ```c
     es->f1p0  += (es->lf * (sample   - es->f1p0))+vsa ;
       ...
     ```
@@ -465,14 +471,14 @@ double do_3band(EQSTATE* es, double sample)
 
     1\. Create instance of class
 
-    ```pascal
+    ```delphi
        Public
          eq:TEQ;
     ```
 
     2\. On form create
 
-    ```pascal
+    ```delphi
         eq := TEq.Create;
 
         //Initialize
@@ -483,13 +489,13 @@ double do_3band(EQSTATE* es, double sample)
 
     3\. process: pass Raw 16Bit PCM to eq
 
-    ```pascal
+    ```delphi
     eq.Equalize(const Data: Pointer; DataSize: DWORD);
     ```
 
     Works like a charm form me
 
-    ```pascal
+    ```delphi
       TEq=Class
       private
         lf,f1p0,f1p1,f1p2,f1p3:double;

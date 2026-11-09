@@ -29,7 +29,7 @@ is Delphi, if you want to adapt, just make sure EAX is the buffer and EDX is len
 
 ## Code
 
-```cpp
+```delphi
 const  Den_Thres:Single=1/$1000000;
 
 procedure PrevFPUDen_Buffer(Buffer:Pointer;Length:Integer);
@@ -70,7 +70,7 @@ End;
 
    You can zero out denormals by adding and subtracting a small number.
 
-   ```text
+   ```cpp
    void kill_denormal_by_quantization(float &val)
    {
      static const float anti_denormal = 1e-18;

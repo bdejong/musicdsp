@@ -16,7 +16,7 @@ every N-th sample N times in the output signal.
 
 ## Code
 
-```cpp
+```c
 short keep_bits_from_16( short input, int keepBits ) {
   return (input & (-1 << (16-keepBits)));
 }
@@ -29,7 +29,7 @@ short keep_bits_from_16( short input, int keepBits ) {
 
 1. **moc.liamg@codlli** · *2005-05-30 23:01:56*
 
-   ```cpp
+   ```c
    //I add some code to prevent offset.
 
    // Code :

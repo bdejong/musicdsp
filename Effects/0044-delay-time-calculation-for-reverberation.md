@@ -13,7 +13,7 @@ and time, calculate the times and feedback gain for numlines delay lines..
 
 ## Code
 
-```cpp
+```c
 int   numlines = 8;
 float t1 = 50.0;        // d0 time
 float g1 = 0.75;        // d0 gain

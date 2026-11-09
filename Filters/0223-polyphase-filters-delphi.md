@@ -12,7 +12,7 @@ Pascal conversion of C++ code by Dave from Muon Software. Conversion by Shannon 
 
 ## Code
 
-```cpp
+```delphi
 {
 
 polyphase filters, used for up and down-sampling

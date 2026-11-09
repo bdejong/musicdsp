@@ -19,7 +19,7 @@ Not sure if it the output is any different than my version.
 
 ## Code
 
-```cpp
+```matlab
 % Octave/Matlab code to generate a minblep table for bandlimited synthesis
 %% original minblep technique described by Eli Brandt:
 %% http://www.cs.cmu.edu/~eli/L/icmc01/hardsync.html

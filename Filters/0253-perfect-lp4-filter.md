@@ -12,7 +12,7 @@ hacked from the exemple of user script in FL Edison
 
 ## Code
 
-```cpp
+```delphi
 TLP24DB = class
 constructor create;
 procedure process(inp,Frq,Res:single;SR:integer);

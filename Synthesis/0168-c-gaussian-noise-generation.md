@@ -52,7 +52,7 @@ for (int i = 0; i < numSamples; i++)
 
    What's the difference between the much simpler noise generator:
 
-   ```text
+   ```cpp
    randSeed = (randSeed * 196314165) + 907633515;	out=((int)randSeed)*0.0000000004656612873077392578125f;
    ```
 

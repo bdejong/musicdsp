@@ -12,7 +12,7 @@ add in time domain.
 
 ## Code
 
-```cpp
+```matlab
 function y = gran_func(x, w, H,H2, Fs, tr_amount)
 
 

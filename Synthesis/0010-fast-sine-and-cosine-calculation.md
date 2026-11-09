@@ -39,6 +39,9 @@ output_cosine = s[1]
 
    ```text
    After a while it may drift, so you should resync it as follows:
+   ```
+
+   ```cpp
    const float tmp=1.5f-0.5f*(s[1]*s[1]+s[0]*s[0]);
    s[0]*=tmp; s[1]*=tmp;
    ```

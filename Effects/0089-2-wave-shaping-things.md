@@ -19,7 +19,7 @@ Harmonics scale down linealy very fast
 
 ## Code
 
-```cpp
+```text
 y1 = (max>>1) * atan(k * x/max)
 
 y2 = max * th(x/max)

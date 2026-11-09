@@ -26,7 +26,7 @@ integer is 32bit integer (signed, normally).
 
 ## Code
 
-```cpp
+```delphi
 unit Unit1;
 
 interface
@@ -113,13 +113,13 @@ end.
 
    LFO Class...
 
-   ```text
+   ```delphi
    unit Unit1;
    ```
 
    interface
 
-   ```text
+   ```delphi
    uses
      Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
      StdCtrls, ExtCtrls, ComCtrls;
@@ -168,7 +168,7 @@ end.
 
    implementation
 
-   ```text
+   ```delphi
    {$R *.DFM}
 
    constructor TLFO.Create;
@@ -250,7 +250,7 @@ end.
 
    Ups, i forgot something:
 
-   ```text
+   ```delphi
      TLFO = class(TObject)
      private
        ...

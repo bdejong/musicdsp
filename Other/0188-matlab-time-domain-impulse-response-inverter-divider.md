@@ -13,7 +13,7 @@ them (transfer function.)  The main teoplitz function is given both as a .m file
 
 ## Code
 
-```cpp
+```matlab
 function inv=invimplms(den,n,d)
 % syntax inv=invimplms(den,n,d)
 %         den - denominator impulse

@@ -49,7 +49,7 @@ Tdouble MoogVCF::run(double input, double fc, double res)
 
    could somebody explain, what means this
 
-   ```text
+   ```cpp
    input -= out4 * fb;
    input *= 0.35013 * (f*f)*(f*f);
    ```
@@ -63,25 +63,25 @@ Tdouble MoogVCF::run(double input, double fc, double res)
 
    input is name of a variable with type double.
 
-   ```text
+   ```cpp
    input -= out4 * fb;
    ```
 
    is just a shorter way for writing:
 
-   ```text
+   ```cpp
    input = input - out4 * fb;
    ```
 
    and the \*= operator is works similar:
 
-   ```text
+   ```cpp
    input *= 0.35013 * (f*f)*(f*f);
    ```
 
    is equal to
 
-   ```text
+   ```cpp
    input = input * 0.35013 * (f*f)*(f*f);
    ```
 

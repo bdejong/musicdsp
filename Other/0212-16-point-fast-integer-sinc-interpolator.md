@@ -26,7 +26,7 @@ Martin
 
 ## Code
 
-```cpp
+```java
 public class SincResampler {
 	private final int FP_SHIFT = 15;
 	private final int FP_ONE = 1 << FP_SHIFT;

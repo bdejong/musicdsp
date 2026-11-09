@@ -114,7 +114,7 @@ void TBeatDetector::AudioProcess (float input)
 
 1. **moc.yddaht@yddaht** · *2005-05-18 22:59:08*
 
-   ```pascal
+   ```delphi
    // Nice work!
    //Here's a Delphi and freepascal version:
    unit beattrigger;

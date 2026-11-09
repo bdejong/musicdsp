@@ -54,6 +54,9 @@ PSPsample PSPsin1::doOsc(int numCh)
 
    ```text
    The operation:
+   ```
+
+   ```cpp
    t =(double)(((double)m_time[numCh])/(double)m_sampleRate);
    ```
 

@@ -16,7 +16,7 @@ The below algorithm is written in prosa. It's up to you to transfer it into code
 
 ## Code
 
-```cpp
+```text
 Ingredients:
 ------------
 

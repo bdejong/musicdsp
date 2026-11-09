@@ -61,12 +61,18 @@ float fastsin2(UINT32 phase)
 
    PS: To use this as an OSC you'll need the following vars/equ's:
 
-   ```text
+   ```cpp
    UINT32 phase = 0;
    UINT32 step = frequency * powf(2.0f, 32.0f) / samplerate;
 
+   ```
+
+   ```text
    Then it's just:
    ...
+   ```
+
+   ```cpp
    out = fastsin(phase);
    phase += step;
    ...

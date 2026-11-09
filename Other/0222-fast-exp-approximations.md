@@ -86,7 +86,7 @@ inline float fastexp9(float x) {
 
    So, if you want a relatively fast polynomial approximation for exp(x) for 0 to \~7.5, you can use:
 
-   ```text
+   ```cpp
    // max error in the 0 .. 7.5 range: ~0.45%
    inline float fastexp(float const &x)
    {
@@ -109,7 +109,7 @@ inline float fastexp9(float x) {
 
    you can use any base, for example to get 2^x:
 
-   ```text
+   ```cpp
    // max error in the 0-10.58 range: ~0.45%
    inline float fastpow2(float const &x)
    {

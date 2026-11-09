@@ -15,7 +15,7 @@ sine generated is accurate to at least 16 bits.
 
 ## Code
 
-```cpp
+```c
 for(i=0; i < nSamples ; i++)
 {
   //Generate sawtooth phasor to provide phase for sine generation

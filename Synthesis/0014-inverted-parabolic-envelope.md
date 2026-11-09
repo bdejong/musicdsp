@@ -8,11 +8,14 @@
 
 ## Code
 
-```cpp
+```text
 dur = duration in samples
 midlevel = amplitude at midpoint
 beglevel = beginning and ending level (typically zero)
 
+```
+
+```cpp
 amp = midlevel - beglevel;
 
 rdur = 1.0 / dur;
@@ -48,7 +51,7 @@ for (i=0; i<dur; ++i) {
    This is not an approximation of a parabola, it IS a parabola.
    This entry has become corrupted since it was first posted. Should be:
 
-   ```text
+   ```cpp
    for (i=0; i<dur; ++i) {
        out = level;
        level += slope;

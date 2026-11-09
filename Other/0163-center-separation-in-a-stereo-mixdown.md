@@ -109,13 +109,13 @@ void processTBIsolator(float *pIns[2], float *pOuts[2], long nFFTSize, float fAm
 
    1 - the for is:
 
-   ```text
+   ```cpp
    for ( long i = 0, j = nFFTSize / 2; i < nFFTSize / 2; i++, j++ )
    ```
 
    2 - the correct min is:
 
-   ```text
+   ```cpp
    if ( fModL > fModR )
    {
        fRealC = pIns[1][i];
@@ -130,13 +130,13 @@ void processTBIsolator(float *pIns[2], float *pOuts[2], long nFFTSize, float fAm
 
    3 - in the phase correction:
 
-   ```text
+   ```cpp
    if ( u >= 1 ) u -= 1.;
    ```
 
    must be replaced by:
 
-   ```text
+   ```cpp
    if ( u >= 1 ) u = 2 - u;
    ```
 

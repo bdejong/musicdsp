@@ -11,7 +11,7 @@ Stereo Enhanca
 
 ## Code
 
-```cpp
+```c
 // WideCoeff  0.0 .... 1.5
 
 #define StereoEnhanca(SamplL,SamplR,MonoSign, \
@@ -30,7 +30,7 @@ Stereo Enhanca
 
 1. **moc.liamg@noteex** · *2004-08-20 17:45:38*
 
-   ```text
+   ```c
    #define StereoEnhanca(SamplL,SamplR,MonoSign,
      DeltaLeft,DeltaRight,WideCoeff )
      MonoSign = (SamplL + SamplR)/2.0;
@@ -54,7 +54,7 @@ Stereo Enhanca
 
 3. **thaddy\[@\]thaddy.com** · *2005-01-07 10:20:20*
 
-   ```pascal
+   ```delphi
    // Here's an implementation of the classic stereo enhancer in Delphi BASM
    // Values below 0.1 have a narrowing effect
    // Values abouve 0.1 widens
@@ -127,6 +127,9 @@ Stereo Enhanca
 
    ```text
    A better implementation is the following code.
+   ```
+
+   ```c
    #define StereoEnhanca(SamplL,SamplR,MonoSign, \
    stereo,WideCoeff ) \
    MonoSign = (SamplL + SamplR)/2.0; \
@@ -163,7 +166,7 @@ Stereo Enhanca
 
    Again the correct code:
 
-   ```text
+   ```c
    #define StereoEnhanca(SamplL,SamplR,MonoSign, \
    stereo,WideCoeff ) \
    MonoSign = (SamplL + SamplR)/2.0; \
@@ -181,7 +184,7 @@ Stereo Enhanca
 
    You mean to use MonoSign variable somewhere - as in:
 
-   ```text
+   ```c
       #define StereoEnhanca(SamplL,SamplR,MonoSign, \
    stereo,WideCoeff ) \
    MonoSign = (SamplL + SamplR)/2.0; \

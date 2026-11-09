@@ -17,10 +17,13 @@ Remember that all movaps command requires 16 bit aligned variables.
 
 ## Code
 
-```cpp
+```text
 SSE code for computing only ONE value (scalar)
 Replace all "ss" with "ps" if you want to calculate 4 values. And instead of "movps" use "movaps".
 
+```
+
+```asm
 movss	xmm1,	xmm0						; xmm0 = x
 mulss	xmm1,	Filter_GenVal[k_n1]			; * -1
 mulss	xmm1,	xmm0						; -x * x

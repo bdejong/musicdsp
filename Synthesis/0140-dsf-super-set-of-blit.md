@@ -29,7 +29,7 @@ removed, and the scaling will be weird.
 
 ## Code
 
-```cpp
+```matlab
 function output = dsf( freq, a, H, samples, beta)
 %a = rolloff coeffecient
 %H = number of harmonic overtones (fundamental not included)

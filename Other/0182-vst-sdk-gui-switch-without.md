@@ -11,7 +11,7 @@ In VST GUI an on-vaue is represented by 1.0 and off by 0.0.
 
 ## Code
 
-```cpp
+```text
 Say you have two signals you want to switch between when the user changes a switch.
 You could do:
 

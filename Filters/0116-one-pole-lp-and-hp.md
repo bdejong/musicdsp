@@ -7,7 +7,7 @@
 
 ## Code
 
-```cpp
+```text
 LP:
 recursion: tmp = (1-p)*in + p*tmp with output = tmp
 coefficient: p = (2-cos(x)) - sqrt((2-cos(x))^2 - 1) with x = 2*pi*cutoff/samplerate

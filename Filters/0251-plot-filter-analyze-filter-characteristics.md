@@ -146,7 +146,7 @@ main(void)
 
    You can also replace the if(sIn \>0) .. -= sOut; by:
 
-   ```text
+   ```cpp
    tIn += sIn*sIn;
    tOut += sOut*sOut;
    ```

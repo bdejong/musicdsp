@@ -16,7 +16,7 @@ PJ
 
 ## Code
 
-```cpp
+```text
 r = the rate 0..1
 
 --------------
@@ -86,7 +86,7 @@ out = p*(1-abs(p));
 
 5. **ten.akionelet@isangi** · *2013-11-10 16:51:38*
 
-   ```text
+   ```cpp
    /* this goes from -1 to +1 */
    #include <iostream>
    #include <math.h>

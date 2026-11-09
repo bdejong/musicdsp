@@ -7,7 +7,7 @@
 
 ## Code
 
-```cpp
+```c
 /*
 Public source code by alex@smartelectronix.com
 Simple example of implementation of formant filter
@@ -87,6 +87,9 @@ return res;
    ```text
    It seem to be ok at 44KHz although I get quite lot of distortion with this filter.
    There are typos in the given code too, the correct version looks like this i think:
+   ```
+
+   ```c
    float formant_filter(float *in, int vowelnum)
    {
      float res= (float) ( coeff[vowelnum][0]* (*in) +

@@ -13,7 +13,7 @@ Arguru c++ implementation.
 
 ## Code
 
-```cpp
+```delphi
   {
   RBJ Audio EQ Cookbook Filters
   A pascal conversion of arguru[AT]smartelectronix[DOT]com's

@@ -32,7 +32,7 @@
 
    you also need to delete the pointers inside the array
 
-   ```text
+   ```cpp
    CAllPassFilterCascade::~CAllPassFilterCascade()
    {
    	for (int i=0;i<numfilters;i++)
@@ -62,7 +62,7 @@
 
    Hello, I'm getting the high pass from the function by subtracting the 'oldout' variable.
 
-   ```text
+   ```cpp
    output=(filter_a->process(input)-oldout)*0.5;
    ```
 

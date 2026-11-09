@@ -81,7 +81,7 @@ return ((x<0)?-1:1)*(a-6)/(a+6); /* instead of using <, you can also check direc
 
    Not sure why this didn't occur to me earlier, but you can easily save another two adds as follows:
 
-   ```text
+   ```cpp
    a*=(6+a*(3+a));
    return ((x<0)?-1:1)*a/(a+12);
    ```
@@ -90,7 +90,7 @@ return ((x<0)?-1:1)*(a-6)/(a+6); /* instead of using <, you can also check direc
 
    You shouldn't need the sabs() on VC6 - you just need to add:
 
-   ```text
+   ```cpp
    #pragma intrinsic( fabs )
    ```
 
@@ -108,7 +108,7 @@ return ((x<0)?-1:1)*(a-6)/(a+6); /* instead of using <, you can also check direc
 
    Delphi Code:
 
-   ```text
+   ```delphi
    // approximates tanh(x/2) rather than tanh(x) - depending on how you're using
    // this, fixing that could well be wasting a multiplication
    function tanh2(x:single):Single;
@@ -129,7 +129,7 @@ return ((x<0)?-1:1)*(a-6)/(a+6); /* instead of using <, you can also check direc
 
    It's not faster, because you'll need 3 more cycles. The routine would then look like this:
 
-   ```text
+   ```delphi
    function tanh2(x:single):Single;
    var a : single;
    begin
@@ -154,7 +154,7 @@ return ((x<0)?-1:1)*(a-6)/(a+6); /* instead of using <, you can also check direc
 
    So in asm:
 
-   ```text
+   ```delphi
    function Tanh2(x:Single):Single;
    const c3 :Single=3;
          c6 :Single=6;
@@ -189,6 +189,9 @@ return ((x<0)?-1:1)*(a-6)/(a+6); /* instead of using <, you can also check direc
 
    Blue=another approximation that does:
 
+   ```
+
+   ```delphi
    function TanH3(x:Single):Single;
    Begin
    Result:=x - x*x*x/3 + 2*x*x*x*x*x/15;
@@ -220,7 +223,7 @@ return ((x<0)?-1:1)*(a-6)/(a+6); /* instead of using <, you can also check direc
 
     plain code:
 
-    ```text
+    ```delphi
     function Tanh2(x:Single):Single;
     var   a,b:Single;
     begin
@@ -233,7 +236,7 @@ return ((x<0)?-1:1)*(a-6)/(a+6); /* instead of using <, you can also check direc
 
     asm:
 
-    ```text
+    ```delphi
     function Tanh22(x:Single):Single;
     const c3  :Single=3;
           c6  :Single=6;
@@ -259,7 +262,7 @@ return ((x<0)?-1:1)*(a-6)/(a+6); /* instead of using <, you can also check direc
 
     Any suggestions about improving the 3DNow Divide-Operation??? I simply hate my code...
 
-    ```text
+    ```delphi
     procedure Transistor2_3DNow(pinp,pout : PSingle; Samples:Integer;Scalar:Single);
     const ng   : Array [0..1] of Integer = ($7FFFFFFF,$7FFFFFFF);
           pg   : Array [0..1] of Integer = ($80000000,$80000000);
@@ -340,7 +343,7 @@ return ((x<0)?-1:1)*(a-6)/(a+6); /* instead of using <, you can also check direc
 
     Here's the Analog Devices "Sharc" DSP translation of the tanh function (inline processing of register f0):
 
-    ```text
+    ```asm
     f11 = 2.;
     f0  = f0 * f11;
     f11 = abs f0;

@@ -16,7 +16,7 @@ You have to use aligned\_free() to free the memory allocated with aligned\_mallo
 
 ## Code
 
-```cpp
+```c
 /* align_size has to be a power of two !! */
 void *aligned_malloc(size_t size, size_t align_size) {
 

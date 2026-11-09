@@ -12,7 +12,7 @@ unoptimized version!
 
 ## Code
 
-```cpp
+```text
 First prewarp the frequency of both poles:
 
 K1 = tan(0.5*Pi*20.6 / SampleRate) // for 20.6Hz

@@ -13,7 +13,7 @@ for example a=exp(-x/12000)\*0.8 // x- num.samples
 
 ## Code
 
-```cpp
+```c
 double DSF (double x,  // input
             double a,  // a<1.0
             double N,  // N<SmplFQ/2,

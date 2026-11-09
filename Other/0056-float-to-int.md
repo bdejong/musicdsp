@@ -41,7 +41,7 @@ int truncate(float flt)
 
    This version below seems to be more accurate on my Win32/P4.  Doesn't deal with the Intel FPU issue.  A faster solution than c-style casts though.  But you're not always going to get the most accurate conversion.  Like the previous comment; 2.5 will convert to 2, but 2.501 will convert to 3.
 
-   ```text
+   ```cpp
    int truncate(float flt)
    {
        int i;

@@ -25,7 +25,7 @@ Any comments gratefully received.
 
 ## Code
 
-```cpp
+```c
 float p=0.0f;      //current position
 float dp=1.0f;     //change in postion per sample
 float pmax;        //maximum position

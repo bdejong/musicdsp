@@ -148,7 +148,7 @@ private:
 
    I incorporated the 32x interpolator with something along this
 
-   ```text
+   ```cpp
    void process32x(float const in_l, float const in_r, float *out_l, float *out_r)
    {
            float y_l = in_l-f_d1_l;
@@ -227,11 +227,20 @@ private:
 
    ```text
    I'm using your function to write to an audio buffer which is being set to a delay. This is what the call looks like.
+   ```
+
+   ```cpp
    process32x((fLeftAudioBuffer[i] * decay), (fRightAudioBuffer[i] * decay),
    			&fCircularLeftAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize],
    			&fCircularRightAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize]);
 
+   ```
+
+   ```text
    I would love to use this function because it's one line less than how I usually do it. It works great with no problems.
+   ```
+
+   ```cpp
    fCircularLeftAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize] = fLeftAudioBuffer[jh] * decay;
    fCircularRightAudioBuffer[(fCircularBufferPosition + delayFrames)%kCircularBufferSize] = fRightAudioBuffer[jh] * decay;
    ```

@@ -21,7 +21,7 @@ polynoms and their applications.
 
 ## Code
 
-```cpp
+```c
 float chebyshev(float x, float A[], int order)
 {
    // To = 1

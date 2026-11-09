@@ -11,7 +11,7 @@ Very hacked, but it gives a rough estimate of x\*\*4 by modifying exponent and m
 
 ## Code
 
-```cpp
+```c
 float p4fast(float in)
 {
   long *lp,l;

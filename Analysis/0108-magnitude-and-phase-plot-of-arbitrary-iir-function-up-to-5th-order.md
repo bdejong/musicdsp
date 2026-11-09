@@ -51,7 +51,7 @@ other than they are derived from transfer function, and they work. :)
 
 ## Code
 
-```cpp
+```c
 /*
  C file can be downloaded from
  http://www.yohng.com/dsp/cfsmp.c
@@ -148,7 +148,7 @@ double cf_lin2db(double lin)
 
 2. **ed.luosfosruoivas@naitsirhC** · *2004-10-01 00:55:09*
 
-   ```cpp
+   ```text
    // Here are the formulas if you only have a biquad. But i am not sure, if maybe the
    // phase is shifted with pi/2...
 
@@ -200,7 +200,7 @@ double cf_lin2db(double lin)
 
 3. **ed.luosfosruoivas@naitsirhC** · *2005-03-28 22:43:17*
 
-   ```pascal
+   ```delphi
    // Recursive Delphi Code with arbitrary order:
 
    unit Plot;
@@ -241,7 +241,7 @@ double cf_lin2db(double lin)
 
 4. **ed.luosfosruoivas@naitsirhC** · *2005-07-27 12:39:52*
 
-   ```pascal
+   ```delphi
    function CalcMagPart(w: Double; C : TDoubleArray):Double;
    var i,j,l : Integer;
        temp  : Double;

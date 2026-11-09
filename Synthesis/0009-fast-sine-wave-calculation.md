@@ -16,7 +16,7 @@ normally.
 
 ## Code
 
-```cpp
+```text
 Variables:
 ip = phase of the first output sample in radians
 w = freq*pi / samplerate

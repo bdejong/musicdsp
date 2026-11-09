@@ -58,7 +58,7 @@ float Fast_RandFloat()
 
    So instead I tried implementation 2 and ran into a different problem. The code is written such that it assumes that RAND\_MAX is equal to 0x7FFF, which was not true on my system (it was 0x7FFFFFFF). Fortunately, this was easy to fix. I simply removed the \>\> 16 and worked fine for me. My final implementation was:
 
-   ```text
+   ```c
    return (float)(RandSeed = RandSeed * 214013L + 2531011L) / 0x7FFFFFFF * 2.0f * amp - amp;
    ```
 

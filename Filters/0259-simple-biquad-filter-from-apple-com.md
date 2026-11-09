@@ -60,7 +60,7 @@ mY1 = output;
    here are coefficients for the hp version.
    the br,bp \& peak are also easy to calculate:
 
-   ```text
+   ```cpp
    k = 0.5*res*sin(pi*cutoff);
    c1 = 0.5*(1-k)/(1+k);
    c2 = (0.5+c1)*cos(pi*cutoff);
@@ -75,7 +75,7 @@ mY1 = output;
 
    if you wish to create a cascade, use the this:
 
-   ```text
+   ```cpp
    //----sample loop
 
    //mem: buffer array

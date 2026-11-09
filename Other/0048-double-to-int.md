@@ -71,7 +71,7 @@ movsx  eax,TEMP+2
 
    On PC this may be faster/easier:
 
-   ```text
+   ```cpp
    int ftoi(float x)
    {
      int res;

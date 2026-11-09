@@ -88,7 +88,7 @@ inline int ceil_int (double x)
 
    cool trick, but using round to zero FPU mode is still the best methode (2 lines):
 
-   ```text
+   ```asm
    __asm
    {
     fld x
@@ -105,7 +105,7 @@ inline int ceil_int (double x)
 
    HALF dq 0.5
 
-   ```text
+   ```asm
    align 4
    dsp_round:
    	fld qword[HALF]

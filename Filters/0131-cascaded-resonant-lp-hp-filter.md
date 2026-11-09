@@ -25,7 +25,7 @@
 
 ## Code
 
-```cpp
+```delphi
 var n1,n2,n3,n4:single; // filter delay, init these with 0!
     fb_lp,fb_hp:single; // storage for calculated feedback
 const p4=1.0e-24; // Pentium 4 denormal problem elimination
@@ -51,6 +51,9 @@ end;
 
    ```text
    I guess the last line should read
+   ```
+
+   ```delphi
      result:=inp-n4;
    ```
 
@@ -80,13 +83,13 @@ end;
 
    Also, should the feedback for the hpf be:
 
-   ```text
+   ```delphi
    fb_hp:=res_hp+res_hp/(1-cut_hp);
    ```
 
    not:
 
-   ```text
+   ```delphi
    fb_hp:=res_hp+res_hp/(1-cut_lp);
    ```
 

@@ -19,7 +19,7 @@ clipped region is C2-continuous.
 
 ## Code
 
-```cpp
+```c
 float rational_tanh(x)
 {
     if( x < -3 )
@@ -40,7 +40,7 @@ float rational_tanh(x)
 
    Works fine. If you want only a little overdrive, you don't even need the clipping, just the last line for faster processing.
 
-   ```text
+   ```c
    float rational_tanh_noclip(x)
    {
      return x * ( 27 + x * x ) / ( 27 + 9 * x * x );

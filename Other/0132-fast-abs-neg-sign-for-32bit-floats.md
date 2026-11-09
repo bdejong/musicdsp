@@ -24,7 +24,7 @@ Toby (www.tobybear.de)
 
 ## Code
 
-```cpp
+```c
 // C/C++ code:
 float fastabs(float f)
 {int i=((*(int*)&f)&0x7fffffff);return (*(float*)&i);}
@@ -35,6 +35,9 @@ float fastneg(float f)
 int fastsgn(float f)
 {return 1+(((*(int*)&f)>>31)<<1);}
 
+```
+
+```delphi
 //Delphi/Pascal code:
 function fastabs(f:single):single;
 begin i:=longint((@f)^) and $7FFFFFFF;result:=single((@i)^) end;
@@ -55,7 +58,7 @@ begin result:=1+((longint((@f)^) shr 31)shl 1) end;
 
    Matthias (bekkah\[AT\]web\[DOT\]de) wrote me a mail with the following further improvements for the C++ parts of the code:
 
-   ```text
+   ```cpp
    // C++ code:
    inline float fastabs(const float f)
    {int i=((*(int*)&f)&0x7fffffff);return (*(float*)&i);}
@@ -84,7 +87,7 @@ begin result:=1+((longint((@f)^) shr 31)shl 1) end;
 
    I don't know if this is any faster, but atleast you can avoid some typecasting.
 
-   ```text
+   ```delphi
    function fastabs(f: Single): Single; var i: Integer absolute f;
    begin i := i and $7fffffff; Result := f; end;
    ```
@@ -97,6 +100,9 @@ begin result:=1+((longint((@f)^) shr 31)shl 1) end;
 
    ```text
    On MS compilers for x86, just do:
+   ```
+
+   ```cpp
    #pragma intrinsic(fabs)
    ```
 

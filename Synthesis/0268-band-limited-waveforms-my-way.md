@@ -67,7 +67,7 @@ any bugs/improvements?
 
    excuse me, there is a typo
 
-   ```text
+   ```cpp
    amp = scale / h;
    ```
 

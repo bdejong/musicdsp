@@ -65,6 +65,9 @@ float saturate(float x, float t)
    I think no, 'cos give a compiling error.
    the right (for sintax) version is this:
 
+   ```
+
+   ```c
    float sigmoid(float x)
    {
        if(fabs(x)<1)
@@ -92,13 +95,13 @@ float saturate(float x, float t)
    except for the missing parenthesis of course =)
    the first line of saturate should be either
 
-   ```text
+   ```c
    if(fabs(x)) return x;
    ```
 
    or
 
-   ```text
+   ```c
    if(abs(x)) return x;
    ```
 

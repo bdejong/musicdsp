@@ -28,7 +28,7 @@
 
 ## Code
 
-```cpp
+```delphi
 const q=15;
       c1=(1 shl q)-1;
       c2=(c1 div 3)+1;

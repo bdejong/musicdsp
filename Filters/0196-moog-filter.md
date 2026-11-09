@@ -36,7 +36,7 @@ the resistance noise and also avoids denormal problems...
 
 ## Code
 
-```cpp
+```text
 http://www.savioursofsoul.de/Christian/MoogFilter.pas
 ```
 
@@ -53,7 +53,7 @@ http://www.savioursofsoul.de/Christian/MoogFilter.pas
 
    and here is the same thing written in C. It was written while translating the CSound Code into code for the synthmaker code module as an intermediate step to enable debugging thru gdb. The code was written to be easy adoptable for the synthmaker code module (funny defines, static vars, single sample tick function,...) Has some room for improvements, but nothing fancy for seasoned C programmers.
 
-   ```text
+   ```c
    #include <memory.h>
    #include <stdio.h>
    #include <math.h>
@@ -208,7 +208,7 @@ http://www.savioursofsoul.de/Christian/MoogFilter.pas
 
    Forget the sign bit thing, actually your Tanh could already have been much faster at the source:
 
-   ```text
+   ```delphi
     a:=f_abs(x);
     a:=a*(6+a*(3+a));
     if (x<0)
@@ -222,7 +222,7 @@ http://www.savioursofsoul.de/Christian/MoogFilter.pas
 
    ..so in asm:
 
-   ```text
+   ```delphi
    function Tanh2(x:Single):Single;
    const c3 :Single=3;
          c6 :Single=6;
@@ -264,7 +264,7 @@ http://www.savioursofsoul.de/Christian/MoogFilter.pas
 
    Ignore the above, here it is working (for this code, assuming a premultiplied x):
 
-   ```text
+   ```delphi
    function Tanh2(x:Single):Single;
    const c3  :Single=3;
          c6  :Single=6;

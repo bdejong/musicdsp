@@ -118,7 +118,7 @@ double dynaconv::conv(double *x, int d)
 
    b) instead of this
 
-   ```text
+   ```cpp
    "else if(sel > 0)
    {
    a = conv(x, 0);

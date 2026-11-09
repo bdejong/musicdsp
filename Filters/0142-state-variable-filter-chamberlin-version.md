@@ -7,7 +7,7 @@
 
 ## Code
 
-```cpp
+```text
 //Input/Output
 	I - input sample
 	L - lowpass output sample
@@ -57,13 +57,13 @@
    -denormal fixed
    -not optimized
 
-   ```text
+   ```delphi
    unit SVFUnit;
    ```
 
    interface
 
-   ```text
+   ```delphi
    type
      TFrequencyTuningMethod= (ftmSimple, ftmIdeal);
      TSVF = class
@@ -88,7 +88,7 @@
 
    implementation
 
-   ```text
+   ```delphi
    uses sysutils;
 
    const kDenorm = 1.0e-24;

@@ -12,7 +12,7 @@ This only works for positive values of x. a should be in the range 0..1
 
 ## Code
 
-```cpp
+```text
 x <= a:
   f(x) = x
 x > a:

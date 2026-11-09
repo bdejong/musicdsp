@@ -16,7 +16,7 @@ Value: The last Output value, a set to this property 'syncs' the Oscilator
 
 ## Code
 
-```cpp
+```csharp
 public class SynthOscilator
 {
     public enum OscWaveformType

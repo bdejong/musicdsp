@@ -25,6 +25,9 @@ with a simple exponential.
 
 ```text
 An example call would be,
+```
+
+```matlab
 t = 4; Fs = 44100;
 y = random_lfo(100, t*Fs, Fs);
 axis([0, t*Fs, -1, 1]);
@@ -35,7 +38,7 @@ Enjoy !
 
 ## Code
 
-```cpp
+```matlab
 % Random LFO Generator
 % creates a random sinusoidal waveform with no discontinuities
 %   rate = average rate in Hz

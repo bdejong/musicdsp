@@ -15,7 +15,7 @@ spectrum and waveform, while aliased harmonics are still attenuated.
 
 ## Code
 
-```cpp
+```c
 /* clair.c         Examen Partiel 2b
    T.Rochebois
    02/03/98

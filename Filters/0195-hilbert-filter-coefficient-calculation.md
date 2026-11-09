@@ -21,7 +21,7 @@ Also this introduces a latency of N/2!
 
 ## Code
 
-```cpp
+```delphi
 type TSingleArray = Array of Single;
 
 procedure UncleHilbert(var FilterCoefficients: TSingleArray; N : Integer);

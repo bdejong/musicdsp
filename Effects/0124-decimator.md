@@ -54,7 +54,7 @@ end;
 
 ## Code
 
-```cpp
+```c
 int bits=16;
 float rate=0.5;
 
@@ -85,7 +85,7 @@ float decimate(float i)
    low and back:
    \---------------------------------------
 
-   ```text
+   ```c
    // something like this -- this is
    // completely off the top of my head
    // precalculate the quantization level
@@ -102,7 +102,7 @@ float decimate(float i)
 
    it looks to me like the c-line
 
-   ```text
+   ```c
    long int m=1<<(bits-1);
    ```
 

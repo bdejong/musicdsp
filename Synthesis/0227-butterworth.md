@@ -8,7 +8,7 @@
 
 ## Code
 
-```cpp
+```text
 First calculate the prewarped digital frequency:
 
 K = tan(Pi * Frequency / Samplerate);
@@ -59,7 +59,7 @@ State3 = B5*Stage1 + A5/A3*Output;
 
    Highpass version should be:
 
-   ```text
+   ```cpp
    A0 = (K+a+1);
    A1 = 2*(1-K);
    A2 =(a-K-1);
@@ -70,7 +70,7 @@ State3 = B5*Stage1 + A5/A3*Output;
 
    Calculate the second biquad:
 
-   ```text
+   ```cpp
    A3 = (K+b+1);
    A4 = 2*(1-K);
    A5 = (b-K-1);
@@ -81,7 +81,7 @@ State3 = B5*Stage1 + A5/A3*Output;
 
    The rest is the same. You might want to leave out B0, B2, B3 and B5 completely, because they all equal to 1, and optimize the highpass loop as:
 
-   ```text
+   ```cpp
    Stage1 = Input + State0;
    State0 = B1*Input + A1/A0*Stage1 + State1;
    State1 = Input + A2/A0*Stage1;
@@ -100,7 +100,7 @@ State3 = B5*Stage1 + A5/A3*Output;
 
    And of course it is not a good idea to do divisions in the process loop, because they are very heavy, so the best is to precalculate A1/A0, A2/A0, A4/A3 and A5/A3 after the calculation of coefficients:
 
-   ```text
+   ```cpp
    inv_A0 = 1.0/A0;
    A1A0 = A1 * inv_A0;
    A2A0 = A2 * inv_A0;
@@ -112,7 +112,7 @@ State3 = B5*Stage1 + A5/A3*Output;
 
    (The above should be faster than writing
 
-   ```text
+   ```cpp
    A1A0 = A1/A0;
    A2A0 = A2/A0;
    A4A3 = A4/A3;
@@ -123,7 +123,7 @@ State3 = B5*Stage1 + A5/A3*Output;
 
    Then the lowpass process loop becomes
 
-   ```text
+   ```cpp
    Stage1 = B0*Input + State0;
    State0 = B1*Input + A1A0*Stage1 + State1;
    State1 = B2*Input + A2A0*Stage1;

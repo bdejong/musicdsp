@@ -47,7 +47,7 @@ inline double fast_exp2 (const double val)
 
    Here is the code to detect little endian processor:
 
-   ```text
+   ```cpp
             union
             {
                short   val;
@@ -65,7 +65,7 @@ inline double fast_exp2 (const double val)
 
    Here is the completed function that works on all endian systems:
 
-   ```text
+   ```cpp
    inline double fast_exp2( const double val )
    {
       // is the machine little endian?

@@ -11,7 +11,7 @@ Multiply input by gain before processing
 
 ## Code
 
-```cpp
+```c
 const double x = input * 0.686306;
 const double a = 1 + exp (sqrt (fabs (x)) * -0.75);
 output = (exp (x) - exp (-x * a)) / (exp (x) + exp (-x));
@@ -31,7 +31,7 @@ output = (exp (x) - exp (-x * a)) / (exp (x) + exp (-x));
 
 2. **ed.luosfosruoivas@naitsirhC** · *2005-05-25 22:32:21*
 
-   ```pascal
+   ```delphi
    // Maybe something like this:
 
    function GloubiBoulga(x:Single):Single;
@@ -56,14 +56,14 @@ output = (exp (x) - exp (-x * a)) / (exp (x) + exp (-x));
 
    You can also try to express the exp(x)+exp(-x) as cosh(x) with its approximation. So:
 
-   ```text
+   ```delphi
    b:=exp(x);
    Result:=(b-exp(-x*a))*b/(b*b+1);
    ```
 
    would be:
 
-   ```text
+   ```delphi
    Result:=(exp(x)-exp(-x*a))*20160/40320+x*x*(20160+ x*x*(1680+x*x*(56+x*x)));
    ```
 

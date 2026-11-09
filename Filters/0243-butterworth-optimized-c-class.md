@@ -187,14 +187,14 @@ float CFilterButterworth24db::Run(float input)
 
    Possible small optimization. It depends on how smart your compiler is, but sections like this...
 
-   ```text
+   ```cpp
        output = new_hist + this->history3 * 2.f;
        output += this->history4;
    ```
 
    can be changed to this to change the multiply to an addition:
 
-   ```text
+   ```cpp
    output = this->history3;
    output += output+new_Hist+this->history4;
    ```
@@ -203,7 +203,7 @@ float CFilterButterworth24db::Run(float input)
 
    While I'm at it, one of these divisions can easily be switched to a multiply...
 
-   ```text
+   ```cpp
     b1 = (1.847759f / q) / wp;
 
    b1=(1.847759f/(q*wp);

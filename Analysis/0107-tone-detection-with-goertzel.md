@@ -135,7 +135,7 @@ int main(int argc, const char* argv) {
 
 1. **ed.luosfosruoivas@naitsirhC** · *2004-04-12 22:03:56*
 
-   ```pascal
+   ```delphi
    // yet untested Delphi translation of the algorithm:
 
    function Goertzel(Buffer:array of Single; frequency, samplerate: single):single;

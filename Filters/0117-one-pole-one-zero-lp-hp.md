@@ -78,7 +78,7 @@ out[n] = in[n]*a0 + in[n-1]*a1 + out[n-1]*b1;
 
    In which case we can simplify:
 
-   ```text
+   ```c
    void SetLPF(float fCut, float fSampling)
    {
    a0 = fCut/(fSampling+fCut);

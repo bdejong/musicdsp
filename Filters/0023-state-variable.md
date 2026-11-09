@@ -13,7 +13,7 @@ easy to process algorithm.
 
 ## Code
 
-```cpp
+```text
 cutoff = cutoff freq in Hz
 fs = sampling frequency //(e.g. 44100Hz)
 f = 2 sin (pi * cutoff / fs) //[approximately]

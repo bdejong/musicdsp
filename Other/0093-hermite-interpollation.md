@@ -129,7 +129,7 @@ inline float hermite4(float frac_pos, float xm1, float x0, float x1, float x2)
 
    Couldn't #2 be sped up a hair by commenting out
 
-   ```text
+   ```cpp
    float c0 = y1;
    ```
 

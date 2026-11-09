@@ -53,7 +53,7 @@ UINT bpb_finish(UINT const num_samples)
 
    If running windows on a mutliprocessor system, apparently it is worth calling:
 
-   ```text
+   ```cpp
    SetThreadAffinityMask(GetCurrentThread(), 1);
    ```
 
@@ -63,7 +63,7 @@ UINT bpb_finish(UINT const num_samples)
 
 2. **rf.eerf@uerum.emualliug** · *2004-08-26 00:33:18*
 
-   ```text
+   ```cpp
    __asm sub eax,time_low;
    __asm sub edx,time_high;
    ```

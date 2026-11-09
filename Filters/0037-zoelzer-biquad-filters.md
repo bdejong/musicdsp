@@ -20,7 +20,7 @@ Hopefully this is correct. Thanks to James McCartney for noticing.
 
 ## Code
 
-```cpp
+```text
 omega = 2*PI*frequency/sample_rate
 
 K=tan(omega/2)
@@ -343,7 +343,7 @@ lowShelf:
 
     Here's also a highshelf filters for completeness
 
-    ```text
+    ```delphi
     K:=tan(fW0*0.5);
     t2:=;
     t3:=K*fQ; t6:=(V);

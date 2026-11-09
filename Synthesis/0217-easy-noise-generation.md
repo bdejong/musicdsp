@@ -11,6 +11,9 @@
 ```text
 Easy noise generation,
 in .hpp,
+```
+
+```cpp
 b_noise = 19.1919191919191919191919191919191919191919;
 ```
 
@@ -46,7 +49,7 @@ Ove Karlsen.
 
    Alternatively you can do:
 
-   ```text
+   ```cpp
     		double b_noiselast = b_noise;
    		b_noise = b_noise + 19;
    		b_noise = b_noise * b_noise;
@@ -65,7 +68,7 @@ Ove Karlsen.
 
    That seems to reduce to just:
 
-   ```text
+   ```cpp
    b_noise=(b_noise+b_noiselast) * 0.5;
    ```
 

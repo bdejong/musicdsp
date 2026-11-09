@@ -20,6 +20,6 @@ values, doesn't create strange fx. The maximum this function will reach is
 
 ## Code
 
-```cpp
+```text
 f(x,a) = x*(abs(x) + a)/(x^2 + (a-1)*abs(x) + 1)
 ```

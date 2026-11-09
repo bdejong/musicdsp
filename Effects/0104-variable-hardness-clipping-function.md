@@ -61,7 +61,7 @@ f (x) = sign (x) * pow (atan (pow (abs (x), k)), (1 / k));
    a: clipping factor (0 = none, infinity = hard)
    ainv: 1/a
 
-   ```text
+   ```cpp
    y = ainv * atan( x * a );
    ```
 
@@ -89,7 +89,7 @@ f (x) = sign (x) * pow (atan (pow (abs (x), k)), (1 / k));
 
 8. **moc.liamtoh@niffumtohrepus** · *2013-01-18 02:42:09*
 
-   ```text
+   ```cpp
    sign (x) * pow (atan (pow (abs (x), k)), (1 / k));
    ```
 

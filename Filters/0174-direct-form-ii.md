@@ -18,7 +18,7 @@ numerically accurate.
 
 ## Code
 
-```cpp
+```text
 Direct form I pseudocode:
 
 y[n] = a[0]*x[n] + a[1]*x[n-1] + .. + a[k]*x[n-k]
@@ -62,7 +62,7 @@ d1 = a2*in - b2*out;
 
    Are the constants (a and b) wrong here.  Don't they need to be switched?  If you look at like wikipedia that's the case and it makes more since.  I'm trying to implement a low pass filter at 25mhz passband edge.  I'm getting alot of fluctuation in my output more that expect.  Any suggestions?
 
-   ```text
+   ```cpp
    int main(int argc, char *argv[])
    {
    double b[3] = {1,2,1};
@@ -135,7 +135,7 @@ d1 = a2*in - b2*out;
 
    Processing a single biquad doesn't benefit much (if any) from doing a DF II implementation. However, if you'd process stereo, the DF II variant is very suitable for interleaving of non-dependent calculations, making it easier for the compiler to generate effective code. Actually, the DF II stereo implementation below is more than 2 times faster than the naive DF I stereo one:
 
-   ```text
+   ```cpp
    struct stereo_biquad
    {
        float b0,b1,b2,a1,a2 // From rb-j's cookbook with a0 normalized to 1.0

@@ -15,7 +15,7 @@ Do not just mask off the low bits.
 
 ## Code
 
-```cpp
+```c
 /* Calculate pseudo-random 32 bit number based on linear congruential method. */
 unsigned long GenerateRandomNumber( void )
 {

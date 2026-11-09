@@ -160,7 +160,7 @@ void signal_add_to(value* out, value* in, int size)
 
    Here is a delphi translation of the code:
 
-   ```text
+   ```delphi
    // "value" may be a suitable type like int or float.
    // Parameter "size" is the size of the input signals and must be a power of 2.
    // out and buffer must point to arrays of size 2*n.
@@ -235,7 +235,7 @@ void signal_add_to(value* out, value* in, int size)
 
    Sorry, i forgot the definitions:
 
-   ```text
+   ```delphi
    type
      Values = Array[0..0] of Single;
      PValue = ^Values;

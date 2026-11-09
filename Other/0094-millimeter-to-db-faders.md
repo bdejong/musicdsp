@@ -24,7 +24,7 @@ which is effectively zero for up to 32 bit audio.)
 
 ## Code
 
-```cpp
+```c
 float MMtoDB(float mm)
 {
         float db;
@@ -75,7 +75,7 @@ float DBtoMM(float db)
 
    Pascal Translation...
 
-   ```text
+   ```delphi
    function MMtoDB(Milimeter:Single):Single;
    var mm: Single;
    begin
@@ -104,7 +104,7 @@ float DBtoMM(float db)
 
    Flash ActionScript translation:
 
-   ```text
+   ```actionscript
    /**
     * Maps normalized value between 0 and 1 to decibel from -200 to 10.
     * @param normalizedValue: Value between 0 and 1.

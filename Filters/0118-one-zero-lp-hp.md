@@ -12,7 +12,7 @@ HP is only 'valid' for cutoffs \< samplerate/4
 
 ## Code
 
-```cpp
+```text
 theta = cutoff*2*pi / samplerate
 
 LP:

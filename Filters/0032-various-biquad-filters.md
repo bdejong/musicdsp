@@ -27,7 +27,7 @@ peaknotch2
 
    Can someone explain:
 
-   ```text
+   ```cpp
    ...
 
      *a0 = a2plus1 + alphan*ma2plus1;

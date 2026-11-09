@@ -26,7 +26,7 @@ Daniel Werner
 
 ## Code
 
-```cpp
+```c
 float c, csq, resonance, q, a0, a1, a2, b1, b2;
 
 c = 1.0f / (tanf(pi * (cutoff / samplerate)));
@@ -55,13 +55,13 @@ b2 = a0 * (1.0f - (q * c) + csq);
 
    shouldn't it be
 
-   ```text
+   ```c
    resonance = powf(10.0f, -(resonancedB * 0.05f));
    ```
 
    instead of
 
-   ```text
+   ```c
    resonance = powf(10.0f, -(resonancedB * 0.1f));
    ```
 
@@ -87,7 +87,7 @@ b2 = a0 * (1.0f - (q * c) + csq);
 
    You can apply a GAIN reduction by doing the same thing but make it smaller.
 
-   ```text
+   ```c
    GAIN = powf(10.0f, -((resonance*0.25) * 0.05 ));
    ```
 
@@ -101,7 +101,7 @@ b2 = a0 * (1.0f - (q * c) + csq);
 
    Convert resonance as dB to q for use in filter, use this formula.
 
-   ```text
+   ```c
      q = powf(10.0f, -(resonanceDb * 0.05) );
    ```
 

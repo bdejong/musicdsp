@@ -20,7 +20,7 @@ Christian
 
 ## Code
 
-```pascal
+```delphi
 function Goertzel_x87(Buffer :Psingle; BLength:Integer; frequency: Single; samplerate: Single):Single;
 asm
  mov ecx,BLength
@@ -84,7 +84,7 @@ end;
 
 1. **moc.yddaht@yddaht** · *2005-08-17 17:20:02*
 
-   ```pascal
+   ```delphi
    // Here's a variant on the theme that compensates for harmonics:
 
    Function Goertzel(.Buffer: array of double; frequency, samplerate: double):.double;

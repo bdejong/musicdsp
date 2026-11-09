@@ -19,7 +19,7 @@ gain2 - adjusts the final volume to handle cut-offs (might be good to set dynami
 
 ## Code
 
-```cpp
+```c
 #define saturate(x) __min(__max(-1.0,x),1.0)
 
 float BassBoosta(float sample)

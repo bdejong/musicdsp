@@ -24,7 +24,7 @@ Toby (www.tobybear.de)
 
 ## Code
 
-```cpp
+```c
 //C/C++ source code:
 float fastpower(float f,int n)
 {
@@ -44,6 +44,9 @@ float fastroot(float f,int n)
  return f;
 }
 
+```
+
+```delphi
 //Delphi/Pascal source code:
 function fastpower(i:single;n:integer):single;
 var l:longint;

@@ -27,7 +27,7 @@ If you have any comments/suggestions, please send them to: tobybear@web.de
 
 ## Code
 
-```cpp
+```delphi
 // MIDI NOTE/FREQUENCY CONVERSIONS
 
 const notes:array[0..11] of string= ('C ','C#','D ','D#','E ','F ','F#','G ','G#','A ','A#','B ');
@@ -92,7 +92,7 @@ end;
 
    For the sake of completeness, here is octave fraction notation and pitch class notation:
 
-   ```text
+   ```delphi
    // converts from MIDI note to octave fraction notation
    // the integer part of the result is the octave number, where
    // 8 is the octave starting with middle C. The fractional part
@@ -124,7 +124,7 @@ end;
 
    Kaleja is correct. Here is some C code:
 
-   ```text
+   ```c
      double MIDItoFreq( char keynum ) {
        return 440.0 * pow( 2.0, ((double)keynum - 69.0) / 12.0 );
      }

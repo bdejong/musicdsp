@@ -13,7 +13,7 @@ Original documentation with cpp samples:
 
 ## Code
 
-```cpp
+```delphi
 Pascal translation of the functions (accurates ones) :
 
 function ffloor(f:double):integer;

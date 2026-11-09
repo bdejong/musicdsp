@@ -12,7 +12,7 @@ it can be driven by a phase accumulator or an audio input.
 
 ## Code
 
-```cpp
+```delphi
 Function Parashape(inp:single):single;
 var fgh,tgh:single;
 begin

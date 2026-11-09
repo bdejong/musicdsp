@@ -15,7 +15,7 @@ Code I use sometimes, but don't remember where I ripped it from.
 
 ## Code
 
-```cpp
+```c
 #define ranf() ((float) rand() / (float) RAND_MAX)
 
 float ranfGauss (int m, float s)

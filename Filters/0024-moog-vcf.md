@@ -13,7 +13,7 @@ process algorithm, good sound.
 
 ## Code
 
-```cpp
+```text
 //Init
 cutoff = cutoff freq in Hz
 fs = sampling frequency //(e.g. 44100Hz)
@@ -88,7 +88,7 @@ oldy3 = y3;
 
    MoogFilter.h:
 
-   ```text
+   ```cpp
    class MoogFilter
    {
    public:
@@ -119,7 +119,7 @@ oldy3 = y3;
 
    MoogFilter.cpp:
 
-   ```text
+   ```cpp
    #include "MoogFilter.h"
 
    MoogFilter::MoogFilter()
@@ -190,6 +190,9 @@ oldy3 = y3;
 
    ```text
    A much better tuning seems to be
+   ```
+
+   ```cpp
    k=2*sin(f*pi/2)-1;
    ```
 
@@ -200,7 +203,7 @@ oldy3 = y3;
    This filter works and sounds fine in my VST.
    I've re-written the code using templates, which makes life easier when switching between \<float\> and \<double\> implementation.
 
-   ```text
+   ```cpp
    #pragma once
 
    namespace DistoCore

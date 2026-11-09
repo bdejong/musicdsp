@@ -22,7 +22,7 @@ These functions might be useful in simulating "analog drift."
 
 ## Code
 
-```cpp
+```text
 Available on the web at:
 http://www.tinygod.com/code/BLorenzOsc.zip
 ```

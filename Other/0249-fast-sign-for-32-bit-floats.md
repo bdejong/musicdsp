@@ -66,20 +66,20 @@ inline int fast_sign_int(float f) {
 
    Now consider when you want to multiply a number by the sign of another:
 
-   ```text
+   ```cpp
      if (a>0.f) b = b;
        else b = -b;
    ```
 
    This involves 1) a comparison, 2) a branch, 3) an inversion (multiply or bit flip) in one branch. Another method for calculating the same:
 
-   ```text
+   ```cpp
      b *= fast_sign_nozero_(a);
    ```
 
    This involves 1) a bitwise and, 2) a bitwise or 3) and a multiply. Using only bit operations, the branch and/or multiply can be totally eliminated:
 
-   ```text
+   ```cpp
    // equivalent to dest *= sgn(source)
    inline void mul_sign(float &dest, float &source) {
    	(int&)dest &= 0x7FFFFFFF; // clear sign bit
@@ -89,7 +89,7 @@ inline int fast_sign_int(float f) {
 
    This function has only three bitwise operations, which should be very fast. Usage:
 
-   ```text
+   ```cpp
      mul_sign(b,a); // b = b*sign(a)
    ```
 
@@ -101,7 +101,7 @@ inline int fast_sign_int(float f) {
 
    Sorry, there is a bug in the above code. Correctly:
 
-   ```text
+   ```cpp
    // equivalent to dest *= sgn(source)
    inline void mul_sign_nozero(float &dest, float const &source) {
    	int sign_mask = ((int&)dest ^ (int&)source) & 0x80000000; // XOR and mask

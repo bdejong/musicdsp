@@ -18,7 +18,7 @@ actual use with real numbers, and sensible/real times..
 
 ## Code
 
-```cpp
+```text
 time = 32
 startlevel = 0
 midlevel = 100
@@ -49,7 +49,7 @@ for(int i=0;i<time;i++)
 
    bye bye
 
-   ```text
+   ```cpp
                  	float time = (float)pRect.Width();		   //time in sampleframes
    	float startlevel = (float)pRect.Height();  //max h vedi ma 1.0
    	float midlevel = 500.f;

@@ -15,7 +15,7 @@ The Scientist and Engineer's Guide to Digital Signal Processing
 
 ## Code
 
-```cpp
+```c
 #define PI 3.1415926536f
 
 float R1 = (float) rand() / (float) RAND_MAX;

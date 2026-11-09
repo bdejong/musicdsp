@@ -38,6 +38,9 @@ out-=259.0f;
 
    ```text
    Correction:
+   ```
+
+   ```cpp
        ((unsigned &)out)=0x43818000^((unsigned short)in);
        out-=259.0f;
    ```

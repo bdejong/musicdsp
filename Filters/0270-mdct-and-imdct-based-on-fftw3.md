@@ -53,7 +53,7 @@ Enjoy :)
 
 ## Code
 
-```cpp
+```c
 /*********************************************************
   MDCT/IMDCT of 4x length, Single Precision, based on FFTW
   shuhua dot zhang at gmail dot com
@@ -285,7 +285,7 @@ void imdctf(float* time_signal, float* mdct_line, mdctf_plan* m_plan)
 
    Shuhua Zhang, Aug. 11, 2009
 
-   ```text
+   ```c
    /* benchmark MDCT and IMDCT, floating point */
    #include <stdio.h>
    #include <stdlib.h>

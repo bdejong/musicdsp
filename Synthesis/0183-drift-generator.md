@@ -25,7 +25,7 @@ P.S. Thank you for help in previous submission ;-)
 
 ## Code
 
-```cpp
+```text
 const int kSamples //Number of samples in fSinTable below
 float fSinTable[kSamples] // Tabulated sin() [0 - 2pi[ amplitude [-1.f .. 1.f]
 float fWhere// Index

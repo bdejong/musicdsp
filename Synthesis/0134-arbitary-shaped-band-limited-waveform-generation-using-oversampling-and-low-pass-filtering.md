@@ -7,7 +7,7 @@
 
 ## Code
 
-```cpp
+```text
 Arbitary shaped band-limited waveform generation
 (using oversampling and low-pass filtering)
 

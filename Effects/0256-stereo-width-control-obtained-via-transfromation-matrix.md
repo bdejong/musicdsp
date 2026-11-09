@@ -45,7 +45,7 @@ out_right = m + s;
    Nice peace of code. I would add the following code at the end of the source to compensate for the
    loss/gain of amplitude:
 
-   ```text
+   ```cpp
    out_left  /= 0.5 + coef_S;
    out_right /= 0.5 + coef_S;
    ```
@@ -64,6 +64,9 @@ out_right = m + s;
 
    ```text
    [code]
+   ```
+
+   ```cpp
    // calc coefs
    tmp = 1/max(1 + width,2);
    coef_M = 1 * tmp;

@@ -108,7 +108,7 @@ inline void calculateEnvelope(int samplePoints) {
 
    Replace the C equation by:
 
-   ```text
+   ```cpp
        asm volatile (
            "movss %1,%%xmm0      # load coeff\n\t"
            "movss %2,%%xmm1      # load currentLevel\n\t"
@@ -139,7 +139,7 @@ inline void calculateEnvelope(int samplePoints) {
 
    in my tests, the following code produced the exact same results, and saves one operation (the addition) per sample - so it should be faster:
 
-   ```text
+   ```cpp
    const float sampleRate = 44100;
    float coeff;
    float currentLevel;
@@ -179,6 +179,9 @@ inline void calculateEnvelope(int samplePoints) {
     have more than one exp segment in your EG and maybe even have an exp attack
     segment. So we arrive at the following solution:
 
+    ```
+
+    ```cpp
     const float sampleRate = 44100;
     float coeff;
     float currentLevel;

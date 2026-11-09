@@ -18,7 +18,7 @@ between interations is s.
 
 ## Code
 
-```cpp
+```text
     101 Leaky Integrator
 
         a0 = 1

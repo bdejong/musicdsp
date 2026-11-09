@@ -70,7 +70,7 @@ for (streamofs = 0; streamofs < streamsize; streamofs++) {
    thank you! works nicely...
    here a simplified init version for faster changes of the filter properties for amps = 1.0
 
-   ```text
+   ```cpp
    void init( double resofreq )
    {
    static const double FAC = pi * 2.0 /samplerate;

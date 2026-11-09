@@ -39,7 +39,7 @@ private:
 
    I've used this a lot, but here's an important thing: it won't work the same for multiple sample rates, so if you set a to 0.9995 for example, this will be lower if the sample rate is higher than you intended. I fix it by doing this:
 
-   ```text
+   ```cpp
    /*must compensate this factor for sample rate change*/
 
    float srCompensate;
@@ -61,7 +61,7 @@ private:
 
    New version, now you can specify the speed response of the parameter in ms. and sampling rate:
 
-   ```text
+   ```cpp
    class CParamSmooth
    {
    public:

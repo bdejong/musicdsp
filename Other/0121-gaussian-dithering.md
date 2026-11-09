@@ -14,7 +14,7 @@ for the whole spectrum even without noise-shaping. You can use as big N as you c
 
 ## Code
 
-```cpp
+```text
 Basically, next value is calculated this way (for RND going from -0.5 to 0.5):
 
 dither = (RND+RND+...+RND) / N.

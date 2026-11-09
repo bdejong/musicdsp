@@ -33,7 +33,7 @@ inline float fast_log2 (float val)
    And here is some native Delphi/Pascal code that
    does the same thing:
 
-   ```text
+   ```delphi
    function fast_log2(val:single):single;
    var log2,x:longint;
    begin
@@ -55,7 +55,7 @@ inline float fast_log2 (float val)
 
    instead of using this pointer casting expressions one can also use a enum like this:
 
-   ```text
+   ```cpp
    enum FloatInt
    {
    float f;
@@ -65,7 +65,7 @@ inline float fast_log2 (float val)
 
    instead of using this pointer casting expressions one can also use a enum like this:
 
-   ```text
+   ```cpp
    enum FloatInt
    {
    float f;
@@ -75,7 +75,7 @@ inline float fast_log2 (float val)
 
    and then access the data with:
 
-   ```text
+   ```cpp
    p.f = x;
    p.l >>= 23;
    ```
@@ -92,13 +92,13 @@ inline float fast_log2 (float val)
 
    More precision can be obtained by adding the following line just before the return() :
 
-   ```text
+   ```cpp
    val = map_lin_2_exp (val, 1.0f / 2);
    ```
 
    Below is the function (everything is constant, so most operations should be done at compile time) :
 
-   ```text
+   ```cpp
    inline float map_lin_2_exp (float val, float k)
    {
       const float a = (k - 1) / (k + 1);

@@ -19,7 +19,7 @@ EDX=length
 
 ## Code
 
-```cpp
+```asm
     MOV   ECX,EDX
     LEA   EDI,[EAX+4*ECX]
     NEG   ECX

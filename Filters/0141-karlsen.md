@@ -67,6 +67,9 @@ A bonus with this filter, is that you can "overdrive" it... Try high input level
    ```text
    Hi.
    Seems to be a slight typo in my code.
+   ```
+
+   ```cpp
    lowpassout = pole4; // ofcourse :)
    ```
 
@@ -123,7 +126,7 @@ A bonus with this filter, is that you can "overdrive" it... Try high input level
 
    Christian
 
-   ```pascal
+   ```delphi
    unit KarlsenUnit;
 
    interface
@@ -244,6 +247,9 @@ A bonus with this filter, is that you can "overdrive" it... Try high input level
 
    ```text
    Christian, shouldn't your code end:
+   ```
+
+   ```delphi
    L:=fPole[4];
    B:=fPole[4]-fPole[1];
    //CWB posted
@@ -265,6 +271,9 @@ A bonus with this filter, is that you can "overdrive" it... Try high input level
    This filter was really written mostly to demonstrate the Q-limiter though, and also, to write it in the most computationally effiecent way.
    Here is a little more featured version.
    ---------------------------------------
+   ```
+
+   ```cpp
    // Karlsen, Second Order SVF type filter.
 
    // b_in1, b_in2 stereo input
@@ -347,10 +356,13 @@ A bonus with this filter, is that you can "overdrive" it... Try high input level
     I was looking at the b\_cut assignment, and was going through looking
     at optimising it and found this:
 
-    ```text
+    ```cpp
     float b_cut = ((fvar1    * fvar1) + ((fvar1 / (b_slope)) * (1 - fvar1)))
     / ((1 * fvar1) + ((1 / (b_slope)) * (1 - fvar1)));
 
+    ```
+
+    ```text
     Rename for convenience and clarity
     fvar1=co
     b_slope=sl
@@ -404,7 +416,7 @@ A bonus with this filter, is that you can "overdrive" it... Try high input level
 
     Final version, Stenseth, 17. february, 2006.
 
-    ```text
+    ```cpp
     // Fast differential amplifier approximation
 
     	double b_inr = b_in * b_filterdrive;
@@ -467,7 +479,7 @@ A bonus with this filter, is that you can "overdrive" it... Try high input level
 
     So here it is, Karlsen Ladder, v4. A very resource effiecent ladder. Can furthermore be optimized with asm.
 
-    ```text
+    ```cpp
     rez = pole4 * rezamount; if (rez > 1) {rez = 1;}
     input = input - rez;
     pole1 = pole1 + ((-pole1 + input) * cutoffreq);

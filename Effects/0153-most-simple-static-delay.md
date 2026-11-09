@@ -98,7 +98,7 @@ Output = DlyBuffer[ j ];
 
    Code:
 
-   ```text
+   ```cpp
    out = buffer[i];
    buffer[i] = in;
    i++;
@@ -109,7 +109,7 @@ Output = DlyBuffer[ j ];
 
    or even in three lines...
 
-   ```text
+   ```cpp
    out = buffer[i];
    buffer[i++] = in;
    if(i >= delay) i = 0;

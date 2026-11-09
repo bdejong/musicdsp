@@ -32,7 +32,7 @@ link to it - it's rather long.
 
    I haven't tried this class out, but it looks like there's a typo in the unrolled loop -- shouldn't it read "c\[2\]\*EH\[HistPos+2\]"?  This might this also account for the 3 clock cycle improvement on a P-III.
 
-   ```text
+   ```cpp
    // This arrangement seems to execute 3 clock cycles faster on a P-III
    samp -= c[8]*EH[HistPos+8] + c[7]*EH[HistPos+7] + c[6]*EH[HistPos+6] +
    c[5]*EH[HistPos+5] + c[4]*EH[HistPos+4] + c[3]*EH[HistPos+3] + c[2]*EH[HistPos+1] +
@@ -52,7 +52,7 @@ link to it - it's rather long.
 
    So my\_mod should look like:
 
-   ```text
+   ```cpp
    __inline my_mod(int x, int n)
    {
        if(x >= n) x-=n;

@@ -13,7 +13,7 @@ coefficients that you have, you might have to use negative values for the b- coe
 
 ## Code
 
-```cpp
+```text
 //w = frequency (0 < w < PI)
 //square(x) = x*x
 

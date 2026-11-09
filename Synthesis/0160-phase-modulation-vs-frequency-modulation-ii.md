@@ -39,7 +39,7 @@ efficient implementation.
 
 ## Code
 
-```cpp
+```c
 /* Example implementation of digital oscillator with FM, PM, & AM */
 
 #define PI 3.14159265358979

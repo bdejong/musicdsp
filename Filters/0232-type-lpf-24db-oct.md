@@ -13,7 +13,7 @@ but it never explode. At least here it doesn't.
 
 ## Code
 
-```cpp
+```text
 First calculate the prewarped digital frequency:
 
 K  = tan(Pi * Frequency / Samplerate);

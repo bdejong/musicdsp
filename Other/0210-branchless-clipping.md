@@ -37,7 +37,7 @@ need to fiddle it abit :)\]
 
 ## Code
 
-```cpp
+```delphi
 function MaxZerodB(dBin:single):single;
 var tmp:longint;
 begin
@@ -58,7 +58,7 @@ end;
 
    Since most processors include a sign-preserving right shift, you can right shift by 31 to end up with either -1 (all bits set) or 0, then mask the original value with it:
 
-   ```text
+   ```c
    out = (in >> 31) & in;
    ```
 
@@ -97,7 +97,7 @@ end;
 
    Here my SAR function for Delphi+FreePascal
 
-   ```text
+   ```delphi
    FUNCTION SAR(Value,Shift:INTEGER):INTEGER; {$IFDEF CPU386}ASSEMBLER; REGISTER;{$ELSE}{$IFDEF FPC}INLINE;{$ELSE}REGISTER;{$ENDIF}{$ENDIF}
    {$IFDEF CPU386}
    ASM
@@ -115,7 +115,7 @@ end;
 
    Ny branchless clipping functions (the first is faster than the second)
 
-   ```text
+   ```delphi
    FUNCTION Clip(Value,Min,Max:SINGLE):SINGLE; ASSEMBLER; STDCALL;
    CONST Constant0Dot5:SINGLE=0.5;
    ASM

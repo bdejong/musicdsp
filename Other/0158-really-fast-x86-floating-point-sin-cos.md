@@ -23,6 +23,9 @@ stack. Add it as a member variable to any class that uses it.
 
 ```text
 e.g.
+```
+
+```cpp
   class CSomeClass {
       CQuickTrig m_QuickTrig;
    ...
@@ -33,6 +36,6 @@ e.g.
 
 ## Code
 
-```cpp
+```text
 (see attached file)
 ```

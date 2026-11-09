@@ -25,7 +25,7 @@ Running the test program, here's the output:
 
 ## Code
 
-```cpp
+```c
 // Fast logarithm (2-based) approximation
 // by Jon Watte
 
@@ -73,7 +73,7 @@ main()
 
    Here is some code to do this in Delphi/Pascal:
 
-   ```text
+   ```delphi
    function approxLn2(f:single):single;
    begin
     result:=(((longint((@f)^) and $7f800000) shr 23)-$7f)+(longint((@f)^) and $007fffff)/$800000;

@@ -60,7 +60,7 @@ float wfirlattice(float input, float *taps1, float *taps2, float *reflcof, float
 
    Couldn't you easily do away with newtaps entirely? As in:
 
-   ```text
+   ```cpp
    for(int i=0;i&lt;P;i++)
    {
        taps1[i]=lambda*(taps1[i]-topline)+taps2[i];

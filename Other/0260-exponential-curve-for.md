@@ -39,7 +39,7 @@ F = 19+floor(pow(4,x/14.15005))+x*20;
 
    same function with the more friendly exp(x)
 
-   ```text
+   ```cpp
    y = 19+floor(exp(x/10.2071))+x*20;
    ```
 
@@ -50,7 +50,7 @@ F = 19+floor(pow(4,x/14.15005))+x*20;
    Here is another function:
    This one is much more expensive but should sound more linear.
 
-   ```text
+   ```cpp
    //t - offset
    //x - 0-100%
    //y - 20-20000hz
@@ -67,7 +67,7 @@ F = 19+floor(pow(4,x/14.15005))+x*20;
    Yet another one! :)
    This is one should be the most linear one out of the 3. The 50% appears to be exactly the same as Voxengo span midpoint.
 
-   ```text
+   ```cpp
    //x - 0-100%
    //y - 20-20k
 

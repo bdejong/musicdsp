@@ -97,7 +97,7 @@ output=tempy;
 
    LR2 with DFII:
 
-   ```text
+   ```cpp
    //------------------------------
    // LR2
    // fc -> cutoff frequency
@@ -153,7 +153,7 @@ output=tempy;
    I've converted this Linkwits Riley 4 into intrinsics. It's set up with the cross over point and the sample rate. The function 'ProcessSplit' returns the low and high parts. It uses \_mm\_malloc to align the variables to 16 bytes, as putting them into the class as \_\_m128 vars doesn't guarantee alignment.
    Enjoy!  :)
 
-   ```text
+   ```cpp
    //-----------------------------------------------
    //-----------------------------------------------
    //-----------------------------------------------
@@ -178,7 +178,7 @@ output=tempy;
 
    public:
 
-   ```text
+   ```cpp
    	FIL_Linkwitz_Riley4::FIL_Linkwitz_Riley4(float fc, float srate);
    	~FIL_Linkwitz_Riley4();
 
@@ -305,7 +305,7 @@ output=tempy;
 
    Here's my implementation.
 
-   ```text
+   ```cpp
    #include <iostream>
    #include <stdio.h>
    #include <math.h>

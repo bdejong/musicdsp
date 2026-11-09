@@ -23,7 +23,7 @@
 
 ## Code
 
-```cpp
+```delphi
 var f,r:single;
     outp,outp1,outp2:single; // init these with 0!
 const p4=1.0e-24; // Pentium 4 denormal problem elimination
@@ -54,7 +54,7 @@ end;
 
    this code sounds bitcrushed like hell translated to c++, any suggestions ?
 
-   ```text
+   ```c
    	float pi = 3.141592654;
    	float r = dQFactor*0.99609375;
    	float f = cos(pi*iFreq);
@@ -80,6 +80,9 @@ end;
    ```text
    After about 3 hours wondering why I was getting back the original un-altered audio, I finally got this version of a keeper filter, which I used with absurdly good success on a power grid comb filter. When the power grid filter was fed with audio from a lamp cord with one 1 Megohm resistor on each prong, all sorts of cool sounds become audio when the output is amplified 40 dB. For wall cord audio, use 60.0 for the cutoff.
    ---the function is below---
+   ```
+
+   ```c
    double keeper_1(double input, double cutoff,double rate,double *magnitude)
    {
    	const double steepness=1.0;

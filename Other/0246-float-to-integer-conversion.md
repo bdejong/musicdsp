@@ -33,7 +33,7 @@ References: SIMPLY FPU by Raymond Filiatreault
 MSVC (and probably other compilers too) has functions defined in \<float.h\> for changing
 the FPU control word: \_control87/\_controlfp. The equivalent instructions are:
 
-```text
+```c
 _controlfp(_RC_CHOP, _MCW_RC); // set rounding mode to truncate
 _controlfp(_RC_UP    _MCW_RC); // set rounding mode to up (ceil)
 _controlfp(_RC_DOWN, _MCW_RC); // set rounding mode to down (floor)
@@ -140,7 +140,7 @@ inline long truncateSSE(float x) {
 
    I've seen a lot of talk about using the function lrintf() when converting from float to int, regarding bypassing some 'slow' opcodes in what standard compilers put in for something like:
 
-   ```text
+   ```c
    int myint = (int) myfloat;
 
    in otherwords the following code would be faster:

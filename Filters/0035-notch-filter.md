@@ -78,11 +78,17 @@ for (streamofs = 0; streamofs < streamsize; streamofs++)
    ```text
    I think it's a type, and should be
    =-=-=
+   ```
+
+   ```c
    reg0 = a0a2 * ((double)fromstream[streamofs]
    + fromstream[streamofs-2])
    + a1 * fromstream[streamofs-1]
    - b1 * reg1
    - b2 * reg2;
+   ```
+
+   ```text
    =-=-=
    In which case there is some rangechecking to be done when streamofs<2
    ```
@@ -106,7 +112,7 @@ for (streamofs = 0; streamofs < streamsize; streamofs++)
 
    Here is the correct version:
 
-   ```text
+   ```c
    // (C) Sergey Aleynik.   aleyniks@yahoo.com
 
         // BW_Coeff is changing from 0.0 to 1.0 (excluded) and the more the narrow:

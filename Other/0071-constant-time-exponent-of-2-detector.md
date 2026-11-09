@@ -32,7 +32,7 @@ if (((~size + 1) ^ size) & size) return;
 
    I think I prefer:
 
-   ```text
+   ```c
    if (! (size & (size - 1))) return;
    ```
 

@@ -48,7 +48,7 @@ out = buf1;
 
    This filter calculates bandpass and highpass outputs too during calculation, namely bandpass is buf0 - buf1 and highpass is in - buf0. So, we can rewrite the algorithm:
 
-   ```text
+   ```cpp
    // f and fb calculation
    f = 2.0*sin(pi*freq/samplerate);
    /* you can approximate this with f = 2.0*pi*freq/samplerate with tuning error towards nyquist */

@@ -54,14 +54,14 @@ for( float *pt=pDest;pt<pDestStop;++pt )
 
 2. **moc.sulp.52retsinnab@etep** · *2004-05-04 16:57:06*
 
-   ```text
+   ```cpp
    i1 = (unsigned int)playpos;
    i2 = i1 + 1;
    ```
 
    would this be better as:
 
-   ```text
+   ```cpp
    i1 = (unsigned int) floor(playpos);
    i2 = (unsigned int) ceil(i1 + playposIncrement);
    ```

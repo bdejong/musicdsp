@@ -30,7 +30,7 @@ adding next newest sample and subtracting oldest on each step)
 
 ## Code
 
-```cpp
+```c
 void compress
     (
         float*  wav_in,     // signal
@@ -132,9 +132,12 @@ void compress
    I don't think your compressor actually approaches a linear slope in the decibel domain. You need
    a gain law more like
 
-   ```text
+   ```cpp
    double gain = exp(max(0.0,log(env)-log(thresh))*slope);
 
+   ```
+
+   ```text
    Sincerely,
         Frederick Umminger
    ```
@@ -200,6 +203,9 @@ void compress
    ```text
    I am looking at gain processing algorithms£º
    There are too such sentences :
+   ```
+
+   ```c
    double att = (tatt == 0.0) ? (0.0) : exp (-1.0 / (sr * tatt));
    double rel = (trel == 0.0) ? (0.0) : exp (-1.0 / (sr * trel));
    ```
@@ -214,7 +220,7 @@ void compress
    This is a useful reference, however the RMS calculations are pretty dodgy. Firstly there is a
    bug where is calculates the number of samples to use:
 
-   ```text
+   ```c
    int sr, // sample rate (smp/sec)
    ...
    double twnd, // window time (ms)
@@ -238,7 +244,7 @@ void compress
    Another slightly more accurate way to caculate the RMS without iterating over and entire window
    for each sample is to keep a running total of the squared sums of samples.
 
-   ```text
+   ```c
    for( i = 0; i < NumSamples; ++i )
    {
      NewSample = Sample[i];

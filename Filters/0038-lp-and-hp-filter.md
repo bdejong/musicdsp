@@ -8,7 +8,7 @@
 
 ## Code
 
-```cpp
+```text
 r  = rez amount, from sqrt(2) to ~ 0.1
 f  = cutoff frequency
 (from ~0 Hz to SampleRate/2 - though many
@@ -53,7 +53,7 @@ Hipass:
 
 3. **moc.liamtoh@trahniak** · *2003-04-03 10:25:15*
 
-   ```text
+   ```csharp
    public class LowPassFilter
    {
            /// <summary>
@@ -114,7 +114,7 @@ Hipass:
 
 4. **moc.liamtoh@trahniak** · *2003-04-03 10:25:39*
 
-   ```text
+   ```csharp
            /// <summary>
            ///
            /// </summary>
@@ -200,6 +200,9 @@ Hipass:
      c = 1.0 / (pi * f * inv_sample_rate);
    which is far better than both of the previous two equations, because it does not use any transcendental functions. So, an optimized form is:
 
+   ```
+
+   ```cpp
    f0 = f * inv_sample_rate;
    if (f0 < 0.1) c = 1.0 / (f0 * pi); // below 4.4k
    else c = tan((0.5 - f0) * pi);
@@ -234,7 +237,7 @@ Hipass:
 
     and then calculating c:
 
-    ```text
+    ```cpp
     f0 = f * inv_samplerate;
     if (f0 < 0.05) c = (f0 * pi);
     else c = tan(f0 * pi);
@@ -251,7 +254,7 @@ Hipass:
 
     I tried to make some 1/x based approximations for 1.0/tan(x), here is one:
 
-    ```text
+    ```cpp
     inline float tan_inv_approx(float x)
     {
         float const two_div_pi = 2.0f/3.141592654f;
@@ -272,7 +275,7 @@ Hipass:
 
     Optimization for Hipass:
 
-    ```text
+    ```cpp
     c = tan(pi * f / sample_rate);
 
     c = ( c + r ) * c;

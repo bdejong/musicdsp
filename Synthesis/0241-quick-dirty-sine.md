@@ -71,7 +71,7 @@ float xSin(double x)
 
    Improved version:
 
-   ```text
+   ```cpp
    float xSin(double x)
    {
    	//x is scaled 0<=x<4096
@@ -105,7 +105,7 @@ float xSin(double x)
    %You first have to initialize the 2 unit delays
    % and the coefficient
 
-   ```text
+   ```matlab
    Fs = 48000;      %Sample rate
    oscfreq = 1000.0; %Oscillator frequency in Hz
    c1 = 2 * cos(2 * pi * oscfreq / Fs);

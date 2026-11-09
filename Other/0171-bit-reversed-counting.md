@@ -13,7 +13,7 @@ where N is a power of 2.
 
 ## Code
 
-```cpp
+```c
 int r = 0;        // counter
 int s = 0;        // bit-reversal of r/2
 int N = 256;      // N can be any power of 2
@@ -42,7 +42,7 @@ while (r < N2);
 
    unsigned r; // value to be bit-reversed
 
-   ```text
+   ```c
    // Assume r is 32 bits
    r = ((r & 0x55555555) << 1) | ((r & 0xaaaaaaaa) >> 1);
    r = ((r & 0x33333333) << 2) | ((r & 0xcccccccc) >> 2);

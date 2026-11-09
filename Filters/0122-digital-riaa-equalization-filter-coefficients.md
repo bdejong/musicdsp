@@ -15,7 +15,7 @@ something up.
 
 ## Code
 
-```cpp
+```text
 The "turntable-input software" thread inspired me to generate some coefficients for a digital RIAA equalization filter. These coefficients were found by matching the magnitude response of the s-domain transfer function using some proprietary Matlab scripts. The phase response may or may not be totally whacked.
 
 The s-domain transfer function is

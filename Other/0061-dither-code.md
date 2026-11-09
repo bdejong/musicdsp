@@ -20,7 +20,7 @@ previous random number instead of calling rand() again. e.g. r3=(r1 & 0x7F)<<8;
 
 ## Code
 
-```cpp
+```c
   int   r1, r2;                //rectangular-PDF random numbers
   float s1, s2;                //error feedback buffers
   float s = 0.5f;              //set to 0.0f for no noise shaping

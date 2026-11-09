@@ -82,7 +82,7 @@ startf2slp:
 
 1. **moc.xinortceletrams@sungam** · *2003-01-22 20:20:20*
 
-   ```text
+   ```asm
    _asm {
    mov ebx,n
    mov esi,fptr

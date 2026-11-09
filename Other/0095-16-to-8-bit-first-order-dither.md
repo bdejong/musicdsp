@@ -21,7 +21,7 @@ probably want to use a higher-order dither function found elsewhere on this site
 
 ## Code
 
-```cpp
+```c
 // This code will down-convert and dither a 16-bit signed short
 // mono signal into an 8-bit unsigned char signal, using a first
 // order forward-feeding error term dither.

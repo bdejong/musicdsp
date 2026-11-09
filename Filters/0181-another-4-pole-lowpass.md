@@ -28,7 +28,7 @@ and bad sides.
 
 ## Code
 
-```cpp
+```c
 double coef[9];
 double d[4];
 double omega; //peak freq
@@ -104,13 +104,13 @@ d[3]=coef[4]*in+coef[8]*out;
 
    Yet untested object pascal translation:
 
-   ```text
+   ```delphi
    unit T4PoleUnit;
    ```
 
    interface
 
-   ```text
+   ```delphi
    type TFilterType=(ftLowPass, ftHighPass);
         T4Pole=class(TObject)
         private
@@ -138,7 +138,7 @@ d[3]=coef[4]*in+coef[8]*out;
 
    implementation
 
-   ```text
+   ```delphi
    uses math;
 
    const kDenorm = 1.0e-25;

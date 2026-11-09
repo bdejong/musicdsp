@@ -18,7 +18,7 @@ depending on use (low thresholds) it makes sense to rescale the input to full am
 performs approximately the following code
 (just without the loop)
 
-```text
+```c
 while (in>threshold || in<-threshold)
 {
   // mirror at positive threshold
@@ -30,7 +30,7 @@ while (in>threshold || in<-threshold)
 
 ## Code
 
-```cpp
+```c
 float foldback(float in, float threshold)
 {
   if (in>threshold || in<-threshold)

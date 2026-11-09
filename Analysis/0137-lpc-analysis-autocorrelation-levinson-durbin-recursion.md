@@ -107,7 +107,7 @@ LevinsonRecursion(unsigned int P, float *R, float *A, float *K)
 
 1. **ed.luosfosruoivas@naitsirhC** · *2005-03-31 15:16:20*
 
-   ```pascal
+   ```delphi
    // Blind Object Pascal Translation:
    // --------------------------------
 

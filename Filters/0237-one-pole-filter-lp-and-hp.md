@@ -14,7 +14,7 @@ Reference: www.dspguide.com
 
 ## Code
 
-```cpp
+```text
 Process loop (lowpass):
 out = a0*in - b1*tmp;
 tmp = out;

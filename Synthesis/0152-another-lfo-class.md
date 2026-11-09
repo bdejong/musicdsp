@@ -40,7 +40,7 @@ fractionnal part.
    It works great!
    Here's a Delphi version I just knocked up. Both VCL and KOL supported.
 
-   ```text
+   ```delphi
    code:
    unit PALFO;
    //
@@ -103,7 +103,7 @@ fractionnal part.
 
    implementation
 
-   ```text
+   ```delphi
    { TPaLfo }
    {$IFDEF KOL}
    function NewPaLfo(aSamplerate:Single):PPaLfo;
@@ -219,7 +219,7 @@ fractionnal part.
 
    This one is correct:
 
-   ```text
+   ```delphi
    code:
    unit PALFO;
    //
@@ -282,7 +282,7 @@ fractionnal part.
 
    implementation
 
-   ```text
+   ```delphi
    { TPaLfo }
    {$IFDEF KOL}
    function NewPaLfo(aSamplerate:Single):PPaLfo;

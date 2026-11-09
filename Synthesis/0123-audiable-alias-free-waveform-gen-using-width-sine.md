@@ -28,7 +28,7 @@ The psuedo code describes it more.
 
 ## Code
 
-```cpp
+```text
 f := freq factor, 0 - 0.5 (0 to half samplingrate)
 
 afact(f) = 1 - sin(f*2PI)

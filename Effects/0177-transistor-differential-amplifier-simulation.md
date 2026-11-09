@@ -21,7 +21,7 @@ know, the the parameters passing is done via registers. So pinp=EAX pout=EDX sf=
 
 ## Code
 
-```pascal
+```delphi
 procedure Transistor(pinp,pout : PSingle; sf:Integer; Faktor: Single);
 asm
  fld Faktor

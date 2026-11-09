@@ -48,7 +48,7 @@ b_lpout = b_buf4;
 
    There's a typo, the input is sometimes b\_in, sometimes b\_in1. Anyways why do you use a b\_ prefix for all your variables? Wouldn't it be more easy to read like this:
 
-   ```text
+   ```cpp
    resoclip = buf4; if (resoclip > 1) resoclip = 1;
    in = in - (resoclip * res);
    buf1 = ((in - buf1) * cut) + buf1;
@@ -114,7 +114,7 @@ b_lpout = b_buf4;
 
    Karlsen Fast Ladder III - inspired by "transistors set to work as diode" type Roland filters. The best fast and non-nonsensical approximation of popular analog filter sound, as in for instance Roland SH-5, and the smaller TB-303.
 
-   ```text
+   ```cpp
    //Coupled with oversampling and simple oscs you will probably get the best analog approximation.
 
    //		// for nice low sat, or sharper type low deemphasis saturation, one can use a onepole shelf before the filter.

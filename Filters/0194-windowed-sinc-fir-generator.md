@@ -26,7 +26,7 @@ following the structure outlined in the opening comments of the header file.
 
 1. **ed.luosfosruoivas@naitsirhC** · *2005-04-15 00:02:33*
 
-   ```text
+   ```delphi
    // Object Pascal Port...
 
    unit SincFIR;
@@ -58,7 +58,7 @@ following the structure outlined in the opening comments of the header file.
 
    interface
 
-   ```text
+   ```delphi
    uses Math;
 
    type TDoubleArray = array of Double;
@@ -80,7 +80,7 @@ following the structure outlined in the opening comments of the header file.
 
    implementation
 
-   ```text
+   ```delphi
    // Generate lowpass filter
    // This is done by generating a sinc function and then windowing it
    procedure wsfirLP(var H : TDoubleArray; const WindowType : TWindowType; const CutOff : Double);
@@ -230,6 +230,9 @@ following the structure outlined in the opening comments of the header file.
    I've seen a BASIC version of the same genSinc code.
    Shouldn't a 'sin(2.0*Cutoff)' be used when the divide by zero check is 0?
    ...
+   ```
+
+   ```delphi
      if (i=j div 2)
       then Sinc[i]:=2.0*Cutoff
       else
@@ -237,6 +240,9 @@ following the structure outlined in the opening comments of the header file.
         n:=i-j/2.0;
         Sinc[i]:=sin(2.0*PI*Cutoff*n)/(PI*n);
        end;
+   ```
+
+   ```text
    ...
    ```
 
@@ -253,7 +259,7 @@ following the structure outlined in the opening comments of the header file.
 
    Here is a FIR filter that works with up to about 80 coefficients on a Sony PSP running at 280 Megahertz. The multipliers (8191.0 and 32767.0) may need to be incremented by one, or not. You need to call 'fir\_filter' with the sample to process in 'sample' and the floating point coefficents in '\*coefs' and how long the entire filter is in 'len' and the returned sample is a 16 bit audio (signed short) sample. When it is first run it will normalize the filter.
 
-   ```text
+   ```c
    /* code starts here, remove spaces between the includes */
    #include < math.h >
    #include < string.h >
