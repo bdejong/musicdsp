@@ -17,7 +17,7 @@ Each category lists its articles by title. You can also browse the [archive file
 
 ## Contribute
 
-Corrections and new contributions are welcome. To suggest a change, edit the article on GitHub and open a pull request. For a new article, add a Markdown file to the relevant category and link it from that category's README.
+Corrections and new contributions are welcome. To suggest a change, edit the article on GitHub and open a pull request. For a new article, add a Markdown file with a four-digit numeric prefix to the relevant category and link it from that category's README.
 
 ## Acknowledgments
 
