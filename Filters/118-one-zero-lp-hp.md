@@ -1,0 +1,29 @@
+# One zero, LP/HP
+
+[MusicDSP](../README.md) / [Filters](README.md)
+
+- **Author or source:** Bram
+- **Created:** 2002-08-29 23:18:43
+
+## Notes
+
+LP is only 'valid' for cutoffs \> samplerate/4
+HP is only 'valid' for cutoffs \< samplerate/4
+
+## Code
+
+```cpp
+theta = cutoff*2*pi / samplerate
+
+LP:
+H(z) = (1+p*z^(-1)) / (1+p)
+out[i] = 1/(1+p) * in[i] + p/(1+p) * in[i-1];
+p = (1-2*cos(theta)) - sqrt((1-2*cos(theta))^2 - 1)
+Pi/2 < theta < Pi
+
+HP:
+H(z) = (1-p*z^(-1)) / (1+p)
+out[i] = 1/(1+p) * in[i] - p/(1+p) * in[i-1];
+p = (1+2*cos(theta)) - sqrt((1+2*cos(theta))^2 - 1)
+0 < theta < Pi/2
+```
